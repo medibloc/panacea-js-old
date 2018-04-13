@@ -1,6 +1,6 @@
-# Med JS
+# Medibloc JavaScript API
 
-A client-side JavaScript library for [MediBloc - medibloc explanation]("https://medibloc.org/").
+A client-side JavaScript library for [MediBloc - Decentralized healthcare information system](https://github.com/medibloc/go-medibloc).
 
 ## Install
 
