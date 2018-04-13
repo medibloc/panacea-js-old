@@ -1,0 +1,16 @@
+#General
+.DS_Store
+
+# Distribution folders
+dist-browser/*.js
+dist-browser/*.json
+dist-node
+
+# Dependency directories
+node_modules
+
+#IDE directories
+.idea
+
+#Logs
+npm-debug.log*
