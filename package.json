@@ -11,9 +11,13 @@
     "babel": "babel src -d dist-node",
     "browserify": "browserify ./dist-node/index.js -o ./dist-browser/medjs.js -s medjs",
     "build": "npm run babel && npm run browserify && npm run uglify",
-    "test": "NODE_ENV=test nyc mocha test",
-    "test_w_babel": "nyc mocha js:babel-core/register",
+    "test": "mocha --require babel-core/register --reporter spec test/setup.js",
     "uglify": "uglifyjs -nm -o ./dist-browser/medjs.min.js ./dist-browser/medjs.js"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   },
   "repository": {
     "type": "git",
@@ -39,10 +43,12 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "bitcoinjs-lib": "^3.3.2",
+    "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
