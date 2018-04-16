@@ -1,10 +1,6 @@
 import { expect } from 'chai';
-import {
-	isAddress,
-} from '../../src/util';
-import {
-	keyGen,
-} from '../../src/crypto';
+import { isAddress } from '../../src/util';
+import { keyGen } from '../../src/crypto';
 
 // getKeyPair
 describe('#isAddress', () => {

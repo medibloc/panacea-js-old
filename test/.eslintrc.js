@@ -9,7 +9,8 @@ module.exports = {
 	},
 	"rules": {
 		"arrow-body-style": "off",
-		"no-unused-expressions": "off"
+		"no-unused-expressions": "off",
+		"import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
 	},
 	"settings": {
 		"import/resolver": {
@@ -23,4 +24,3 @@ module.exports = {
 		}
 	}
 }
-

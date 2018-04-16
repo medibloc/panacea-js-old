@@ -4,8 +4,8 @@ import storage from './storage';
 import util from './util';
 
 export default {
-    APIClient,
-    crypto,
-    storage,
-    util,
+	APIClient,
+	crypto,
+	storage,
+	util,
 };
