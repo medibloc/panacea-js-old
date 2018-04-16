@@ -1,7 +1,7 @@
-import * as hash from './hash';
-import * as encrypt from './encrypt';
-import * as keyGen from './keyGen';
-import * as sign from './sign';
+import hash from './hash';
+import encrypt from './encrypt';
+import keyGen from './keyGen';
+import sign from './sign';
 
 export default {
 	hash,

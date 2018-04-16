@@ -1,7 +1,7 @@
 import { createCipher, createDecipher } from 'crypto';
 
 
-export const encryptData = (accessKey, msg, algorithm = 'AES-128-CTR') => {
+const encryptData = (accessKey, msg, algorithm = 'AES-128-CTR') => {
 	// TODO Need to get stream files also.
 	const cipher = createCipher(algorithm, accessKey);
 	let encryptedMsg = cipher.update(msg, 'utf8', 'hex');
@@ -9,7 +9,7 @@ export const encryptData = (accessKey, msg, algorithm = 'AES-128-CTR') => {
 	return encryptedMsg;
 };
 
-export const decryptData = (accessKey, encryptedMsg, algorithm = 'AES-128-CTR') => {
+const decryptData = (accessKey, encryptedMsg, algorithm = 'AES-128-CTR') => {
 	const decipher = createDecipher(algorithm, accessKey);
 	let decryptedMsg = decipher.update(encryptedMsg, 'hex', 'utf8');
 	try {
@@ -21,5 +21,10 @@ export const decryptData = (accessKey, encryptedMsg, algorithm = 'AES-128-CTR') 
 };
 
 
-export const encryptDataStream = () => {};
-export const decryptDataStream = () => {};
+// export const encryptDataStream = () => {};
+// export const decryptDataStream = () => {};
+
+export default {
+	encryptData,
+	decryptData,
+};

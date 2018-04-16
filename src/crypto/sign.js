@@ -1,6 +1,6 @@
 import secp256k1 from 'secp256k1';
 
-export const sign = (privKey, msgHash) => {
+const sign = (privKey, msgHash) => {
 	const msgHashBuffer = Buffer.from(msgHash, 'hex');
 	const privKeyBuffer = Buffer.from(privKey, 'hex');
 	const signature = secp256k1.sign(msgHashBuffer, privKeyBuffer);
@@ -8,10 +8,15 @@ export const sign = (privKey, msgHash) => {
 };
 
 
-export const verifySignature = (pubKey, msgHash, signature) => {
+const verifySignature = (pubKey, msgHash, signature) => {
 	const msgHashBuffer = Buffer.from(msgHash, 'hex');
 	const pubKeyBuffer = Buffer.from(pubKey, 'hex');
 	const signatureBuffer = Buffer.from(signature, 'hex');
 	const isValid = secp256k1.verify(msgHashBuffer, signatureBuffer, pubKeyBuffer);
 	return isValid;
+};
+
+export default {
+	sign,
+	verifySignature,
 };

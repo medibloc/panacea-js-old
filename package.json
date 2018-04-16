@@ -36,6 +36,7 @@
   },
   "homepage": "https://github.com/medibloc/medjs#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-runtime": "^6.26.0",
     "browserify": "^16.2.0",
     "elliptic": "^6.4.0",

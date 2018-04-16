@@ -1,6 +1,6 @@
 import { createHash } from 'crypto';
 
-export const hashData = (msg, algorithm = 'sha256') => {
+const hashData = (msg, algorithm = 'sha256') => {
 	const hash = createHash(algorithm);
 	hash.update(msg);
 	const hashedData = hash.digest('hex');
@@ -8,4 +8,8 @@ export const hashData = (msg, algorithm = 'sha256') => {
 };
 
 
-export const hashDataStream = () => {};
+// const hashDataStream = () => {};
+
+export default {
+	hashData,
+};

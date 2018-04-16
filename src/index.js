@@ -1,10 +1,10 @@
-import APIClient from './api_client';
+import Client from './client';
 import crypto from './crypto';
 import storage from './storage';
 import util from './util';
 
 export default {
-	APIClient,
+	Client,
 	crypto,
 	storage,
 	util,

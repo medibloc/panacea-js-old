@@ -1,4 +1,4 @@
-import * as isAddress from './isAddress';
+import isAddress from './isAddress';
 
 export default {
 	isAddress,

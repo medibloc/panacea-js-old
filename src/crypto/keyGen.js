@@ -2,7 +2,7 @@ import { createECDH } from 'crypto';
 import secp256k1 from 'secp256k1';
 
 
-export const getKeyPair = () => {
+const getKeyPair = () => {
 	const ec = createECDH('secp256k1');
 	ec.generateKeys('', 'compressed');
 	const privKeyBuffer = ec.getPrivateKey(null, 'compressed');
@@ -13,13 +13,18 @@ export const getKeyPair = () => {
 };
 
 
-export const getPubKey = (privKey) => {
+const getPubKey = (privKey) => {
 	const privKeyBuffer = Buffer.from(privKey, 'hex');
 	const pubKeyBuffer = secp256k1.publicKeyCreate(privKeyBuffer);
 	const pubKey = pubKeyBuffer.toString('hex');
 	return pubKey;
 };
 
+
+export default {
+	getKeyPair,
+	getPubKey,
+};
 
 // const privStringToPEMFormat = (keyString) => {
 // 	// Check privkeystring is 'hex' type
