@@ -4,8 +4,8 @@ import keyGen from './keyGen';
 import sign from './sign';
 
 export default {
-	hash,
-	encrypt,
-	keyGen,
-	sign,
+  hash,
+  encrypt,
+  keyGen,
+  sign,
 };

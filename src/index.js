@@ -4,8 +4,8 @@ import storage from './storage';
 import util from './util';
 
 export default {
-	Client,
-	crypto,
-	storage,
-	util,
+  Client,
+  crypto,
+  storage,
+  util,
 };
