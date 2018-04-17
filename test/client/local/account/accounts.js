@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { Account, Accounts } from '../../../src/client/local';
+import { Account, Accounts } from '../../../../src/client/local/account';
 
 
 // Account

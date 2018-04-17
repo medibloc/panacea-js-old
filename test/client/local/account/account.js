@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Account } from '../../../src/client/local';
-import { keyGen, encrypt } from '../../../src/crypto';
+import { Account } from '../../../../src/client/local/account';
+import { keyGen, encrypt } from '../../../../src/crypto';
 
 
 // Account

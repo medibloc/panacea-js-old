@@ -1,5 +1,4 @@
 import { isAddress } from '../../util';
-import { keyGen, encrypt } from '../../crypto';
 import Account from './account';
 
 export default class Accounts {
