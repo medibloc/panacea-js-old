@@ -1,21 +1,28 @@
-import { createCipher, createDecipher } from 'crypto';
+import { createCipheriv, createDecipheriv } from 'crypto';
+import { isHexadecimal } from '../util/utils';
+import { hashAccessKey } from './hash';
 
 
-const encryptData = (accessKey, msg, algorithm = 'AES-128-CTR') => {
+const encryptData = (accessKey = '', msg, algorithm = 'AES-128-CTR', iv = '6f40f39c69a0eff3a17667dffda7b4d5') => {
   // TODO Need to get stream files also.
-  const cipher = createCipher(algorithm, accessKey);
+  const hashedAccessKey = hashAccessKey(accessKey);
+  const Iv = Buffer.from(iv, 'hex');
+  const cipher = createCipheriv(algorithm, hashedAccessKey, Iv);
   let encryptedMsg = cipher.update(msg, 'utf8', 'hex');
   encryptedMsg += cipher.final('hex');
   return encryptedMsg;
 };
 
-const decryptData = (accessKey, encryptedMsg, algorithm = 'AES-128-CTR') => {
-  const decipher = createDecipher(algorithm, accessKey);
+const decryptData = (accessKey = '', encryptedMsg, algorithm = 'AES-128-CTR', iv = '6f40f39c69a0eff3a17667dffda7b4d5') => {
+  const hashedAccessKey = hashAccessKey(accessKey);
+  const Iv = Buffer.from(iv, 'hex');
+  if (!isHexadecimal(encryptedMsg)) throw new Error('Message should be hexadecimal');
+  const decipher = createDecipheriv(algorithm, hashedAccessKey, Iv);
   let decryptedMsg = decipher.update(encryptedMsg, 'hex', 'utf8');
   try {
     decryptedMsg += decipher.final('utf8');
   } catch (err) {
-    return new Error('Wrong Access Key');
+    throw new Error('Wrong Access Key');
   }
   return decryptedMsg;
 };

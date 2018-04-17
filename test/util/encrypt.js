@@ -24,12 +24,16 @@ describe('#encryptData / #decryptData', () => {
       const decryptedMsg = encrypt.decryptData(accessKey, encryptedMsg);
       expect(decryptedMsg).to.be.equal(msg);
     });
-    it('Only right access key should work', () => {
+    it('encrypted message format should be hexadecimal', () => {
       try {
-        encrypt.decryptData(fakeAccessKey, encryptedMsg);
+        encrypt.decryptData(fakeAccessKey, 'hello medibloc');
       } catch (err) {
-        expect(err).to.equal(new Error('Wrong Access Key'));
+        expect(err.message).to.equal('Message should be hexadecimal');
       }
+    });
+    it('Only right access key should work', () => {
+      const unMatchedMsg = encrypt.decryptData(fakeAccessKey, encryptedMsg);
+      expect(unMatchedMsg).not.to.equal(msg);
     });
   });
 });

@@ -15,7 +15,12 @@ const getKeyPair = () => {
 
 const getPubKey = (privKey) => {
   const privKeyBuffer = Buffer.from(privKey, 'hex');
-  const pubKeyBuffer = secp256k1.publicKeyCreate(privKeyBuffer);
+  let pubKeyBuffer = null;
+  try {
+    pubKeyBuffer = secp256k1.publicKeyCreate(privKeyBuffer);
+  } catch (err) {
+    throw new Error('Wrong format of private key');
+  }
   const pubKey = pubKeyBuffer.toString('hex');
   return pubKey;
 };
