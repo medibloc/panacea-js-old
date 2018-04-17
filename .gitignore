@@ -4,7 +4,7 @@
 # Distribution folders
 dist-browser/*.js
 dist-browser/*.json
-dist-node
+lib
 
 # Dependency directories
 node_modules
