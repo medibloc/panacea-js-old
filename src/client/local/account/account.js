@@ -1,4 +1,4 @@
-import { keyGen, encrypt } from '../../crypto';
+import { keyGen, encrypt } from '../../../crypto';
 
 
 export default class Account {
