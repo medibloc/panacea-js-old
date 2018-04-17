@@ -38,6 +38,14 @@ describe('# Account class', () => {
       expect(newAccount).to.have.own.property('privKey');
       expect(newAccount).to.have.own.property('pubKey');
     });
-    // it('Account object ')
+    it('Get decrypted private key with appropriate passphrase', () => {
+      const passphrase = 'medibloc';
+      const wrongPassphrase = 'medibloc!';
+      const newAccount = new Account(passphrase);
+      const decryptedPrivKey = newAccount.getDecryptedPrivateKey(passphrase);
+      const wrongDecryptedPrivKey = newAccount.getDecryptedPrivateKey(wrongPassphrase);
+      expect(keyGen.getPubKey(decryptedPrivKey)).to.be.equal(newAccount.pubKey);
+      expect(wrongDecryptedPrivKey).not.to.be.equal(newAccount.pubKey);
+    });
   });
 });
