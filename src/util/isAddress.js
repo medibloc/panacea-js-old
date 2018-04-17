@@ -6,6 +6,4 @@ const isAddress = (pubKey) => {
   return true;
 };
 
-export default {
-  isAddress,
-};
+export default isAddress

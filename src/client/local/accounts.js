@@ -1,15 +1,20 @@
 import { isAddress } from '../../util';
+import { keyGen, encrypt } from '../../crypto';
 import Account from './account';
 
 export default class Accounts {
   constructor() {
-    this.accounts = [];
+    this.list = [];
+    this.default = {};
   }
 
   // Generate new account
-  newAccount(passphrase, privKey = '') {
+  newAccount(passphrase = '', privKey = '') {
     const newAccount = new Account(passphrase, privKey);
-    this.accounts.push(newAccount);
+    this.list.push(newAccount);
+    if (this.list.length === 1) {
+      this.setDefaultAccount(newAccount.pubKey);
+    }
   }
 
   // Remove account from account list
@@ -19,24 +24,42 @@ export default class Accounts {
     } catch (err) {
       throw err;
     }
-    const removeIndex = this.accounts.map(account => account.pubKey).indexOf(pubKey);
+    const removeIndex = this.list.map(account => account.pubKey).indexOf(pubKey);
     if (removeIndex === -1) throw new Error('Unregistered public key');
-    this.accounts.splice(removeIndex, 1);
+    this.list.splice(removeIndex, 1);
   }
 
   // Change default privKey, pubKey
   setDefaultAccount(pubKey) {
-    this.accounts.map((account) => {
+    this.list.forEach((account) => {
       if (account.pubKey === pubKey) {
-        this.account = account;
+        this.default = account;
       }
-      return null;
     });
-    throw new Error('Unregistered public key.');
+    // throw new Error('Unregistered public key.');
   }
 
   // Get all accounts registered in local service
   getAccounts() {
-    return this.accounts;
+    return this.list;
+  }
+
+  // Get specific account matched with pubKey
+  getAccount(pubKey) {
+    try {
+      isAddress(pubKey);
+    } catch (err) {
+      throw err;
+    }
+    this.list.forEach((account) => {
+      if (account.pubKey === pubKey) return account;
+      return null;
+    });
+    return null;
+  }
+
+  // Get default account
+  getDefaultAccount() {
+    return this.default;
   }
 }
