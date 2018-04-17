@@ -11,6 +11,7 @@ node_modules
 
 #IDE directories
 .idea
+.vscode
 
 #Logs
 npm-debug.log*
