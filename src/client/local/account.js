@@ -28,7 +28,7 @@ export default class Account {
 	}
 
 	// get decrypted private key
-	getPrivateKey(passphrase) {
+	getDecryptedPrivateKey(passphrase) {
 		try {
 			const privKey = encrypt.decryptData(passphrase, this.privKey);
 			return privKey;
