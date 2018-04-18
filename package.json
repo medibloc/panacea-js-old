@@ -20,6 +20,9 @@
       "es2015"
     ]
   },
+  "pre-commit": [
+    "lint"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/medibloc/medjs.git"
@@ -55,6 +58,7 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
     "mocha": "^5.1.0",
+    "pre-commit": "^1.2.2",
     "uglify-es": "^3.3.9"
   }
 }
