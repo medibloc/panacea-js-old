@@ -14,9 +14,14 @@ const hashData = (msg, algorithm = 'sha256') => {
       throw new Error('Invalid msg type');
   }
   const hash = createHash(algorithm);
-  hash.update(message);
-  const hashedData = hash.digest('hex');
-  return hashedData;
+  return hash.update(message).digest('hex');
+};
+
+const hashJson = (jsonMsg, algorithm = 'sha256') => {
+  if (typeof jsonMsg !== 'object') throw new Error('Wrong format');
+  const message = JSON.stringify(jsonMsg);
+  const hash = createHash(algorithm);
+  return hash.update(message).digest('hex');
 };
 
 const hashAccessKey = (accessKey, algorithm = 'sha256') => {
@@ -31,4 +36,5 @@ const hashAccessKey = (accessKey, algorithm = 'sha256') => {
 export default {
   hashData,
   hashAccessKey,
+  hashJson,
 };
