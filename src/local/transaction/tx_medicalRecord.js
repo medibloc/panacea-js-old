@@ -1,5 +1,5 @@
-import utils, { checkTx, setTx } from './utils';
-import { keyGen, encrypt, hash } from '../../../crypto';
+import { keyGen, encrypt, hash } from 'cryptography';
+import { checkTx, setTx } from './utils';
 import { REQUIRED_MEDICAL_RECORD_TX_PARAMETERS } from './types';
 
 

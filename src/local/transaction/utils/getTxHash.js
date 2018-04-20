@@ -1,4 +1,4 @@
-import { hash } from '../../../../crypto';
+import { hash } from 'cryptography';
 
 
 /*

@@ -3,7 +3,7 @@ import {
   sign,
   hash,
   keyGen,
-} from '../../src/crypto';
+} from 'cryptography';
 
 
 // sign and verify

@@ -1,4 +1,4 @@
-import { isAddress } from '../../../util';
+import { isAddress } from 'util';
 import Account from './account';
 
 

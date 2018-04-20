@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { keyGen } from '../../src/crypto';
+import { keyGen } from 'cryptography';
 
 
 // getKeyPair

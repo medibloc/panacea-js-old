@@ -1,9 +1,9 @@
+import { hash, encrypt, keyGen, sign } from 'cryptography';
 import { Accounts } from '../account';
-import tx_valueTransfer from './tx_valueTransfer';
-import tx_writerAssign from './tx_writerAssign';
-import tx_medicalRecord from './tx_medicalRecord';
+import txValueTransfer from './tx_valueTransfer';
+import txWriterAssign from './tx_writerAssign';
+import txMedicalRecord from './tx_medicalRecord';
 import { getTxHash, signTx } from './utils';
-import { hash, encrypt, keyGen, sign } from '../../../crypto';
 
 
 /*
@@ -22,7 +22,7 @@ const newAccount = accountS.newAccount();
 
 // console.log(newAccount);
 const accFound = accountS.getAccount(newAccount.pubKey);
-// console.log(accFound);
+console.log(accFound);
 
 // console.log(accountS.default);
 accountS.setDefaultAccount(newAccount.pubKey);
@@ -50,21 +50,21 @@ mainUser.nonce = 0;
 mainUser.balance = 10;
 
 // Make Value Transaction
-const valueTx = tx_valueTransfer.createTx(mainUser, receiver.pubKey, 5);
+const valueTx = txValueTransfer.createTx(mainUser, receiver.pubKey, 5);
 // console.log(valueTx);
 const valueTxHash = getTxHash.getTxHash(valueTx);
 // console.log(valueTxHash);
 const valueTxSignature = signTx.signHashedTx(valueTxHash, mainUser, '');
-// console.log(valueTxSignature);
+console.log(valueTxSignature);
 
 
 // Make Writer Assignmert Transaction
-const assignTx = tx_writerAssign.createTx(mainUser, doctor.pubKey);
+const assignTx = txWriterAssign.createTx(mainUser, doctor.pubKey);
 // console.log(assignTx);
 const assignTxHash = getTxHash.getTxHash(assignTx);
 // console.log(assignTxHash);
 const assignTxSignature = signTx.signHashedTx(assignTxHash, mainUser, '');
-// console.log(assignTxSignature);
+console.log(assignTxSignature);
 
 
 // Maker Medical Record Transaction
@@ -85,11 +85,18 @@ const encryptedData = encrypt.encryptData(encryptKey, MEDICAL_RECORD);
 const encryptedDataHash = hash.hashData(encryptedData);
 // console.log(encryptedDataHash);
 const storage = 'medibloc.org';
-const medicalData = tx_medicalRecord.createMedicalData(encryptedDataHash, encryptKey, storage, mainUser, '', doctor.pubKey);
+const medicalData = txMedicalRecord.createMedicalData(
+  encryptedDataHash,
+  encryptKey,
+  storage,
+  mainUser,
+  '',
+  doctor.pubKey,
+);
 // console.log(medicalData);
-const medicalRecordTx = tx_medicalRecord.createTx(mainUser, doctorSignature, medicalData);
+const medicalRecordTx = txMedicalRecord.createTx(mainUser, doctorSignature, medicalData);
 // console.log(medicalRecordTx);
 const medicalRecordTxHash = getTxHash.getTxHash(medicalRecordTx);
 // console.log(medicalRecordTxHash);
 const medicalRecordTxSignature = signTx.signHashedTx(medicalRecordTxHash, mainUser, '');
-// console.log(medicalRecordTxSignature);
+console.log(medicalRecordTxSignature);

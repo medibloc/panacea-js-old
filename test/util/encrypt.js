@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { encrypt } from '../../src/crypto';
+import { encrypt } from 'cryptography';
 
 // encrypt and decrypt message
 describe('#encryptData / #decryptData', () => {

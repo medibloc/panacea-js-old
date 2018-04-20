@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { hash } from '../../src/crypto';
+import { hash } from 'cryptography';
 
 // hashData
 describe('#hashData', () => {

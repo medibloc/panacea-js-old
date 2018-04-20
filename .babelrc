@@ -4,6 +4,10 @@
     ],
     "plugins": [
       "add-module-exports",
-      "transform-runtime"
+      "transform-runtime",
+      ["module-resolver", {
+        "root": ["./src"]
+      }
+    ]
 	]
 }

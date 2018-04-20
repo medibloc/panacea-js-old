@@ -1,4 +1,4 @@
-import { keyGen, encrypt } from '../../../crypto';
+import { keyGen, encrypt } from 'cryptography';
 
 // generate new keypair and register
 const generateAccount = (passphrase = '') => {

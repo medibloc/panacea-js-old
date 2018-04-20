@@ -1,11 +1,13 @@
-import Client from './client';
-import crypto from './crypto';
+import apiClient from './apiClient';
+import cryptography from './cryptography';
+import local from './local';
 import storage from './storage';
 import util from './util';
 
 export default {
-  Client,
-  crypto,
+  apiClient,
+  cryptography,
+  local,
   storage,
   util,
 };

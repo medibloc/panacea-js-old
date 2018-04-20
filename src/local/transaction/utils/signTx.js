@@ -1,5 +1,5 @@
+import { sign } from 'cryptography';
 import { getTxHash } from './getTxHash';
-import { sign } from '../../../../crypto';
 
 /*
   argument tx is expected to fit to the following format.
