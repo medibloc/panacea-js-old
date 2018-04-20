@@ -5,10 +5,22 @@ import { hashAccessKey } from './hash';
 
 const encryptData = (accessKey = '', msg, algorithm = 'AES-128-CTR', iv = '6f40f39c69a0eff3a17667dffda7b4d5') => {
   // TODO Need to get stream files also.
+  let message = '';
+  switch (typeof msg) {
+    case 'string':
+      message = msg;
+      break;
+    case 'object':
+    case 'number':
+      message = msg.toString();
+      break;
+    default:
+      throw new Error('Invalid msg type');
+  }
   const hashedAccessKey = hashAccessKey(accessKey);
   const Iv = Buffer.from(iv, 'hex');
   const cipher = createCipheriv(algorithm, hashedAccessKey, Iv);
-  let encryptedMsg = cipher.update(msg, 'utf8', 'hex');
+  let encryptedMsg = cipher.update(message, 'utf8', 'hex');
   encryptedMsg += cipher.final('hex');
   return encryptedMsg;
 };

@@ -1,6 +1,7 @@
 import { isAddress } from '../../../util';
 import Account from './account';
 
+
 export default class Accounts {
   constructor() {
     this.list = [];
@@ -14,6 +15,7 @@ export default class Accounts {
     if (this.list.length === 1) {
       this.setDefaultAccount(newAccount.pubKey);
     }
+    return newAccount;
   }
 
   // Remove account from account list
@@ -36,11 +38,6 @@ export default class Accounts {
       }
     });
     // throw new Error('Unregistered public key.');
-  }
-
-  // Get all accounts registered in local service
-  getAccounts() {
-    return this.list;
   }
 
   // Get specific account matched with pubKey
