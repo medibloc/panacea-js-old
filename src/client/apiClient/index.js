@@ -1,2 +1,3 @@
-export default class APIClient {
-}
+import APIClient from './apiClient';
+
+export default APIClient;
