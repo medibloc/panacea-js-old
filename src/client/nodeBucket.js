@@ -40,3 +40,5 @@ export default (nodes) => {
     reloadInvalidNodes,
   };
 };
+
+console.log('nodeBucket');

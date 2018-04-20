@@ -1,5 +1,5 @@
-export default (_apiGateway) => {
-  const apiGateway = _apiGateway;
+export default (_gateway) => {
+  const gateway = _gateway;
 
   const getAccountState = (address, height) => {
     const reqConfig = {
@@ -9,7 +9,7 @@ export default (_apiGateway) => {
         address, height,
       },
     };
-    return apiGateway.sendRequest(reqConfig);
+    return gateway.sendRequest(reqConfig);
   };
 
   return {

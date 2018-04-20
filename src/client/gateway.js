@@ -1,5 +1,5 @@
 import { request } from './httpRequest';
-import { buildReqConfig } from './apiConfig';
+import { buildReqConfig } from './config';
 
 export default (_nodeBucket, _version) => {
   const nodeBucket = _nodeBucket;

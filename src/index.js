@@ -1,13 +1,13 @@
-import apiClient from './apiClient';
+import client from './client';
 import cryptography from './cryptography';
 import local from './local';
 import storage from './storage';
 import util from './util';
 
-export default {
-  apiClient,
+export default nodes => ({
+  client: client(nodes),
   cryptography,
   local,
   storage,
   util,
-};
+});

@@ -3,7 +3,7 @@ import {
   DEFAULT_TIMEOUT,
   GET,
   POST,
-} from './apiConst';
+} from './constants';
 
 const defaultReqConfig = {
   timeout: DEFAULT_TIMEOUT,
@@ -20,14 +20,14 @@ const buildReqConfig = ({
     url: path,
     method,
     baseURL: baseURL.concat('/', version),
-    /*
-    ...method === POST && { headers: CONTENT_TYPE_URLENCODED },
     ...method === GET && { params: payload },
-    ...method === POST && { data: payload },
-    */
+    ...method === POST && {
+      data: payload,
+      headers: CONTENT_TYPE_URLENCODED,
+    },
   };
 
-  switch (method) {
+  /* switch (method) {
     case GET:
       customReqConfig.params = payload;
       break;
@@ -37,7 +37,7 @@ const buildReqConfig = ({
       break;
     default:
       break;
-  }
+  } */
 
   return Object.assign({}, defaultReqConfig, customReqConfig);
 };

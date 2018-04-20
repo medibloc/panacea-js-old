@@ -1,5 +1,5 @@
-export default (_apiGateway) => {
-  const apiGateway = _apiGateway;
+export default (_gateway) => {
+  const gateway = _gateway;
 
   const sendTransaction = (from, to, value, nonce) => {
     const reqConfig = {
@@ -9,7 +9,7 @@ export default (_apiGateway) => {
         from, to, value, nonce,
       },
     };
-    return apiGateway.sendRequest(reqConfig);
+    return gateway.sendRequest(reqConfig);
   };
 
   return {
