@@ -19,8 +19,8 @@ const signRawTx = (tx, passphrase) => {
   return sign.sign(privKey, txHash);
 };
 
-const signHashedTx = (txHash, userAccount, passphrase) => {
-  const privKey = userAccount.getDecryptedPrivateKey(passphrase);
+const signHashedTx = (txHash, ownerAccount, passphrase) => {
+  const privKey = ownerAccount.getDecryptedPrivateKey(passphrase);
   return sign.sign(privKey, txHash);
 };
 

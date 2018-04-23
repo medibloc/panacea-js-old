@@ -1,20 +1,22 @@
 const checkRequiredParams = (tx, requiredParams) => {
+  let error = null;
   requiredParams.forEach((param) => {
-    if (tx[param] === undefined) throw new Error(`${param} is required.`);
+    if (tx[param] === undefined) error = true;
   });
+  if (error) return false;
   return true;
 };
 
 // Account Object
 const checkNonce = (tx, account) => {
   if (tx.nonce === account.nonce + 1) return true;
-  throw new Error('Invalid nonce.');
+  return false;
 };
 
 
 const checkBalance = (tx, account) => {
   if (tx.amount <= account.balance) return true;
-  throw new Error('Invalid balance.');
+  return false;
 };
 
 

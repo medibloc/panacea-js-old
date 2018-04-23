@@ -6,6 +6,8 @@ const generateAccount = (passphrase = '') => {
   return {
     privKey: encrypt.encryptData(passphrase, keyPair.privKey),
     pubKey: keyPair.pubKey,
+    nonce: null,
+    balance: null,
   };
 };
 
@@ -15,21 +17,23 @@ const setEncryptedPrivateKey = (passphrase = '', encryptedPrivKey) => {
   return {
     privKey,
     pubKey: keyGen.getPubKey(privKey),
+    nonce: null,
+    balance: null,
   };
 };
 
 
 export default class Account {
-  constructor(passphrase = '', encryptedPrivKey = '') {
+  constructor(passphrase, encryptedPrivKey = '') {
+    let newAccount = {};
     if (encryptedPrivKey === '') {
-      const { privKey, pubKey } = generateAccount(passphrase);
-      this.privKey = privKey;
-      this.pubKey = pubKey;
+      newAccount = generateAccount(passphrase);
     } else {
-      const { privKey, pubKey } = setEncryptedPrivateKey(passphrase, encryptedPrivKey);
-      this.privKey = privKey;
-      this.pubKey = pubKey;
+      newAccount = setEncryptedPrivateKey(passphrase, encryptedPrivKey);
     }
+    Object.keys(newAccount).forEach((key) => {
+      this[key] = newAccount[key];
+    });
   }
 
   // get decrypted private key
