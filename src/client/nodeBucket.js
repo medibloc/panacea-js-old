@@ -1,44 +1,41 @@
 export default (nodes) => {
   let candidateNodes = nodes;
-  let invalidNodes = [];
-  let requestNode = candidateNodes[0] ? candidateNodes[0] : null;
+  const fullNodes = nodes;
+  let requestNode = nodes ? nodes[0] : null;
 
   const getCandidateNodes = () => candidateNodes;
-  const getInvalidNodes = () => invalidNodes;
+  const getFullNodes = () => fullNodes;
+  const getFullNodesCount = () => {
+    if (!fullNodes) {
+      return 0;
+    }
+    return fullNodes.length;
+  };
   const getRequestNode = () => requestNode;
 
-  // replaceInvalidRequestNode moves requestNode to invalidNodes and fill candidate node.
+  // replaceInvalidRequestNode discards the requestNode and fill it.
   const replaceInvalidRequestNode = () => {
-    if (!requestNode && !invalidNodes) {
-      invalidNodes.push(requestNode);
-    }
     if (!candidateNodes) {
       requestNode = null;
+      return;
     }
     requestNode = candidateNodes.pop();
   };
 
-  // reloadInvalidNodes moves invalidNodes to candidateNodes
-  const reloadInvalidNodes = () => {
-    if (!invalidNodes) {
+  // resetCandidateNodes resets candidateNodes as fullNodes.
+  const resetCandidateNodes = () => {
+    if (!fullNodes) {
       return;
     }
-    if (!candidateNodes) {
-      candidateNodes = invalidNodes;
-      invalidNodes = [];
-      return;
-    }
-    candidateNodes = candidateNodes.concat(invalidNodes);
-    invalidNodes = [];
+    candidateNodes = fullNodes;
   };
 
   return {
     getCandidateNodes,
-    getInvalidNodes,
+    getFullNodes,
+    getFullNodesCount,
     getRequestNode,
     replaceInvalidRequestNode,
-    reloadInvalidNodes,
+    resetCandidateNodes,
   };
 };
-
-console.log('nodeBucket');

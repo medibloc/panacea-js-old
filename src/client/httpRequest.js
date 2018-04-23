@@ -1,23 +1,19 @@
 import axios from 'axios';
 
-// TODO: Add retry logic
-// request sends HTTP request. it execute errorCallback if request fails.
-const request = (config, errorCallback) => axios(config)
+// request sends HTTP request.
+const request = config => axios(config)
   .then((res) => {
     // TODO: Fix after HTTP spec confirmed
     if (res.status >= 300) {
-      throw new Error(`Status ${res.status}`);
+      if (res.body && res.body.message) {
+        return {
+          status: res.status,
+          message: res.body.message,
+        };
+      }
+      throw new Error(`Status ${res.status} : An unknown error has occurred.`);
     }
     return res.data;
-  })
-  .catch((err) => {
-    errorCallback();
-    // TODO: Fix after HTTP spec confirmed
-    if (typeof err.response !== 'undefined') {
-      throw new Error(err.response.data.error);
-    } else {
-      throw new Error(err.message);
-    }
   });
 
 // TODO: impl asyncRequest
