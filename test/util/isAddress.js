@@ -1,6 +1,9 @@
-import { expect } from 'chai';
-import { isAddress } from 'util';
+import chai, { expect } from 'chai';
+import isAddress from 'util';
 import { keyGen } from 'cryptography';
+import chaiHexString from 'test/helpers/chaiHexString';
+
+chai.use(chaiHexString);
 
 // getKeyPair
 describe('#isAddress', () => {

@@ -1,10 +1,12 @@
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
 import {
   sign,
   hash,
   keyGen,
 } from 'cryptography';
+import chaiHexString from 'test/helpers/chaiHexString';
 
+chai.use(chaiHexString);
 
 // sign and verify
 describe('#sign / #verifySignature', () => {

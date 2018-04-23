@@ -1,5 +1,8 @@
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
 import { hash } from 'cryptography';
+import chaiHexString from 'test/helpers/chaiHexString';
+
+chai.use(chaiHexString);
 
 // hashData
 describe('#hashData', () => {

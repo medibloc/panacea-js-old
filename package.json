@@ -13,7 +13,7 @@
     "build": "npm run babel && npm run browserify && npm run uglify",
     "precommit": "npm run lint",
     "start": "./bin/start.sh",
-    "test": "mocha --require babel-core/register --reporter spec test/setup.js",
+    "test": "mocha --recursive --require babel-core/register --reporter spec",
     "uglify": "uglifyjs -nm -o ./dist/medjs.min.js ./dist/medjs.js"
   },
   "babel": {
@@ -22,7 +22,8 @@
     ]
   },
   "pre-commit": [
-    "lint"
+    "lint",
+    "test"
   ],
   "repository": {
     "type": "git",

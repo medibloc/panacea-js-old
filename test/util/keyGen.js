@@ -1,6 +1,8 @@
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
 import { keyGen } from 'cryptography';
+import chaiHexString from 'test/helpers/chaiHexString';
 
+chai.use(chaiHexString);
 
 // getKeyPair
 describe('#getKeyPair / #getPubKey', () => {
