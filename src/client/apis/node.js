@@ -1,18 +1,15 @@
 export default (_gateway) => {
   const gateway = _gateway;
 
-  const getAccountState = (address, height) => {
+  const getMedState = () => {
     const reqConfig = {
       method: 'get',
-      path: 'v1/user/accountstate',
-      payload: {
-        address, height,
-      },
+      path: 'v1/user/medstate',
     };
     return gateway.sendRequest(reqConfig);
   };
 
   return {
-    getAccountState,
+    getMedState,
   };
 };
