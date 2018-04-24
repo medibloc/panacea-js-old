@@ -2,9 +2,8 @@ import { buildReqConfig } from './config';
 import { MAX_REQUEST_RETRY_COUNT } from './constants';
 import { request } from './httpRequest';
 
-export default (_nodeBucket, _version) => {
+export default (_nodeBucket) => {
   const nodeBucket = _nodeBucket;
-  const version = _version || 'v1';
 
   // sendRequest handle request using the nodeBucket.
   const sendRequest = ({ method, path, payload }, config, count) => {
@@ -29,7 +28,6 @@ export default (_nodeBucket, _version) => {
             method,
             path,
             payload,
-            version,
           });
 
     return request(reqConfig)
