@@ -4,7 +4,7 @@ export default (_gateway) => {
   const getAccountState = (address, height) => {
     const reqConfig = {
       method: 'post',
-      path: '/user/accountstate',
+      path: 'v1/user/accountstate',
       payload: {
         address, height,
       },
