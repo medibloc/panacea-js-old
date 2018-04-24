@@ -7,6 +7,9 @@ import {
 
 const defaultReqConfig = {
   timeout: DEFAULT_TIMEOUT,
+  validateStatus(status) {
+    return status >= 200 && status < 500;
+  },
 };
 
 const buildReqConfig = ({
