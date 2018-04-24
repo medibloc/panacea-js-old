@@ -19,9 +19,9 @@ const buildReqConfig = ({
   payload,
 }) => {
   const customReqConfig = {
-    url: path,
-    method,
     baseURL,
+    method,
+    url: path,
     ...method === GET && { params: payload },
     ...method === POST && {
       data: payload,
