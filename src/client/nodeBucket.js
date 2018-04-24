@@ -1,4 +1,7 @@
 export default (nodes) => {
+  if (!nodes) {
+    throw new Error('nodeBucket requires nodes for initialization.');
+  }
   let candidateNodes = nodes;
   const fullNodes = nodes;
   let requestNode = nodes ? nodes[0] : null;

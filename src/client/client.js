@@ -6,11 +6,11 @@ import nodeBucket from './nodeBucket';
 import gateway from './gateway';
 
 export default (nodes) => {
+  if (!nodes) {
+    throw new Error('client requires nodes for initialization.');
+  }
   const bucket = nodeBucket(nodes);
   const apiGateway = gateway(bucket);
-  if (!apiGateway) {
-    throw new Error('Fail to create apiGateway');
-  }
   return {
     nodeBucket: bucket,
     ...account(apiGateway),

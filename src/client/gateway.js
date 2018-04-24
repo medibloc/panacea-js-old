@@ -2,8 +2,11 @@ import { buildReqConfig } from './config';
 import { MAX_REQUEST_RETRY_COUNT } from './constants';
 import { request } from './httpRequest';
 
-export default (_nodeBucket) => {
-  const nodeBucket = _nodeBucket;
+export default (bucket) => {
+  if (!bucket) {
+    throw new Error('gateway requires bucket for initialization.');
+  }
+  const nodeBucket = bucket;
 
   // sendRequest handle request using the nodeBucket.
   const sendRequest = ({ method, path, payload }, config, count) => {
