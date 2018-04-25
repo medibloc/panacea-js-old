@@ -10,11 +10,12 @@ const validateTx = (tx, ownerAccount) => {
 };
 
 
-const createTx = (ownerAccount, receiver, value) => {
+const createTx = (ownerAccount, receiverPubKey, value) => {
   const tx = setTx({
     ownerAccount,
-    to: receiver,
+    to: receiverPubKey,
     value,
+    type: 'binary',
   });
   validateTx(tx, ownerAccount);
   return tx;

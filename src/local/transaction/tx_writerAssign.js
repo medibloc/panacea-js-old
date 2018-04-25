@@ -10,10 +10,13 @@ const validateTx = (tx, ownerAccount) => {
 
 
 const createTx = (ownerAccount, writerPubKey) => {
-  let tx = {};
-  tx = setTx.setCommon(tx, ownerAccount);
-  tx = setTx.setWriter(tx, writerPubKey);
-  tx = setTx.setType(tx, 'writerAssign');
+  const tx = setTx({
+    ownerAccount,
+    payload: {
+      Writer: writerPubKey,
+    },
+    type: 'register_wkey',
+  });
   validateTx(tx, ownerAccount);
   return tx;
 };

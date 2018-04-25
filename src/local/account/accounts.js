@@ -10,7 +10,8 @@ export default class Accounts {
   }
 
   // Generate new account
-  newAccount(passphrase = '', privKey = '') {
+  newAccount(passphrase, privKey = '') {
+    if (passphrase === undefined) return false;
     const newAccount = new Account(passphrase, privKey);
     this.list[newAccount.pubKey] = newAccount;
     if (this.default === '') this.setDefaultAccount(newAccount.pubKey);
@@ -21,13 +22,13 @@ export default class Accounts {
   removeAccount(pubKey) {
     if (!isAddress(pubKey)) return false;
     if (this.default === pubKey) return false;
-    delete this.list.pubKey;
+    delete this.list[pubKey];
     return this.list;
   }
 
   // Change default privKey, pubKey
   setDefaultAccount(pubKey) {
-    if (this.list.pubKey === undefined) return false;
+    if (this.list[pubKey] === undefined) return false;
     this.default = pubKey;
     return this.default;
   }
@@ -35,8 +36,8 @@ export default class Accounts {
   // Get specific account matched with pubKey
   getAccount(pubKey) {
     if (!isAddress(pubKey)) return false;
-    if (this.list.pubKey === undefined) return false;
-    return this.list.pubKey;
+    if (this.list[pubKey] === undefined) return false;
+    return this.list[pubKey];
   }
 
   // Get default account

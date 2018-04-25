@@ -7,7 +7,7 @@ const checkRequiredParams = (tx, requiredParams) => {
   return true;
 };
 
-// Account Object
+
 const checkNonce = (tx, account) => {
   if (tx.nonce === account.nonce + 1) return true;
   return false;

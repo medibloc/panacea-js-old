@@ -1,13 +1,12 @@
 {
   "presets": [
-        "es2015"
-    ],
-    "plugins": [
-      "add-module-exports",
-      "transform-runtime",
-      ["module-resolver", {
-        "root": ["./src"]
-      }
-    ]
-	]
+    "es2015"
+  ],
+  "plugins": [
+    "add-module-exports",
+    "transform-runtime",
+    ["module-resolver", {
+      "root": ["./src"],
+    }]
+  ]
 }

@@ -2,54 +2,31 @@ const setTx = (options) => {
   const {
     ownerAccount,
     to = null,
-    value = null,
+    value = 0,
     nonce = null,
-    chainId = 0, // TODO : check the number of chain_id
+    chainId = 1, // TODO : check the number of chain_id
     alg = 1, // TODO : check the alg
     type = '', // TODO : Which types do we have?
     payload = null, // TODO : Any type of payload for value transfer and writer assignment?
   } = options;
 
-  this.from = ownerAccount.pubKey;
-  this.timestamp = Math.floor(new Date().getTime() / 1000);
-  this.nonce = nonce || ownerAccount.nonce + 1;
-  this.to = to;
-  this.value = value;
-  this.chain_id = chainId;
-  this.alg = alg;
+  const tx = {};
+  tx.from = ownerAccount.pubKey;
+  tx.timestamp = Math.floor(new Date().getTime());
+  tx.nonce = nonce || ownerAccount.nonce + 1;
+  tx.to = to;
+  tx.value = value;
+  tx.chain_id = chainId;
+  tx.alg = alg;
 
-  this.data = {
+  tx.data = {
     type,
     payload,
   };
 
-  this.hash = null;
-  this.sign = null;
+  tx.hash = null;
+  tx.sign = null;
+  return tx;
 };
-
-setTx.prototype.setNonce = (nonce) => {
-  this.nonce = nonce;
-};
-
-setTx.prototype.setSender = (account) => {
-  this.from = account.pubKey;
-};
-
-setTx.prototype.setTimeStamp = () => {
-  this.timestamp = Math.floor(new Date().getTime() / 1000);
-};
-
-setTx.prototype.setValue = (value) => {
-  this.value = value;
-};
-
-setTx.prototype.setReceiver = (receiverPubKey) => {
-  this.to = receiverPubKey;
-};
-
-setTx.prototype.setType = (type) => {
-  this.data.type = type;
-};
-
 
 export default setTx;
