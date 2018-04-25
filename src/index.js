@@ -6,8 +6,8 @@ import util from './util';
 
 export default (nodes) => {
   // TODO: set default nodes after mainnet launching
-  if (!nodes) {
-    throw new Error('medjs requires nodes for initialization.');
+  if (!nodes || !Array.isArray(nodes)) {
+    throw new Error('medjs requires array of nodes for initialization.');
   }
   return {
     client: client(nodes),

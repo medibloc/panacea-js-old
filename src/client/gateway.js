@@ -10,18 +10,13 @@ export default (bucket) => {
 
   // sendRequest handle request using the nodeBucket.
   const sendRequest = async ({ method, path, payload }, config, count) => {
-    let baseURL = nodeBucket.getRequestNode();
+    const baseURL = nodeBucket.getRequestNode();
     const retryCount = count || 0;
 
-    // reset candidate nodes when baseURL is empty.
-    if (baseURL === null) {
-      // return error when retry count exceed limit.
-      if (retryCount > nodeBucket.getFullNodesCount() ||
-          retryCount > MAX_REQUEST_RETRY_COUNT) {
-        return new Error('send request failed');
-      }
-      nodeBucket.resetNodeBucket();
-      baseURL = nodeBucket.getRequestNode();
+    // return error when retry count exceed limit.
+    if (retryCount > nodeBucket.getSize() ||
+        retryCount > MAX_REQUEST_RETRY_COUNT) {
+      return new Error('send request failed');
     }
 
     // set or build a request config.
@@ -38,7 +33,7 @@ export default (bucket) => {
       return await request(reqConfig);
     } catch (err) {
       // retry if request throw error.
-      nodeBucket.replaceInvalidRequestNode();
+      nodeBucket.replaceRequestNode();
       return sendRequest({}, reqConfig, retryCount + 1);
     }
   };

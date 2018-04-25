@@ -1,45 +1,28 @@
-export default (nodes) => {
-  if (!nodes) {
-    throw new Error('nodeBucket requires nodes for initialization.');
+export default (nodeArray) => {
+  if (!nodeArray || !Array.isArray(nodeArray)) {
+    throw new Error('nodeBucket requires array of nodes for initialization.');
   }
-  let candidateNodes = nodes.slice();
-  const fullNodes = nodes.slice();
-  let requestNode = candidateNodes && candidateNodes.length > 0 ? candidateNodes.pop() : null;
+  if (nodeArray.length === 0) {
+    throw new Error('nodeBucket requires not empty array of nodes for initialization.');
+  }
 
-  const getCandidateNodes = () => candidateNodes;
-  const getFullNodes = () => fullNodes;
-  const getFullNodesCount = () => {
-    if (!fullNodes) {
-      return 0;
-    }
-    return fullNodes.length;
-  };
-  const getRequestNode = () => requestNode;
+  const nodes = nodeArray.slice();
+  const size = nodes.length;
+  let requestNodeIndex = 0;
 
-  // replaceInvalidRequestNode discards the requestNode and fill it.
-  const replaceInvalidRequestNode = () => {
-    if (!candidateNodes || candidateNodes.length === 0) {
-      requestNode = null;
-      return;
-    }
-    requestNode = candidateNodes.pop();
-  };
+  const getNodes = () => nodes;
+  const getSize = () => size;
+  const getRequestNode = () => nodes[requestNodeIndex];
 
-  // resetNodeBucket resets node bucket.
-  const resetNodeBucket = () => {
-    if (!fullNodes) {
-      return;
-    }
-    candidateNodes = fullNodes;
-    replaceInvalidRequestNode();
+  // replaceRequestNode discards the requestNode and fill it.
+  const replaceRequestNode = () => {
+    requestNodeIndex = (requestNodeIndex + 1) % size;
   };
 
   return {
-    getCandidateNodes,
-    getFullNodes,
-    getFullNodesCount,
+    getNodes,
+    getSize,
     getRequestNode,
-    replaceInvalidRequestNode,
-    resetNodeBucket,
+    replaceRequestNode,
   };
 };
