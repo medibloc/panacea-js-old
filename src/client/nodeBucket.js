@@ -2,9 +2,9 @@ export default (nodes) => {
   if (!nodes) {
     throw new Error('nodeBucket requires nodes for initialization.');
   }
-  let candidateNodes = nodes;
-  const fullNodes = nodes;
-  let requestNode = nodes ? nodes[0] : null;
+  let candidateNodes = nodes.slice();
+  const fullNodes = nodes.slice();
+  let requestNode = candidateNodes && candidateNodes.length > 0 ? candidateNodes.pop() : null;
 
   const getCandidateNodes = () => candidateNodes;
   const getFullNodes = () => fullNodes;
@@ -18,19 +18,20 @@ export default (nodes) => {
 
   // replaceInvalidRequestNode discards the requestNode and fill it.
   const replaceInvalidRequestNode = () => {
-    if (!candidateNodes) {
+    if (!candidateNodes || candidateNodes.length === 0) {
       requestNode = null;
       return;
     }
     requestNode = candidateNodes.pop();
   };
 
-  // resetCandidateNodes resets candidateNodes as fullNodes.
-  const resetCandidateNodes = () => {
+  // resetNodeBucket resets node bucket.
+  const resetNodeBucket = () => {
     if (!fullNodes) {
       return;
     }
     candidateNodes = fullNodes;
+    replaceInvalidRequestNode();
   };
 
   return {
@@ -39,6 +40,6 @@ export default (nodes) => {
     getFullNodesCount,
     getRequestNode,
     replaceInvalidRequestNode,
-    resetCandidateNodes,
+    resetNodeBucket,
   };
 };

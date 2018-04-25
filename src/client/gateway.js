@@ -10,7 +10,7 @@ export default (bucket) => {
 
   // sendRequest handle request using the nodeBucket.
   const sendRequest = ({ method, path, payload }, config, count) => {
-    const baseURL = nodeBucket.getRequestNode();
+    let baseURL = nodeBucket.getRequestNode();
     const retryCount = count || 0;
 
     // reset candidate nodes when baseURL is empty.
@@ -20,7 +20,8 @@ export default (bucket) => {
           retryCount > MAX_REQUEST_RETRY_COUNT) {
         return new Error('send request failed');
       }
-      nodeBucket.resetCandidateNodes();
+      nodeBucket.resetNodeBucket();
+      baseURL = nodeBucket.getRequestNode();
     }
 
     // set or build a request config.
