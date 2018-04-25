@@ -32,6 +32,9 @@ const buildReqConfig = ({
   return Object.assign({}, defaultReqConfig, customReqConfig);
 };
 
+const setBaseURL = (config, baseURL) => Object.assign(config, { baseURL });
+
 export default {
   buildReqConfig,
+  setBaseURL,
 };

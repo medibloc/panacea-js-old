@@ -1,4 +1,4 @@
-import { buildReqConfig } from './config';
+import { buildReqConfig, setBaseURL } from './config';
 import { MAX_REQUEST_RETRY_COUNT } from './constants';
 import { request } from './httpRequest';
 
@@ -14,7 +14,7 @@ export default (bucket) => {
     const retryCount = count || 0;
 
     // reset candidate nodes when baseURL is empty.
-    if (baseURL == null) {
+    if (baseURL === null) {
       // return error when retry count exceed limit.
       if (retryCount > nodeBucket.getFullNodesCount() ||
           retryCount > MAX_REQUEST_RETRY_COUNT) {
@@ -26,13 +26,14 @@ export default (bucket) => {
 
     // set or build a request config.
     const reqConfig =
-          config ||
-          buildReqConfig({
-            baseURL,
-            method,
-            path,
-            payload,
-          });
+          config ?
+            setBaseURL(config, baseURL) :
+            buildReqConfig({
+              baseURL,
+              method,
+              path,
+              payload,
+            });
     try {
       return await request(reqConfig);
     } catch (err) {
