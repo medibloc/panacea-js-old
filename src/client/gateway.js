@@ -9,7 +9,7 @@ export default (bucket) => {
   const nodeBucket = bucket;
 
   // sendRequest handle request using the nodeBucket.
-  const sendRequest = ({ method, path, payload }, config, count) => {
+  const sendRequest = async ({ method, path, payload }, config, count) => {
     let baseURL = nodeBucket.getRequestNode();
     const retryCount = count || 0;
 
@@ -33,14 +33,13 @@ export default (bucket) => {
             path,
             payload,
           });
-
-    return request(reqConfig)
-      .then(res => res)
-      .catch(() => {
-        // retry if request throw error.
-        nodeBucket.replaceInvalidRequestNode();
-        return sendRequest({}, reqConfig, retryCount + 1);
-      });
+    try {
+      return await request(reqConfig);
+    } catch (err) {
+      // retry if request throw error.
+      nodeBucket.replaceInvalidRequestNode();
+      return sendRequest({}, reqConfig, retryCount + 1);
+    }
   };
 
   return {
