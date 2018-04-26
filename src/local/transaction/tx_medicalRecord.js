@@ -1,13 +1,5 @@
 import { keyGen, encrypt, hash } from 'cryptography';
 import { checkTx, setTx } from './utils';
-import { REQUIRED_MEDICAL_RECORD_TX_PARAMETERS } from './types';
-
-
-const validateTx = (tx, ownerAccount) => {
-  checkTx.checkRequiredParams(tx, REQUIRED_MEDICAL_RECORD_TX_PARAMETERS);
-  checkTx.checkNonce(tx, ownerAccount);
-  return true;
-};
 
 
 const createTx = (ownerAccount, medicalData) => {
@@ -28,7 +20,7 @@ const createTx = (ownerAccount, medicalData) => {
     type: 'add_record',
     payload: medicalDataPayload,
   });
-  validateTx(tx, ownerAccount);
+  checkTx(tx, ownerAccount);
   return tx;
 };
 
