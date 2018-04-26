@@ -1,22 +1,22 @@
 const checkRequiredParams = (tx, requiredParams) => {
-  let error = null;
   requiredParams.forEach((param) => {
-    if (tx[param] === undefined && tx.data[param] === undefined) error = true;
+    if (tx[param] === undefined && tx.data[param] === undefined) {
+      throw new Error(`Transaction should have ${param} field.`);
+    }
   });
-  if (error) return false;
   return true;
 };
 
 
 const checkNonce = (tx, account) => {
   if (tx.nonce === account.nonce + 1) return true;
-  return false;
+  throw new Error('Transaction nonce should be increased by one.');
 };
 
 
 const checkBalance = (tx, account) => {
   if (tx.value <= account.balance) return true;
-  return false;
+  throw new Error('The amount of token trying to send should be less than the account has.');
 };
 
 

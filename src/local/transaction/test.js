@@ -22,8 +22,6 @@ import txMedicalRecord from './tx_medicalRecord';
 const Vaccounts = new Accounts();
 const Vuser = Vaccounts.newAccount('');
 
-const { hashJson, fromData } = hash;
-
 Vuser.balance = 10;
 const VreceiverPubKey = '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21';
 const valueTx = txValueTransfer.createTx(Vuser, VreceiverPubKey, 10);

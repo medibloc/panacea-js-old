@@ -47,7 +47,7 @@ const createDataPayload = (
     const sharedSecretKey = keyGen.getSharedSecretKey(privKey, writerPubKey);
     const randomSeed = keyGen.getRandomSeed();
     const hashedSharedSecretKey =
-      hash.hashAccessKey(keyGen.concatKeys(sharedSecretKey, randomSeed));
+      hash.hashTo32Byte(keyGen.concatKeys(sharedSecretKey, randomSeed));
     const encryptedSecretKey = encrypt.encryptData(hashedSharedSecretKey, encryptKey);
 
     return {
@@ -58,32 +58,6 @@ const createDataPayload = (
     };
   }
 );
-
-
-// const createDataPayload = (
-//   ({
-//     encryptedDataHash,
-//     encryptKey,
-//     storage,
-//     ownerAccount,
-//     passphrase,
-//     writerPubKey,
-//   }) => {
-//     const privKey = ownerAccount.getDecryptedPrivateKey(passphrase);
-//     const sharedSecretKey = keyGen.getSharedSecretKey(privKey, writerPubKey);
-//     const randomSeed = keyGen.getRandomSeed();
-//     const hashedSharedSecretKey =
-//       hash.hashAccessKey(keyGen.concatKeys(sharedSecretKey, randomSeed));
-//     const encryptedSecretKey = encrypt.encryptData(hashedSharedSecretKey, encryptKey);
-
-//     return {
-//       Hash: encryptedDataHash,
-//       Storage: storage,
-//       EncKey: encryptedSecretKey,
-//       Seed: randomSeed,
-//     };
-//   }
-// );
 
 
 export default {

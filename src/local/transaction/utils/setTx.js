@@ -1,31 +1,30 @@
+const defaultOptions = {
+  ownerAccount: null,
+  to: null,
+  value: 0,
+  nonce: null,
+  chain_id: 1,
+  alg: 1,
+  payload: null,
+  type: null,
+};
+
 const setTx = (options) => {
-  const {
-    ownerAccount,
-    to = null,
-    value = 0,
-    nonce = null,
-    chainId = 1, // TODO : check the number of chain_id
-    alg = 1, // TODO : check the alg
-    type = '', // TODO : Which types do we have?
-    payload = null, // TODO : Any type of payload for value transfer and writer assignment?
-  } = options;
-
-  const tx = {};
-  tx.from = ownerAccount.pubKey;
-  tx.timestamp = Math.floor(new Date().getTime());
-  tx.nonce = nonce || ownerAccount.nonce + 1;
-  tx.to = to;
-  tx.value = value;
-  tx.chain_id = chainId;
-  tx.alg = alg;
-
-  tx.data = {
-    type,
-    payload,
+  const opts = Object.assign({}, defaultOptions, options);
+  const tx = {
+    from: opts.ownerAccount.pubKey,
+    timestamp: Math.floor(new Date().getTime()),
+    nonce: opts.nonce || opts.ownerAccount.nonce + 1,
+    to: opts.to,
+    value: opts.value,
+    chain_id: opts.chain_id,
+    alg: opts.alg,
+    data: {
+      type: opts.type,
+      payload: opts.payload,
+    },
   };
 
-  tx.hash = null;
-  tx.sign = null;
   return tx;
 };
 

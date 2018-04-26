@@ -1,11 +1,13 @@
-import setTx from './setTx';
 import checkTx from './checkTx';
-import getTxHash from './getTxHash';
+import getEncKey from './getEncKey';
+import hashTx from './hashTx';
+import setTx from './setTx';
 import signTx from './signTx';
 
 export default {
-  setTx,
   checkTx,
-  getTxHash,
+  getEncKey,
+  hashTx,
+  setTx,
   signTx,
 };
