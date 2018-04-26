@@ -1,7 +1,7 @@
 const checkRequiredParams = (tx, requiredParams) => {
   let error = null;
   requiredParams.forEach((param) => {
-    if (tx[param] === undefined) error = true;
+    if (tx[param] === undefined && tx.data[param] === undefined) error = true;
   });
   if (error) return false;
   return true;
@@ -15,7 +15,7 @@ const checkNonce = (tx, account) => {
 
 
 const checkBalance = (tx, account) => {
-  if (tx.amount <= account.balance) return true;
+  if (tx.value <= account.balance) return true;
   return false;
 };
 

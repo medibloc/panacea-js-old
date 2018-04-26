@@ -1,19 +1,26 @@
 import { isAddress } from 'util';
 import Account from './account';
 
-
-export default class Accounts {
+class Accounts {
   constructor() {
     // { pubKey : Account }
-    this.list = {};
+    this.accounts = {};
     this.default = '';
   }
 
+  newAccount(passphrase) {
+    if (passphrase === undefined) return false;
+    const newAccount = new Account(passphrase);
+    this.accounts[newAccount.pubKey] = newAccount;
+    if (this.default === '') this.setDefaultAccount(newAccount.pubKey);
+    return newAccount;
+  }
+
   // Generate new account
-  newAccount(passphrase, privKey = '') {
+  addAccount(passphrase, privKey = '') {
     if (passphrase === undefined) return false;
     const newAccount = new Account(passphrase, privKey);
-    this.list[newAccount.pubKey] = newAccount;
+    this.accounts[newAccount.pubKey] = newAccount;
     if (this.default === '') this.setDefaultAccount(newAccount.pubKey);
     return newAccount;
   }
@@ -22,22 +29,26 @@ export default class Accounts {
   removeAccount(pubKey) {
     if (!isAddress(pubKey)) return false;
     if (this.default === pubKey) return false;
-    delete this.list[pubKey];
-    return this.list;
+    delete this.accounts[pubKey];
+    return this.accounts;
   }
 
   // Change default privKey, pubKey
   setDefaultAccount(pubKey) {
-    if (this.list[pubKey] === undefined) return false;
+    if (this.accounts[pubKey] === undefined) return false;
     this.default = pubKey;
     return this.default;
+  }
+
+  getAccounts() {
+    return this.accounts;
   }
 
   // Get specific account matched with pubKey
   getAccount(pubKey) {
     if (!isAddress(pubKey)) return false;
-    if (this.list[pubKey] === undefined) return false;
-    return this.list[pubKey];
+    if (this.accounts[pubKey] === undefined) return false;
+    return this.accounts[pubKey];
   }
 
   // Get default account
@@ -45,3 +56,5 @@ export default class Accounts {
     return this.getAccount(this.default);
   }
 }
+
+export default Accounts;

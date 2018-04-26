@@ -15,7 +15,7 @@ const generateAccount = (passphrase = '') => {
 const setEncryptedPrivateKey = (passphrase = '', encryptedPrivKey) => {
   const privKey = encrypt.decryptData(passphrase, encryptedPrivKey);
   return {
-    privKey,
+    encryptedPrivKey,
     pubKey: keyGen.getPubKey(privKey),
     nonce: null,
     balance: null,

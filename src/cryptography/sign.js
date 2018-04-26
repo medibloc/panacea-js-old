@@ -1,12 +1,18 @@
 import secp256k1 from 'secp256k1';
 
+
+const recoverPubKeyFromSignature = (msgHash, signature) => {
+  const msgHashBuffer = Buffer.from(msgHash, 'hex');
+  const sigBuffer = Buffer.from(signature, 'hex');
+  return secp256k1.recover(msgHashBuffer, sigBuffer, 1).toString('hex');
+};
+
 const sign = (privKey, msgHash) => {
   const msgHashBuffer = Buffer.from(msgHash, 'hex');
   const privKeyBuffer = Buffer.from(privKey, 'hex');
   const signature = secp256k1.sign(msgHashBuffer, privKeyBuffer);
   return signature.signature.toString('hex');
 };
-
 
 const verifySignature = (pubKey, msgHash, signature) => {
   const msgHashBuffer = Buffer.from(msgHash, 'hex');
@@ -17,16 +23,10 @@ const verifySignature = (pubKey, msgHash, signature) => {
 };
 
 
-const recoverPubKeyFromSignature = (msgHash, signature) => {
-  const msgHashBuffer = Buffer.from(msgHash, 'hex');
-  const sigBuffer = Buffer.from(signature, 'hex');
-  return secp256k1.recover(msgHashBuffer, sigBuffer, 1).toString('hex');
-};
-
 export default {
+  recoverPubKeyFromSignature,
   sign,
   verifySignature,
-  recoverPubKeyFromSignature,
 };
 
 

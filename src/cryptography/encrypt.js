@@ -4,6 +4,7 @@ import { hashAccessKey } from './hash';
 
 
 const encryptData = (accessKey = '', msg, algorithm = 'AES-128-CTR', iv = '6f40f39c69a0eff3a17667dffda7b4d5') => {
+  // TODO => update iv to have sync with go-medibloc
   // TODO Need to get stream files also.
   let message = '';
   switch (typeof msg) {

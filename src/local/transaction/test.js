@@ -22,13 +22,15 @@ import txMedicalRecord from './tx_medicalRecord';
 const Vaccounts = new Accounts();
 const Vuser = Vaccounts.newAccount('');
 
+const { hashJson, fromData } = hash;
+
 Vuser.balance = 10;
 const VreceiverPubKey = '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21';
 const valueTx = txValueTransfer.createTx(Vuser, VreceiverPubKey, 10);
 valueTx.from = '03528fa3684218f32c9fd7726a2839cff3ddef49d89bf4904af11bc12335f7c939';
 valueTx.timestamp = 1524549462850;
 valueTx.nonce = 1;
-const valueTxHash = hash.hashJson(valueTx);
+const valueTxHash = hash.fromJson(valueTx);
 console.log(valueTxHash);
 // const valueTxSignature = signTx.signHashedTx(valueTxHash, user, '');
 

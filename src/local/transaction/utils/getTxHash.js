@@ -18,6 +18,4 @@ const getTxHash = (tx) => {
 };
 
 
-export default {
-  getTxHash,
-};
+export default getTxHash;

@@ -19,16 +19,16 @@ const hashData = (msg) => {
 };
 
 
-const hashJson = (jsonMsg) => {
-  if (typeof jsonMsg !== 'object') return false;
+const hashTx = (tx) => {
+  if (typeof tx !== 'object') return false;
   const hash = SHA3256.create();
 
-  const fromBuffer = Buffer.alloc(BYTESIZES.ADDRESS, jsonMsg.from, 'hex');
-  const dataTypeBuffer = Buffer.from(jsonMsg.data.type, 'utf8');
-  const toBuffer = jsonMsg.to ? Buffer.alloc(BYTESIZES.ADDRESS, jsonMsg.to, 'hex') : Buffer.alloc(BYTESIZES.ADDRESS);
+  const fromBuffer = Buffer.alloc(BYTESIZES.ADDRESS, tx.from, 'hex');
+  const dataTypeBuffer = Buffer.from(tx.data.type, 'utf8');
+  const toBuffer = tx.to ? Buffer.alloc(BYTESIZES.ADDRESS, tx.to, 'hex') : Buffer.alloc(BYTESIZES.ADDRESS);
 
-  const dataPayloadBuffer = jsonMsg.data.payload ?
-    Buffer.from(JSON.stringify(jsonMsg.data.payload)) :
+  const dataPayloadBuffer = tx.data.payload ?
+    Buffer.from(JSON.stringify(tx.data.payload)) :
     Buffer.alloc(0);
 
   const timeStampBuffer = Buffer.alloc(BYTESIZES.TIMESTAMP);
@@ -36,14 +36,14 @@ const hashJson = (jsonMsg) => {
   const chainIdBuffer = Buffer.alloc(BYTESIZES.CHAIN_ID);
   const algBuffer = Buffer.alloc(BYTESIZES.ALG);
 
-  timeStampBuffer.writeIntBE(jsonMsg.timestamp, 0, BYTESIZES.TIMESTAMP);
-  nonceBuffer.writeIntBE(jsonMsg.nonce, 0, BYTESIZES.NONCE);
-  algBuffer.writeIntBE(jsonMsg.alg, 0, BYTESIZES.ALG);
-  chainIdBuffer.writeIntBE(jsonMsg.chain_id, 0, BYTESIZES.CHAIN_ID);
+  timeStampBuffer.writeIntBE(tx.timestamp, 0, BYTESIZES.TIMESTAMP);
+  nonceBuffer.writeIntBE(tx.nonce, 0, BYTESIZES.NONCE);
+  algBuffer.writeIntBE(tx.alg, 0, BYTESIZES.ALG);
+  chainIdBuffer.writeIntBE(tx.chain_id, 0, BYTESIZES.CHAIN_ID);
 
   // VALUE
   const valueBuffer = Buffer.alloc(BYTESIZES.VALUE);
-  const { value } = jsonMsg;
+  const { value } = tx;
   const MAX_VALUE = 0xffffffffffffffffffffffff;
   if (value < 0) throw new Error('Can not send negative value');
   if (value > MAX_VALUE) throw new Error('Amount is too large');
@@ -77,5 +77,5 @@ const hashAccessKey = (accessKey) => {
 export default {
   hashData,
   hashAccessKey,
-  hashJson,
+  hashTx,
 };
