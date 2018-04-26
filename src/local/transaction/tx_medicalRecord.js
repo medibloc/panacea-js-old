@@ -1,5 +1,4 @@
-import { keyGen, encrypt, hash } from 'cryptography';
-import { checkTx, setTx } from './utils';
+import { checkTx, setTx, constants } from './utils';
 
 
 const createTx = (ownerAccount, medicalData) => {
@@ -17,42 +16,13 @@ const createTx = (ownerAccount, medicalData) => {
   medicalDataPayload.Seed = Buffer.from(medicalDataPayload.Seed, 'hex').toString('base64');
   const tx = setTx({
     ownerAccount,
-    type: 'add_record',
+    type: constants.MEDICAL_RECORD,
     payload: medicalDataPayload,
   });
-  checkTx(tx, ownerAccount);
+  checkTx(constants.MEDICAL_RECORD, tx, ownerAccount);
   return tx;
 };
 
-
-const createDataPayload = (
-  ({
-    data,
-    storage,
-    ownerAccount,
-    passphrase,
-    writerPubKey,
-  }) => {
-    const encryptKey = keyGen.getRandomSeed();
-    const encryptedDataHash = hash.hashData(encrypt.encryptData(encryptKey, data));
-    const privKey = ownerAccount.getDecryptedPrivateKey(passphrase);
-    const sharedSecretKey = keyGen.getSharedSecretKey(privKey, writerPubKey);
-    const randomSeed = keyGen.getRandomSeed();
-    const hashedSharedSecretKey =
-      hash.hashTo32Byte(keyGen.concatKeys(sharedSecretKey, randomSeed));
-    const encryptedSecretKey = encrypt.encryptData(hashedSharedSecretKey, encryptKey);
-
-    return {
-      Hash: encryptedDataHash,
-      Storage: storage,
-      EncKey: encryptedSecretKey,
-      Seed: randomSeed,
-    };
-  }
-);
-
-
 export default {
   createTx,
-  createDataPayload,
 };

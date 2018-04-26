@@ -1,4 +1,4 @@
-import { checkTx, setTx } from './utils';
+import { checkTx, setTx, constants } from './utils';
 
 
 const createTx = (ownerAccount, writerPubKey) => {
@@ -7,9 +7,9 @@ const createTx = (ownerAccount, writerPubKey) => {
     payload: {
       Writer: writerPubKey,
     },
-    type: 'register_wkey',
+    type: constants.WRITER_ASSIGN,
   });
-  checkTx(tx, ownerAccount);
+  checkTx(constants.WRITER_ASSIGN, tx, ownerAccount);
   return tx;
 };
 

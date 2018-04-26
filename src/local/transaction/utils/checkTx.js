@@ -2,6 +2,9 @@ import {
   REQUIRED_VALUE_TRANSFER_TX_PARAMETERS,
   REQUIRED_MEDICAL_RECORD_TX_PARAMETERS,
   REQUIRED_WRITER_ASSIGN_TX_PARAMETERS,
+  VALUE_TRANSFER,
+  WRITER_ASSIGN,
+  MEDICAL_RECORD,
 } from './constants';
 
 const checkRequiredParams = (tx, requiredParams) => {
@@ -27,16 +30,16 @@ const checkBalance = (tx, account) => {
 
 const check = (type, tx, account) => {
   switch (type) {
-    case 'valueTransfer':
+    case VALUE_TRANSFER:
       checkRequiredParams(tx, REQUIRED_VALUE_TRANSFER_TX_PARAMETERS);
       checkNonce(tx, account);
       checkBalance(tx, account);
       break;
-    case 'writerAssign':
+    case WRITER_ASSIGN:
       checkRequiredParams(tx, REQUIRED_WRITER_ASSIGN_TX_PARAMETERS);
       checkNonce(tx, account);
       break;
-    case 'medicalRecord':
+    case MEDICAL_RECORD:
       checkRequiredParams(tx, REQUIRED_MEDICAL_RECORD_TX_PARAMETERS);
       checkNonce(tx, account);
       break;

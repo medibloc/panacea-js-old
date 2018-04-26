@@ -24,7 +24,6 @@ const setTx = (options) => {
       payload: opts.payload,
     },
   };
-
   return tx;
 };
 

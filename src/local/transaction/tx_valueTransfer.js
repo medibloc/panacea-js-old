@@ -1,13 +1,13 @@
-import { checkTx, setTx } from './utils';
+import { checkTx, setTx, constants } from './utils';
 
 const createTx = (ownerAccount, receiverPubKey, value) => {
   const tx = setTx({
     ownerAccount,
     to: receiverPubKey,
     value,
-    type: 'binary',
+    type: constants.VALUE_TRANSFER,
   });
-  checkTx(tx, ownerAccount);
+  checkTx(constants.VALUE_TRANSFER, tx, ownerAccount);
   return tx;
 };
 
