@@ -10,4 +10,4 @@ const request = async (config) => {
 // TODO: impl asyncRequest
 const asyncRequest = () => {};
 
-export { request, asyncRequest };
+export default { request, asyncRequest };

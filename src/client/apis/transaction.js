@@ -1,6 +1,4 @@
-export default (_gateway) => {
-  const gateway = _gateway;
-
+export default (gateway) => {
   const sendTransaction = (from, to, value, nonce) => {
     const reqConfig = {
       method: 'post',

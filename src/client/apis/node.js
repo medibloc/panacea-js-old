@@ -1,6 +1,4 @@
-export default (_gateway) => {
-  const gateway = _gateway;
-
+export default (gateway) => {
   const getMedState = () => {
     const reqConfig = {
       method: 'get',

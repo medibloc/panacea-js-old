@@ -1,6 +1,4 @@
-export default (_gateway) => {
-  const gateway = _gateway;
-
+export default (gateway) => {
   const getAccountState = (address, height) => {
     const reqConfig = {
       method: 'get',

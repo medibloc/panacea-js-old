@@ -1,12 +1,11 @@
-export default (nodeArray) => {
-  if (!nodeArray || !Array.isArray(nodeArray)) {
+export default (nodes) => {
+  if (!nodes || !Array.isArray(nodes)) {
     throw new Error('nodeBucket requires array of nodes for initialization.');
   }
-  if (nodeArray.length === 0) {
+  if (nodes.length === 0) {
     throw new Error('nodeBucket requires not empty array of nodes for initialization.');
   }
 
-  const nodes = nodeArray.slice();
   const size = nodes.length;
   let requestNodeIndex = 0;
 

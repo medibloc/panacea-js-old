@@ -2,11 +2,10 @@ import { buildReqConfig, setBaseURL } from './config';
 import { MAX_REQUEST_RETRY_COUNT } from './constants';
 import { request } from './httpRequest';
 
-export default (bucket) => {
-  if (!bucket) {
+export default (nodeBucket) => {
+  if (!nodeBucket) {
     throw new Error('gateway requires bucket for initialization.');
   }
-  const nodeBucket = bucket;
 
   // sendRequest handle request using the nodeBucket.
   const sendRequest = async ({ method, path, payload }, config, count) => {
@@ -16,7 +15,7 @@ export default (bucket) => {
     // return error when retry count exceed limit.
     if (retryCount > nodeBucket.getSize() ||
         retryCount > MAX_REQUEST_RETRY_COUNT) {
-      return new Error('send request failed');
+      throw new Error('send request failed.');
     }
 
     // set or build a request config.
@@ -30,7 +29,7 @@ export default (bucket) => {
               payload,
             });
     try {
-      return await request(reqConfig);
+      return request(reqConfig);
     } catch (err) {
       // retry if request throw error.
       nodeBucket.replaceRequestNode();
