@@ -21,18 +21,20 @@ function txWrapper(rawTx) {
 
 export default {
   valueTransferTx: (txData) => {
-    const { from, receiverPubKey, value } = txData;
-    const rawTx = createValueTransferTx(from, receiverPubKey, value);
+    const {
+      from, receiver, value, nonce,
+    } = txData;
+    const rawTx = createValueTransferTx(from, receiver, value, nonce);
     return txWrapper(rawTx);
   },
   writerAssignTx: (txData) => {
-    const { from, writerPubKey } = txData;
-    const rawTx = createWriterAssignTx(from, writerPubKey);
+    const { from, writer, nonce } = txData;
+    const rawTx = createWriterAssignTx(from, writer, nonce);
     return txWrapper(rawTx);
   },
   medicalRecordTx: (txData) => {
-    const { from, medicalData } = txData;
-    const rawTx = createMedicalRecordTx(from, medicalData);
+    const { from, medicalData, nonce } = txData;
+    const rawTx = createMedicalRecordTx(from, medicalData, nonce);
     return txWrapper(rawTx);
   },
 };

@@ -4,10 +4,8 @@ import { keyGen, encrypt } from 'cryptography';
 const generateAccount = (passphrase = '') => {
   const keyPair = keyGen.getKeyPair();
   return {
-    privKey: encrypt.encryptData(passphrase, keyPair.privKey),
+    encryptedPrivKey: encrypt.encryptData(passphrase, keyPair.privKey),
     pubKey: keyPair.pubKey,
-    nonce: null,
-    balance: null,
   };
 };
 
@@ -17,8 +15,6 @@ const setEncryptedPrivateKey = (passphrase = '', encryptedPrivKey) => {
   return {
     encryptedPrivKey,
     pubKey: keyGen.getPubKey(privKey),
-    nonce: null,
-    balance: null,
   };
 };
 
@@ -38,29 +34,29 @@ export default class Account {
 
   // get decrypted private key
   getDecryptedPrivateKey(passphrase = '') {
-    const privKey = encrypt.decryptData(passphrase, this.privKey);
+    const privKey = encrypt.decryptData(passphrase, this.encryptedPrivKey);
     return privKey;
   }
 
   // set nonce
-  setNonce(nonce) {
-    this.nonce = nonce;
-    return this;
-  }
+  // setNonce(nonce) {
+  //   this.nonce = nonce;
+  //   return this;
+  // }
 
   // set balance
-  setBalance(balance) {
-    this.balance = balance;
-    return this;
-  }
+  // setBalance(balance) {
+  //   this.balance = balance;
+  //   return this;
+  // }
 
   // get Account information
-  getAccountInfo() {
-    const {
-      privKey, pubKey, nonce, balance,
-    } = this;
-    return {
-      privKey, pubKey, nonce, balance,
-    };
-  }
+  // getAccountInfo() {
+  //   const {
+  //     privKey, pubKey, nonce, balance,
+  //   } = this;
+  //   return {
+  //     privKey, pubKey, nonce, balance,
+  //   };
+  // }
 }

@@ -10,19 +10,15 @@ const signRawTx = (tx, passphrase) => {
   return sign.sign(privKey, txHash);
 };
 
-const signHashedTx = (txHash, ownerAccount, passphrase) => {
-  const privKey = ownerAccount.getDecryptedPrivateKey(passphrase);
+
+const signHashedTx = (txHash, fromAccount, passphrase) => {
+  const privKey = fromAccount.getDecryptedPrivateKey(passphrase);
   return sign.sign(privKey, txHash);
 };
 
 
-const verifySignature = (pubKey, txHash, signature) => (
-  sign.verifySignature(pubKey, txHash, signature)
-);
-
 
 export default {
   signRawTx,
-  verifySignature,
   signHashedTx,
 };

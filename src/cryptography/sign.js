@@ -23,7 +23,6 @@ const verifySignature = (pubKey, msgHash, signature) => {
   const pubKeyBuffer = Buffer.from(pubKey, 'hex');
   const signatureBuffer = Buffer.from(signature.slice(0, -2), 'hex');
   const isValid = secp256k1.verify(msgHashBuffer, signatureBuffer, pubKeyBuffer);
-  console.log(isValid);
   return isValid;
 };
 
