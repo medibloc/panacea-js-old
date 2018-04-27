@@ -1,43 +1,38 @@
 import { createTx as createValueTransferTx } from './tx_valueTransfer';
 import { createTx as createWriterAssignTx } from './tx_writerAssign';
 import { createTx as createMedicalRecordTx } from './tx_medicalRecord';
-import { hashTx, signTx, constants } from './utils';
-
+import { hashTx, signTx } from './utils';
 
 const { signHashedTx } = signTx;
-const {
-  VALUE_TRANSFER,
-  WRITER_ASSIGN,
-  MEDICAL_RECORD,
-} = constants;
 
 
-export default (type, txData) => {
-  let rawTx = {};
-  switch (type) {
-    case VALUE_TRANSFER: {
-      const { sender, receiverPubKey, value } = txData;
-      rawTx = createValueTransferTx(sender, receiverPubKey, value);
-      break;
-    }
-    case WRITER_ASSIGN: {
-      const { owner, writerPubKey } = txData;
-      rawTx = createWriterAssignTx(owner, writerPubKey);
-      break;
-    }
-    case MEDICAL_RECORD: {
-      const { patient, medicalData } = txData;
-      rawTx = createMedicalRecordTx(patient, medicalData);
-      break;
-    }
-    default:
-      throw new Error('Wrong transaction type.');
-  }
+function sign(privKey, passphrase) {
+  return signHashedTx(this.hash, privKey, passphrase);
+}
 
-  const hash = hashTx(rawTx);
+function txWrapper(rawTx) {
   return {
     rawTx,
-    hash,
-    sign: ((user, passphrase) => signHashedTx(hash, user, passphrase)),
+    hash: hashTx(rawTx),
+    sign,
   };
+}
+
+
+export default {
+  valueTransferTx: (txData) => {
+    const { from, receiverPubKey, value } = txData;
+    const rawTx = createValueTransferTx(from, receiverPubKey, value);
+    return txWrapper(rawTx);
+  },
+  writerAssignTx: (txData) => {
+    const { from, writerPubKey } = txData;
+    const rawTx = createWriterAssignTx(from, writerPubKey);
+    return txWrapper(rawTx);
+  },
+  medicalRecordTx: (txData) => {
+    const { from, medicalData } = txData;
+    const rawTx = createMedicalRecordTx(from, medicalData);
+    return txWrapper(rawTx);
+  },
 };
