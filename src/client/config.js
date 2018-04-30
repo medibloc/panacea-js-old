@@ -5,20 +5,20 @@ import {
   POST,
 } from './constants';
 
-const defaultReqConfig = {
+const defaultConfig = {
   timeout: DEFAULT_TIMEOUT,
   validateStatus(status) {
     return status >= 200 && status < 500;
   },
 };
 
-const buildReqConfig = ({
+const buildConfig = ({
   baseURL,
   method,
   path,
   payload,
 }) => {
-  const customReqConfig = {
+  const customConfig = {
     baseURL,
     method,
     url: path,
@@ -29,12 +29,12 @@ const buildReqConfig = ({
     },
   };
 
-  return Object.assign({}, defaultReqConfig, customReqConfig);
+  return Object.assign({}, defaultConfig, customConfig);
 };
 
 const setBaseURL = (config, baseURL) => Object.assign(config, { baseURL });
 
 export default {
-  buildReqConfig,
+  buildConfig,
   setBaseURL,
 };

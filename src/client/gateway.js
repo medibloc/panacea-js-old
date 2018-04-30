@@ -1,4 +1,4 @@
-import { buildReqConfig, setBaseURL } from './config';
+import { buildConfig, setBaseURL } from './config';
 import { MAX_REQUEST_RETRY_COUNT } from './constants';
 import { request } from './httpRequest';
 
@@ -8,32 +8,31 @@ export default (nodeBucket) => {
   }
 
   // sendRequest handle request using the nodeBucket.
-  const sendRequest = async ({ method, path, payload }, config, count) => {
+  const sendRequest = async ({ method, path, payload }, prevConfig, count) => {
     const baseURL = nodeBucket.getRequestNode();
     const retryCount = count || 0;
 
     // return error when retry count exceed limit.
-    if (retryCount > nodeBucket.getSize() ||
+    if (retryCount >= nodeBucket.getSize() ||
         retryCount > MAX_REQUEST_RETRY_COUNT) {
       throw new Error('send request failed.');
     }
 
-    // set or build a request config.
-    const reqConfig =
-          config ?
-            setBaseURL(config, baseURL) :
-            buildReqConfig({
-              baseURL,
-              method,
-              path,
-              payload,
-            });
+    // set or build a config.
+    const config = prevConfig ?
+      setBaseURL(prevConfig, baseURL) :
+      buildConfig({
+        baseURL,
+        method,
+        path,
+        payload,
+      });
     try {
-      return request(reqConfig);
+      return request(config);
     } catch (err) {
       // retry if request throw error.
       nodeBucket.replaceRequestNode();
-      return sendRequest({}, reqConfig, retryCount + 1);
+      return sendRequest({}, config, retryCount + 1);
     }
   };
 
