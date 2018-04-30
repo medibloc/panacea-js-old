@@ -44,11 +44,13 @@
     "axios": "^0.18.0",
     "babel-runtime": "^6.26.0",
     "browserify": "^16.2.0",
+    "chai-as-promised": "^7.1.1",
     "elliptic": "^6.4.0",
     "key-encoder": "^1.1.6",
     "secp256k1": "^3.5.0"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
     "babel-cli": "^6.26.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-module-resolver": "^3.1.1",
@@ -63,6 +65,9 @@
     "eslint-plugin-import": "^2.11.0",
     "mocha": "^5.1.0",
     "pre-commit": "^1.2.2",
+    "proxyquire": "^2.0.1",
+    "sinon": "^4.5.0",
+    "sinon-chai": "^3.0.0",
     "uglify-es": "^3.3.9"
   }
 }
