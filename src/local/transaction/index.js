@@ -6,15 +6,15 @@ import { hashTx, signTx } from './utils';
 const { signHashedTx } = signTx;
 
 
-function sign(privKey, passphrase) {
-  return signHashedTx(this.hash, privKey, passphrase);
+function sign(txHash, account, passphrase) {
+  return signHashedTx(txHash, account, passphrase);
 }
 
 function txWrapper(rawTx) {
   return {
     rawTx,
     hash: hashTx(rawTx),
-    sign,
+    sign: null,
   };
 }
 
@@ -22,19 +22,24 @@ function txWrapper(rawTx) {
 export default {
   valueTransferTx: (txData) => {
     const {
-      from, receiver, value, nonce,
+      from, receiver, value, nonce, timestamp,
     } = txData;
-    const rawTx = createValueTransferTx(from, receiver, value, nonce);
+    const rawTx = createValueTransferTx(from, receiver, value, nonce, timestamp);
     return txWrapper(rawTx);
   },
   writerAssignTx: (txData) => {
-    const { from, writer, nonce } = txData;
-    const rawTx = createWriterAssignTx(from, writer, nonce);
+    const {
+      from, writer, nonce, timestamp,
+    } = txData;
+    const rawTx = createWriterAssignTx(from, writer, nonce, timestamp);
     return txWrapper(rawTx);
   },
   medicalRecordTx: (txData) => {
-    const { from, medicalData, nonce } = txData;
-    const rawTx = createMedicalRecordTx(from, medicalData, nonce);
+    const {
+      from, medicalData, nonce, timestamp,
+    } = txData;
+    const rawTx = createMedicalRecordTx(from, medicalData, nonce, timestamp);
     return txWrapper(rawTx);
   },
+  signTx: sign,
 };

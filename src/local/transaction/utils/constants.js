@@ -40,8 +40,8 @@ const REQUIRED_WRITER_ASSIGN_TX_PARAMETERS = [
   'nonce',
   'chain_id',
   'alg',
-  'type',
   'payload',
+  'type',
 ];
 
 export default {

@@ -10,7 +10,7 @@ describe('#isAddress', () => {
       expect(pubKey).to.be.hexString;
     });
     it('It\'s byte length should be 33', () => {
-      const isValid = isAddress.isAddress(pubKey);
+      const isValid = isAddress(pubKey);
       expect(isValid).to.be.true;
     });
   });

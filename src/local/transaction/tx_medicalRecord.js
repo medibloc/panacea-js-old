@@ -7,16 +7,18 @@ const validateTx = (tx) => {
 };
 
 
-const createTx = (fromPubKey, medicalData, nonce) => {
-  const medicalDataPayload = medicalData;
+const createTx = (from, medicalData, nonce, timestamp) => {
+  const medicalDataPayload = {};
   const dataPayloadHash = [];
-  Buffer.from(medicalDataPayload.Hash, 'hex').forEach(byte => dataPayloadHash.push(byte));
+  Buffer.from(medicalData.Hash, 'hex').forEach(byte => dataPayloadHash.push(byte));
   medicalDataPayload.Hash = dataPayloadHash;
-  medicalDataPayload.EncKey = Buffer.from(medicalDataPayload.EncKey, 'hex').toString('base64');
-  medicalDataPayload.Seed = Buffer.from(medicalDataPayload.Seed, 'hex').toString('base64');
+  medicalDataPayload.Storage = medicalData.Storage;
+  medicalDataPayload.EncKey = Buffer.from(medicalData.EncKey, 'hex').toString('base64');
+  medicalDataPayload.Seed = Buffer.from(medicalData.Seed, 'hex').toString('base64');
   const tx = setTx({
     nonce,
-    fromPubKey,
+    from,
+    timestamp,
     type: constants.MEDICAL_RECORD,
     payload: medicalDataPayload,
   });

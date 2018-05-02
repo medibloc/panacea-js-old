@@ -7,12 +7,15 @@ const validateTx = (tx) => {
 };
 
 
-const createTx = (fromPubKey, writerPubKey, nonce) => {
+const createTx = (from, writerPubKey, nonce, timestamp) => {
+  const dataPayloadHash = [];
+  Buffer.from(writerPubKey, 'hex').forEach(byte => dataPayloadHash.push(byte));
   const tx = setTx({
-    fromPubKey,
+    from,
     nonce,
+    timestamp,
     payload: {
-      Writer: writerPubKey,
+      Writer: dataPayloadHash,
     },
     type: constants.WRITER_ASSIGN,
   });

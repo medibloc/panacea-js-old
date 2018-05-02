@@ -1,4 +1,5 @@
 import { sha3_256 as SHA3256 } from 'js-sha3';
+import { BigNumber } from 'bignumber.js';
 import { BYTESIZES } from './constants';
 
 const hashTx = (tx) => {
@@ -25,11 +26,13 @@ const hashTx = (tx) => {
 
   // VALUE
   const valueBuffer = Buffer.alloc(BYTESIZES.VALUE);
-  const { value } = tx;
-  const MAX_VALUE = 0xffffffffffffffffffffffff;
-  if (value < 0) throw new Error('Can not send negative value');
-  if (value > MAX_VALUE) throw new Error('Amount is too large');
+  if (typeof tx.value !== 'string') throw new Error('Type of value need to be string');
+  const value = new BigNumber(tx.value); // From Decimal
+  const MAX_VALUE = new BigNumber('ffffffffffffffffffffffff', 16);
+  if (value.lt(0)) throw new Error('Can not send negative value');
+  if (value.gt(MAX_VALUE)) throw new Error('Amount is too large');
   valueBuffer.writeIntBE(value, 0, BYTESIZES.VALUE);
+
 
   const buf = Buffer.concat([
     fromBuffer,
