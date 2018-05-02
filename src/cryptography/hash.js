@@ -1,6 +1,6 @@
-import { createHash } from 'crypto';
+import { sha3_256 as SHA3256 } from 'js-sha3';
 
-const hashData = (msg, algorithm = 'sha256') => {
+const hashData = (msg) => {
   let message = '';
   switch (typeof msg) {
     case 'string':
@@ -13,28 +13,19 @@ const hashData = (msg, algorithm = 'sha256') => {
     default:
       throw new Error('Invalid msg type');
   }
-  const hash = createHash(algorithm);
-  return hash.update(message).digest('hex');
-};
-
-const hashJson = (jsonMsg, algorithm = 'sha256') => {
-  if (typeof jsonMsg !== 'object') throw new Error('Wrong format');
-  const message = JSON.stringify(jsonMsg);
-  const hash = createHash(algorithm);
-  return hash.update(message).digest('hex');
-};
-
-const hashAccessKey = (accessKey, algorithm = 'sha256') => {
-  const hash = createHash(algorithm);
-  hash.update(accessKey);
-  const hashedKey = hash.digest('hex');
-  return hashedKey.slice(0, 16);
+  const hash = SHA3256.create();
+  return hash.update(message).hex();
 };
 
 // const hashDataStream = () => {};
+const hashTo32Byte = (accessKey) => {
+  const hash = SHA3256.create();
+  hash.update(accessKey);
+  const hashedKey = hash.hex();
+  return hashedKey;
+};
 
 export default {
   hashData,
-  hashAccessKey,
-  hashJson,
+  hashTo32Byte,
 };

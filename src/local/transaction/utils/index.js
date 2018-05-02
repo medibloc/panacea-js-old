@@ -1,11 +1,13 @@
-import setTx from './setTx';
 import checkTx from './checkTx';
-import getTxHash from './getTxHash';
+import hashTx from './hashTx';
+import setTx from './setTx';
 import signTx from './signTx';
+import constants from './constants';
 
 export default {
-  setTx,
   checkTx,
-  getTxHash,
+  hashTx,
+  setTx,
   signTx,
+  constants,
 };

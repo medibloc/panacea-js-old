@@ -1,5 +1,5 @@
 import chai, { expect } from 'chai';
-import isAddress from 'util';
+import { isAddress } from 'util';
 import { keyGen } from 'cryptography';
 import chaiHexString from 'test/helpers/chaiHexString';
 
@@ -13,7 +13,7 @@ describe('#isAddress', () => {
       expect(pubKey).to.be.hexString;
     });
     it('It\'s byte length should be 33', () => {
-      const isValid = isAddress.isAddress(pubKey);
+      const isValid = isAddress(pubKey);
       expect(isValid).to.be.true;
     });
   });

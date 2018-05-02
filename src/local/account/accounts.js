@@ -1,61 +1,62 @@
-import { isAddress } from 'util';
-import Account from './account';
+// DEPRECTED
 
+// import { isAddress } from 'util';
+// import Account from './account';
 
-export default class Accounts {
-  constructor() {
-    this.list = [];
-    this.default = {};
-  }
+// class Accounts {
+//   constructor() {
+//     // { pubKey : Account }
+//     this.accounts = {};
+//     this.default = '';
+//   }
 
-  // Generate new account
-  newAccount(passphrase = '', privKey = '') {
-    const newAccount = new Account(passphrase, privKey);
-    this.list.push(newAccount);
-    if (this.list.length === 1) {
-      this.setDefaultAccount(newAccount.pubKey);
-    }
-    return newAccount;
-  }
+//   newAccount(passphrase) {
+//     if (passphrase === undefined) return false;
+//     const newAccount = new Account(passphrase);
+//     this.accounts[newAccount.pubKey] = newAccount;
+//     if (this.default === '') this.setDefaultAccount(newAccount.pubKey);
+//     return newAccount;
+//   }
 
-  // Remove account from account list
-  removeAccount(pubKey) {
-    try {
-      isAddress(pubKey);
-    } catch (err) {
-      throw err;
-    }
-    const removeIndex = this.list.map(account => account.pubKey).indexOf(pubKey);
-    if (removeIndex === -1) throw new Error('Unregistered public key');
-    this.list.splice(removeIndex, 1);
-  }
+//   // Generate new account
+//   addAccount(passphrase, privKey = '') {
+//     if (passphrase === undefined) return false;
+//     const newAccount = new Account(passphrase, privKey);
+//     this.accounts[newAccount.pubKey] = newAccount;
+//     if (this.default === '') this.setDefaultAccount(newAccount.pubKey);
+//     return newAccount;
+//   }
 
-  // Change default privKey, pubKey
-  setDefaultAccount(pubKey) {
-    this.list.forEach((account) => {
-      if (account.pubKey === pubKey) {
-        this.default = account;
-      }
-    });
-    // throw new Error('Unregistered public key.');
-  }
+//   // Remove account from account list
+//   removeAccount(pubKey) {
+//     if (!isAddress(pubKey)) return false;
+//     if (this.default === pubKey) return false;
+//     delete this.accounts[pubKey];
+//     return this.accounts;
+//   }
 
-  // Get specific account matched with pubKey
-  getAccount(pubKey) {
-    try {
-      isAddress(pubKey);
-    } catch (err) {
-      throw err;
-    }
-    this.list.forEach((account) => {
-      if (account.pubKey === pubKey) return account;
-      return null;
-    });
-    return null;
-  }
+//   // Change default privKey, pubKey
+//   setDefaultAccount(pubKey) {
+//     if (this.accounts[pubKey] === undefined) return false;
+//     this.default = pubKey;
+//     return this.default;
+//   }
 
-  // Get default account
-  getDefaultAccount() {
-    return this.default;
-  }
-}
+//   getAccounts() {
+//     return this.accounts;
+//   }
+
+//   // Get specific account matched with pubKey
+//   getAccount(pubKey) {
+//     if (!isAddress(pubKey)) return false;
+//     if (this.accounts[pubKey] === undefined) return false;
+//     return this.accounts[pubKey];
+//   }
+
+//   // Get default account
+//   getDefaultAccount() {
+//     return this.getAccount(this.default);
+//   }
+// }
+
+// export default Accounts;

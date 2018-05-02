@@ -1,20 +1,25 @@
-import { checkTx, setTx } from './utils';
-import { REQUIRED_WRITER_ASSIGN_TX_PARAMETERS } from './types';
+import { checkTx, setTx, constants } from './utils';
+import { REQUIRED_WRITER_ASSIGN_TX_PARAMETERS } from './utils/constants';
 
 
-const validateTx = (tx, userAccount) => {
+const validateTx = (tx) => {
   checkTx.checkRequiredParams(tx, REQUIRED_WRITER_ASSIGN_TX_PARAMETERS);
-  checkTx.checkNonce(tx, userAccount);
-  return true;
 };
 
 
-const createTx = (userAccount, writer) => {
-  let tx = {};
-  tx = setTx.setCommon(tx, userAccount);
-  tx = setTx.setWriter(tx, writer);
-  tx = setTx.setType(tx, 'writerAssign');
-  validateTx(tx, userAccount);
+const createTx = (from, writerPubKey, nonce, timestamp) => {
+  const dataPayloadHash = [];
+  Buffer.from(writerPubKey, 'hex').forEach(byte => dataPayloadHash.push(byte));
+  const tx = setTx({
+    from,
+    nonce,
+    timestamp,
+    payload: {
+      Writer: dataPayloadHash,
+    },
+    type: constants.WRITER_ASSIGN,
+  });
+  validateTx(tx);
   return tx;
 };
 

@@ -1,22 +1,21 @@
-import { checkTx, setTx } from './utils';
-import { REQUIRED_VALUE_TRANSFER_TX_PARAMETERS } from './types';
+import { checkTx, setTx, constants } from './utils';
+import { REQUIRED_VALUE_TRANSFER_TX_PARAMETERS } from './utils/constants';
 
 
-const validateTx = (tx, userAccount) => {
+const validateTx = (tx) => {
   checkTx.checkRequiredParams(tx, REQUIRED_VALUE_TRANSFER_TX_PARAMETERS);
-  checkTx.checkNonce(tx, userAccount);
-  checkTx.checkBalance(tx, userAccount);
-  return true;
 };
 
-
-const createTx = (userAccount, receiver, amount) => {
-  let tx = {};
-  tx = setTx.setCommon(tx, userAccount);
-  tx = setTx.setAmount(tx, amount);
-  tx = setTx.setReceiver(tx, receiver);
-  tx = setTx.setType(tx, 'valueTransfer');
-  validateTx(tx, userAccount);
+const createTx = (from, receiver, value, nonce, timestamp) => {
+  const tx = setTx({
+    from,
+    nonce,
+    timestamp,
+    to: receiver,
+    value,
+    type: constants.VALUE_TRANSFER,
+  });
+  validateTx(tx);
   return tx;
 };
 

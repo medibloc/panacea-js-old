@@ -43,11 +43,14 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-runtime": "^6.26.0",
+    "bignumber.js": "^7.0.1",
     "browserify": "^16.2.0",
     "chai-as-promised": "^7.1.1",
     "elliptic": "^6.4.0",
+    "js-sha3": "^0.7.0",
     "key-encoder": "^1.1.6",
-    "secp256k1": "^3.5.0"
+    "secp256k1": "^3.5.0",
+    "sha3": "^1.2.0"
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.15.0",

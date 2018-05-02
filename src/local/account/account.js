@@ -4,7 +4,7 @@ import { keyGen, encrypt } from 'cryptography';
 const generateAccount = (passphrase = '') => {
   const keyPair = keyGen.getKeyPair();
   return {
-    privKey: encrypt.encryptData(passphrase, keyPair.privKey),
+    encryptedPrivKey: encrypt.encryptData(passphrase, keyPair.privKey),
     pubKey: keyPair.pubKey,
   };
 };
@@ -13,50 +13,50 @@ const generateAccount = (passphrase = '') => {
 const setEncryptedPrivateKey = (passphrase = '', encryptedPrivKey) => {
   const privKey = encrypt.decryptData(passphrase, encryptedPrivKey);
   return {
-    privKey,
+    encryptedPrivKey,
     pubKey: keyGen.getPubKey(privKey),
   };
 };
 
 
 export default class Account {
-  constructor(passphrase = '', encryptedPrivKey = '') {
+  constructor(passphrase, encryptedPrivKey = '') {
+    let newAccount = {};
     if (encryptedPrivKey === '') {
-      const { privKey, pubKey } = generateAccount(passphrase);
-      this.privKey = privKey;
-      this.pubKey = pubKey;
+      newAccount = generateAccount(passphrase);
     } else {
-      const { privKey, pubKey } = setEncryptedPrivateKey(passphrase, encryptedPrivKey);
-      this.privKey = privKey;
-      this.pubKey = pubKey;
+      newAccount = setEncryptedPrivateKey(passphrase, encryptedPrivKey);
     }
+    Object.keys(newAccount).forEach((key) => {
+      this[key] = newAccount[key];
+    });
   }
 
   // get decrypted private key
   getDecryptedPrivateKey(passphrase = '') {
-    const privKey = encrypt.decryptData(passphrase, this.privKey);
+    const privKey = encrypt.decryptData(passphrase, this.encryptedPrivKey);
     return privKey;
   }
 
   // set nonce
-  setNonce(nonce) {
-    this.nonce = nonce;
-    return this;
-  }
+  // setNonce(nonce) {
+  //   this.nonce = nonce;
+  //   return this;
+  // }
 
   // set balance
-  setBalance(balance) {
-    this.balance = balance;
-    return this;
-  }
+  // setBalance(balance) {
+  //   this.balance = balance;
+  //   return this;
+  // }
 
   // get Account information
-  getAccountInfo() {
-    const {
-      privKey, pubKey, nonce, balance,
-    } = this;
-    return {
-      privKey, pubKey, nonce, balance,
-    };
-  }
+  // getAccountInfo() {
+  //   const {
+  //     privKey, pubKey, nonce, balance,
+  //   } = this;
+  //   return {
+  //     privKey, pubKey, nonce, balance,
+  //   };
+  // }
 }

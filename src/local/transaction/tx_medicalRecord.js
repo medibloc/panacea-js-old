@@ -1,48 +1,32 @@
-import { keyGen, encrypt, hash } from 'cryptography';
-import { checkTx, setTx } from './utils';
-import { REQUIRED_MEDICAL_RECORD_TX_PARAMETERS } from './types';
+import { checkTx, setTx, constants } from './utils';
+import { REQUIRED_MEDICAL_RECORD_TX_PARAMETERS } from './utils/constants';
 
 
-const validateTx = (tx, userAccount) => {
+const validateTx = (tx) => {
   checkTx.checkRequiredParams(tx, REQUIRED_MEDICAL_RECORD_TX_PARAMETERS);
-  checkTx.checkNonce(tx, userAccount);
-  return true;
 };
 
 
-const createTx = (userAccount, doctorSignature, medicalData) => {
-  let tx = {
-    type: 'dataUpload',
-    data: {
-      payload: medicalData,
-    },
-  };
-  tx = setTx.setCommon(tx, userAccount);
-  tx = setTx.setSignature(tx, doctorSignature);
-  validateTx(tx, userAccount);
+const createTx = (from, medicalData, nonce, timestamp) => {
+  const medicalDataPayload = {};
+  const dataPayloadHash = [];
+  Buffer.from(medicalData.Hash, 'hex').forEach(byte => dataPayloadHash.push(byte));
+  medicalDataPayload.Hash = dataPayloadHash;
+  medicalDataPayload.Storage = medicalData.Storage;
+  medicalDataPayload.EncKey = Buffer.from(medicalData.EncKey, 'hex').toString('base64');
+  medicalDataPayload.Seed = Buffer.from(medicalData.Seed, 'hex').toString('base64');
+  const tx = setTx({
+    nonce,
+    from,
+    timestamp,
+    type: constants.MEDICAL_RECORD,
+    payload: medicalDataPayload,
+  });
+  validateTx(tx);
   return tx;
 };
 
 
-const createMedicalData = (
-  (encryptedDataHash, encryptKey, storage, userAccount, passphrase, doctorPubKey) => {
-    const privKey = userAccount.getDecryptedPrivateKey(passphrase);
-    const sharedSecretKey = keyGen.getSharedSecretKey(privKey, doctorPubKey);
-    const randomSeed = keyGen.getRandomSeed();
-    const encryptKey2 = hash.hashAccessKey(keyGen.concatKeys(sharedSecretKey, randomSeed));
-    const encryptedSecretKey = encrypt.encryptData(encryptKey2, encryptKey);
-
-    return {
-      encryptedDataHash,
-      storage,
-      encryptedSecretKey,
-      seed: randomSeed,
-    };
-  }
-);
-
-
 export default {
   createTx,
-  createMedicalData,
 };
