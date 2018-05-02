@@ -22,21 +22,21 @@ function txWrapper(rawTx) {
 export default {
   valueTransferTx: (txData) => {
     const {
-      from, receiver, value, nonce, timestamp,
+      from, receiver, value, nonce, timestamp, // timestamp - option
     } = txData;
     const rawTx = createValueTransferTx(from, receiver, value, nonce, timestamp);
     return txWrapper(rawTx);
   },
   writerAssignTx: (txData) => {
     const {
-      from, writer, nonce, timestamp,
+      from, writer, nonce, timestamp, // timestamp - option
     } = txData;
     const rawTx = createWriterAssignTx(from, writer, nonce, timestamp);
     return txWrapper(rawTx);
   },
   medicalRecordTx: (txData) => {
     const {
-      from, medicalData, nonce, timestamp,
+      from, medicalData, nonce, timestamp, // timestamp - option
     } = txData;
     const rawTx = createMedicalRecordTx(from, medicalData, nonce, timestamp);
     return txWrapper(rawTx);
