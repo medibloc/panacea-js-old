@@ -1,5 +1,6 @@
 import {
   account,
+  block,
   node,
   transaction,
 } from './apis';
@@ -15,6 +16,7 @@ export default (nodes) => {
   return {
     nodeBucket: bucket,
     ...account(apiGateway),
+    ...block(apiGateway),
     ...node(apiGateway),
     ...transaction(apiGateway),
   };
