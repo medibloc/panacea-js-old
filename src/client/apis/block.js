@@ -10,7 +10,16 @@ export default (gateway) => {
     return gateway.sendRequest(reqConfig);
   };
 
+  const getTailBlock = () => {
+    const reqConfig = {
+      method: 'get',
+      path: 'v1/block/tail',
+    };
+    return gateway.sendRequest(reqConfig);
+  };
+
   return {
     getBlock,
+    getTailBlock,
   };
 };
