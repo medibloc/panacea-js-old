@@ -19,6 +19,8 @@ const hashTx = (tx) => {
   const chainIdBuffer = Buffer.alloc(BYTESIZES.CHAIN_ID);
   const algBuffer = Buffer.alloc(BYTESIZES.ALG);
 
+  tx.timestamp = (tx.timestamp - tx.timestamp % 1000)/1000;
+  console.log(tx.timestamp)
   timeStampBuffer.writeIntBE(tx.timestamp, 0, BYTESIZES.TIMESTAMP);
   nonceBuffer.writeIntBE(tx.nonce, 0, BYTESIZES.NONCE);
   algBuffer.writeIntBE(tx.alg, 0, BYTESIZES.ALG);
@@ -33,6 +35,15 @@ const hashTx = (tx) => {
   if (value.gt(MAX_VALUE)) throw new Error('Amount is too large');
   valueBuffer.writeIntBE(value, 0, BYTESIZES.VALUE);
 
+  console.log(fromBuffer);
+  console.log(toBuffer);
+  console.log(valueBuffer);
+  console.log(timeStampBuffer);
+  console.log(dataTypeBuffer);
+  console.log(dataPayloadBuffer);
+  console.log(nonceBuffer);
+  console.log(chainIdBuffer);
+  console.log(algBuffer);
 
   const buf = Buffer.concat([
     fromBuffer,

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MediBloc</title>
+  <link rel="stylesheet" type="text/css" href="example.css">
+</head>
+<body>
+  <div class="wrapper">
+    <h1>LAST RESULT IS ALWAYS HELD IN MEMORY</h1>
+  </div>
+  <div class="wrapper">
+    <h1>GENERATE KEY PAIR</h1>
+    <div>
+      <span>
+        Please set your passphrase :
+      </span>
+      <input id="passphrase" placeholder="passphrase" />
+    </div>
+    <button id="keyGen">GENERATE</button>
+
+    <p id="encryptedPrivKey"></p>
+    <p id="pubKey"></p>
+  </div>
+
+  <div class="wrapper">
+    <h1>CREATE VALUE TRANSFER TRANSACTION</h1>
+    <div class='txWrapper'>
+      <span>
+        From :
+        <input id="fromValTx" />
+      </span>
+      <span>
+        Receiver :
+        <input id="receiverValTx" />
+      </span>
+      <span>
+        Value :
+        <input id="valueValTx" />
+      </span>
+    </div>
+    <button id="createValTx">GENERATE</button>
+    <div class='txWrapper'>
+      <span>
+        Encrypted Private Key :
+        <input id="encryptedPrivKeyValTx" />
+      </span>
+      <span>
+        Passphrase :
+        <input id="passphraseValTx" />
+      </span>
+    </div>
+    <button id="signValTx">SIGN</button>
+    <div>
+      <p id='valTxRaw'></p>
+      <p id='valTxHash'></p>
+      <p id='valTxSign'></p>
+    </div>
+    <button id="sendValTx">SEND</button>
+    <div>
+      <p id='receiptValTx'></p>
+    </div>
+  </div>
+
+
+  <div class="wrapper">
+    <h1>BLOCK SYNC</h1>
+    <button id="syncBlock">SYNC</button>
+    <div class="header">
+      <h2>BLOCK HEADER</h2>
+      <ul>
+        <li> Height : <span id="height"></span></li>
+        <li> CoinBase : <span id="coinbase"></span></li>
+        <li> Hash : <span id="hash"></span></li>
+        <li> Parent Hash : <span id="parent_hash"></span></li>
+        <li> Sign : <span id="sign"></span></li>
+        <li> Timestamp : <span id="timestamp"></span></li>
+      </ul>
+    </div>
+    <div class="transaction">
+      <h2>TRANSACTIONS</h2>
+      <ul id="transactions">
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <h1>RETIREVE BLOCK</h1>
+    <span>
+      BLOCK HASH :
+      <input id="rBlockHash" />
+    </span>
+    <button id="retrieveBlock">RETRIEVE</button>
+    <div class="header">
+      <h2>BLOCK HEADER</h2>
+      <ul>
+        <li> Height : <span id="rheight"></span></li>
+        <li> CoinBase : <span id="rcoinbase"></span></li>
+        <li> Hash : <span id="rhash"></span></li>
+        <li> Parent Hash : <span id="rparent_hash"></span></li>
+        <li> Sign : <span id="rsign"></span></li>
+        <li> Timestamp : <span id="rtimestamp"></span></li>
+      </ul>
+    </div>
+    <div class="transaction">
+      <h2>TRANSACTIONS</h2>
+      <ul id="rtransactions">
+      </ul>
+    </div>
+  </div>
+</body>
+
+<script type="text/javascript" src="../dist/medjs.min.js"></script>
+<script type="text/javascript" src="example.js"></script>
+
+</html>

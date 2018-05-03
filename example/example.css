@@ -1,0 +1,24 @@
+.wrapper {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.txWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.txWrapper span {
+  margin: 10px;
+}
+
+button {
+  margin: 30px;
+  font-size: 25px;
+}
