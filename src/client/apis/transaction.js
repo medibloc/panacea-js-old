@@ -12,7 +12,7 @@ export default (gateway) => {
           timestamp: tx.rawTx.timestamp,
           data: tx.rawTx.data,
           nonce: tx.rawTx.nonce,
-          chainID: tx.rawTx.chain_id,
+          chainId: tx.rawTx.chain_id,
           alg: tx.rawTx.alg,
           sign: tx.sign,
         },
