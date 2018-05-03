@@ -1,5 +1,5 @@
 import {
-  CONTENT_TYPE_URLENCODED,
+  APPLICATION_JSON,
   DEFAULT_TIMEOUT,
   GET,
   POST,
@@ -25,7 +25,7 @@ const buildConfig = ({
     ...method === GET && { params: payload },
     ...method === POST && {
       data: payload,
-      headers: CONTENT_TYPE_URLENCODED,
+      headers: APPLICATION_JSON,
     },
   };
 
