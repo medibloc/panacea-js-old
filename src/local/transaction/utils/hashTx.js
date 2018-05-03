@@ -19,8 +19,7 @@ const hashTx = (tx) => {
   const chainIdBuffer = Buffer.alloc(BYTESIZES.CHAIN_ID);
   const algBuffer = Buffer.alloc(BYTESIZES.ALG);
 
-  tx.timestamp = (tx.timestamp - tx.timestamp % 1000)/1000;
-  console.log(tx.timestamp)
+  // const timestamp = (tx.timestamp - (tx.timestamp % 1000)) / 1000;
   timeStampBuffer.writeIntBE(tx.timestamp, 0, BYTESIZES.TIMESTAMP);
   nonceBuffer.writeIntBE(tx.nonce, 0, BYTESIZES.NONCE);
   algBuffer.writeIntBE(tx.alg, 0, BYTESIZES.ALG);
