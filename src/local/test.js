@@ -39,7 +39,7 @@ const medicalData = {
   date: 'datedate',
 };
 //
-const passphrase1 = "";
+const passphrase1 = '';
 const ownerEncPrivKey = '6ad0d4fd9c83cddc7d2e40328a454bdd281b5d168beb27992595d8dc3294bc7c3bcc3294567260bcebf5e1aadff97517c6d8786bebbbc3a6087306c64e582ece';
 const user0 = new Account(passphrase1, ownerEncPrivKey);
 //
