@@ -5,15 +5,8 @@ export default (gateway) => {
       path: 'v1/transaction',
       ...tx.rawTx && tx.hash && tx.sign && {
         payload: {
+          ...tx.rawTx,
           hash: tx.hash,
-          from: tx.rawTx.from,
-          to: tx.rawTx.to,
-          value: tx.rawTx.value,
-          timestamp: tx.rawTx.timestamp,
-          data: tx.rawTx.data,
-          nonce: tx.rawTx.nonce,
-          chainID: tx.rawTx.chain_id,
-          alg: tx.rawTx.alg,
           sign: tx.sign,
         },
       },

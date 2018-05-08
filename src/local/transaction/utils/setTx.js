@@ -5,7 +5,7 @@ const defaultOptions = {
   nonce: 0,
   chain_id: 1,
   alg: 1,
-  payload: null,
+  payload: undefined,
   type: null,
 };
 
@@ -21,10 +21,10 @@ const setTx = (options) => {
     alg: opts.alg,
     data: {
       type: opts.type,
-      payload: opts.payload,
+      payload: JSON.stringify(opts.payload),
     },
   };
-  return tx;
+  return JSON.parse(JSON.stringify(tx));
 };
 
 export default setTx;

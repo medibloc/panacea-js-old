@@ -22,6 +22,92 @@
     <p id="pubKey"></p>
   </div>
 
+
+  <div class="wrapper">
+    <h1>UPLOAD MEDICAL DATA TRANSACTION</h1>
+    <div class='txWrapper'>
+      <span>
+        medicalData :
+        <textarea rows="4" cols="30" id='medicalDataUpTx'>
+        </textarea>
+      </span>
+      <span>
+        storage :
+        <input id='storageUpTx' />
+      </span>
+      <span>
+        writerPubKey :
+        <input id='writerUpTx' />
+      </span>
+      <span>
+        ownerEncPrivKey :
+        <input id='encPrivKeyUpTx' />
+      </span>
+      <span>
+        passphrase :
+        <input id='passphraseUpTx' />
+      </span>
+    </div>
+    <button id='createMedicalData'>GENERATE</button>
+    <div class='txWrapper'>
+      <span>
+        medicalDataPayload :
+        <p id="medicalDataPayloadUpTx"></p>
+      </span>
+      <span>
+        from :
+        <input id="fromUpTx" />
+      </span>
+    </div>
+    <button id='createUpTx'>GENERATE</button>
+    <button id="signUpTx">SIGN</button>
+    <div>
+      <p id='upTxRaw'></p>
+      <p id='upTxHash'></p>
+      <p id='upTxSign'></p>
+    </div>
+    <button id="sendUpTx">SEND</button>
+    <div>
+      <p id='receiptUpTx'></p>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <h1>CREATE WRITER ASSIGN TRANSACTION</h1>
+    <div class='txWrapper'>
+      <span>
+        From :
+        <input id="fromAssTx" />
+      </span>
+      <span>
+        WRITER :
+        <input id="writerAssTx" />
+      </span>
+    </div>
+    <button id="createAssTx">GENERATE</button>
+    <div class='txWrapper'>
+      <span>
+        Encrypted Private Key :
+        <input id="encryptedPrivKeyAssTx" />
+      </span>
+      <span>
+        Passphrase :
+        <input id="passphraseAssTx" />
+      </span>
+    </div>
+    <button id="signAssTx">SIGN</button>
+    <div>
+      <p id='assTxRaw'></p>
+      <p id='assTxHash'></p>
+      <p id='assTxSign'></p>
+    </div>
+    <button id="sendAssTx">SEND</button>
+    <div>
+      <p id='receiptAssTx'></p>
+    </div>
+  </div>
+
+
   <div class="wrapper">
     <h1>CREATE VALUE TRANSFER TRANSACTION</h1>
     <div class='txWrapper'>
@@ -60,6 +146,10 @@
       <p id='receiptValTx'></p>
     </div>
   </div>
+
+
+
+
 
 
   <div class="wrapper">

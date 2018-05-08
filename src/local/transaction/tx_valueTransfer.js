@@ -1,5 +1,8 @@
-import { checkTx, setTx, constants } from './utils';
-import { REQUIRED_VALUE_TRANSFER_TX_PARAMETERS } from './utils/constants';
+import { checkTx, setTx } from './utils';
+import {
+  REQUIRED_VALUE_TRANSFER_TX_PARAMETERS,
+  VALUE_TRANSFER,
+} from './utils/constants';
 
 
 const validateTx = (tx) => {
@@ -13,7 +16,7 @@ const createTx = (from, receiver, value, nonce, timestamp) => {
     timestamp,
     to: receiver,
     value,
-    type: constants.VALUE_TRANSFER,
+    type: VALUE_TRANSFER,
   });
   validateTx(tx);
   return tx;

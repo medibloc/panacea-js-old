@@ -15,6 +15,7 @@ const createTx = (from, medicalData, nonce, timestamp) => {
   medicalDataPayload.Storage = medicalData.Storage;
   medicalDataPayload.EncKey = Buffer.from(medicalData.EncKey, 'hex').toString('base64');
   medicalDataPayload.Seed = Buffer.from(medicalData.Seed, 'hex').toString('base64');
+
   const tx = setTx({
     nonce,
     from,

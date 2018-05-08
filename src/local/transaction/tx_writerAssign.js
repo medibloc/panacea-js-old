@@ -10,6 +10,7 @@ const validateTx = (tx) => {
 const createTx = (from, writerPubKey, nonce, timestamp) => {
   const dataPayloadHash = [];
   Buffer.from(writerPubKey, 'hex').forEach(byte => dataPayloadHash.push(byte));
+
   const tx = setTx({
     from,
     nonce,

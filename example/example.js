@@ -2,11 +2,16 @@
 const med = medjs(['http://localhost:9921']);
 const Account = med.local.Account;
 const Transaction = med.local.Transaction;
+const Data = med.local.Data;
 const client = med.client;
 
 
 const valueTransferTx = Transaction.valueTransferTx;
 const writerAssignTx = Transaction.writerAssignTx;
+const medicalRecordTx = Transaction.medicalRecordTx;
+
+const createDataPayload = Data.createDataPayload;
+
 const signTx = Transaction.signTx
 
 
@@ -21,52 +26,6 @@ function keyGen() {
   account = new Account(passphrase);
   document.getElementById('encryptedPrivKey').innerHTML = `Encrypted Private Key : ${account.encryptedPrivKey}`;
   document.getElementById('pubKey').innerHTML = `Public Key : ${account.pubKey}`;
-}
-
-
-function createValTx() {
-  // TODO : update user information
-  const from = account.pubKey
-  const receiver = document.getElementById('receiverValTx').value;
-  const value = document.getElementById('valueValTx').value;
-  const nonce = 10;
-
-  const valueTransferTxData = {
-    from: from,
-    receiver: receiver,
-    value: value,
-    nonce: nonce,
-  };
-  tx = valueTransferTx(valueTransferTxData);
-  document.getElementById('valTxRaw').innerHTML = `RAW TX : ${JSON.stringify(tx.rawTx)}`;
-  document.getElementById('valTxHash').innerHTML = `TX HASH : ${tx.hash}`;
-  document.getElementById('valTxSign').innerHTML = '';
-};
-
-
-function createWriterAssignTx() {
-  const from = account.pubKey
-  const nonce = 10;
-
-  const valueTransferTxData = {
-    from: from,
-    writer: from,
-    nonce: nonce,
-  };
-  tx = writerAssignTx(valueTransferTxData);
-  console.log(tx)
-}
-
-
-function signValTx() {
-  let encPrivKey = document.getElementById('encryptedPrivKeyValTx').value;
-  if (encPrivKey === null) encPrivKey = '';
-  let passphrase = document.getElementById('passphraseValTx').value;
-  if (passphrase === null) passphrase = '';
-  const account = new Account(passphrase, encPrivKey);
-  console.log(account)
-  tx.sign = signTx(tx.hash, account, passphrase);
-  document.getElementById('valTxSign').innerHTML = `SIGN : ${tx.sign}`;
 }
 
 
@@ -128,30 +87,169 @@ function syncBlockStatus() {
   }
 }
 
+
+
+
+function createAssTx() {
+  const from = document.getElementById('fromAssTx').value;
+  const writer = document.getElementById('writerAssTx').value;
+  const nonce = 10;
+
+  const writerAssignTxData = {
+    from: from,
+    writer: writer,
+    nonce: nonce,
+  };
+  tx = writerAssignTx(writerAssignTxData);
+  console.log(tx)
+  document.getElementById('assTxRaw').innerHTML = `RAW TX : ${JSON.stringify(tx.rawTx)}`;
+  document.getElementById('assTxHash').innerHTML = `TX HASH : ${tx.hash}`;
+  document.getElementById('assTxSign').innerHTML = '';
+}
+
+
+function signAssTx() {
+  let encPrivKey = document.getElementById('encryptedPrivKeyAssTx').value;
+  if (encPrivKey === null) encPrivKey = '';
+  let passphrase = document.getElementById('passphraseAssTx').value;
+  if (passphrase === null) passphrase = '';
+  const account = new Account(passphrase, encPrivKey);
+  console.log(account)
+  tx.sign = signTx(tx.hash, account, passphrase);
+  document.getElementById('assTxSign').innerHTML = `SIGN : ${tx.sign}`;
+}
+
+function sendAssTx() {
+  client.sendTransaction(tx).then(res => {
+    document.getElementById('receiptAssTx').innerHTML = res.txhash;
+  })
+}
+
+
+
+function createValTx() {
+  // TODO : update user information
+  const from = account.pubKey
+  const receiver = document.getElementById('receiverValTx').value;
+  const value = document.getElementById('valueValTx').value;
+  const nonce = 10;
+
+  const valueTransferTxData = {
+    from: from,
+    receiver: receiver,
+    value: value,
+    nonce: nonce,
+  };
+  tx = valueTransferTx(valueTransferTxData);
+  console.log(tx)
+  document.getElementById('valTxRaw').innerHTML = `RAW TX : ${JSON.stringify(tx.rawTx)}`;
+  document.getElementById('valTxHash').innerHTML = `TX HASH : ${tx.hash}`;
+  document.getElementById('valTxSign').innerHTML = '';
+};
+
+function signValTx() {
+  let encPrivKey = document.getElementById('encryptedPrivKeyValTx').value;
+  if (encPrivKey === null) encPrivKey = '';
+  let passphrase = document.getElementById('passphraseValTx').value;
+  if (passphrase === null) passphrase = '';
+  const account = new Account(passphrase, encPrivKey);
+  tx.sign = signTx(tx.hash, account, passphrase);
+  document.getElementById('valTxSign').innerHTML = `SIGN : ${tx.sign}`;
+}
+
 function sendValTx() {
-  const from = tx.rawTx.from;
-  const to = tx.rawTx.to;
-  const value = tx.rawTx.value;
-  const nonce = tx.rawTx.nonce;
-  const timestamp = tx.rawTx.timestamp;
-  const hash = tx.hash;
-  const sign = tx.sign;
-  console.log("timestamp : ", timestamp)
-  client.sendTransaction(from, to, value, nonce, timestamp, hash, sign).then(res => {
-    console.log(res);
-    console.log(res.txhash)
-    document.getElementById('receiptValTx').innerHTML = byteArrayStringToHex(res.txhash);
-    console.log(res)
+  client.sendTransaction(tx).then(res => {
+    document.getElementById('receiptValTx').innerHTML = res.txhash;
+  })
+}
+
+/*
+*/
+// const medicalRecordTxData = {
+//   from: user1.pubKey,
+//   medicalData: medicalDataPayload,
+//   nonce: 4,
+// };
+// const tx3 = medicalRecordTx(medicalRecordTxData);
+/*
+*/
+function createMedicalDataPayload() {
+  // const medicalData = document.getElementById('medicalDataUpTx').value;
+  // const storage = document.getElementById('storageUpTx').value;
+  // const writerPubKey = document.getElementById('writerUpTx').value;
+  // const ownerEncPrivKey = document.getElementById('encPrivKeyUpTx').value;
+  // const passphrase1 = document.getElementById('passphraseUpTx').value;
+  const medicalData = {
+  name: 'ggomma',
+  age: 27,
+  date: 'datedate',
+};
+  const storage = 'ipfs'
+  const writerPubKey = "02aced69358396a93eda5846e78b10332b6dfb1c284fcfb2cfd435344f750cb4f2";
+  const ownerEncPrivKey = '6ad0d4fd9c83cddc7d2e40328a454bdd281b5d168beb27992595d8dc3294bc7c3bcc3294567260bcebf5e1aadff97517c6d8786bebbbc3a6087306c64e582ece';
+  const passphrase1 = ""
+  const owner = new Account(passphrase1, ownerEncPrivKey);
+  const medicalDataOptions = {
+    data: medicalData,
+    storage: storage,
+    writerPubKey: writerPubKey,
+    ownerAccount: owner,
+    passphrase: passphrase1,
+  };
+  console.log(medicalDataOptions)
+  const medicalDataPayload = createDataPayload(medicalDataOptions);
+  console.log(medicalDataPayload)
+  document.getElementById('medicalDataPayloadUpTx').innerHTML = medicalDataPayload;
+}
+
+function createUpTx() {
+  // TODO : update user information
+  const from = account.pubKey
+  const receiver = document.getElementById('receiverValTx').value;
+  const value = document.getElementById('valueValTx').value;
+  const nonce = 10;
+
+  const valueTransferTxData = {
+    from: from,
+    receiver: receiver,
+    value: value,
+    nonce: nonce,
+  };
+  tx = valueTransferTx(valueTransferTxData);
+  console.log(tx)
+  document.getElementById('valTxRaw').innerHTML = `RAW TX : ${JSON.stringify(tx.rawTx)}`;
+  document.getElementById('valTxHash').innerHTML = `TX HASH : ${tx.hash}`;
+  document.getElementById('valTxSign').innerHTML = '';
+};
+
+function signUpTx() {
+  let encPrivKey = document.getElementById('encryptedPrivKeyValTx').value;
+  if (encPrivKey === null) encPrivKey = '';
+  let passphrase = document.getElementById('passphraseValTx').value;
+  if (passphrase === null) passphrase = '';
+  const account = new Account(passphrase, encPrivKey);
+  tx.sign = signTx(tx.hash, account, passphrase);
+  document.getElementById('valTxSign').innerHTML = `SIGN : ${tx.sign}`;
+}
+
+function sendUpTx() {
+  client.sendTransaction(tx).then(res => {
+    document.getElementById('receiptValTx').innerHTML = res.txhash;
   })
 }
 
 
 document.getElementById('keyGen').addEventListener('click', keyGen);
-document.getElementById('createValTx').addEventListener('click', createValTx);
-document.getElementById('signValTx').addEventListener('click', signValTx);
 document.getElementById('syncBlock').addEventListener('click', syncBlockStatus);
 document.getElementById('retrieveBlock').addEventListener('click', retrieveBlock);
+document.getElementById('createValTx').addEventListener('click', createValTx);
+document.getElementById('signValTx').addEventListener('click', signValTx);
 document.getElementById('sendValTx').addEventListener('click', sendValTx);
+document.getElementById('createAssTx').addEventListener('click', createAssTx);
+document.getElementById('signAssTx').addEventListener('click', signAssTx);
+document.getElementById('sendAssTx').addEventListener('click', sendAssTx);
+document.getElementById('createMedicalData').addEventListener('click', createMedicalDataPayload);
+
 
 
 function base64ToHex(base64){
@@ -183,20 +281,3 @@ function byteArrayStringToHex(str) {
   }
   return bytes.join(', ');
 }
-// var str = "Hello竜";
-// var bytes = []; // char codes
-// var bytesv2 = []; // char codes
-
-// for (var i = 0; i < str.length; ++i) {
-//   var code = str.charCodeAt(i);
-
-//   bytes = bytes.concat([code]);
-
-//   bytesv2 = bytesv2.concat([code & 0xff, code / 256 >>> 0]);
-// }
-
-// // 72, 101, 108, 108, 111, 31452
-// console.log('bytes', bytes.join(', '));
-
-// // 72, 0, 101, 0, 108, 0, 108, 0, 111, 0, 220, 122
-// console.log('bytesv2', bytesv2.join(', '));
