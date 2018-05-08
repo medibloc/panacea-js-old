@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import {
-  CONTENT_TYPE_URLENCODED,
+  APPLICATION_JSON,
   DEFAULT_TIMEOUT,
   GET,
   POST,
@@ -95,7 +95,7 @@ describe('config', () => {
         return expect(postConfig)
           .to.have.property('headers')
           .and.to.be.an('object')
-          .and.eql(CONTENT_TYPE_URLENCODED);
+          .and.eql(APPLICATION_JSON);
       });
     });
   });
