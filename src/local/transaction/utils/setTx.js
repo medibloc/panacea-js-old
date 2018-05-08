@@ -3,7 +3,7 @@ const defaultOptions = {
   to: null,
   value: '0',
   nonce: 0,
-  chain_id: 1,
+  chain_id: 1010, // TODO: make chain id constant
   alg: 1,
   payload: undefined,
   type: null,
