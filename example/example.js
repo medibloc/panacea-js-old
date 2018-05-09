@@ -14,8 +14,6 @@ const createDataPayload = Data.createDataPayload;
 
 const signTx = Transaction.signTx
 
-
-
 let tx = {};
 let blockIntervalId = '';
 let account = {};
@@ -163,78 +161,54 @@ function sendValTx() {
   })
 }
 
-/*
-*/
-// const medicalRecordTxData = {
-//   from: user1.pubKey,
-//   medicalData: medicalDataPayload,
-//   nonce: 4,
-// };
-// const tx3 = medicalRecordTx(medicalRecordTxData);
-/*
-*/
+
 function createMedicalDataPayload() {
-  // const medicalData = document.getElementById('medicalDataUpTx').value;
-  // const storage = document.getElementById('storageUpTx').value;
-  // const writerPubKey = document.getElementById('writerUpTx').value;
-  // const ownerEncPrivKey = document.getElementById('encPrivKeyUpTx').value;
-  // const passphrase1 = document.getElementById('passphraseUpTx').value;
-  const medicalData = {
-  name: 'ggomma',
-  age: 27,
-  date: 'datedate',
-};
-  const storage = 'ipfs'
-  const writerPubKey = "02aced69358396a93eda5846e78b10332b6dfb1c284fcfb2cfd435344f750cb4f2";
-  const ownerEncPrivKey = '6ad0d4fd9c83cddc7d2e40328a454bdd281b5d168beb27992595d8dc3294bc7c3bcc3294567260bcebf5e1aadff97517c6d8786bebbbc3a6087306c64e582ece';
-  const passphrase1 = ""
-  const owner = new Account(passphrase1, ownerEncPrivKey);
+  const medicalData = document.getElementById('medicalDataUpTx').value;
+  const storage = document.getElementById('storageUpTx').value;
+  const writerPubKey = document.getElementById('writerUpTx').value;
+  const ownerEncPrivKey = document.getElementById('encPrivKeyUpTx').value;
+  const passphrase = document.getElementById('passphraseUpTx').value;
+  const owner = new Account(passphrase, ownerEncPrivKey);
   const medicalDataOptions = {
     data: medicalData,
     storage: storage,
     writerPubKey: writerPubKey,
     ownerAccount: owner,
-    passphrase: passphrase1,
+    passphrase: passphrase,
   };
-  console.log(medicalDataOptions)
   const medicalDataPayload = createDataPayload(medicalDataOptions);
-  console.log(medicalDataPayload)
-  document.getElementById('medicalDataPayloadUpTx').innerHTML = medicalDataPayload;
+  document.getElementById('medicalDataPayloadUpTx').innerHTML = JSON.stringify(medicalDataPayload);
+  console.log(document.getElementById('medicalDataPayloadUpTx').innerHTML)
+  console.log(JSON.parse(document.getElementById('medicalDataPayloadUpTx').innerHTML))
 }
 
 function createUpTx() {
   // TODO : update user information
-  const from = account.pubKey
-  const receiver = document.getElementById('receiverValTx').value;
-  const value = document.getElementById('valueValTx').value;
-  const nonce = 10;
-
-  const valueTransferTxData = {
-    from: from,
-    receiver: receiver,
-    value: value,
-    nonce: nonce,
+  const medicalRecordTxData = {
+    from: account.pubKey,
+    medicalData: JSON.parse(document.getElementById('medicalDataPayloadUpTx').innerHTML),
+    nonce: 10,
   };
-  tx = valueTransferTx(valueTransferTxData);
+
+  tx = medicalRecordTx(medicalRecordTxData);
   console.log(tx)
-  document.getElementById('valTxRaw').innerHTML = `RAW TX : ${JSON.stringify(tx.rawTx)}`;
-  document.getElementById('valTxHash').innerHTML = `TX HASH : ${tx.hash}`;
-  document.getElementById('valTxSign').innerHTML = '';
+  document.getElementById('upTxRaw').innerHTML = `RAW TX : ${JSON.stringify(tx.rawTx)}`;
+  document.getElementById('upTxHash').innerHTML = `TX HASH : ${tx.hash}`;
+  document.getElementById('upTxSign').innerHTML = '';
 };
 
 function signUpTx() {
-  let encPrivKey = document.getElementById('encryptedPrivKeyValTx').value;
+  let encPrivKey = document.getElementById('signingKeyUpTx').value;
   if (encPrivKey === null) encPrivKey = '';
-  let passphrase = document.getElementById('passphraseValTx').value;
-  if (passphrase === null) passphrase = '';
+  passphrase = '';
   const account = new Account(passphrase, encPrivKey);
   tx.sign = signTx(tx.hash, account, passphrase);
-  document.getElementById('valTxSign').innerHTML = `SIGN : ${tx.sign}`;
+  document.getElementById('upTxSign').innerHTML = `SIGN : ${tx.sign}`;
 }
 
 function sendUpTx() {
   client.sendTransaction(tx).then(res => {
-    document.getElementById('receiptValTx').innerHTML = res.txhash;
+    document.getElementById('receiptUpTx').innerHTML = res.txhash;
   })
 }
 
@@ -249,6 +223,9 @@ document.getElementById('createAssTx').addEventListener('click', createAssTx);
 document.getElementById('signAssTx').addEventListener('click', signAssTx);
 document.getElementById('sendAssTx').addEventListener('click', sendAssTx);
 document.getElementById('createMedicalData').addEventListener('click', createMedicalDataPayload);
+document.getElementById('createUpTx').addEventListener('click', createUpTx);
+document.getElementById('signUpTx').addEventListener('click', signUpTx);
+document.getElementById('sendUpTx').addEventListener('click', sendUpTx);
 
 
 
