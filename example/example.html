@@ -24,6 +24,14 @@
 
 
   <div class="wrapper">
+    <h1>ACCOUNT STATE</h1>
+    <button id="accStateGet">GET</button>
+
+    <p id="accBalance"></p>
+    <p id="accNonce"></p>
+  </div>
+
+  <div class="wrapper">
     <h1>UPLOAD MEDICAL DATA TRANSACTION</h1>
     <div class='txWrapper'>
       <span>
@@ -39,10 +47,10 @@
         writerPubKey :
         <input id='writerUpTx' />
       </span>
-      <span>
+      <!-- <span>
         ownerEncPrivKey :
         <input id='encPrivKeyUpTx' />
-      </span>
+      </span> -->
       <span>
         passphrase :
         <input id='passphraseUpTx' />
@@ -54,18 +62,18 @@
         medicalDataPayload :
         <p id="medicalDataPayloadUpTx"></p>
       </span>
-      <span>
+      <!-- <span>
         from :
         <input id="fromUpTx" />
-      </span>
+      </span> -->
     </div>
     <button id='createUpTx'>GENERATE</button>
-    <div>
+    <!-- <div>
       <span>
         encPrivKey :
         <input id='signingKeyUpTx' />
       </span>
-    </div>
+    </div> -->
     <button id="signUpTx">SIGN</button>
     <div>
       <p id='upTxRaw'></p>
@@ -81,10 +89,10 @@
   <div class="wrapper">
     <h1>CREATE WRITER ASSIGN TRANSACTION</h1>
     <div class='txWrapper'>
-      <span>
+      <!-- <span>
         From :
         <input id="fromAssTx" />
-      </span>
+      </span> -->
       <span>
         WRITER :
         <input id="writerAssTx" />
@@ -92,10 +100,10 @@
     </div>
     <button id="createAssTx">GENERATE</button>
     <div class='txWrapper'>
-      <span>
+      <!-- <span>
         Encrypted Private Key :
         <input id="encryptedPrivKeyAssTx" />
-      </span>
+      </span> -->
       <span>
         Passphrase :
         <input id="passphraseAssTx" />
@@ -117,10 +125,10 @@
   <div class="wrapper">
     <h1>CREATE VALUE TRANSFER TRANSACTION</h1>
     <div class='txWrapper'>
-      <span>
+      <!-- <span>
         From :
         <input id="fromValTx" />
-      </span>
+      </span> -->
       <span>
         Receiver :
         <input id="receiverValTx" />
@@ -132,10 +140,10 @@
     </div>
     <button id="createValTx">GENERATE</button>
     <div class='txWrapper'>
-      <span>
+      <!-- <span>
         Encrypted Private Key :
         <input id="encryptedPrivKeyValTx" />
-      </span>
+      </span> -->
       <span>
         Passphrase :
         <input id="passphraseValTx" />
@@ -200,6 +208,27 @@
     <div class="transaction">
       <h2>TRANSACTIONS</h2>
       <ul id="rtransactions">
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <h1>RETIREVE TRANSACTION</h1>
+    <span>
+      TX HASH :
+      <input id="rTxhash" />
+    </span>
+    <button id="retrieveTx">RETRIEVE</button>
+    <div class="header">
+      <h2>TRANSACTION DETAIL</h2>
+      <ul>
+        <li> From : <span id="rTxfrom"></span></li>
+        <li> To : <span id="rTxto"></span></li>
+        <li> Value : <span id="rTxvalue"></span></li>
+        <li> TimeStamp : <span id="rTxtimestamp"></span></li>
+        <li> Data : <span id="rTxdata"></span></li>
+        <li> Nonce : <span id="rTxnonce"></span></li>
+        <li> Sign : <span id="rTxsign"></span></li>
       </ul>
     </div>
   </div>
