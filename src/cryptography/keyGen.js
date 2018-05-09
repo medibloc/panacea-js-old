@@ -25,9 +25,11 @@ const getPubKey = (privKey) => {
 };
 
 const getSharedSecretKey = (privKey, pubKey) => {
-  const privKeyBuffer = Buffer.from(privKey, 'hex');
   const ec = createECDH('secp256k1');
-  ec.setPrivateKey(privKeyBuffer);
+  // To prevent error in browser javascript
+  ec.generateKeys();
+
+  ec.setPrivateKey(privKey, 'hex');
   const secretKey = ec.computeSecret(pubKey, 'hex', 'hex');
   return secretKey;
 };
