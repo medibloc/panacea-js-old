@@ -16,7 +16,7 @@
       </span>
       <input id="passphrase" placeholder="passphrase" />
     </div>
-    <button id="keyGen">GENERATE</button>
+    <button id="genKey">GENERATE</button>
 
     <p id="encryptedPrivKey"></p>
     <p id="pubKey"></p>
@@ -236,9 +236,46 @@
       </ul>
     </div>
   </div>
+
+  <div class="wrapper">
+    <h1>UPLOAD MEDICAL DATA TO DISTRIBUTED STORAGE</h1>
+        <span>
+          TX HASH :
+          <input id="dataTxhash" />
+        </span>
+        <button id="retrieveMedicalDataTx">GET MEDICAL DATA TRANSACTION DATA PAYLOAD</button>
+        <div class="header">
+          <h2>MEDICAL DATA TRANSACTION DATA PAYLOAD</h2>
+        <ul>
+          <li> Data Hash : <span id="dataTxPayloadHash"></span></li>
+          <li> Storage : <span id="dataTxPayloadStorage"></span></li>
+          <li> Enc Key : <span id="dataTxPayloadEncKey"></span></li>
+          <li> Seed : <span id="dataTxPayloadSeed"></span></li>
+        </ul>
+      </div>
+      <button id="sendToIPFS">SEND TO IPFS</button>
+      <div>
+        <p id='sendToIPFSResult'></p>
+      </div>
+  </div>
+
+  <div class="wrapper">
+    <h1>DOWNLOAD MEDICAL DATA FROM DISTRIBUTED STORAGE</h1>
+    <button id="getFromIPFS">GET FROM IPFS</button>
+    <div>
+      <p id='getFromIPFSResult'></p>
+    </div>
+    <button id="decryptMedicalData">DECRYPT MEDICAL DATA</button>
+    <div>
+      <p id='decryptedMedicalData'></p>
+    </div>
+  </div>
 </body>
 
+
 <script type="text/javascript" src="../dist/medjs.js"></script>
+<script src="https://unpkg.com/ipfs-api@20.0.0/dist/index.js"
+  crossorigin="anonymous"></script>
 <script type="text/javascript" src="example.js"></script>
 
 </html>

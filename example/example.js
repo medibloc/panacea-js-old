@@ -4,7 +4,8 @@ const Account = med.local.Account;
 const Transaction = med.local.Transaction;
 const Data = med.local.Data;
 const client = med.client;
-
+const cryptography = med.cryptography;
+const ipfs = window.IpfsApi('localhost', '5001');
 
 const valueTransferTx = Transaction.valueTransferTx;
 const writerAssignTx = Transaction.writerAssignTx;
@@ -31,7 +32,7 @@ function getAccState() {
 }
 
 
-function keyGen() {
+function genKey() {
   // let passphrase = document.getElementById('passphrase').value;
   // if (passphrase === null) passphrase = '';
   // account = new Account(passphrase);
@@ -68,6 +69,21 @@ function retrieveTx() {
   })
 };
 
+function retrieveMedicalDataTx() {
+  const txContent = ['Hash', 'Storage', 'EncKey', 'Seed'];
+  const txHash = document.getElementById('dataTxhash').value;
+  console.log(txHash)
+  client.getTransaction(txHash).then(res => {
+    console.log(res.data.payload);
+    const payload = JSON.parse(res.data.payload)
+    console.log(payload);
+    if (payload) {
+      txContent.forEach(content => {
+        document.getElementById('dataTxPayload' + content).innerHTML = payload[content];
+      });
+    }
+  });
+};
 
 function retrieveBlock() {
   const blockContent = ['coinbase', 'hash', 'parent_hash', 'sign', 'timestamp'];
@@ -255,8 +271,53 @@ function sendUpTx() {
   getAccState()
 }
 
+function getPrivKey() {
+  let passphrase = document.getElementById('passphraseAssTx').value;
+  if (passphrase === null) passphrase = '';
+  const privKey = account.getDecryptedPrivateKey(passphrase);
+  return privKey;
+}
 
-document.getElementById('keyGen').addEventListener('click', keyGen);
+function getEncyptKey() {
+  const privKey = getPrivKey();
+  const writerPubKey = document.getElementById('writerUpTx').value;
+  const encryptedSecretKey = document.getElementById('dataTxPayloadEncKey').innerHTML;
+  const randomSeed = document.getElementById('dataTxPayloadSeed').innerHTML;
+  const sharedSecretKey = cryptography.keyGen.getSharedSecretKey(privKey, writerPubKey);
+  const hashedSharedSecretKey = cryptography.hash.hashTo32Byte(cryptography.keyGen.concatKeys(sharedSecretKey, base64ToHex(randomSeed)));
+  const encryptKey = cryptography.encrypt.decryptData(hashedSharedSecretKey, base64ToHex(encryptedSecretKey));
+  return encryptKey;
+}
+
+function sendToIPFS() {
+  const medicalData = document.getElementById('medicalDataUpTx').value;
+  const encryptKey = getEncyptKey();
+  const encryptedMedicalData = cryptography.encrypt.encryptData(encryptKey, medicalData);
+  // for demo without ipfs
+  document.getElementById('getFromIPFSResult').setAttribute('hidden', 'true');
+  document.getElementById('getFromIPFSResult').innerHTML = encryptedMedicalData;
+}
+
+function getFromIPFS() {
+  // for demo without ipfs
+  document.getElementById('getFromIPFSResult').removeAttribute('hidden');
+  // const storage = document.getElementById('dataTxPayloadStorage').innerHTML;
+  // // const storage = 'ipfs';
+  // const hash = document.getElementById('dataTxPayloadHash').innerHTML;
+  // // const hash = 'Qmf7Y121Gny5kn2Bw4dbBc2mYoffhuK8zHxf9gzWBfp549';
+  // ipfs.files.get(`/${storage}/${hash}`, (err, files) => {
+  //   console.log(files[0].content.toString('utf8'));
+  //   document.getElementById('getFromIPFSResult').innerHTML = files[0].content.toString('utf8');
+  // })
+}
+
+function decryptMedicalData() {
+  const encrpytKey = getEncyptKey();
+  const encryptedData = document.getElementById('getFromIPFSResult').innerHTML;
+  document.getElementById('decryptedMedicalData').innerHTML = cryptography.encrypt.decryptData(encrpytKey, encryptedData);
+}
+
+document.getElementById('genKey').addEventListener('click', genKey);
 document.getElementById('syncBlock').addEventListener('click', syncBlockStatus);
 document.getElementById('retrieveBlock').addEventListener('click', retrieveBlock);
 document.getElementById('createValTx').addEventListener('click', createValTx);
@@ -270,6 +331,10 @@ document.getElementById('createUpTx').addEventListener('click', createUpTx);
 document.getElementById('signUpTx').addEventListener('click', signUpTx);
 document.getElementById('sendUpTx').addEventListener('click', sendUpTx);
 document.getElementById('retrieveTx').addEventListener('click', retrieveTx);
+document.getElementById('retrieveMedicalDataTx').addEventListener('click', retrieveMedicalDataTx);
+document.getElementById('sendToIPFS').addEventListener('click', sendToIPFS);
+document.getElementById('getFromIPFS').addEventListener('click', getFromIPFS);
+document.getElementById('decryptMedicalData').addEventListener('click', decryptMedicalData);
 document.getElementById('accStateGet').addEventListener('click', accStateGet);
 
 
