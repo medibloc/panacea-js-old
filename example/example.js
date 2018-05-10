@@ -199,6 +199,7 @@ function sendValTx() {
   })
   getAccState()
 }
+// MAX VALUE : 340282366920938463463374607431768211455
 
 
 function createMedicalDataPayload() {
@@ -223,8 +224,9 @@ function createMedicalDataPayload() {
 
 function createUpTx() {
   // TODO : update user information
+  const from = document.getElementById('ownerUpTx').value;
   const medicalRecordTxData = {
-    from: account.pubKey,
+    from: from,
     medicalData: JSON.parse(document.getElementById('medicalDataPayloadUpTx').innerHTML),
     nonce: nonce + 1,
   };

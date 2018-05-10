@@ -22,3 +22,22 @@ button {
   margin: 30px;
   font-size: 25px;
 }
+
+span {
+  width: 100%;
+  word-wrap: break-word;
+}
+
+div {
+  width: 100%;
+  text-align: center;
+  /*display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;*/
+}
+
+p {
+  width: 100%;
+  word-wrap: break-word;
+}
