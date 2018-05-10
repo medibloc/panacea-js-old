@@ -28,13 +28,16 @@ const hashTx = (tx) => {
   chainIdBuffer.writeIntBE(TX.chain_id, 0, BYTESIZES.CHAIN_ID);
 
   // VALUE
-  const valueBuffer = Buffer.alloc(BYTESIZES.VALUE);
   if (typeof TX.value !== 'string') throw new Error('Type of value need to be string');
   const value = new BigNumber(TX.value); // From Decimal
-  const MAX_VALUE = new BigNumber('ffffffffffffffffffffffff', 16);
+  const MAX_VALUE = new BigNumber('ffffffffffffffffffffffffffffffff', 16);
   if (value.lt(0)) throw new Error('Can not send negative value');
   if (value.gt(MAX_VALUE)) throw new Error('Amount is too large');
-  valueBuffer.writeIntBE(value, 0, BYTESIZES.VALUE);
+  const padding = (BYTESIZES.VALUE * 2) - value.toString(16).length;
+  const fixedValue = (padding === 0 ?
+    value.toString(16) :
+    '0'.repeat(padding) + value.toString(16));
+  const valueBuffer = Buffer.alloc(BYTESIZES.VALUE, fixedValue, 'hex');
 
   // console.log(fromBuffer);
   // console.log(toBuffer);
@@ -61,6 +64,5 @@ const hashTx = (tx) => {
   hash.update(buf);
   return hash.hex();
 };
-
 
 export default hashTx;
