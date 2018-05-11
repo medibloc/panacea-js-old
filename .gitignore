@@ -13,5 +13,8 @@ node_modules
 .idea
 .vscode
 
+##Temporary ignore for documentation
+docs/_build
+
 #Logs
 npm-debug.log*
