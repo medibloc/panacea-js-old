@@ -1,20 +1,31 @@
-.. medjs documentation master file, created by
-   sphinx-quickstart on Fri May 11 11:19:18 2018.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. include:: include_announcement.rst
 
+=================================
 Welcome to medjs's documentation!
 =================================
 
+medjs is a client-side JavaScript library for `MediBloc - Decentralized platform for personal health record
+<https://github.com/medibloc/go-medibloc>`_.
+
+Contents:
+
+:ref:`Keyword Index <genindex>`, :ref:`Search Page <search>`
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: User Documentation
+
+   getting-started
+   callbacks-promises-events
 
 
+.. toctree::
+    :maxdepth: 2
+    :caption: API Reference
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+    medjs
+    medjs-client
+    medjs-cryptography
+    medjs-local
+    medjs.storage
+    medjs.util
