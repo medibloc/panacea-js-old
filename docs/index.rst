@@ -26,6 +26,6 @@ Contents:
     medjs
     medjs-client
     medjs-cryptography
-    medjs-local
+    medjs-transaction
     medjs-storage
     medjs-util
