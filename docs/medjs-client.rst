@@ -8,13 +8,21 @@ medjs.client
 
 The ``medjs.client`` object allows you to interact with an MediBloc blockchain.
 
-
 .. code-block:: javascript
 
+    // 1. create the medjs client object directly.
+    var Medjs = require('medjs');
+    var client = Medjs.client(['http://localhost:9921']);
+
+    // 2. create the medjs object and use from it.
     var Medjs = require('medjs');
     var medjs = Medjs(['http://localhost:9921']);
-
     // -> medjs.client
+
+.. note:: 
+  You can test the library with the MediBloc blockchain running on the local machine while the Testnet or Mainnet are not yet released. 
+  Please refers the `go-medibloc <https://github.com/medibloc/go-medibloc>`_ to running it.
+
 
 ------------------------------------------------------------------------------
 
@@ -246,7 +254,7 @@ Returns a transaction hash.
 Parameters
 ----------
 
-1. ``Transaction`` Object - ``Object``: The :ref:`Transaction <medjs-transactions>` object created and signed.
+1. ``transaction`` - ``Object``: The :ref:`Transaction <medjs-transactions>` object created and signed.
 
 
 Returns
