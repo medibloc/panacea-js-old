@@ -1,11 +1,21 @@
+import { sha3_256 as SHA3256 } from 'js-sha3';
 import { createCipheriv, createDecipheriv } from 'crypto';
 import { isHexadecimal } from '../util/utils';
 import { hashTo32Byte } from './hash';
 
+const generateIv = (key) => {
+  const ivHash = SHA3256.create();
+  ivHash.update(key);
+  return ivHash.hex().substring(0, 32);
+};
 
-const encryptData = (accessKey = '', msg, algorithm = 'AES-256-CTR', iv = '6f40f39c69a0eff3a17667dffda7b4d5') => {
+const encryptData = (accessKey = '', msg) => {
   // TODO => update iv to have sync with go-medibloc
   // TODO Need to get stream files also.
+  const algorithm = 'AES-256-CTR';
+  const iv = generateIv(accessKey);
+  // const iv = '6f40f39c69a0eff3a17667dffda7b4d5';
+
   let message = '';
   switch (typeof msg) {
     case 'string':
@@ -28,7 +38,11 @@ const encryptData = (accessKey = '', msg, algorithm = 'AES-256-CTR', iv = '6f40f
   return encryptedMsg;
 };
 
-const decryptData = (accessKey = '', encryptedMsg, algorithm = 'AES-256-CTR', iv = '6f40f39c69a0eff3a17667dffda7b4d5') => {
+const decryptData = (accessKey = '', encryptedMsg) => {
+  const algorithm = 'AES-256-CTR';
+  const iv = generateIv(accessKey);
+  // const iv = '6f40f39c69a0eff3a17667dffda7b4d5';
+
   const hashedAccessKey = hashTo32Byte(accessKey);
   const Iv = Buffer.from(iv, 'hex');
   if (!isHexadecimal(encryptedMsg)) throw new Error('Message should be hexadecimal');
