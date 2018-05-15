@@ -281,3 +281,46 @@ Example
     hash: '8948e398873c99ce4136e1c00eeecbf3f400c4f221ee78ad22c91ca066c76ea6',
     sign: null
   }
+
+|
+sign transaction
+====
+
+.. code-block:: javascript
+
+  Transaction.signTx(transactionHash, account, passphrase);
+
+To generate signature for the transaction , you can use ``Transaction.signTx(transactionHash, account, passphrase)``.
+
+----
+Parameters
+----
+
+1. ``transactionHash`` - ``String`` : The hash from the transaction .
+2. ``account`` - ``Object`` : The account object from ``Account()``.
+3. ``passphrase`` - ``String`` :(Optional) The passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
+
+
+----
+Returns
+----
+
+``String`` - The signature string for the transaction hash.
+
+----
+Example
+----
+
+.. code-block:: javascript
+
+  var owner = new Account();
+  var transactionData = {
+    from: owner.pubKey,
+    receiver: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
+    value: '55',
+    nonce: 3
+  }
+  var transaction = Transaction.valueTransferTx(transactionData);
+  Transaction.signTx(transaction.hash, owner);
+  > "5ddbcec7fca0aa554e19e63ceae5dfb08affdbb0bd834af1ce53b17f403994650ca0d4ba5df278ffc8d2f163f421ab3cd3e8814982609e0f34ed881bc9dab45b01"
+

@@ -97,7 +97,7 @@ Decrypt encrypted private key with the passphrase from the ``account`` object.
 Parameters
 ----
 
-``passphrase`` - ``string`` :(optional) Passphrase string to encrypt private key. If not given, empty string is used to decrypt.
+``passphrase`` - ``string`` :(optional) Passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
 
 .. note:: If ``passphrase`` isn't matched with ``encryptedPrivateKey``, it will return a different private key.
 
