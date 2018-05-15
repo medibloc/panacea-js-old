@@ -297,3 +297,112 @@ Example
   var keyUtil = Cryptography.keyGen;
   keyUtil.concatKeys('Hello ', 'MediBloc');
   > 'Hello MediBloc'
+
+
+|
+recover public key from signature
+====
+
+.. code-block:: javascript
+
+  var signUtil = Cryptography.sign;
+  signUtil.recoverPubKeyFromSignature(msgHash, signature);
+
+To recover public key from the signature, you can use ``Cryptography.sign.recoverPubKeyFromSignature(msgHash, signature)``.
+
+----
+Parameters
+----
+
+1. ``msgHash`` - ``String`` : The hash string of the message.
+2. ``signature`` - ``String`` : The signature for the ``msgHash``
+
+----
+Returns
+----
+
+``String`` - The public key from the message hash and signature.
+
+----
+Example
+----
+
+.. code-block:: javascript
+
+  var signUtil = Cryptography.sign;
+  signUtil.recoverPubKeyFromSignature('9e2d90f1ebc39cd7852973c6bab748579d82c93e4a2aa5b44a7769e51a606fd9', 'c4f3d2cc47d999cfff0eb6845fb41cab3a0735afecd1fa178235d10e3d9aac835fdea24640626f6bae8795594f82c7ad86c3a1413d059c6fa38e7c442b58d6e001');
+  > '03047cd865161c3243c7b7a4d389ff407befbb3dd23f520152bc2a6ff2e2f0463d'
+
+
+|
+sign
+====
+
+.. code-block:: javascript
+
+  var signUtil = Cryptography.sign;
+  signUtil.sign(privKey, msgHash);
+
+To make a signature for the message, you can use ``Cryptography.sign.sign(privKey, msgHash)``.
+
+----
+Parameters
+----
+
+1. ``privKey`` - ``String`` : The private key.
+2. ``msgHash`` - ``String`` : The hash string of the message.
+
+----
+Returns
+----
+
+``String`` - The signature for the ``msgHash``.
+
+----
+Example
+----
+
+.. code-block:: javascript
+
+  var signUtil = Cryptography.sign;
+  signUtil.sign('aaca80d340f0cc94ea3baf128994376b2de7343f46e9c78efebea9c587edc7d3', '9e2d90f1ebc39cd7852973c6bab748579d82c93e4a2aa5b44a7769e51a606fd9');
+  > 'c4f3d2cc47d999cfff0eb6845fb41cab3a0735afecd1fa178235d10e3d9aac835fdea24640626f6bae8795594f82c7ad86c3a1413d059c6fa38e7c442b58d6e001'
+
+
+
+|
+verify signature
+====
+
+.. code-block:: javascript
+
+  var signUtil = Cryptography.sign;
+  signUtil.verifySignature(pubKey, msgHash, signature);
+
+To verify signature, you can use ``Cryptography.sign.verifySignature(pubKey, msgHash, signature)``.
+
+----
+Parameters
+----
+
+1. ``pubKey`` - ``String`` : The public key.
+2. ``msgHash`` - ``String`` : The message hash string.
+3. ``signature`` - ``String`` : The signature.
+
+----
+Returns
+----
+
+``Bool`` - If signature is made from public key and signature, ``true`` is return.
+
+----
+Example
+----
+
+.. code-block:: javascript
+
+  var signUtil = Cryptography.sign;
+  signUtil.verifySignature('03047cd865161c3243c7b7a4d389ff407befbb3dd23f520152bc2a6ff2e2f0463d', '9e2d90f1ebc39cd7852973c6bab748579d82c93e4a2aa5b44a7769e51a606fd9', 'c4f3d2cc47d999cfff0eb6845fb41cab3a0735afecd1fa178235d10e3d9aac835fdea24640626f6bae8795594f82c7ad86c3a1413d059c6fa38e7c442b58d6e001');
+  > true
+
+
