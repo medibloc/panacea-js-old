@@ -17,15 +17,6 @@ const hashData = (msg) => {
   return hash.update(message).hex();
 };
 
-// const hashDataStream = () => {};
-const hashTo32Byte = (accessKey) => {
-  const hash = SHA3256.create();
-  hash.update(accessKey);
-  const hashedKey = hash.hex();
-  return hashedKey;
-};
-
 export default {
   hashData,
-  hashTo32Byte,
 };
