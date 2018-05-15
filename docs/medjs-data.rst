@@ -1,9 +1,9 @@
-.. _medjs-data:
+.. _data:
 
 
-====
+================
 medjs.local.Data
-====
+================
 
 The ``medjs.local.Data`` contains functions which control the data or file.
 
@@ -15,13 +15,14 @@ To use this package standalone use:
   var medjs = Medjs(['http://localhost:9921']);
   var Data = new medjs.local.Data;
 
-----
+---------------------------------------------------------------------------
 
 .. _data-createPayload:
 
 |
+
 create data payload
-====
+===================
 
 .. code-block:: javascript
 
@@ -29,9 +30,9 @@ create data payload
 
 To generate data payload for transaction, you can use ``Data.createDataPayload()``. It generates encrypt key using ECDH, encrypt data with the key, and returns data payload for data upload transaction.
 
-----
+----------
 Parameters
-----
+----------
 
 ``dataObject`` - ``object``
 
@@ -41,9 +42,9 @@ Parameters
 - ``passphrase`` - ``string`` : The passphrase for the ownerAccount. Passphrase is used to decrypt private key from ownerAccount's encrypted private key.
 - ``writerPubKey`` - ``string`` : The writerPubKey is the address which is already assigned by owner using ``writerAssignTx()``.
 
-----
+-------
 Returns
-----
+-------
 
 ``Object`` - The data payload object for data upload transaction payload.
 
@@ -54,9 +55,9 @@ Returns
 
 .. note:: To understand this process deeply, see ``How does data payload not reveal personal information?``
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 

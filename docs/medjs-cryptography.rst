@@ -1,9 +1,9 @@
-.. _medjs-cryptography:
+.. _cryptography:
 
 
-====
+==================
 medjs.cryptography
-====
+==================
 
 The ``medjs.cryptography`` contains cryptographic functions.
 
@@ -15,13 +15,14 @@ To use this package standalone use:
   var medjs = Medjs(['http://localhost:9921']);
   var Cryptography =  medjs.cryptography
 
-----
+---------------------------------------------------------------------------
 
 .. _cryptography-encrypt:
 
 |
+
 encrypt data
-====
+============
 
 .. code-block:: javascript
 
@@ -32,22 +33,22 @@ To encrypt data you can use ``Cryptography.encrypt.encryptData(accessKey, msg)``
 
 .. note:: Encrypt algorithm can be changed.
 
-----
+----------
 Parameters
-----
+----------
 
 1. ``accessKey`` - ``String`` : The access key to encrypt data using symmetric key algorithm. If not given, empty string is used.
 2. ``msg`` - ``String|Object|Number`` : The message is stringified and encrypted with the access key.
 
-----
+-------
 Returns
-----
+-------
 
 ``String`` - The encrypted message with hexadecimal format.
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -55,10 +56,12 @@ Example
   encryptUtil.encryptData('this is access key !', 'hello medibloc!');
   > 'fe062e8327e88a06b5d3eb98ea12b4'
 
+---------------------------------------------------------------------------
 
 |
+
 decrypt data
-====
+============
 
 .. code-block:: javascript
 
@@ -69,24 +72,24 @@ To decrypt data you can use ``Cryptography.encrypt.decryptData(accessKey, encryp
 
 .. note:: Decrypt algorithm can be changed.
 
-----
+----------
 Parameters
-----
+----------
 
 1. ``accessKey`` - ``String`` : The access key to decrypt data using symmetric key algorithm. If not given, empty string is used.
 2. ``encryptedMsg`` - ``String`` : The encryptedMsg is hexadecimal string.
 
 .. note:: In decrypt, ``encryptedMsg`` must be the string generated through ``Cryptography.encrypt``. If not it returns wrong result.
 
-----
+-------
 Returns
-----
+-------
 
 ``String`` - The encrypted message with hexadecimal format.
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -94,9 +97,12 @@ Example
   encryptUtil.decryptData('this is access key !', 'fe062e8327e88a06b5d3eb98ea12b4');
   > 'hello medibloc!'
 
+---------------------------------------------------------------------------
+
 |
+
 hash data
-====
+=========
 
 .. code-block:: javascript
 
@@ -105,21 +111,21 @@ hash data
 
 To hash message, you can use ``Cryptography.hash.hashData(msg)``. It use SHA3_256 algorithm and returns 256bit hexadecimal string.
 
-----
+----------
 Parameters
-----
+----------
 
 ``msg`` - ``String|Object|Number`` : The message is stringified.
 
-----
+-------
 Returns
-----
+-------
 
 ``String`` - The hash string with hexadecimal format.
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -127,9 +133,12 @@ Example
   hashUtil.hashData('Hello MediBloc!!!');
   > '25cd0631574c642502446ace0c9c46811f1404e39d6d892771b346724851dd7e'
 
+---------------------------------------------------------------------------
+
 |
+
 generate new key pair
-====
+=====================
 
 .. code-block:: javascript
 
@@ -138,18 +147,18 @@ generate new key pair
 
 To get new private, public key pair, you can use ``Cryptography.keyGen.getKeyPair()``. Secp256k1 is used in generating random key pair.
 
-----
+-------
 Returns
-----
+-------
 
 - ``Object`` - The key pair
 
   + ``privKey`` - ``String`` : The private key string in hexadecimal format.
   + ``pubKey`` - ``String`` : The public key string in hexadecimal format.
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -160,10 +169,12 @@ Example
     pubKey: '03aa5632864e042271c375c95d1a7418407f986a45d36829879d106883a2e03cb3'
   }
 
+---------------------------------------------------------------------------
 
 |
+
 get public key
-====
+==============
 
 .. code-block:: javascript
 
@@ -172,21 +183,21 @@ get public key
 
 To get the public key matched with the private key, you can use ``Cryptography.keyGen.getPubKey(privKey)``.
 
-----
+----------
 Parameters
-----
+----------
 
 ``privKey`` - ``String`` : The hexadecimal format private key.
 
-----
+-------
 Returns
-----
+-------
 
 ``String`` - The public key from the input private key
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -194,10 +205,12 @@ Example
   keyUtil.getPubKey('1719e598983d472efbd3303cc3c4a619d89aef27a6d285443efe8e07f8100cbd');
   > '03aa5632864e042271c375c95d1a7418407f986a45d36829879d106883a2e03cb3'
 
+---------------------------------------------------------------------------
 
 |
+
 get shared secret key
-====
+=====================
 
 .. code-block:: javascript
 
@@ -206,22 +219,22 @@ get shared secret key
 
 To get the shared secret key using ECDH, you can use ``Cryptography.keyGen.getSharedSecretKey(privKey, pubKey)``.
 
-----
+----------
 Parameters
-----
+----------
 
 1. ``privKey`` - ``String`` : The hexadecimal format private key.
 2. ``pubKey`` - ``String`` : The hexadecimal format public key.
 
-----
+-------
 Returns
-----
+-------
 
 ``String`` - The public key from the input private key
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -229,10 +242,12 @@ Example
   keyUtil.getSharedSecretKey('1719e598983d472efbd3303cc3c4a619d89aef27a6d285443efe8e07f8100cbd', '03aa5632864e042271c375c95d1a7418407f986a45d36829879d106883a2e03cb3');
   > '21175492259a998204538e66d9cd3cd099147329683e601c408edff9e1e7f93f'
 
+---------------------------------------------------------------------------
 
 |
+
 get random seed number
-====
+======================
 
 .. code-block:: javascript
 
@@ -241,21 +256,21 @@ get random seed number
 
 To get random seed number, you can use ``Cryptography.keyGen.getRandomSeed(length)``.
 
-----
+----------
 Parameters
-----
+----------
 
 ``length`` - ``Number`` : The bytes size of random seed number. If not given, 16 is used.
 
-----
+-------
 Returns
-----
+-------
 
 ``String`` - The random number in hexadecimal format.
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -263,10 +278,12 @@ Example
   keyUtil.getRandomSeed();
   > 'baab6c02ce89592e03b8f9bbea8eb553'
 
+---------------------------------------------------------------------------
 
 |
+
 concat keys
-====
+===========
 
 .. code-block:: javascript
 
@@ -275,22 +292,22 @@ concat keys
 
 To concat keys, you can use ``Cryptography.keyGen.concatKeys(string1, string2)``.
 
-----
+----------
 Parameters
-----
+----------
 
 1. ``string1`` - ``String`` : The left side string.
 2. ``string2`` - ``String`` : The right side string.
 
-----
+-------
 Returns
-----
+-------
 
 ``String`` - The concat string.
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -298,10 +315,12 @@ Example
   keyUtil.concatKeys('Hello ', 'MediBloc');
   > 'Hello MediBloc'
 
+---------------------------------------------------------------------------
 
 |
+
 recover public key from signature
-====
+=================================
 
 .. code-block:: javascript
 
@@ -310,22 +329,22 @@ recover public key from signature
 
 To recover public key from the signature, you can use ``Cryptography.sign.recoverPubKeyFromSignature(msgHash, signature)``.
 
-----
+----------
 Parameters
-----
+----------
 
 1. ``msgHash`` - ``String`` : The hash string of the message.
 2. ``signature`` - ``String`` : The signature for the ``msgHash``
 
-----
+-------
 Returns
-----
+-------
 
 ``String`` - The public key from the message hash and signature.
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -333,8 +352,10 @@ Example
   signUtil.recoverPubKeyFromSignature('9e2d90f1ebc39cd7852973c6bab748579d82c93e4a2aa5b44a7769e51a606fd9', 'c4f3d2cc47d999cfff0eb6845fb41cab3a0735afecd1fa178235d10e3d9aac835fdea24640626f6bae8795594f82c7ad86c3a1413d059c6fa38e7c442b58d6e001');
   > '03047cd865161c3243c7b7a4d389ff407befbb3dd23f520152bc2a6ff2e2f0463d'
 
+---------------------------------------------------------------------------
 
 |
+
 sign
 ====
 
@@ -345,22 +366,22 @@ sign
 
 To make a signature for the message, you can use ``Cryptography.sign.sign(privKey, msgHash)``.
 
-----
+----------
 Parameters
-----
+----------
 
 1. ``privKey`` - ``String`` : The private key.
 2. ``msgHash`` - ``String`` : The hash string of the message.
 
-----
+-------
 Returns
-----
+-------
 
 ``String`` - The signature for the ``msgHash``.
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -368,11 +389,12 @@ Example
   signUtil.sign('aaca80d340f0cc94ea3baf128994376b2de7343f46e9c78efebea9c587edc7d3', '9e2d90f1ebc39cd7852973c6bab748579d82c93e4a2aa5b44a7769e51a606fd9');
   > 'c4f3d2cc47d999cfff0eb6845fb41cab3a0735afecd1fa178235d10e3d9aac835fdea24640626f6bae8795594f82c7ad86c3a1413d059c6fa38e7c442b58d6e001'
 
-
+---------------------------------------------------------------------------
 
 |
+
 verify signature
-====
+================
 
 .. code-block:: javascript
 
@@ -381,28 +403,26 @@ verify signature
 
 To verify signature, you can use ``Cryptography.sign.verifySignature(pubKey, msgHash, signature)``.
 
-----
+----------
 Parameters
-----
+----------
 
 1. ``pubKey`` - ``String`` : The public key.
 2. ``msgHash`` - ``String`` : The message hash string.
 3. ``signature`` - ``String`` : The signature.
 
-----
+-------
 Returns
-----
+-------
 
 ``Bool`` - If signature is made from public key and signature, ``true`` is return.
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
   var signUtil = Cryptography.sign;
   signUtil.verifySignature('03047cd865161c3243c7b7a4d389ff407befbb3dd23f520152bc2a6ff2e2f0463d', '9e2d90f1ebc39cd7852973c6bab748579d82c93e4a2aa5b44a7769e51a606fd9', 'c4f3d2cc47d999cfff0eb6845fb41cab3a0735afecd1fa178235d10e3d9aac835fdea24640626f6bae8795594f82c7ad86c3a1413d059c6fa38e7c442b58d6e001');
   > true
-
-

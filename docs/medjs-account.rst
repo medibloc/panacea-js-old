@@ -1,9 +1,9 @@
-.. _medjs-account:
+.. _account:
 
 
-====
+===================
 medjs.local.Account
-====
+===================
 
 The ``medjs.local.Account`` contains functions to generate MediBloc accounts which contain encrypted private key and public key, induce public key from the private key.
 
@@ -15,13 +15,13 @@ To use this package standalone use:
   var medjs = Medjs(['http://localhost:9921']);
   var Account = new medjs.local.Account;
 
-----
+---------------------------------------------------------------------------
 
 .. _account-create:
 
-|
+
 create
-====
+======
 
 .. code-block:: javascript
 
@@ -31,18 +31,18 @@ To generate account, you can use ``medjs.account()``. Basically account is just 
 
 .. note:: MediBloc use public key as an address.
 
-----
+----------
 Parameters
-----
+----------
 
 1. ``passphrase`` - ``string`` :(optional) A random string to encrypt private key. If not given it will encrypt private key with empty string.
 2. ``encryptedPrivateKey`` - ``string`` :(optional) Restore account matched with the given encrypted private key. If not given it will generate new keypair.
 
 .. note:: If ``passphrase`` isn't matched with ``encryptedPrivateKey``, it will return a different private key.
 
-----
+-------
 Returns
-----
+-------
 
 ``Object`` - The account object with the following structure:
 
@@ -50,9 +50,9 @@ Returns
 - ``encPrivKey`` - ``string``: The account's encrypted private key. This should never be shared or stored
 - ``getDecryptedPrivateKey(passphrase)`` - ``Function``: The function to decrypt account's encrypted private key and return it.
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -79,12 +79,11 @@ Example
 
 .. note:: SDK doesn't hold or share unencrypted private key. Account object holds encrypted private key and only right passphrase can retrieve unencrypted private key.
 
-|
-----
+---------------------------------------------------------------------------
 
-|
+
 get decrypted private key
-====
+=========================
 
 .. code-block:: javascript
 
@@ -93,23 +92,23 @@ get decrypted private key
 
 Decrypt encrypted private key with the passphrase from the ``account`` object.
 
-----
+----------
 Parameters
-----
+----------
 
 ``passphrase`` - ``string`` :(optional) Passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
 
 .. note:: If ``passphrase`` isn't matched with ``encryptedPrivateKey``, it will return a different private key.
 
-----
+-------
 Returns
-----
+-------
 
 ``string`` - Decrypted private key in hex format.
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 

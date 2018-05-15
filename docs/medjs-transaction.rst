@@ -1,9 +1,9 @@
-.. _medjs-transactions:
+.. _transaction:
 
 
-====
+=======================
 medjs.local.Transaction
-====
+=======================
 
 The ``medjs.local.Transaction`` contains functions to generate transaction, hash, signature, and so on.
 
@@ -15,13 +15,14 @@ To use this package standalone use:
   var medjs = Medjs(['http://localhost:9921']);
   var Transaction = new medjs.local.Transaction;
 
-----
+---------------------------------------------------------------------------
 
 .. _transaction-types:
 
 |
+
 transaction types
-====
+=================
 
 MediBloc blockchain has 3 transaction types.
 
@@ -31,9 +32,12 @@ MediBloc blockchain has 3 transaction types.
 - voting : TODO
 - ...
 
+---------------------------------------------------------------------------
+
 |
+
 value transfer transaction
-====
+==========================
 
 .. code-block:: javascript
 
@@ -41,9 +45,9 @@ value transfer transaction
 
 To generate value transfer transaction, you can use ``Transaction.valueTransferTx(transactionData)``.
 
-----
+----------
 Parameters
-----
+----------
 
 ``transactionData`` - ``Object``
 
@@ -58,9 +62,9 @@ Parameters
 
 .. note:: ``value`` must be an integer between 0 and 340282366920938463463374607431768211455. And it's type should be a string.
 
-----
+-------
 Returns
-----
+-------
 
 ``Object`` - The transaction object with the following structure:
 
@@ -79,9 +83,9 @@ Returns
 - ``hash`` - ``string`` : The hash to the transaction
 - ``sign`` - ``string`` : The signature to the transaction hash. Default is ``null``
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -109,9 +113,12 @@ Example
     sign: null
   }
 
+---------------------------------------------------------------------------
+
 |
+
 writer assign transaction
-====
+=========================
 
 .. code-block:: javascript
 
@@ -119,9 +126,9 @@ writer assign transaction
 
 To generate writer assigning transaction, you can use ``Transaction.writerAssignTx(transactionData)``.
 
-----
+----------
 Parameters
-----
+----------
 
 ``transactionData`` - ``Object``
 
@@ -133,9 +140,9 @@ Parameters
 -  TODO : algorythm?
 
 
-----
+-------
 Returns
-----
+-------
 
 ``Object`` - The transaction object with the following structure:
 
@@ -158,9 +165,9 @@ Returns
 
 .. note:: Transaction for writer assigning doesn't send value to any address. So it has ``null`` in ``to`` parameter.
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -188,9 +195,12 @@ Example
     sign: null
   }
 
+---------------------------------------------------------------------------
+
 |
+
 data upload transaction
-====
+=======================
 
 .. code-block:: javascript
 
@@ -198,9 +208,9 @@ data upload transaction
 
 To generate data upload transaction, you can use ``Transaction.medicalRecordTx(transactionData)``.
 
-----
+----------
 Parameters
-----
+----------
 
 ``transactionData`` - ``Object``
 
@@ -220,9 +230,9 @@ Parameters
 .. note:: Assigned writer also can send transaction using owner(from)'s bandwidth. In this case use bandwidth spender's address as a ``from`` and sign the transaction with assigned writer's private key.
 
 
-----
+-------
 Returns
-----
+-------
 
 ``Object`` - The transaction object with the following structure:
 
@@ -245,9 +255,9 @@ Returns
 
 .. note:: Transaction for data upload doesn't send value to any address. So it has ``null`` in ``to`` parameter.
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -282,9 +292,12 @@ Example
     sign: null
   }
 
+---------------------------------------------------------------------------
+
 |
+
 sign transaction
-====
+================
 
 .. code-block:: javascript
 
@@ -292,24 +305,24 @@ sign transaction
 
 To generate signature for the transaction , you can use ``Transaction.signTx(transactionHash, account, passphrase)``.
 
-----
+----------
 Parameters
-----
+----------
 
 1. ``transactionHash`` - ``String`` : The hash from the transaction .
 2. ``account`` - ``Object`` : The account object from ``Account()``.
 3. ``passphrase`` - ``String`` :(Optional) The passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
 
 
-----
+-------
 Returns
-----
+-------
 
 ``String`` - The signature string for the transaction hash.
 
-----
+-------
 Example
-----
+-------
 
 .. code-block:: javascript
 
@@ -323,4 +336,3 @@ Example
   var transaction = Transaction.valueTransferTx(transactionData);
   Transaction.signTx(transaction.hash, owner);
   > "5ddbcec7fca0aa554e19e63ceae5dfb08affdbb0bd834af1ce53b17f403994650ca0d4ba5df278ffc8d2f163f421ab3cd3e8814982609e0f34ed881bc9dab45b01"
-
