@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { isAddress } from 'util';
+import { isAddress } from 'utils';
 import { keyGen } from 'cryptography';
 
 // getKeyPair

@@ -1,6 +1,6 @@
 import { sha3_256 as SHA3256 } from 'js-sha3';
 import { createCipheriv, createDecipheriv } from 'crypto';
-import { isHexadecimal } from '../util/utils';
+import { isHexadecimal } from '../utils';
 import { hashTo32Byte } from './hash';
 
 const generateIv = (key) => {
