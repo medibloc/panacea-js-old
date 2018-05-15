@@ -109,7 +109,7 @@ To hash message, you can use ``Cryptography.hash.hashData(msg)``. It use SHA3_25
 Parameters
 ----
 
-- ``msg`` - ``String|Object|Number`` : The message is stringified.
+``msg`` - ``String|Object|Number`` : The message is stringified.
 
 ----
 Returns
@@ -126,3 +126,174 @@ Example
   var hashUtil = Cryptography.hash;
   hashUtil.hashData('Hello MediBloc!!!');
   > '25cd0631574c642502446ace0c9c46811f1404e39d6d892771b346724851dd7e'
+
+|
+generate new key pair
+====
+
+.. code-block:: javascript
+
+  var keyUtil = Cryptography.keyGen;
+  keyUtil.getKeyPair();
+
+To get new private, public key pair, you can use ``Cryptography.keyGen.getKeyPair()``. Secp256k1 is used in generating random key pair.
+
+----
+Returns
+----
+
+- ``Object`` - The key pair
+
+  + ``privKey`` - ``String`` : The private key string in hexadecimal format.
+  + ``pubKey`` - ``String`` : The public key string in hexadecimal format.
+
+----
+Example
+----
+
+.. code-block:: javascript
+
+  var keyUtil = Cryptography.keyGen;
+  keyUtil.getKeyPair();
+  > {
+    privKey: '1719e598983d472efbd3303cc3c4a619d89aef27a6d285443efe8e07f8100cbd',
+    pubKey: '03aa5632864e042271c375c95d1a7418407f986a45d36829879d106883a2e03cb3'
+  }
+
+
+|
+get public key
+====
+
+.. code-block:: javascript
+
+  var keyUtil = Cryptography.keyGen;
+  keyUtil.getPubKey(privKey);
+
+To get the public key matched with the private key, you can use ``Cryptography.keyGen.getPubKey(privKey)``.
+
+----
+Parameters
+----
+
+``privKey`` - ``String`` : The hexadecimal format private key.
+
+----
+Returns
+----
+
+``String`` - The public key from the input private key
+
+----
+Example
+----
+
+.. code-block:: javascript
+
+  var keyUtil = Cryptography.keyGen;
+  keyUtil.getPubKey('1719e598983d472efbd3303cc3c4a619d89aef27a6d285443efe8e07f8100cbd');
+  > '03aa5632864e042271c375c95d1a7418407f986a45d36829879d106883a2e03cb3'
+
+
+|
+get shared secret key
+====
+
+.. code-block:: javascript
+
+  var keyUtil = Cryptography.keyGen;
+  keyUtil.getSharedSecretKey(privKey, pubKey);
+
+To get the shared secret key using ECDH, you can use ``Cryptography.keyGen.getSharedSecretKey(privKey, pubKey)``.
+
+----
+Parameters
+----
+
+1. ``privKey`` - ``String`` : The hexadecimal format private key.
+2. ``pubKey`` - ``String`` : The hexadecimal format public key.
+
+----
+Returns
+----
+
+``String`` - The public key from the input private key
+
+----
+Example
+----
+
+.. code-block:: javascript
+
+  var keyUtil = Cryptography.keyGen;
+  keyUtil.getSharedSecretKey('1719e598983d472efbd3303cc3c4a619d89aef27a6d285443efe8e07f8100cbd', '03aa5632864e042271c375c95d1a7418407f986a45d36829879d106883a2e03cb3');
+  > '21175492259a998204538e66d9cd3cd099147329683e601c408edff9e1e7f93f'
+
+
+|
+get random seed number
+====
+
+.. code-block:: javascript
+
+  var keyUtil = Cryptography.keyGen;
+  keyUtil.getRandomSeed(length);
+
+To get random seed number, you can use ``Cryptography.keyGen.getRandomSeed(length)``.
+
+----
+Parameters
+----
+
+``length`` - ``Number`` : The bytes size of random seed number. If not given, 16 is used.
+
+----
+Returns
+----
+
+``String`` - The random number in hexadecimal format.
+
+----
+Example
+----
+
+.. code-block:: javascript
+
+  var keyUtil = Cryptography.keyGen;
+  keyUtil.getRandomSeed();
+  > 'baab6c02ce89592e03b8f9bbea8eb553'
+
+
+|
+concat keys
+====
+
+.. code-block:: javascript
+
+  var keyUtil = Cryptography.keyGen;
+  keyUtil.concatKeys(string1, string2);
+
+To concat keys, you can use ``Cryptography.keyGen.concatKeys(string1, string2)``.
+
+----
+Parameters
+----
+
+1. ``string1`` - ``String`` : The left side string.
+2. ``string2`` - ``String`` : The right side string.
+
+----
+Returns
+----
+
+``String`` - The concat string.
+
+----
+Example
+----
+
+.. code-block:: javascript
+
+  var keyUtil = Cryptography.keyGen;
+  keyUtil.concatKeys('Hello ', 'MediBloc');
+  > 'Hello MediBloc'
