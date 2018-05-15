@@ -38,7 +38,7 @@ Parameters
 ----------
 
 1. ``address`` - ``String``: The address of the account to get state of.
-2. ``height`` - ``Number|String``: The height of the block. Or the string ``"genesis"``, ``"latest"``, ``"pending"``.
+2. ``height`` - ``Number|String``: The height of the block. Or the string ``"genesis"``, ``"confirmed"``, ``"tail"``.
 
 
 
@@ -90,7 +90,7 @@ Returns a block matching the given block hash.
 Parameters
 ----------
 
-1. ``hash`` - ``String``: The hash of the block. Or the string ``"genesis"``, ``"latest"``, ``"pending"``.
+1. ``hash`` - ``String``: The hash of the block. Or the string ``"genesis"``, ``"confirmed"``, ``"tail"``.
 
 
 Returns
