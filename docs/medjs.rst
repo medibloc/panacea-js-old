@@ -20,9 +20,7 @@ The ``medjs`` object have following objects.
 1. ``nodes`` - ``Array``: The array of node URL that will be used for the request.
 
 
-.. note:: 
-  You can test the library with the MediBloc blockchain running on the local machine while the Testnet or Mainnet are not yet released. 
-  Please refers the `go-medibloc <https://github.com/medibloc/go-medibloc>`_ to running it.
+.. include:: include_blockchain_note.rst
 
 
 **Example**
