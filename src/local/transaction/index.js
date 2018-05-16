@@ -5,16 +5,16 @@ import { hashTx, signTx } from './utils';
 
 const { signHashedTx } = signTx;
 
-
-function sign(txHash, account, passphrase) {
-  return signHashedTx(txHash, account, passphrase);
+function sign(account, passphrase) {
+  this.signature = signHashedTx(this.hash, account, passphrase);
 }
 
 function txWrapper(rawTx) {
   return {
     rawTx,
     hash: hashTx(rawTx),
-    sign: null,
+    signature: null,
+    sign,
   };
 }
 
@@ -41,5 +41,6 @@ export default {
     const rawTx = createMedicalRecordTx(from, medicalData, nonce, timestamp);
     return txWrapper(rawTx);
   },
-  signTx: sign,
+  // signTx: sign,
 };
+

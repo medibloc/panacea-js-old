@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { encryptData } from 'cryptography/encrypt';
-import { signTx, valueTransferTx } from 'local/transaction';
+import { valueTransferTx } from 'local/transaction';
 import { Account } from 'local/account';
 
 // overall valueTransferTx
@@ -58,13 +58,16 @@ describe('# valueTransferTx function', () => {
     const hashFromGo = '398b3bddcdcee2e5390ae3538429fd73f9443ce0cdec6dda21bc060ec568b135';
     const signatureFromGo = '79f7335918d23ebf7a0506597b42f57a3c1703d4781d53c2427d6c4360c1c2b0566f684f14465882cbb0e98538fa9865f72829ccb14c548c320f08b5a37b5c4f01';
     const encryptedPrivKey = encryptData('passphrase', privKeyFromGo);
+    const tx = valueTransferTx(valueTransferTxData);
     it('Should be matched with go-medibloc', () => {
       user.encryptedPrivKey = encryptedPrivKey;
-      expect(signTx(hashFromGo, user, 'passphrase')).to.be.equal(signatureFromGo);
+      tx.hash = hashFromGo;
+      tx.sign(user, 'passphrase')
+      expect(tx.signature).to.be.equal(signatureFromGo);
     });
 
     it('Throw error if user put unmatched passphrase', () => {
-      expect(() => signTx(hashFromGo, user, 'wrongPassphrase')).to.throw(Error);
+      expect(() => tx.sign(user, 'wrongPassphrase')).to.throw(Error);
     });
   });
 });
