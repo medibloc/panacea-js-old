@@ -8,7 +8,7 @@ describe('# valueTransferTx function', () => {
   const user = new Account('');
   const valueTransferTxData = {
     from: user.pubKey,
-    receiver: user.pubKey,
+    to: user.pubKey,
     value: '1000',
     nonce: 1,
   };
@@ -42,7 +42,7 @@ describe('# valueTransferTx function', () => {
       // DATA from go-medibloc
       const dataFromGo = {
         from: '03528fa3684218f32c9fd7726a2839cff3ddef49d89bf4904af11bc12335f7c939',
-        receiver: '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21',
+        to: '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21',
         value: '10',
         nonce: 1,
         timestamp: 1524549462850,
@@ -62,7 +62,7 @@ describe('# valueTransferTx function', () => {
     it('Should be matched with go-medibloc', () => {
       user.encryptedPrivKey = encryptedPrivKey;
       tx.hash = hashFromGo;
-      tx.sign(user, 'passphrase')
+      tx.sign(user, 'passphrase');
       expect(tx.signature).to.be.equal(signatureFromGo);
     });
 

@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { medicalRecordTx } from 'local/transaction';
+import { dataUploadTx } from 'local/transaction';
 
 
-// overall medicalRecordTx
-describe('# medicalRecordTx function', () => {
+// overall dataUploadTx
+describe('# dataUploadTx function', () => {
   describe('# Medical Data', () => {
     // TODO after format is specified.
   });
@@ -23,7 +23,7 @@ describe('# medicalRecordTx function', () => {
       };
       const txHashFromGo = '8e3754f70bc64158b9282092ccfd9bf32c8929d2f88ad2173af5088bb8b16bb7';
 
-      const tx = medicalRecordTx(dataFromGo);
+      const tx = dataUploadTx(dataFromGo);
       expect(tx.hash).to.be.equal(txHashFromGo);
     });
   });

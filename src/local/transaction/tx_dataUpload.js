@@ -1,9 +1,9 @@
 import { checkTx, setTx, constants } from './utils';
-import { REQUIRED_MEDICAL_RECORD_TX_PARAMETERS } from './utils/constants';
+import { REQUIRED_DATA_UPLOAD_TX_PARAMETERS } from './utils/constants';
 
 
 const validateTx = (tx) => {
-  checkTx.checkRequiredParams(tx, REQUIRED_MEDICAL_RECORD_TX_PARAMETERS);
+  checkTx.checkRequiredParams(tx, REQUIRED_DATA_UPLOAD_TX_PARAMETERS);
 };
 
 
@@ -19,7 +19,7 @@ const createTx = (from, medicalData, nonce, timestamp) => {
     nonce,
     from,
     timestamp,
-    type: constants.MEDICAL_RECORD,
+    type: constants.DATA_UPLOAD,
     payload: medicalDataPayload,
   });
   validateTx(tx);

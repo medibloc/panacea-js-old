@@ -1,6 +1,6 @@
 import { createTx as createValueTransferTx } from './tx_valueTransfer';
 import { createTx as createWriterAssignTx } from './tx_writerAssign';
-import { createTx as createMedicalRecordTx } from './tx_medicalRecord';
+import { createTx as createDataUploadTx } from './tx_dataUpload';
 import { hashTx, signTx } from './utils';
 
 const { signHashedTx } = signTx;
@@ -22,9 +22,9 @@ function txWrapper(rawTx) {
 export default {
   valueTransferTx: (txData) => {
     const {
-      from, receiver, value, nonce, timestamp, // timestamp - option
+      from, to, value, nonce, timestamp, // timestamp - option
     } = txData;
-    const rawTx = createValueTransferTx(from, receiver, value, nonce, timestamp);
+    const rawTx = createValueTransferTx(from, to, value, nonce, timestamp);
     return txWrapper(rawTx);
   },
   writerAssignTx: (txData) => {
@@ -34,11 +34,11 @@ export default {
     const rawTx = createWriterAssignTx(from, writer, nonce, timestamp);
     return txWrapper(rawTx);
   },
-  medicalRecordTx: (txData) => {
+  dataUploadTx: (txData) => {
     const {
       from, medicalData, nonce, timestamp, // timestamp - option
     } = txData;
-    const rawTx = createMedicalRecordTx(from, medicalData, nonce, timestamp);
+    const rawTx = createDataUploadTx(from, medicalData, nonce, timestamp);
     return txWrapper(rawTx);
   },
   // signTx: sign,

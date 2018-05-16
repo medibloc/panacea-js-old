@@ -14,7 +14,7 @@ describe('# chechTx function', () => {
   const user = new Account('');
   const valueTransferTxData = {
     from: user.pubKey,
-    receiver: user.pubKey,
+    to: user.pubKey,
     value: '5',
     nonce: 3,
     type: 'binary',
