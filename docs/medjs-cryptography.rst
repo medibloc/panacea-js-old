@@ -18,7 +18,7 @@ To use this package standalone use:
 
 .. _cryptography-encrypt:
 
-encryptData
+encrypt.encryptData
 ============
 
 .. code-block:: javascript
@@ -55,7 +55,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-decryptData
+encrypt.decryptData
 ============
 
 .. code-block:: javascript
@@ -94,7 +94,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-hashData
+hash.hashData
 =========
 
 .. code-block:: javascript
@@ -128,7 +128,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-getKeyPair
+keyGen.getKeyPair
 =====================
 
 .. code-block:: javascript
@@ -162,7 +162,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-getPubKey
+keyGen.getPubKey
 ==============
 
 .. code-block:: javascript
@@ -196,7 +196,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-getSharedSecretKey
+keyGen.getSharedSecretKey
 =====================
 
 .. code-block:: javascript
@@ -231,7 +231,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-getRandomSeed
+keyGen.getRandomSeed
 =============
 
 .. code-block:: javascript
@@ -265,7 +265,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-concatKeys
+keyGen.concatKeys
 ===========
 
 .. code-block:: javascript
@@ -300,7 +300,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-recoverPubKeyFromSignature
+sign.recoverPubKeyFromSignature
 =================================
 
 .. code-block:: javascript
@@ -335,7 +335,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-sign
+sign.sign
 ====
 
 .. code-block:: javascript
@@ -370,7 +370,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-verifySignature
+sign.verifySignature
 ================
 
 .. code-block:: javascript
