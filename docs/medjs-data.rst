@@ -1,5 +1,7 @@
 .. _data:
 
+.. include:: include_announcement.rst
+
 ================
 medjs.local.Data
 ================

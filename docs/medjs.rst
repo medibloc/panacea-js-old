@@ -17,7 +17,7 @@ The ``medjs`` object have following objects.
 
 **Parameters**
 
-1. ``nodes`` - ``Array``: The array of node URL that will be used for the request.
+``nodes`` - ``Array``: The array of node URL that will be used for the request.
 
 .. Hint::
     The medjs client sends a request to one of the nodes. If the request failed, it automatically retries the request to another node.

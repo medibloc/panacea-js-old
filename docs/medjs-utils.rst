@@ -1,5 +1,7 @@
 .. _utils:
 
+.. include:: include_announcement.rst
+
 ===========
 medjs.utils
 ===========

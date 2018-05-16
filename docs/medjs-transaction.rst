@@ -1,5 +1,7 @@
 .. _transaction:
 
+.. include:: include_announcement.rst
+
 =======================
 medjs.local.Transaction
 =======================

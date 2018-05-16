@@ -10,14 +10,9 @@ The ``medjs.client`` object allows you to interact with the MediBloc blockchain.
 
 .. code-block:: javascript
 
-    // 1. create the medjs client object directly.
-    var Medjs = require('medjs');
-    var client = Medjs.client(['http://localhost:9921']);
-
-    // 2. create the medjs object and use from it.
     var Medjs = require('medjs');
     var medjs = Medjs(['http://localhost:9921']);
-    // -> medjs.client
+    var client = medjs.client;
 
 .. include:: include_blockchain_note.rst
 
@@ -29,7 +24,7 @@ getAccountState
 
 .. code-block:: javascript
 
-    medjs.client.getAccountState(address, height)
+    client.getAccountState(address, height)
 
 Returns a state of the account at the given block height.
 
@@ -57,7 +52,7 @@ Example
 
 .. code-block:: javascript
 
-    medjs.client.getAccountState('02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c', 0)
+    client.getAccountState('02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c', 0)
     .then(console.log);
     > {
       balance: '100000000000000000',
@@ -66,7 +61,7 @@ Example
     }
 
 
-    medjs.client.getAccountState('02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c', 'latest')
+    client.getAccountState('02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c', 'latest')
     .then(console.log);
     > {
       balance: '99999999900000000',
@@ -82,7 +77,7 @@ getBlock
 
 .. code-block:: javascript
 
-    medjs.client.getBlock(hash)
+    client.getBlock(hash)
 
 Returns a block matching the given block hash.
 
@@ -90,7 +85,7 @@ Returns a block matching the given block hash.
 Parameters
 ----------
 
-1. ``hash`` - ``String``: The hash of the block. Or the string ``"genesis"``, ``"confirmed"``, ``"tail"``.
+``hash`` - ``String``: The hash of the block. Or the string ``"genesis"``, ``"confirmed"``, ``"tail"``.
 
 
 Returns
@@ -146,7 +141,7 @@ getMedState
 
 .. code-block:: javascript
 
-    medjs.client.getMedState()
+    client.getMedState()
 
 Returns a current state of the node.
 
@@ -168,7 +163,7 @@ Example
 
 .. code-block:: javascript
 
-    medjs.client.getMedState()
+    client.getMedState()
     .then(console.log);
     > {
       chain_id: 1010,
@@ -194,7 +189,7 @@ Returns a transaction matching the given transaction hash.
 Parameters
 ----------
 
-1. ``hash`` - ``String``: The hash of the transaction.
+``hash`` - ``String``: The hash of the transaction.
 
 
 Returns
@@ -243,7 +238,7 @@ sendTransaction
 
 .. code-block:: javascript
 
-    medjs.client.sendTransaction(transaction)
+    client.sendTransaction(transaction)
 
 Returns a transaction hash.
 
@@ -251,7 +246,7 @@ Returns a transaction hash.
 Parameters
 ----------
 
-1. ``transaction`` - ``Object``: The :ref:`Transaction <transaction>` object created and signed.
+``transaction`` - ``Object``: The :ref:`Transaction <transaction>` object created and signed.
 
 
 Returns
@@ -269,7 +264,7 @@ Example
 
 .. code-block:: javascript
 
-    medjs.client.sendTransaction(tx)
+    client.sendTransaction(tx)
     .then(console.log);
     > {
       hash: '2edfc32b61528cedd3cafe7a794020d32ae3bcbfbc45fb810e169f34a4a30208'

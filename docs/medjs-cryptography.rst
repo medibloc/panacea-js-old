@@ -1,5 +1,7 @@
 .. _cryptography:
 
+.. include:: include_announcement.rst
+
 ==================
 medjs.cryptography
 ==================
