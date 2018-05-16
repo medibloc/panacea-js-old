@@ -81,7 +81,8 @@ Returns
 
     * ``type`` - ``string`` : The transaction type. For the value transfer transaction, it must be ``binary``
 - ``hash`` - ``string`` : The hash to the transaction
-- ``sign`` - ``string`` : The signature to the transaction hash. Default is ``null``
+- ``signature`` - ``string`` : The signature to the transaction hash. Default is ``null``
+- ``sign`` - ``Function`` : The function for signing the transaction. It assign signature string to ``signature``.
 
 -------
 Example
@@ -110,7 +111,8 @@ Example
       }
     },
     hash: 'bc02716f5300f734d02ab5557c1f73859344d6371f9207a9ba87a603c81aaf23',
-    sign: null
+    signature: null,
+    sign: [Function: sign]
   }
 
 ---------------------------------------------------------------------------
@@ -160,7 +162,8 @@ Returns
     * ``type`` - ``string`` : The transaction type. For the writer assign transaction, it must be ``register_wkey``
     * ``payload`` - ``string`` : The payload for the writer assigning. It is the string from json object. (Will be changed soon)
 - ``hash`` - ``string`` : The hash to the transaction
-- ``sign`` - ``string`` : The signature to the transaction hash. Default is ``null``
+- ``signature`` - ``string`` : The signature to the transaction hash. Default is ``null``
+- ``sign`` - ``Function`` : The function for signing the transaction. It assign signature string to ``signature``.
 
 
 .. note:: Transaction for writer assigning doesn't send value to any address. So it has ``null`` in ``to`` parameter.
@@ -192,7 +195,8 @@ Example
       }
     },
     hash: 'ecb980d1886da7c1be3cefe445d9554bc0adb8697b43577a8e1d8d7ef2991c34',
-    sign: null
+    signature: null,
+    sign: [Function: sign]
   }
 
 ---------------------------------------------------------------------------
@@ -251,6 +255,7 @@ Returns
     * ``payload`` - ``string`` : The payload for the data uploading. It is the string from json object. (Will be changed soon)
 - ``hash`` - ``string`` : The hash to the transaction
 - ``sign`` - ``string`` : The signature to the transaction hash. Default is ``null``
+- ``sign`` - ``Function`` : The function for signing the transaction. It assign signature string to ``signature``.
 
 
 .. note:: Transaction for data upload doesn't send value to any address. So it has ``null`` in ``to`` parameter.
@@ -289,36 +294,32 @@ Example
       }
     },
     hash: '8948e398873c99ce4136e1c00eeecbf3f400c4f221ee78ad22c91ca066c76ea6',
-    sign: null
+    signature: null,
+    sign: [Function: sign]
   }
 
 ---------------------------------------------------------------------------
 
 |
 
-sign transaction
+sign
 ================
 
 .. code-block:: javascript
 
-  Transaction.signTx(transactionHash, account, passphrase);
+  var transaction = Transaction.valueTransferTx(transactionData);
+  transaction.sign(account, passphrase);
 
-To generate signature for the transaction , you can use ``Transaction.signTx(transactionHash, account, passphrase)``.
+To sign for the transaction and assign signature in the transaction object, you can use ``transaction.sign(account, passphrase)``.
 
 ----------
 Parameters
 ----------
 
-1. ``transactionHash`` - ``String`` : The hash from the transaction .
-2. ``account`` - ``Object`` : The account object from ``Account()``.
-3. ``passphrase`` - ``String`` :(Optional) The passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
+1. ``account`` - ``Object`` : The account object from ``Account()``.
+2. ``passphrase`` - ``String`` :(Optional) The passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
 
-
--------
-Returns
--------
-
-``String`` - The signature string for the transaction hash.
+.. note:: transaction.sign doesn't return anything but assign signature string in the transaction object. After sign, ``transaction.signature`` is changed from ``Null`` to ``String``.
 
 -------
 Example
@@ -329,10 +330,23 @@ Example
   var owner = new Account();
   var transactionData = {
     from: owner.pubKey,
-    receiver: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
-    value: '55',
+    receiver: '0266e30b34c9b377c9699c026872429a0fa582ac802759a3f35f9e90b352b8d932',
+    value: '5',
     nonce: 3
   }
   var transaction = Transaction.valueTransferTx(transactionData);
-  Transaction.signTx(transaction.hash, owner);
-  > "5ddbcec7fca0aa554e19e63ceae5dfb08affdbb0bd834af1ce53b17f403994650ca0d4ba5df278ffc8d2f163f421ab3cd3e8814982609e0f34ed881bc9dab45b01"
+  transaction.sign(owner);
+  console.log(transaction);
+  > {
+    rawTx: {
+      from: '0306a88e00517add935be42c878ed1bcd31f7558994a989e37163ccc11d9ea14cf',
+      timestamp: 1526451624360,
+      nonce: 3,
+      to: '0266e30b34c9b377c9699c026872429a0fa582ac802759a3f35f9e90b352b8d932',
+      value: '5',
+      chain_id: 1,
+      alg: 1,
+      data: { type: 'binary', payload: null } },
+    hash: '9ccd805ea1c201ff691bcdbb8e24879503d26a8ab6f528de3137fb37eb800418',
+    signature: '79f945b29f4743e03b5aa1d608b83fa1e63e37f99f0d0ece328fe490a8a845fd473beb92a1c18fe1b19e2d94375740f43f75c408b1fdf8daea66e4b31ebac89e01',
+    sign: [Function: sign] }
