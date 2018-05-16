@@ -1,6 +1,5 @@
 .. _transaction:
 
-
 =======================
 medjs.local.Transaction
 =======================
@@ -13,13 +12,11 @@ To use this package standalone use:
 
   var Medjs = require('medjs');
   var medjs = Medjs(['http://localhost:9921']);
-  var Transaction = new medjs.local.Transaction;
+  var Transaction = medjs.local.Transaction;
 
 ---------------------------------------------------------------------------
 
 .. _transaction-types:
-
-|
 
 transaction types
 =================
@@ -29,14 +26,10 @@ MediBloc blockchain has 3 transaction types.
 - value transfer transaction : To transfer MED from one to another.
 - writer assign transaction : To assign the address who can use owner's bandwidth.
 - data upload transaction : To upload data related infomation on the blockchain. Such as data hash, location, encrypt key and so on.
-- voting : TODO
-- ...
 
 ---------------------------------------------------------------------------
 
-|
-
-value transfer transaction
+valueTransferTx
 ==========================
 
 .. code-block:: javascript
@@ -51,13 +44,11 @@ Parameters
 
 ``transactionData`` - ``Object``
 
-- ``from`` - ``string`` : The address which to send this value from.
-- ``receiver`` - ``string`` : The address which to take this value.
-- ``value`` - ``string`` : The value to transfer. It must not exceed the amount which the address has.
-- ``nonce`` - ``number`` : The nonce indicates how many transactions does this account have made. It should be exactly 1 larger than current account's nonce. Highly recommend getting account's latest nonce before making transaction.
-- ``timestamp`` - ``number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
--  TODO : chain ID?
--  TODO : algorythm?
+- ``from`` - ``String`` : The address which to send the value from.
+- ``to`` - ``String`` : The address which to take the value.
+- ``value`` - ``String`` : The value to transfer. It must not exceed the amount which the address has.
+- ``nonce`` - ``Number`` : The nonce indicates how many transactions does this account have made. It should be exactly 1 larger than current account's nonce. Highly recommend getting account's latest nonce before making transaction.
+- ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
 
 .. note:: ``value`` must be an integer between 0 and 340282366920938463463374607431768211455. And it's type should be a string.
@@ -68,20 +59,20 @@ Returns
 
 ``Object`` - The transaction object with the following structure:
 
-- ``rawTx`` - ``object`` : The rawTx contains transaction elements.
+- ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``number`` : The algorythm used in transaction.
-  + ``chain_id`` - ``number`` : The chain to send transaction.
-  + ``from`` - ``string`` : The address which to send this value from.
-  + ``to`` - ``string`` : The address which to take this value.
-  + ``nonce`` - ``number`` : The nonce.
-  + ``timestamp`` - ``number`` : The unix timestamp.
-  + ``value`` - ``string`` : The value to transfer.
-  + ``data`` - ``object``
+  + ``alg`` - ``Number`` : The algorythm used in transaction.
+  + ``chain_id`` - ``Number`` : The chain to send transaction.
+  + ``from`` - ``String`` : The address which to send this value from.
+  + ``to`` - ``String`` : The address which to take this value.
+  + ``nonce`` - ``Number`` : The nonce.
+  + ``timestamp`` - ``Number`` : The unix timestamp.
+  + ``value`` - ``String`` : The value to transfer.
+  + ``data`` - ``Object``
 
-    * ``type`` - ``string`` : The transaction type. For the value transfer transaction, it must be ``binary``
-- ``hash`` - ``string`` : The hash to the transaction
-- ``signature`` - ``string`` : The signature to the transaction hash. Default is ``null``
+    * ``type`` - ``String`` : The transaction type. For the value transfer transaction, it must be ``binary``
+- ``hash`` - ``String`` : The hash to the transaction
+- ``signature`` - ``String`` : The signature to the transaction hash. Default is ``null``
 - ``sign`` - ``Function`` : The function for signing the transaction. It assign signature string to ``signature``.
 
 -------
@@ -117,9 +108,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-|
-
-writer assign transaction
+writerAssignTx
 =========================
 
 .. code-block:: javascript
@@ -134,13 +123,10 @@ Parameters
 
 ``transactionData`` - ``Object``
 
-- ``from`` - ``string`` : The address which allows writer to use it's bandwidth.
-- ``writer`` - ``string`` : The address which to take authority to use transaction sender's bandwidth.
-- ``nonce`` - ``number`` : The nonce indicates how many transactions does this account have made. It should be exactly 1 larger than current account's nonce. Highly recommend getting account's latest nonce before making transaction.
-- ``timestamp`` - ``number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
--  TODO : chain ID?
--  TODO : algorythm?
-
+- ``from`` - ``String`` : The address which allows writer to use it's bandwidth.
+- ``writer`` - ``String`` : The address which to take authority to use transaction sender's bandwidth.
+- ``nonce`` - ``Number`` : The nonce indicates how many transactions does this account have made. It should be exactly 1 larger than current account's nonce. Highly recommend getting account's latest nonce before making transaction.
+- ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
 -------
 Returns
@@ -148,21 +134,21 @@ Returns
 
 ``Object`` - The transaction object with the following structure:
 
-- ``rawTx`` - ``object`` : The rawTx contains transaction elements.
+- ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``number`` : The algorythm used in transaction.
-  + ``chain_id`` - ``number`` : The chain to send transaction.
-  + ``from`` - ``string`` : The address which allows writer to use it's bandwidth.
-  + ``to`` - ``string`` : ``null``
-  + ``nonce`` - ``number`` : The nonce.
-  + ``timestamp`` - ``number`` : The unix timestamp.
-  + ``value`` - ``string`` : ``0``
-  + ``data`` - ``object``
+  + ``alg`` - ``Number`` : The algorythm used in transaction.
+  + ``chain_id`` - ``Number`` : The chain to send transaction.
+  + ``from`` - ``String`` : The address which allows writer to use it's bandwidth.
+  + ``to`` - ``String`` : ``null``
+  + ``nonce`` - ``Number`` : The nonce.
+  + ``timestamp`` - ``Number`` : The unix timestamp.
+  + ``value`` - ``String`` : ``0``
+  + ``data`` - ``Object``
 
-    * ``type`` - ``string`` : The transaction type. For the writer assign transaction, it must be ``register_wkey``
-    * ``payload`` - ``string`` : The payload for the writer assigning. It is the string from json object. (Will be changed soon)
-- ``hash`` - ``string`` : The hash to the transaction
-- ``signature`` - ``string`` : The signature to the transaction hash. Default is ``null``
+    * ``type`` - ``String`` : The transaction type. For the writer assign transaction, it must be ``register_wkey``
+    * ``payload`` - ``String`` : The payload for the writer assigning. It is the string from json object. (Will be changed to protoBuffer)
+- ``hash`` - ``String`` : The hash to the transaction
+- ``signature`` - ``String`` : The signature to the transaction hash. Default is ``null``
 - ``sign`` - ``Function`` : The function for signing the transaction. It assign signature string to ``signature``.
 
 
@@ -201,16 +187,14 @@ Example
 
 ---------------------------------------------------------------------------
 
-|
-
-data upload transaction
+dataUploadTx
 =======================
 
 .. code-block:: javascript
 
-  Transaction.medicalRecordTx(transactionData);
+  Transaction.dataUploadTx(transactionData);
 
-To generate data upload transaction, you can use ``Transaction.medicalRecordTx(transactionData)``.
+To generate data upload transaction, you can use ``Transaction.dataUploadTx(transactionData)``.
 
 ----------
 Parameters
@@ -221,18 +205,14 @@ Parameters
 - ``from`` - ``String`` : The address which spend bandwidth to upload data.
 - ``medicalData`` - ``Object`` : The medical data object generated from ``Data.createDataPayload(dataObject)``.
 
-  + ``EncKey`` - ``String`` : The shared secret key from owner and writer generated from ECDH.
+  + ``EncKey`` - ``String`` : The shared secret key generated from owner and writer generated from ECDH.
   + ``Hash`` - ``String`` : The encrypted data's hash.
   + ``Seed`` - ``String`` : The random seed value.
   + ``Storage`` - ``String`` : The storage containing input data.
 - ``nonce`` - ``Number`` : The nonce indicates how many transactions does this account have made. It should be exactly 1 larger than current account's nonce. Highly recommend getting account's latest nonce before making transaction.
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
--  TODO : chain ID?
--  TODO : algorythm?
 
-
-.. note:: Assigned writer also can send transaction using owner(from)'s bandwidth. In this case use bandwidth spender's address as a ``from`` and sign the transaction with assigned writer's private key.
-
+.. note:: Assigned writer can send transaction using owner(from)'s bandwidth. To use owner's bandwidth, use owner's address as a ``from`` and sign the transaction with assigned writer's private key.
 
 -------
 Returns
@@ -240,21 +220,21 @@ Returns
 
 ``Object`` - The transaction object with the following structure:
 
-- ``rawTx`` - ``object`` : The rawTx contains transaction elements.
+- ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``number`` : The algorythm used in transaction.
-  + ``chain_id`` - ``number`` : The chain to send transaction.
-  + ``from`` - ``string`` : The address which use it's bandwidth to send transaction.
-  + ``to`` - ``string`` : ``null``
-  + ``nonce`` - ``number`` : The nonce.
-  + ``timestamp`` - ``number`` : The unix timestamp.
-  + ``value`` - ``string`` : ``0``
-  + ``data`` - ``object``
+  + ``alg`` - ``Number`` : The algorythm used in transaction.
+  + ``chain_id`` - ``Number`` : The chain to send transaction.
+  + ``from`` - ``String`` : The address which use it's bandwidth to send transaction.
+  + ``to`` - ``String`` : ``null``
+  + ``nonce`` - ``Number`` : The nonce.
+  + ``timestamp`` - ``Number`` : The unix timestamp.
+  + ``value`` - ``String`` : ``0``
+  + ``data`` - ``Object``
 
-    * ``type`` - ``string`` : The transaction type. For the data upload transaction, it must be ``add_record``
-    * ``payload`` - ``string`` : The payload for the data uploading. It is the string from json object. (Will be changed soon)
-- ``hash`` - ``string`` : The hash to the transaction
-- ``sign`` - ``string`` : The signature to the transaction hash. Default is ``null``
+    * ``type`` - ``String`` : The transaction type. For the data upload transaction, it must be ``add_record``
+    * ``payload`` - ``String`` : The payload for the data uploading. It is a string from json object. (Will be changed to protoBuffer)
+- ``hash`` - ``String`` : The hash to the transaction
+- ``signature`` - ``String`` : The signature to the transaction hash. Default is ``null``
 - ``sign`` - ``Function`` : The function for signing the transaction. It assign signature string to ``signature``.
 
 

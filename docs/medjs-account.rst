@@ -1,11 +1,10 @@
 .. _account:
 
-
 ===================
 medjs.local.Account
 ===================
 
-The ``medjs.local.Account`` contains functions to generate MediBloc accounts which contain encrypted private key and public key, induce public key from the private key.
+The ``medjs.local.Account`` contains functions to generate MediBloc accounts which contain encrypted private key and public key, and induce public key from the private key.
 
 To use this package standalone use:
 
@@ -13,21 +12,20 @@ To use this package standalone use:
 
   var Medjs = require('medjs');
   var medjs = Medjs(['http://localhost:9921']);
-  var Account = new medjs.local.Account;
+  var Account = medjs.local.Account;
 
 ---------------------------------------------------------------------------
 
 .. _account-create:
 
-
-create
+new Account
 ======
 
 .. code-block:: javascript
 
-  new medjs.account(passphrase, encryptedPrivateKey);
+  new Account(passphrase, encryptedPrivateKey);
 
-To generate account, you can use ``medjs.account()``. Basically account is just a private and public keypair which has several methods described below.
+To generate account, you can use ``medjs.local.Account()``. Basically, account is just a private and public keypair which has several functions described below.
 
 .. note:: MediBloc use public key as an address.
 
@@ -35,8 +33,8 @@ To generate account, you can use ``medjs.account()``. Basically account is just 
 Parameters
 ----------
 
-1. ``passphrase`` - ``string`` :(optional) A random string to encrypt private key. If not given it will encrypt private key with empty string.
-2. ``encryptedPrivateKey`` - ``string`` :(optional) Restore account matched with the given encrypted private key. If not given it will generate new keypair.
+1. ``passphrase`` - ``String`` :(optional) If ``encryptedPrivateKey`` is not given, passphrase works as a key to encrypt private key. If ``encryptedPrivateKey`` is given, passphrase works as a key to decrypt encryptedPrivateKey and it must have been used in encryption of the ``encryptedPrivateKey``. If not given it is set with empty string.
+2. ``encryptedPrivateKey`` - ``String`` :(optional) Restore account matched with the given encrypted private key. If not given it will generate new keypair.
 
 .. note:: If ``passphrase`` isn't matched with ``encryptedPrivateKey``, it will return a different private key.
 
@@ -46,9 +44,9 @@ Returns
 
 ``Object`` - The account object with the following structure:
 
-- ``pubKey`` - ``string``: The account's public key.
-- ``encPrivKey`` - ``string``: The account's encrypted private key. This should never be shared or stored
-- ``getDecryptedPrivateKey(passphrase)`` - ``Function``: The function to decrypt account's encrypted private key and return it.
+- ``pubKey`` - ``String``: The account's public key.
+- ``encryptedPrivKey`` - ``String``: The account's encrypted private key. This should never be shared or stored anywhere.
+- ``getDecryptedPrivateKey(passphrase)`` - ``Function``: The function to decrypt account's ``encryptedPrivKey`` and return it.
 
 -------
 Example
@@ -81,13 +79,12 @@ Example
 
 ---------------------------------------------------------------------------
 
-
-get decrypted private key
+getDecryptedPrivateKey
 =========================
 
 .. code-block:: javascript
 
-  var account = new Account();
+  var account = new Account(passphrase, encryptedPrivateKey);
   account.getDecryptedPrivateKey(passphrase);
 
 Decrypt encrypted private key with the passphrase from the ``account`` object.
@@ -96,7 +93,7 @@ Decrypt encrypted private key with the passphrase from the ``account`` object.
 Parameters
 ----------
 
-``passphrase`` - ``string`` :(optional) Passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
+``passphrase`` - ``String`` :(optional) Passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
 
 .. note:: If ``passphrase`` isn't matched with ``encryptedPrivateKey``, it will return a different private key.
 
@@ -104,7 +101,7 @@ Parameters
 Returns
 -------
 
-``string`` - Decrypted private key in hex format.
+``String`` - Decrypted private key in hexadecimal format.
 
 -------
 Example

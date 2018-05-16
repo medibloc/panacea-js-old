@@ -1,6 +1,5 @@
 .. _data:
 
-
 ================
 medjs.local.Data
 ================
@@ -13,15 +12,13 @@ To use this package standalone use:
 
   var Medjs = require('medjs');
   var medjs = Medjs(['http://localhost:9921']);
-  var Data = new medjs.local.Data;
+  var Data = medjs.local.Data;
 
 ---------------------------------------------------------------------------
 
 .. _data-createPayload:
 
-|
-
-create data payload
+createDataPayload
 ===================
 
 .. code-block:: javascript
@@ -36,11 +33,11 @@ Parameters
 
 ``dataObject`` - ``object``
 
-- ``data`` - ``boolean|number|string|object`` : The data can be any type of data which can be hashed.
-- ``storage`` - ``string`` : The storage specify the location of the stored data. Usally ``IPFS``
-- ``ownerAccount`` - ``object`` : The ownerAccount is the account object from ``new Account()``.
-- ``passphrase`` - ``string`` : The passphrase for the ownerAccount. Passphrase is used to decrypt private key from ownerAccount's encrypted private key.
-- ``writerPubKey`` - ``string`` : The writerPubKey is the address which is already assigned by owner using ``writerAssignTx()``.
+- ``data`` - ``Boolean|Number|String|Object`` : The data can be any type which can be hashed.
+- ``storage`` - ``String`` : The storage specify the location of the stored data. ``Local`` is used when you store the data on your device. (Storage usage guideline will be announced.)
+- ``ownerAccount`` - ``Object`` : The ownerAccount is the account object from ``new Account()``.
+- ``passphrase`` - ``String`` : The passphrase for the ownerAccount. Passphrase is used to decrypt private key from ownerAccount's ``encryptedPrivKey``.
+- ``writerPubKey`` - ``String`` : The writerPubKey is the address which is already assigned by owner using ``writerAssignTx()``.
 
 -------
 Returns
@@ -51,7 +48,7 @@ Returns
 - ``EncKey`` - ``String`` : The shared secret key from owner and writer generated from ECDH.
 - ``Hash`` - ``String`` : The encrypted data's hash.
 - ``Seed`` - ``String`` : The random seed value.
-- ``Storage`` - ``String`` : The storage containing input data.
+- ``Storage`` - ``String`` : The storage storing data.
 
 .. note:: To understand this process deeply, see ``How does data payload not reveal personal information?``
 
@@ -63,14 +60,14 @@ Example
 
   Data.createDataPayload({
     data: 'Hello MediBloc',
-    storage: 'IPFS',
+    storage: 'Local',
     ownerAccount: new Account(),
     passphrase: '',
     writerPubKey: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b'
   })
   > {
-    EncKey: 'f465a255384b5c18ae50a693d1deace0ddbe8576fcd507dc21a3664cd8d1da02',
-    Hash: 'c4e4f6733d44bf4e470ee75d3c07e07a00fb65dab10deb4eec0f8986ffc88f0e',
-    Seed: 'daca5276354dc457b9e5c03b1cd39659',
-    Storage: 'IPFS',
+    EncKey: '665b9300cb06c856e3f857d65b668d9965c48c0b62cbe3c6ce71281d84c027bd',
+    Hash: 'b06207ba101ab9e8195146581d2d1f720b74fcd42b54ee7c99358c5c6ef9f3b3',
+    Seed: '87d3f849b0d5654f59502b88fad59c26',
+    Storage: 'Local',
   }

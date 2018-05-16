@@ -1,6 +1,5 @@
 .. _cryptography:
 
-
 ==================
 medjs.cryptography
 ==================
@@ -19,9 +18,7 @@ To use this package standalone use:
 
 .. _cryptography-encrypt:
 
-|
-
-encrypt data
+encryptData
 ============
 
 .. code-block:: javascript
@@ -44,7 +41,7 @@ Parameters
 Returns
 -------
 
-``String`` - The encrypted message with hexadecimal format.
+``String`` - The encrypted message in hexadecimal format.
 
 -------
 Example
@@ -58,9 +55,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-|
-
-decrypt data
+decryptData
 ============
 
 .. code-block:: javascript
@@ -77,15 +72,15 @@ Parameters
 ----------
 
 1. ``accessKey`` - ``String`` : The access key to decrypt data using symmetric key algorithm. If not given, empty string is used.
-2. ``encryptedMsg`` - ``String`` : The encryptedMsg is hexadecimal string.
+2. ``encryptedMsg`` - ``String`` : The encryptedMsg should be a hexadecimal string.
 
-.. note:: In decrypt, ``encryptedMsg`` must be the string generated through ``Cryptography.encrypt``. If not it returns wrong result.
+.. note:: In decryption, ``encryptedMsg`` must be the string generated through ``Cryptography.encrypt``. If not, it returns wrong result.
 
 -------
 Returns
 -------
 
-``String`` - The encrypted message with hexadecimal format.
+``String`` - The encrypted message in hexadecimal format.
 
 -------
 Example
@@ -99,9 +94,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-|
-
-hash data
+hashData
 =========
 
 .. code-block:: javascript
@@ -121,7 +114,7 @@ Parameters
 Returns
 -------
 
-``String`` - The hash string with hexadecimal format.
+``String`` - The hash string in hexadecimal format.
 
 -------
 Example
@@ -135,9 +128,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-|
-
-generate new key pair
+getKeyPair
 =====================
 
 .. code-block:: javascript
@@ -151,10 +142,10 @@ To get new private, public key pair, you can use ``Cryptography.keyGen.getKeyPai
 Returns
 -------
 
-- ``Object`` - The key pair
+``Object`` - The key pair
 
-  + ``privKey`` - ``String`` : The private key string in hexadecimal format.
-  + ``pubKey`` - ``String`` : The public key string in hexadecimal format.
+- ``privKey`` - ``String`` : The private key string in hexadecimal format.
+- ``pubKey`` - ``String`` : The public key string in hexadecimal format.
 
 -------
 Example
@@ -171,9 +162,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-|
-
-get public key
+getPubKey
 ==============
 
 .. code-block:: javascript
@@ -181,19 +170,19 @@ get public key
   var keyUtil = Cryptography.keyGen;
   keyUtil.getPubKey(privKey);
 
-To get the public key matched with the private key, you can use ``Cryptography.keyGen.getPubKey(privKey)``.
+To get the public key induced from the private key, you can use ``Cryptography.keyGen.getPubKey(privKey)``.
 
 ----------
 Parameters
 ----------
 
-``privKey`` - ``String`` : The hexadecimal format private key.
+``privKey`` - ``String`` : The private key in hexadecimal format.
 
 -------
 Returns
 -------
 
-``String`` - The public key from the input private key
+``String`` - The public key induced from the private key
 
 -------
 Example
@@ -207,9 +196,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-|
-
-get shared secret key
+getSharedSecretKey
 =====================
 
 .. code-block:: javascript
@@ -223,14 +210,14 @@ To get the shared secret key using ECDH, you can use ``Cryptography.keyGen.getSh
 Parameters
 ----------
 
-1. ``privKey`` - ``String`` : The hexadecimal format private key.
-2. ``pubKey`` - ``String`` : The hexadecimal format public key.
+1. ``privKey`` - ``String`` : The private key in hexadecimal format.
+2. ``pubKey`` - ``String`` : The public key in hexadecimal format.
 
 -------
 Returns
 -------
 
-``String`` - The public key from the input private key
+``String`` - The public key from the private key
 
 -------
 Example
@@ -244,10 +231,8 @@ Example
 
 ---------------------------------------------------------------------------
 
-|
-
-get random seed number
-======================
+getRandomSeed
+=============
 
 .. code-block:: javascript
 
@@ -280,9 +265,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-|
-
-concat keys
+concatKeys
 ===========
 
 .. code-block:: javascript
@@ -317,9 +300,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-|
-
-recover public key from signature
+recoverPubKeyFromSignature
 =================================
 
 .. code-block:: javascript
@@ -353,8 +334,6 @@ Example
   > '03047cd865161c3243c7b7a4d389ff407befbb3dd23f520152bc2a6ff2e2f0463d'
 
 ---------------------------------------------------------------------------
-
-|
 
 sign
 ====
@@ -391,9 +370,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-|
-
-verify signature
+verifySignature
 ================
 
 .. code-block:: javascript

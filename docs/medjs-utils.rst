@@ -1,6 +1,5 @@
 .. _utils:
 
-
 ===========
 medjs.utils
 ===========
@@ -13,15 +12,13 @@ To use this package standalone use:
 
   var Medjs = require('medjs');
   var medjs = Medjs(['http://localhost:9921']);
-  var Utils = new medjs.utils;
+  var Utils = medjs.utils;
 
 ---------------------------------------------------------------------------
 
 .. _utils-isAddress:
 
-|
-
-check address type
+isAddress
 ==================
 
 .. code-block:: javascript
@@ -36,7 +33,7 @@ To validate the public key, you can use ``Utils.isAddress(pubKey)``.
 Parameters
 ----------
 
-``pubKey`` - ``String`` : The public key to be validated
+``pubKey`` - ``String`` : The public key to validate.
 
 -------
 Returns
@@ -55,9 +52,7 @@ Example
 
 ---------------------------------------------------------------------------
 
-|
-
-check hexadecimal type
+isHexadecimal
 ======================
 
 .. code-block:: javascript
@@ -76,7 +71,7 @@ Parameters
 Returns
 -------
 
-``Boolean`` - It is ``true`` if the string is hexadecimal.
+``Boolean`` - It is ``true`` if the string is in hexadecimal format.
 
 -------
 Example
