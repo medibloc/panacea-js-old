@@ -1,5 +1,7 @@
 .. _account:
 
+.. include:: include_announcement.rst
+
 ===================
 medjs.local.Account
 ===================
@@ -19,7 +21,7 @@ To use this package standalone use:
 .. _account-create:
 
 new Account
-======
+===========
 
 .. code-block:: javascript
 
