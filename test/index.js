@@ -45,15 +45,5 @@ describe('medjs', () => {
         .to.be.property('utils')
         .to.be.an('object');
     });
-
-    it('should throw an error if nodes argument is empty', () => {
-      return expect(() => index())
-        .to.throw(Error, 'medjs requires array of nodes for initialization.');
-    });
-
-    it('should throw an error if nodes argument is empty', () => {
-      return expect(() => index('http://localhost:10000'))
-        .to.throw(Error, 'medjs requires array of nodes for initialization.');
-    });
   });
 });

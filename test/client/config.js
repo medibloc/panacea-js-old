@@ -28,8 +28,6 @@ describe('config', () => {
     },
   };
 
-  const newBaseURL = 'http://localhost:9999';
-
   describe('#buildConfig', () => {
     describe('returned object', () => {
       const getConfig = config.buildConfig(defaultGetConfig);
@@ -43,12 +41,6 @@ describe('config', () => {
         return expect(getConfig)
           .to.have.property('timeout')
           .and.equal(DEFAULT_TIMEOUT);
-      });
-
-      it('should have a validateStatus function', () => {
-        return expect(getConfig)
-          .to.have.property('validateStatus')
-          .and.to.be.an('function');
       });
 
       it('should have the correct baseURL field', () => {
@@ -96,24 +88,6 @@ describe('config', () => {
           .to.have.property('headers')
           .and.to.be.an('object')
           .and.eql(APPLICATION_JSON);
-      });
-    });
-  });
-
-  describe('#setBaseURL', () => {
-    describe('returned object', () => {
-      const oldConfig = config.buildConfig(defaultGetConfig);
-      const newConfig = config.setBaseURL(oldConfig, newBaseURL);
-
-      it('should be a object', () => {
-        return expect(newConfig)
-          .to.be.an('object');
-      });
-
-      it('should have correct baseURL field', () => {
-        return expect(newConfig)
-          .to.have.property('baseURL')
-          .and.equal(newBaseURL);
       });
     });
   });

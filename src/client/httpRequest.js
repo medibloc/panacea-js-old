@@ -1,17 +1,9 @@
 import axios from 'axios';
 
 // request sends HTTP request.
-// TODO: Fix after HTTP spec confirmed
-const request = async (config) => {
-  try {
-    const res = await axios(config);
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
-};
+const request = config => axios(config).then(res => res.data);
 
-// TODO: impl asyncRequest
-const asyncRequest = () => {};
+// asyncRequest sends HTTP request and hands over the response to callback.
+const asyncRequest = (config, cb) => request(config).then(res => cb(null, res)).catch(cb);
 
 export default { request, asyncRequest };
