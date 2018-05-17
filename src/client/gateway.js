@@ -1,4 +1,4 @@
-import { buildConfig, setBaseURL } from './config';
+import { buildConfig } from './config';
 import { MAX_REQUEST_RETRY_COUNT } from './constants';
 import { request } from './httpRequest';
 
@@ -20,7 +20,7 @@ export default (nodeBucket) => {
 
     // set or build a config.
     const config = prevConfig ?
-      setBaseURL(prevConfig, baseURL) :
+      { ...prevConfig, baseURL } :
       buildConfig({
         baseURL,
         method,

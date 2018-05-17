@@ -1,55 +1,55 @@
+const DATA_UPLOAD = 'add_record';
 const VALUE_TRANSFER = 'binary';
 const WRITER_ASSIGN = 'register_wkey';
-const DATA_UPLOAD = 'add_record';
-
 
 const BYTESIZES = {
   ADDRESS: 33,
-  VALUE: 16,
-  TIMESTAMP: 8,
-  NONCE: 8,
-  CHAIN_ID: 4,
   ALG: 4,
+  CHAIN_ID: 4,
+  NONCE: 8,
+  TIMESTAMP: 8,
+  VALUE: 16,
 };
 
-const REQUIRED_VALUE_TRANSFER_TX_PARAMETERS = [
-  'from',
-  'to',
-  'value',
-  'timestamp',
-  'value',
-  'nonce',
-  'chain_id',
+const REQUIRED_DATA_UPLOAD_TX_PARAMETERS = [
   'alg',
+  'chain_id',
+  'from',
+  'nonce',
+  'payload',
+  'timestamp',
   'type',
 ];
 
-const REQUIRED_DATA_UPLOAD_TX_PARAMETERS = [
-  'from',
-  'timestamp',
-  'nonce',
-  'chain_id',
+const REQUIRED_VALUE_TRANSFER_TX_PARAMETERS = [
   'alg',
+  'chain_id',
+  'from',
+  'nonce',
+  'timestamp',
+  'to',
   'type',
-  'payload',
+  'value',
 ];
 
 const REQUIRED_WRITER_ASSIGN_TX_PARAMETERS = [
-  'from',
-  'timestamp',
-  'nonce',
-  'chain_id',
   'alg',
-  'payload',
+  'chain_id',
+  'from',
+  'nonce',
+  'timestamp',
   'type',
+  'payload',
 ];
 
 export default {
-  BYTESIZES,
-  REQUIRED_VALUE_TRANSFER_TX_PARAMETERS,
-  REQUIRED_DATA_UPLOAD_TX_PARAMETERS,
-  REQUIRED_WRITER_ASSIGN_TX_PARAMETERS,
+  DATA_UPLOAD,
   VALUE_TRANSFER,
   WRITER_ASSIGN,
-  DATA_UPLOAD,
+
+  BYTESIZES,
+
+  REQUIRED_DATA_UPLOAD_TX_PARAMETERS,
+  REQUIRED_VALUE_TRANSFER_TX_PARAMETERS,
+  REQUIRED_WRITER_ASSIGN_TX_PARAMETERS,
 };

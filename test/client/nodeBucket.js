@@ -53,7 +53,7 @@ describe('nodeBucket', () => {
 
     it('should throw an error if nodes argument is empty array', () => {
       return expect(() => nodeBucket([]))
-        .to.throw(Error, 'nodeBucket requires not empty array of nodes for initialization.');
+        .to.throw(Error, 'nodeBucket requires array of nodes for initialization.');
     });
   });
 

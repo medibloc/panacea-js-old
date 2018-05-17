@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import { writerAssignTx } from 'local/transaction';
 
-
 // overall writerAssignTx
 describe('# writerAssignTx function', () => {
   describe('# TX hash', () => {

@@ -1,9 +1,9 @@
 import {
-  isHexadecimal,
   isAddress,
+  isHexadecimal,
 } from './utils';
 
 export default {
-  isHexadecimal,
   isAddress,
+  isHexadecimal,
 };

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import setTx from 'local/transaction/utils/setTx';
 import { Account } from 'local/account';
+import setTx from 'local/transaction/utils/setTx';
 
 // setTx
 describe('# signHashedTx function', () => {

@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai';
 import {
-  sign,
   hash,
+  sign,
   keyGen,
 } from 'cryptography';
 import chaiHexString from 'test/helpers/chaiHexString';

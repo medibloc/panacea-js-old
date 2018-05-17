@@ -7,9 +7,6 @@ import {
 
 const defaultConfig = {
   timeout: DEFAULT_TIMEOUT,
-  validateStatus(status) {
-    return status >= 200 && status < 500;
-  },
 };
 
 const buildConfig = ({
@@ -32,9 +29,6 @@ const buildConfig = ({
   return Object.assign({}, defaultConfig, customConfig);
 };
 
-const setBaseURL = (config, baseURL) => Object.assign(config, { baseURL });
-
 export default {
   buildConfig,
-  setBaseURL,
 };

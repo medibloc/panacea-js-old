@@ -1,9 +1,6 @@
 export default (nodes) => {
-  if (!nodes || !Array.isArray(nodes)) {
+  if (!nodes || !Array.isArray(nodes) || nodes.length === 0) {
     throw new Error('nodeBucket requires array of nodes for initialization.');
-  }
-  if (nodes.length === 0) {
-    throw new Error('nodeBucket requires not empty array of nodes for initialization.');
   }
 
   const size = nodes.length;

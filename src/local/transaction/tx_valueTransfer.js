@@ -1,13 +1,12 @@
-import { checkTx, setTx } from './utils';
-import {
+import { checkTx, constants, setTx } from './utils';
+
+const {
   REQUIRED_VALUE_TRANSFER_TX_PARAMETERS,
   VALUE_TRANSFER,
-} from './utils/constants';
+} = constants;
 
-
-const validateTx = (tx) => {
+const validateTx = tx =>
   checkTx.checkRequiredParams(tx, REQUIRED_VALUE_TRANSFER_TX_PARAMETERS);
-};
 
 const createTx = (from, to, value, nonce, timestamp) => {
   const tx = setTx({
@@ -15,13 +14,13 @@ const createTx = (from, to, value, nonce, timestamp) => {
     nonce,
     timestamp,
     to,
-    value,
     type: VALUE_TRANSFER,
+    value,
   });
+
   validateTx(tx);
   return tx;
 };
-
 
 export default {
   createTx,

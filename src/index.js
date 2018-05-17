@@ -4,17 +4,10 @@ import local from './local';
 import storage from './storage';
 import utils from './utils';
 
-
-export default (nodes) => {
-  // TODO: set default nodes after mainnet launching
-  if (!nodes || !Array.isArray(nodes)) {
-    throw new Error('medjs requires array of nodes for initialization.');
-  }
-  return {
-    client: client(nodes),
-    cryptography,
-    local,
-    storage,
-    utils,
-  };
-};
+export default nodes => ({
+  client: client(nodes),
+  cryptography,
+  local,
+  storage,
+  utils,
+});

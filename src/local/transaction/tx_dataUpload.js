@@ -1,12 +1,10 @@
-import { keyGen, hash, encrypt } from 'cryptography';
-import { checkTx, setTx, constants } from './utils';
-import { REQUIRED_DATA_UPLOAD_TX_PARAMETERS } from './utils/constants';
+import { encrypt, hash, keyGen } from 'cryptography';
+import { checkTx, constants, setTx } from './utils';
 
+const { REQUIRED_DATA_UPLOAD_TX_PARAMETERS } = constants;
 
-const validateTx = (tx) => {
+const validateTx = tx =>
   checkTx.checkRequiredParams(tx, REQUIRED_DATA_UPLOAD_TX_PARAMETERS);
-};
-
 
 const createTx = (from, medicalData, nonce, timestamp) => {
   const medicalDataPayload = {};
@@ -16,22 +14,24 @@ const createTx = (from, medicalData, nonce, timestamp) => {
   medicalDataPayload.Storage = medicalData.Storage;
   medicalDataPayload.EncKey = Buffer.from(medicalData.EncKey, 'hex').toString('base64');
   medicalDataPayload.Seed = Buffer.from(medicalData.Seed, 'hex').toString('base64');
+
   const tx = setTx({
-    nonce,
     from,
+    nonce,
+    payload: medicalDataPayload,
     timestamp,
     type: constants.DATA_UPLOAD,
-    payload: medicalDataPayload,
   });
+
   validateTx(tx);
   return tx;
 };
 
 const createDataPayload = ({
   data,
-  storage,
   ownerAccount,
   passphrase,
+  storage,
   writerPubKey,
 }) => {
   const encryptKey = keyGen.getRandomSeed();
@@ -51,8 +51,7 @@ const createDataPayload = ({
   };
 };
 
-
 export default {
-  createTx,
   createDataPayload,
+  createTx,
 };

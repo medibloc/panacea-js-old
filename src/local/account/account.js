@@ -1,8 +1,9 @@
-import { keyGen, encrypt, sign } from 'cryptography';
+import { encrypt, keyGen, sign } from 'cryptography';
 
 // generate new keypair and register
 const generateAccount = (passphrase = '') => {
   const keyPair = keyGen.getKeyPair();
+
   return {
     encryptedPrivKey: encrypt.encryptData(passphrase, keyPair.privKey),
     pubKey: keyPair.pubKey,
@@ -12,12 +13,12 @@ const generateAccount = (passphrase = '') => {
 // set encrypted private key
 const setEncryptedPrivateKey = (passphrase = '', encryptedPrivKey) => {
   const privKey = encrypt.decryptData(passphrase, encryptedPrivKey);
+
   return {
     encryptedPrivKey,
     pubKey: keyGen.getPubKey(privKey),
   };
 };
-
 
 export default class Account {
   constructor(passphrase, encryptedPrivKey = '') {
@@ -34,8 +35,7 @@ export default class Account {
 
   // get decrypted private key
   getDecryptedPrivateKey(passphrase = '') {
-    const privKey = encrypt.decryptData(passphrase, this.encryptedPrivKey);
-    return privKey;
+    return encrypt.decryptData(passphrase, this.encryptedPrivKey);
   }
 
   signTx(tx, passphrase = '') {
