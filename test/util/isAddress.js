@@ -1,5 +1,5 @@
 import chai, { expect } from 'chai';
-import { isAddress } from 'util';
+import { isAddress } from 'utils';
 import { keyGen } from 'cryptography';
 import chaiHexString from 'test/helpers/chaiHexString';
 

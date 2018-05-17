@@ -2,7 +2,8 @@ import client from './client';
 import cryptography from './cryptography';
 import local from './local';
 import storage from './storage';
-import util from './util';
+import utils from './utils';
+
 
 export default (nodes) => {
   // TODO: set default nodes after mainnet launching
@@ -14,6 +15,6 @@ export default (nodes) => {
     cryptography,
     local,
     storage,
-    util,
+    utils,
   };
 };

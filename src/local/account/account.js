@@ -1,4 +1,4 @@
-import { keyGen, encrypt } from 'cryptography';
+import { keyGen, encrypt, sign } from 'cryptography';
 
 // generate new keypair and register
 const generateAccount = (passphrase = '') => {
@@ -38,25 +38,9 @@ export default class Account {
     return privKey;
   }
 
-  // set nonce
-  // setNonce(nonce) {
-  //   this.nonce = nonce;
-  //   return this;
-  // }
-
-  // set balance
-  // setBalance(balance) {
-  //   this.balance = balance;
-  //   return this;
-  // }
-
-  // get Account information
-  // getAccountInfo() {
-  //   const {
-  //     privKey, pubKey, nonce, balance,
-  //   } = this;
-  //   return {
-  //     privKey, pubKey, nonce, balance,
-  //   };
-  // }
+  signTx(tx, passphrase = '') {
+    const Tx = tx;
+    const privKey = this.getDecryptedPrivateKey(passphrase);
+    Tx.sign = sign.sign(privKey, tx.hash);
+  }
 }

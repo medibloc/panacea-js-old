@@ -36,11 +36,13 @@ const getSharedSecretKey = (privKey, pubKey) => {
 
 const getRandomSeed = (length = 16) => randomBytes(length).toString('hex');
 
-const concatKeys = (sharedSecretKey, randomSeed) => {
-  const secretBuffer = Buffer.from(sharedSecretKey, 'hex');
-  const randomSeedBuffer = Buffer.from(randomSeed, 'hex');
-  return Buffer.concat([secretBuffer, randomSeedBuffer]).toString('hex');
-};
+const concatKeys = (string1, string2) => string1.concat(string2);
+
+// const concatKeys = (string1, strign2) => {
+//   const secretBuffer = Buffer.from(sharedSecretKey, 'hex');
+//   const randomSeedBuffer = Buffer.from(randomSeed, 'hex');
+//   return Buffer.concat([secretBuffer, randomSeedBuffer]).toString('hex');
+// };
 
 export default {
   getKeyPair,

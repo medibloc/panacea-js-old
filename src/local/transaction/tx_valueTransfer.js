@@ -9,12 +9,12 @@ const validateTx = (tx) => {
   checkTx.checkRequiredParams(tx, REQUIRED_VALUE_TRANSFER_TX_PARAMETERS);
 };
 
-const createTx = (from, receiver, value, nonce, timestamp) => {
+const createTx = (from, to, value, nonce, timestamp) => {
   const tx = setTx({
     from,
     nonce,
     timestamp,
-    to: receiver,
+    to,
     value,
     type: VALUE_TRANSFER,
   });

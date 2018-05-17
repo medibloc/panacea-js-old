@@ -1,10 +1,12 @@
+import { CHAIN_ID, ALG } from 'config';
+
 const defaultOptions = {
   from: null,
   to: null,
   value: '0',
   nonce: 0,
-  chain_id: 1010, // TODO: make chain id constant
-  alg: 1,
+  chain_id: CHAIN_ID,
+  alg: ALG,
   payload: undefined,
   type: null,
 };

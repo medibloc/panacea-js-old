@@ -42,7 +42,7 @@ describe('medjs', () => {
 
     it('should have a util object', () => {
       return expect(medjs)
-        .to.be.property('util')
+        .to.be.property('utils')
         .to.be.an('object');
     });
 
