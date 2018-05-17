@@ -62,12 +62,12 @@ describe('# valueTransferTx function', () => {
     it('Should be matched with go-medibloc', () => {
       user.encryptedPrivKey = encryptedPrivKey;
       tx.hash = hashFromGo;
-      tx.sign(user, 'passphrase');
-      expect(tx.signature).to.be.equal(signatureFromGo);
+      user.signTx(tx, 'passphrase');
+      expect(tx.sign).to.be.equal(signatureFromGo);
     });
 
     it('Throw error if user put unmatched passphrase', () => {
-      expect(() => tx.sign(user, 'wrongPassphrase')).to.throw(Error);
+      expect(() => user.signTx(tx, 'wrongPassphrase')).to.throw(Error);
     });
   });
 });

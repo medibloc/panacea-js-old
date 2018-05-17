@@ -1,20 +1,13 @@
 import { createTx as createValueTransferTx } from './tx_valueTransfer';
 import { createTx as createWriterAssignTx } from './tx_writerAssign';
 import { createTx as createDataUploadTx, createDataPayload } from './tx_dataUpload';
-import { hashTx, signTx } from './utils';
-
-const { signHashedTx } = signTx;
-
-function sign(account, passphrase) {
-  this.signature = signHashedTx(this.hash, account, passphrase);
-}
+import { hashTx } from './utils';
 
 function txWrapper(rawTx) {
   return {
     rawTx,
     hash: hashTx(rawTx),
-    signature: null,
-    sign,
+    sign: null,
   };
 }
 
