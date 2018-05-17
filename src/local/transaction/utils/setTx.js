@@ -1,30 +1,30 @@
-import { CHAIN_ID, ALG } from 'config';
+import { ALG, CHAIN_ID } from 'config';
 
 const defaultOptions = {
-  from: null,
-  to: null,
-  value: '0',
-  nonce: 0,
-  chain_id: CHAIN_ID,
   alg: ALG,
+  chain_id: CHAIN_ID,
+  from: null,
+  nonce: 0,
   payload: undefined,
+  to: null,
   type: null,
+  value: '0',
 };
 
 const setTx = (options) => {
   const opts = Object.assign({}, defaultOptions, options);
   const tx = {
-    from: opts.from,
-    timestamp: opts.timestamp || Math.floor(new Date().getTime()),
-    nonce: opts.nonce,
-    to: opts.to,
-    value: opts.value,
-    chain_id: opts.chain_id,
     alg: opts.alg,
+    chain_id: opts.chain_id,
+    from: opts.from,
+    nonce: opts.nonce,
     data: {
       type: opts.type,
       payload: JSON.stringify(opts.payload),
     },
+    to: opts.to,
+    timestamp: opts.timestamp || Math.floor(new Date().getTime()),
+    value: opts.value,
   };
   return JSON.parse(JSON.stringify(tx));
 };

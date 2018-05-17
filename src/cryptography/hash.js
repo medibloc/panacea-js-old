@@ -13,17 +13,12 @@ const hashData = (msg) => {
     default:
       throw new Error('Invalid msg type');
   }
-  const hash = SHA3256.create();
-  return hash.update(message).hex();
+  return SHA3256.create().update(message).hex();
 };
 
 // const hashDataStream = () => {};
-const hashTo32Byte = (accessKey) => {
-  const hash = SHA3256.create();
-  hash.update(accessKey);
-  const hashedKey = hash.hex();
-  return hashedKey;
-};
+const hashTo32Byte = accessKey =>
+  SHA3256.create().update(accessKey).hex();
 
 export default {
   hashData,

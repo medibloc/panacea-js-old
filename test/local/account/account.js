@@ -1,7 +1,6 @@
 import { expect } from 'chai';
+import { encrypt, keyGen } from 'cryptography';
 import { Account } from 'local/account';
-import { keyGen, encrypt } from 'cryptography';
-
 
 // Account
 describe('# Account class', () => {

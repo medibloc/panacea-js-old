@@ -1,13 +1,8 @@
 import { expect } from 'chai';
 import { dataUploadTx } from 'local/transaction';
 
-
 // overall dataUploadTx
 describe('# dataUploadTx function', () => {
-  describe('# Medical Data', () => {
-    // TODO after format is specified.
-  });
-
   describe('# TX hash', () => {
     it('Should be matched with go-medibloc', () => {
       const dataFromGo = {

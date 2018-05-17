@@ -1,7 +1,6 @@
 import { expect } from 'chai';
-import { setTx, checkTx, constants } from 'local/transaction/utils';
 import { Account } from 'local/account';
-
+import { checkTx, constants, setTx } from 'local/transaction/utils';
 
 // chechTx
 describe('# chechTx function', () => {
@@ -43,6 +42,7 @@ describe('# chechTx function', () => {
           },
         },
       );
+      if (param !== 'type') tempTx.data.type = 'binary';
       expect(() => checkRequiredParams(tempTx, REQUIRED_VALUE_TRANSFER_TX_PARAMETERS)).to.throw(Error, `Transaction should have ${param} field.`);
     });
 

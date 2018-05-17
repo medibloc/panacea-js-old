@@ -1,7 +1,6 @@
 import { expect } from 'chai';
-import { hashTx, setTx } from 'local/transaction/utils';
 import { Account } from 'local/account';
-
+import { hashTx, setTx } from 'local/transaction/utils';
 
 // hashTx
 describe('# hashTx function', () => {

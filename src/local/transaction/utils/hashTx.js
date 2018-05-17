@@ -1,5 +1,5 @@
-import { sha3_256 as SHA3256 } from 'js-sha3';
 import { BigNumber } from 'bignumber.js';
+import { sha3_256 as SHA3256 } from 'js-sha3';
 import { BYTESIZES } from './constants';
 
 const genBuf = (param, size) => {
@@ -7,7 +7,6 @@ const genBuf = (param, size) => {
   const fixedParam = '0'.repeat(padding) + param.toString(16);
   return Buffer.alloc(size, fixedParam, 'hex');
 };
-
 
 const hashTx = (tx) => {
   if (typeof tx !== 'object') throw new Error('Transaction format should be object.');
@@ -47,8 +46,7 @@ const hashTx = (tx) => {
     algBuffer,
   ]);
 
-  hash.update(buf);
-  return hash.hex();
+  return hash.update(buf).hex();
 };
 
 export default hashTx;

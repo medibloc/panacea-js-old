@@ -1,11 +1,10 @@
-import { checkTx, setTx, constants } from './utils';
-import { REQUIRED_WRITER_ASSIGN_TX_PARAMETERS } from './utils/constants';
+import { checkTx, constants, setTx } from './utils';
 
+const { REQUIRED_WRITER_ASSIGN_TX_PARAMETERS } = constants;
 
 const validateTx = (tx) => {
   checkTx.checkRequiredParams(tx, REQUIRED_WRITER_ASSIGN_TX_PARAMETERS);
 };
-
 
 const createTx = (from, writerPubKey, nonce, timestamp) => {
   const dataPayloadHash = [];
@@ -14,16 +13,16 @@ const createTx = (from, writerPubKey, nonce, timestamp) => {
   const tx = setTx({
     from,
     nonce,
-    timestamp,
     payload: {
       Writer: dataPayloadHash,
     },
+    timestamp,
     type: constants.WRITER_ASSIGN,
   });
+
   validateTx(tx);
   return tx;
 };
-
 
 export default {
   createTx,
