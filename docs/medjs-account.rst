@@ -89,7 +89,7 @@ getDecryptedPrivateKey
   var account = new Account(passphrase, encryptedPrivateKey);
   account.getDecryptedPrivateKey(passphrase);
 
-Decrypt encrypted private key with the passphrase from the ``account`` object.
+To decrypt encrypted private key with the passphrase from the ``account`` object, you can use ``Account.getDecryptedPrivateKey(passphrase)``.
 
 ----------
 Parameters
@@ -114,3 +114,46 @@ Example
   var account = new Account('123456789abcdeABCDE!@#');
   account.getDecryptedPrivateKey('123456789abcdeABCDE!@#');
   > "960d2ea9a19b2b939b2ecbdbba75ffb50aafa0b63a73cd1b614cb53c50482d26"
+
+---------------------------------------------------------------------------
+
+signTx
+=========================
+
+.. code-block:: javascript
+
+  var account = new Account(passphrase, encryptedPrivateKey);
+  account.signTx(tx, passphrase);
+
+To sign transaction with the private key, you can use ``Account.signTx(tx, passphrase)``. It assigns signature string to ``tx.sign``.
+
+----------
+Parameters
+----------
+
+1. ``tx`` - ``Object`` : Transaction object created from one of the :ref:`transaction creation functions <transaction>`.
+2. ``passphrase`` - ``String`` :(Optional) The passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
+
+.. note:: Account.signTx doesn't return anything but assign signature string in the transaction object. After sign, ``transaction.sign`` is changed from ``Null`` to ``String``.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  var owner = new Account();
+  var transactionData = {
+    from: owner.pubKey,
+    to: '0266e30b34c9b377c9699c026872429a0fa582ac802759a3f35f9e90b352b8d932',
+    value: '5',
+    nonce: 3
+  };
+  var transaction = Transaction.valueTransferTx(transactionData);
+  owner.signTx(transaction);
+  console.log(transaction);
+  > {
+    rawTx: {...},
+    hash: "15be7e844e19ecdbad46894bf310e7c15bb315837baf4aac82991d0c531b02d8",
+    sign: "882c24751521bae53bff1673b896b3d0cce2b81a03fea9563323975b79955cbe134744cbd21913955093e60c8d56d3884d7863db88b5393135f667f510fcceb200"
+  }

@@ -85,7 +85,7 @@ Example
 
   var transactionData = {
     from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
-    receiver: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
+    to: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
     value: '55',
     nonce: 3
   }
@@ -279,54 +279,3 @@ Example
     signature: null,
     sign: [Function: sign]
   }
-
----------------------------------------------------------------------------
-
-sign
-================
-
-.. code-block:: javascript
-
-  var transaction = Transaction.valueTransferTx(transactionData);
-  transaction.sign(account, passphrase);
-
-To sign for the transaction and assign signature in the transaction object, you can use ``transaction.sign(account, passphrase)``.
-
-----------
-Parameters
-----------
-
-1. ``account`` - ``Object`` : The account object from ``Account()``.
-2. ``passphrase`` - ``String`` :(Optional) The passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
-
-.. note:: transaction.sign doesn't return anything but assign signature string in the transaction object. After sign, ``transaction.signature`` is changed from ``Null`` to ``String``.
-
--------
-Example
--------
-
-.. code-block:: javascript
-
-  var owner = new Account();
-  var transactionData = {
-    from: owner.pubKey,
-    receiver: '0266e30b34c9b377c9699c026872429a0fa582ac802759a3f35f9e90b352b8d932',
-    value: '5',
-    nonce: 3
-  }
-  var transaction = Transaction.valueTransferTx(transactionData);
-  transaction.sign(owner);
-  console.log(transaction);
-  > {
-    rawTx: {
-      from: '0306a88e00517add935be42c878ed1bcd31f7558994a989e37163ccc11d9ea14cf',
-      timestamp: 1526451624360,
-      nonce: 3,
-      to: '0266e30b34c9b377c9699c026872429a0fa582ac802759a3f35f9e90b352b8d932',
-      value: '5',
-      chain_id: 1,
-      alg: 1,
-      data: { type: 'binary', payload: null } },
-    hash: '9ccd805ea1c201ff691bcdbb8e24879503d26a8ab6f528de3137fb37eb800418',
-    signature: '79f945b29f4743e03b5aa1d608b83fa1e63e37f99f0d0ece328fe490a8a845fd473beb92a1c18fe1b19e2d94375740f43f75c408b1fdf8daea66e4b31ebac89e01',
-    sign: [Function: sign] }
