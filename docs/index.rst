@@ -1,10 +1,10 @@
 .. include:: include_announcement.rst
 
 ==================================
-medjs.js - MediBloc JavaScript API
+medjs - MediBloc JavaScript API
 ==================================
 
-medjs.js is a client-side JavaScript library for `MediBloc - Decentralized platform for personal health record
+medjs is a client-side JavaScript library for `MediBloc - Decentralized platform for personal health record
 <https://github.com/medibloc/go-medibloc>`_.
 
 Contents:
@@ -28,4 +28,5 @@ Contents:
     medjs-account
     medjs-data
     medjs-transaction
+    medjs-storage
     medjs-utils
