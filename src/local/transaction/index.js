@@ -1,6 +1,6 @@
 import { createTx as createValueTransferTx } from './tx_valueTransfer';
 import { createTx as createWriterAssignTx } from './tx_writerAssign';
-import { createTx as createDataUploadTx } from './tx_dataUpload';
+import { createTx as createDataUploadTx, createDataPayload } from './tx_dataUpload';
 import { hashTx, signTx } from './utils';
 
 const { signHashedTx } = signTx;
@@ -41,6 +41,6 @@ export default {
     const rawTx = createDataUploadTx(from, medicalData, nonce, timestamp);
     return txWrapper(rawTx);
   },
-  // signTx: sign,
+  createDataPayload,
 };
 
