@@ -1,7 +1,7 @@
 import { Account } from './account';
-import Transaction from './transaction';
+import transaction from './transaction';
 
 export default {
   Account,
-  Transaction,
+  transaction,
 };
