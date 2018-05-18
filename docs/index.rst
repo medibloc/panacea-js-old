@@ -27,5 +27,6 @@ Contents:
     medjs-cryptography
     medjs-account
     medjs-transaction
+    medjs-healthData
     medjs-storage
     medjs-utils

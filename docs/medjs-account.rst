@@ -157,3 +157,46 @@ Example
     hash: "15be7e844e19ecdbad46894bf310e7c15bb315837baf4aac82991d0c531b02d8",
     sign: "882c24751521bae53bff1673b896b3d0cce2b81a03fea9563323975b79955cbe134744cbd21913955093e60c8d56d3884d7863db88b5393135f667f510fcceb200"
   }
+
+---------------------------------------------------------------------------
+
+signMedicalData
+=========================
+
+.. code-block:: javascript
+
+  var account = new Account(passphrase, encryptedPrivateKey);
+  account.signMedicalData(medicalData, passphrase);
+
+Returns a medical data with the signature and the certification of the account.
+
+----------
+Parameters
+----------
+
+1. ``medicalData`` - ``Object`` : data object:
+  - ``data`` - ``Buffer|Uint8Array``: The Uint8Array or Buffer of the data. 
+  - ``sign`` -  ``String`` : The signature of the data by the account. 
+  - ``cert`` - ``Object`` : The certification object of the account.
+
+2. ``passphrase`` - ``String`` :(Optional) The passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  var owner = new Account();
+  // TODO: add the certification
+  var data = medjs.healthData.encodeDataFromFile('./file_path', 'fhir')
+  var medicalData = {
+    data: data,
+  }
+  owner.signMedicalData(medicalData);
+  console.log(medicalData);
+  > {
+    data: // TODO show example
+    sign: // TODO show example
+    cert: // TODO show example
+  }
