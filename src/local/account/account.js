@@ -1,4 +1,5 @@
 import { encrypt, keyGen, sign } from 'cryptography';
+import { createCertificate } from 'identification/certificate';
 
 // generate new keypair and register
 const generateAccount = (passphrase = '') => {
@@ -41,5 +42,21 @@ export default class Account {
   signTx(tx, passphrase = '') {
     const privKey = this.getDecryptedPrivateKey(passphrase);
     tx.sign = sign.sign(privKey, tx.hash); // eslint-disable-line
+  }
+
+  createCertificate({
+    expireDate,
+    issuer,
+    issueDate,
+    passphrase = '',
+  }) {
+    this.cert = createCertificate({
+      expireDate,
+      issuer,
+      issuerAccount: this,
+      issueDate,
+      passphrase,
+      pubKey: this.pubKey,
+    });
   }
 }
