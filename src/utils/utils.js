@@ -1,14 +1,7 @@
-const isAddress = (pubKey) => {
-  const pubKeyBuffer = Buffer.from(pubKey, 'hex');
-  if (pubKeyBuffer.length !== 33) return false;
-  return true;
-};
+const isAddress = pubKey =>
+  (Buffer.from(pubKey, 'hex').length === 33);
 
-const isHexadecimal = (string) => {
-  const regexp = /^[0-9a-fA-F]+$/;
-  if (regexp.test(string)) return true;
-  return false;
-};
+const isHexadecimal = str => /^[0-9a-fA-F]+$/.test(str);
 
 export default {
   isAddress,

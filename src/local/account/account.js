@@ -2,11 +2,11 @@ import { encrypt, keyGen, sign } from 'cryptography';
 
 // generate new keypair and register
 const generateAccount = (passphrase = '') => {
-  const keyPair = keyGen.getKeyPair();
+  const { privKey, pubKey } = keyGen.getKeyPair();
 
   return {
-    encryptedPrivKey: encrypt.encryptData(passphrase, keyPair.privKey),
-    pubKey: keyPair.pubKey,
+    encryptedPrivKey: encrypt.encryptData(passphrase, privKey),
+    pubKey,
   };
 };
 
@@ -22,7 +22,7 @@ const setEncryptedPrivateKey = (passphrase = '', encryptedPrivKey) => {
 
 export default class Account {
   constructor(passphrase, encryptedPrivKey = '') {
-    let newAccount = {};
+    let newAccount;
     if (encryptedPrivKey === '') {
       newAccount = generateAccount(passphrase);
     } else {
@@ -39,8 +39,7 @@ export default class Account {
   }
 
   signTx(tx, passphrase = '') {
-    const Tx = tx;
     const privKey = this.getDecryptedPrivateKey(passphrase);
-    Tx.sign = sign.sign(privKey, tx.hash);
+    tx.sign = sign.sign(privKey, tx.hash); // eslint-disable-line
   }
 }
