@@ -4,7 +4,6 @@ const checkRequiredParams = (tx, requiredParams) => {
       throw new Error(`Transaction should have ${param} field.`);
     }
   });
-  return true;
 };
 
 export default {

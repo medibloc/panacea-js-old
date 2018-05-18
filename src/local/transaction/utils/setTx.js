@@ -19,11 +19,11 @@ const setTx = (options) => {
     from: opts.from,
     nonce: opts.nonce,
     data: {
-      type: opts.type,
       payload: JSON.stringify(opts.payload),
+      type: opts.type,
     },
-    to: opts.to,
     timestamp: opts.timestamp || Math.floor(new Date().getTime()),
+    to: opts.to,
     value: opts.value,
   };
   return JSON.parse(JSON.stringify(tx));
