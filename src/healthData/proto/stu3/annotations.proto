@@ -1,0 +1,81 @@
+//    Copyright 2018 Google Inc.
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        https://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+
+// This file defines extensions to FieldOptions and MessageOptions to enable
+// annotation proto fields and messages with their corresponding FHIR types.
+
+syntax = "proto3";
+
+package google.fhir.stu3.proto;
+option java_outer_classname = "Annotations";
+option java_package = "com.google.fhir.stu3.proto";
+
+import "google/protobuf/descriptor.proto";
+
+// TODO(sundberg): Unify with StructureDefinitionKindCode
+enum StructureDefinitionKindValue {
+  KIND_UNKNOWN = 0;
+  KIND_PRIMITIVE_TYPE = 1;
+  KIND_COMPLEX_TYPE = 2;
+  KIND_RESOURCE = 3;
+  KIND_LOGICAL = 4;
+}
+
+// To annotate cardinality constraints.
+enum Requirement {
+  NOT_REQUIRED = 0;
+  REQUIRED_BY_FHIR = 1;
+}
+
+extend google.protobuf.MessageOptions {
+  // If this message is the proto version of a fhir extension, this is the
+  // extension identifier.
+  string fhir_extension_url = 177048773;
+
+  // If this message is a Code constrained to a specific valueset, this is the
+  // valueset identifier.
+  string fhir_valueset_url = 180887441;
+
+  // If this message is a Reference, the reference is constrained to these
+  // resource types.
+  repeated string fhir_reference_type = 183546385;
+
+  // What type of fhir structure does this message represent?
+  StructureDefinitionKindValue structure_definition_kind = 182131192;
+
+  // A brief description of the intended use of this message.
+  string message_description = 190563156;
+}
+
+extend google.protobuf.EnumValueOptions {
+  // If we had to rename this code to make a valid enum identifier, what was
+  // the original name?
+  string fhir_original_code = 181000551;
+}
+
+extend google.protobuf.FieldOptions {
+  // Is this field required?
+  Requirement validation_requirement = 162282766;
+
+  // Is this field a wrapper around a choice type?
+  bool is_choice_type = 187112991;
+
+  // A brief description of the intended use of this field.
+  string field_description = 190357977;
+}
+
+extend google.protobuf.OneofOptions {
+  // Is this field required?
+  Requirement oneof_validation_requirement = 181563459;
+}

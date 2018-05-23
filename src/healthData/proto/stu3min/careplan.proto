@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package buffer;
+
+import "common.proto";
+
+message CarePlan {
+    string status = 1;
+    repeated Addresses addresses = 2;
+    string resourceType = 3;
+    Text text = 4;
+    repeated CGoal goal = 5;
+    Period period = 6;
+    repeated CContained contained = 7;
+    string intent = 8;
+    repeated Activity activity = 9;
+    repeated CareTeam careTeam = 10;
+    string id = 11;
+    Subject subject = 12;
+    Meta meta = 13;
+}
+
+message CareTeam {
+    string reference = 1;
+}
+
+message Activity {
+    Detail detail = 1;
+}
+
+message Detail {
+    Category category = 1;
+    string status = 2;
+    Code code = 3;
+    ProductReference productReference = 4;
+    string scheduledString = 5;
+    bool prohibited = 6;
+    DailyAmount dailyAmount = 7;
+}
+
+message DailyAmount {
+    string code = 1;
+    int64 value = 2;
+    string unit = 3;
+    string system = 4;
+}
+
+message ProductReference {
+    string display = 1;
+    string reference = 2;
+}
+
+message CContained {
+    string resourceType = 1;
+    repeated CParticipant participant = 2;
+    string id = 3;
+}
+
+message CParticipant {
+    Member member = 1;
+    Role role = 2;
+}
+
+message Member {
+    string display = 1;
+    string reference = 2;
+}
+
+message CGoal {
+    string reference = 1;
+}

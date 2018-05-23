@@ -1,0 +1,734 @@
+{
+  "nested": {
+    "buffer": {
+      "nested": {
+        "PatientData": {
+          "fields": {
+            "managingOrganization": {
+              "type": "ManagingOrganization",
+              "id": 1
+            },
+            "maritalStatus": {
+              "type": "MaritalStatus",
+              "id": 2
+            },
+            "name": {
+              "rule": "repeated",
+              "type": "Name",
+              "id": 3
+            },
+            "deceasedBoolean": {
+              "type": "bool",
+              "id": 4
+            },
+            "resourceType": {
+              "type": "string",
+              "id": 5
+            },
+            "text": {
+              "type": "Text",
+              "id": 6
+            },
+            "address": {
+              "rule": "repeated",
+              "type": "Address",
+              "id": 7
+            },
+            "communication": {
+              "rule": "repeated",
+              "type": "Communication",
+              "id": 8
+            },
+            "birthDate": {
+              "type": "string",
+              "id": 9
+            },
+            "telecom": {
+              "rule": "repeated",
+              "type": "Telecom",
+              "id": 10
+            },
+            "contact": {
+              "rule": "repeated",
+              "type": "Contact",
+              "id": 11
+            },
+            "gender": {
+              "type": "string",
+              "id": 12
+            },
+            "active": {
+              "type": "bool",
+              "id": 13
+            },
+            "multipleBirthBoolean": {
+              "type": "bool",
+              "id": 14
+            },
+            "identifier": {
+              "rule": "repeated",
+              "type": "Identifier",
+              "id": 15
+            },
+            "meta": {
+              "type": "Meta",
+              "id": 16
+            },
+            "id": {
+              "type": "string",
+              "id": 17
+            }
+          }
+        },
+        "MaritalStatus": {
+          "fields": {
+            "text": {
+              "type": "string",
+              "id": 1
+            },
+            "coding": {
+              "rule": "repeated",
+              "type": "Coding",
+              "id": 2
+            }
+          }
+        },
+        "Meta": {
+          "fields": {
+            "versionId": {
+              "type": "string",
+              "id": 1
+            },
+            "lastUpdated": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "Qualification": {
+          "fields": {
+            "code": {
+              "type": "Code",
+              "id": 1
+            },
+            "period": {
+              "type": "Period",
+              "id": 2
+            },
+            "identifier": {
+              "rule": "repeated",
+              "type": "Identifier",
+              "id": 3
+            },
+            "issuer": {
+              "type": "Issuer",
+              "id": 4
+            }
+          }
+        },
+        "Subject": {
+          "fields": {
+            "display": {
+              "type": "string",
+              "id": 1
+            },
+            "reference": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "Stage": {
+          "fields": {
+            "coding": {
+              "rule": "repeated",
+              "type": "Coding",
+              "id": 1
+            }
+          }
+        },
+        "Type": {
+          "fields": {
+            "text": {
+              "type": "string",
+              "id": 1
+            },
+            "coding": {
+              "rule": "repeated",
+              "type": "Coding",
+              "id": 2
+            }
+          }
+        },
+        "Patient": {
+          "fields": {
+            "display": {
+              "type": "string",
+              "id": 1
+            },
+            "reference": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "EncounterRef": {
+          "fields": {
+            "reference": {
+              "type": "string",
+              "id": 1
+            }
+          }
+        },
+        "Requester": {
+          "fields": {
+            "display": {
+              "type": "string",
+              "id": 1
+            },
+            "reference": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "Performer": {
+          "fields": {
+            "display": {
+              "type": "string",
+              "id": 1
+            },
+            "reference": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "Context": {
+          "fields": {
+            "display": {
+              "type": "string",
+              "id": 1
+            },
+            "reference": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "Category": {
+          "fields": {
+            "text": {
+              "type": "string",
+              "id": 1
+            },
+            "coding": {
+              "rule": "repeated",
+              "type": "Coding",
+              "id": 2
+            }
+          }
+        },
+        "Issuer": {
+          "fields": {
+            "display": {
+              "type": "string",
+              "id": 1
+            }
+          }
+        },
+        "Code": {
+          "fields": {
+            "text": {
+              "type": "string",
+              "id": 1
+            },
+            "coding": {
+              "rule": "repeated",
+              "type": "Coding",
+              "id": 2
+            }
+          }
+        },
+        "PractitionerRole": {
+          "fields": {
+            "organization": {
+              "type": "Organization",
+              "id": 1
+            },
+            "location": {
+              "rule": "repeated",
+              "type": "Location",
+              "id": 2
+            },
+            "role": {
+              "type": "Role",
+              "id": 3
+            },
+            "period": {
+              "type": "Period",
+              "id": 4
+            },
+            "healthcareService": {
+              "rule": "repeated",
+              "type": "HealthcareService",
+              "id": 5
+            }
+          }
+        },
+        "HealthcareService": {
+          "fields": {
+            "reference": {
+              "type": "string",
+              "id": 1
+            }
+          }
+        },
+        "Period": {
+          "fields": {
+            "start": {
+              "type": "string",
+              "id": 1
+            },
+            "end": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "Role": {
+          "fields": {
+            "text": {
+              "type": "string",
+              "id": 1
+            },
+            "coding": {
+              "rule": "repeated",
+              "type": "Coding",
+              "id": 2
+            },
+            "fhirComments": {
+              "rule": "repeated",
+              "type": "string",
+              "id": 3
+            }
+          }
+        },
+        "Location": {
+          "fields": {
+            "display": {
+              "type": "string",
+              "id": 1
+            },
+            "reference": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "Organization": {
+          "fields": {
+            "reference": {
+              "type": "string",
+              "id": 1
+            }
+          }
+        },
+        "Name": {
+          "fields": {
+            "use": {
+              "type": "string",
+              "id": 1
+            },
+            "text": {
+              "type": "string",
+              "id": 2
+            },
+            "family": {
+              "type": "string",
+              "id": 3
+            },
+            "given": {
+              "rule": "repeated",
+              "type": "string",
+              "id": 4
+            },
+            "prefix": {
+              "rule": "repeated",
+              "type": "string",
+              "id": 5
+            },
+            "suffix": {
+              "rule": "repeated",
+              "type": "string",
+              "id": 6
+            },
+            "period": {
+              "type": "Period",
+              "id": 7
+            }
+          }
+        },
+        "Identifier": {
+          "fields": {
+            "use": {
+              "type": "string",
+              "id": 1
+            },
+            "assigner": {
+              "type": "Assigner",
+              "id": 2
+            },
+            "system": {
+              "type": "string",
+              "id": 3
+            },
+            "value": {
+              "type": "string",
+              "id": 4
+            },
+            "period": {
+              "type": "Period",
+              "id": 5
+            },
+            "type": {
+              "type": "Type",
+              "id": 6
+            }
+          }
+        },
+        "Assigner": {
+          "fields": {
+            "display": {
+              "type": "string",
+              "id": 1
+            }
+          }
+        },
+        "Contact": {
+          "fields": {
+            "name": {
+              "type": "Name",
+              "id": 1
+            },
+            "relationship": {
+              "rule": "repeated",
+              "type": "Relationship",
+              "id": 2
+            },
+            "telecom": {
+              "rule": "repeated",
+              "type": "Telecom",
+              "id": 3
+            },
+            "gender": {
+              "type": "string",
+              "id": 4
+            },
+            "period": {
+              "type": "Period",
+              "id": 5
+            },
+            "address": {
+              "type": "Address",
+              "id": 6
+            }
+          }
+        },
+        "Address": {
+          "fields": {
+            "city": {
+              "type": "string",
+              "id": 1
+            },
+            "use": {
+              "type": "string",
+              "id": 2
+            },
+            "district": {
+              "type": "string",
+              "id": 3
+            },
+            "period": {
+              "type": "Period",
+              "id": 4
+            },
+            "state": {
+              "type": "string",
+              "id": 5
+            },
+            "postalCode": {
+              "type": "string",
+              "id": 6
+            },
+            "line": {
+              "rule": "repeated",
+              "type": "string",
+              "id": 7
+            },
+            "type": {
+              "type": "string",
+              "id": 8
+            },
+            "country": {
+              "type": "string",
+              "id": 9
+            },
+            "text": {
+              "type": "string",
+              "id": 10
+            }
+          }
+        },
+        "Relationship": {
+          "fields": {
+            "coding": {
+              "rule": "repeated",
+              "type": "Coding",
+              "id": 1
+            }
+          }
+        },
+        "Extension": {
+          "fields": {
+            "url": {
+              "type": "string",
+              "id": 1
+            },
+            "valueCode": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "Telecom": {
+          "fields": {
+            "use": {
+              "type": "string",
+              "id": 1
+            },
+            "system": {
+              "type": "string",
+              "id": 2
+            },
+            "value": {
+              "type": "string",
+              "id": 3
+            },
+            "rank": {
+              "type": "uint32",
+              "id": 4
+            },
+            "period": {
+              "type": "Period",
+              "id": 5
+            }
+          }
+        },
+        "Communication": {
+          "fields": {
+            "language": {
+              "type": "Language",
+              "id": 1
+            },
+            "preferred": {
+              "type": "bool",
+              "id": 2
+            }
+          }
+        },
+        "Language": {
+          "fields": {
+            "text": {
+              "type": "string",
+              "id": 1
+            },
+            "coding": {
+              "rule": "repeated",
+              "type": "Coding",
+              "id": 2
+            }
+          }
+        },
+        "Coding": {
+          "fields": {
+            "code": {
+              "type": "string",
+              "id": 1
+            },
+            "system": {
+              "type": "string",
+              "id": 2
+            },
+            "display": {
+              "type": "string",
+              "id": 3
+            }
+          }
+        },
+        "Text": {
+          "fields": {
+            "status": {
+              "type": "string",
+              "id": 1
+            },
+            "div": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "ManagingOrganization": {
+          "fields": {
+            "display": {
+              "type": "string",
+              "id": 1
+            },
+            "reference": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "Summary": {
+          "fields": {
+            "coding": {
+              "rule": "repeated",
+              "type": "Coding",
+              "id": 1
+            }
+          }
+        },
+        "Asserter": {
+          "fields": {
+            "display": {
+              "type": "string",
+              "id": 1
+            },
+            "reference": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "BodySite": {
+          "fields": {
+            "coding": {
+              "rule": "repeated",
+              "type": "Coding",
+              "id": 1
+            }
+          }
+        },
+        "Severity": {
+          "fields": {
+            "coding": {
+              "rule": "repeated",
+              "type": "Coding",
+              "id": 1
+            }
+          }
+        },
+        "Evidence": {
+          "fields": {
+            "code": {
+              "rule": "repeated",
+              "type": "Code",
+              "id": 1
+            }
+          }
+        },
+        "Link": {
+          "fields": {
+            "url": {
+              "type": "string",
+              "id": 1
+            },
+            "relation": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "Reason": {
+          "fields": {
+            "coding": {
+              "rule": "repeated",
+              "type": "Coding",
+              "id": 1
+            }
+          }
+        },
+        "BasedOn": {
+          "fields": {
+            "reference": {
+              "type": "string",
+              "id": 1
+            }
+          }
+        },
+        "Note": {
+          "fields": {
+            "text": {
+              "type": "string",
+              "id": 1
+            }
+          }
+        },
+        "Contained": {
+          "fields": {
+            "resourceType": {
+              "type": "string",
+              "id": 1
+            },
+            "code": {
+              "type": "Code",
+              "id": 2
+            },
+            "id": {
+              "type": "string",
+              "id": 3
+            }
+          }
+        },
+        "Actor": {
+          "fields": {
+            "display": {
+              "type": "string",
+              "id": 1
+            },
+            "reference": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "Priority": {
+          "fields": {
+            "text": {
+              "type": "string",
+              "id": 1
+            },
+            "coding": {
+              "rule": "repeated",
+              "type": "Coding",
+              "id": 2
+            }
+          }
+        },
+        "Addresses": {
+          "fields": {
+            "display": {
+              "type": "string",
+              "id": 1
+            },
+            "reference": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package buffer;
+
+import "common.proto";
+
+message Observation {
+    string status = 1;
+    repeated Category category = 2;
+    Code code = 3;
+    string resourceType = 4;
+    repeated Component component = 5;
+    Meta meta = 6;
+    string effectiveDateTime = 7;
+    string id = 8;
+    Context context = 9;
+    Subject subject = 10;
+    string issued = 11;
+    ValueQuantity valueQuantity = 12;
+}
+
+message Component {
+    ValueQuantity valueQuantity = 1;
+    Code code = 2;
+}
+
+message ValueQuantity {
+    string code = 1;
+    string unit = 2;
+    int64 value = 3;
+    string system = 4;
+}

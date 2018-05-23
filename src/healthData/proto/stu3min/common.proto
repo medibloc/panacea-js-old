@@ -1,0 +1,264 @@
+syntax = "proto3";
+
+package buffer;
+
+message Meta {
+    string versionId = 1;
+    string lastUpdated = 2;
+}
+
+message Qualification {
+    Code code = 1;
+    Period period = 2;
+    repeated Identifier identifier = 3;
+    Issuer issuer = 4;
+}
+
+message Subject {
+    string display = 1;
+    string reference = 2;
+}
+
+message Stage {
+    repeated Coding coding = 1;
+}
+
+message Type {
+    string text = 1;
+    repeated Coding coding = 2;
+}
+
+message Patient {
+    string display = 1;
+    string reference = 2;
+}
+
+message EncounterRef {
+    string reference = 1;
+}
+
+message Requester {
+    string display = 1;
+    string reference = 2;
+}
+
+message Performer {
+    string display = 1;
+    string reference = 2;
+}
+
+message Context {
+    string display = 1;
+    string reference = 2;
+}
+
+message Category {
+    string text = 1;
+    repeated Coding coding = 2;
+}
+
+message Issuer {
+    string display = 1;
+}
+
+message Code {
+    string text = 1;
+    repeated Coding coding = 2;
+}
+
+message PractitionerRole {
+    Organization organization = 1;
+    repeated Location location = 2;
+    Role role = 3;
+    Period period = 4;
+    repeated HealthcareService healthcareService = 5;
+}
+
+message HealthcareService {
+    string reference = 1;
+}
+
+message Period {
+    string start = 1;
+    string end = 2;
+}
+
+message Role {
+    string text = 1;
+    repeated Coding coding = 2;
+    repeated string fhir_comments = 3;
+}
+
+message Location {
+    string display = 1;
+    string reference = 2;
+}
+
+message Organization {
+    string reference = 1;
+}
+
+message Name {
+    string use = 1;
+    string text = 2;
+    string family = 3;
+    repeated string given = 4;
+    repeated string prefix = 5;
+    repeated string suffix = 6;
+    Period period = 7;     
+}
+
+message Identifier {
+    string use = 1;
+    Assigner assigner = 2;
+    string system = 3;
+    string value = 4;
+    Period period = 5;
+    Type type = 6;
+}
+
+message Assigner {
+    string display = 1;
+}
+
+message Contact {
+    Name name = 1;
+    repeated Relationship relationship = 2;
+    repeated Telecom telecom = 3;
+    string gender = 4;
+    Period period = 5;
+    Address address = 6;
+}
+
+message Address {
+    string city = 1;
+    string use = 2;
+    string district = 3;
+    Period period = 4;
+    string state = 5;
+    string postalCode = 6;
+    repeated string line = 7;
+    string type = 8;
+    string country = 9;
+    string text = 10;
+}
+
+message Relationship {
+    repeated Coding coding = 1;
+}
+
+message Extension {
+    string url = 1;
+    string valueCode = 2;
+}
+
+message Telecom {
+    string use = 1;
+    string system = 2;
+    string value = 3;
+    uint32 rank = 4;
+    Period period = 5;
+}
+
+message Communication {
+    Language language = 1;
+    bool preferred = 2;
+}
+
+message Language {
+    string text = 1;
+    repeated Coding coding = 2;
+}
+
+message Coding {
+    string code = 1;
+    string system = 2;
+    string display = 3;
+}
+
+message Text {
+    string status = 1;
+    string div = 2;
+}
+
+message ManagingOrganization {
+    string display = 1;
+    string reference = 2;
+}
+
+// Common between diagnostic report and Condition
+
+message Summary {
+    repeated Coding coding = 1;
+}
+
+message Asserter {
+    string display = 1;
+    string reference = 2;
+}
+
+message BodySite {
+    repeated Coding coding = 1;
+}
+
+
+message Severity {
+    repeated Coding coding = 1;
+}
+
+message Evidence {
+    repeated Code code = 1;
+}
+
+// bundle and search
+
+message Link {
+    string url = 1;
+    string relation = 2;
+}
+
+// diagnostic report and medicaiton request
+
+
+message Reason {
+    repeated Coding coding = 1;
+}
+
+message BasedOn {
+    string reference = 1;
+}
+
+// medication and allergy
+
+message Note {
+    string text = 1;
+}
+
+// encounter containd
+message Contained {
+    string resourceType = 1;
+    Code code = 2;
+    string id = 3;
+}
+
+// diagnostic report and procedure
+
+message Actor {
+    string display = 1;
+    string reference = 2;
+}
+
+// encounter and goal
+
+
+message Priority {
+    string text = 1;
+    repeated Coding coding = 2;
+}
+
+// careplan and gola
+
+message Addresses {
+    string display = 1;
+    string reference = 2;
+}

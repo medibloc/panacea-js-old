@@ -39,6 +39,8 @@
     "bignumber.js": "^7.0.1",
     "browserify": "^16.2.0",
     "js-sha3": "^0.7.0",
+    "jsonfile": "^4.0.0",
+    "protobufjs": "^6.8.6",
     "secp256k1": "^3.5.0"
   },
   "devDependencies": {

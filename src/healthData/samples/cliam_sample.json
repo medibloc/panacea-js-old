@@ -1,0 +1,102 @@
+{
+  "resourceType": "Claim",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Mr. Claim</div>"
+  },
+  "identifier": [
+    {
+      "system": "http://medibloc.org/claim",
+      "value": "1216"
+    }
+  ],
+  "type": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/ex-claimtype",
+        "code": "oral"
+      }
+    ]
+  },
+  "patient": {
+    "reference": "Patient/1"
+  },
+  "created": "2018-05-16",
+  "organization": {
+    "reference": "Organization/1"
+  },
+  "insurer": {
+    "reference": "Organization/2"
+  },
+  "priority": {
+    "coding": [
+      {
+        "code": "normal"
+      }
+    ]
+  },
+  "payee": {
+    "type": {
+      "coding": [
+        {
+          "code": "provider"
+        }
+      ]
+    }
+  },
+  "careTeam": [
+    {
+      "sequence": 1,
+      "provider": {
+        "reference": "Practitioner/example"
+      }
+    }
+  ],
+  "diagnosis": [
+    {
+      "sequence": 1,
+      "diagnosisCodeableConcept": {
+        "coding": [
+          {
+            "code": "1234356"
+          }
+        ]
+      }
+    }
+  ],
+  "insurance": [
+    {
+      "sequence": 1,
+      "focal": "true",
+      "coverage": {
+        "reference": "Coverage/9876B1"
+      }
+    }
+  ],
+  "item": [
+    {
+      "sequence": 1,
+      "careTeamLinkId": [
+        1
+      ],
+      "service": {
+        "coding": [
+          {
+            "code": "claim"
+          }
+        ]
+      },
+      "servicedDate": "2018-05-16",
+      "unitPrice": {
+        "value": 63.44,
+        "system": "urn:iso:std:iso:4217",
+        "code": "USD"
+      },
+      "net": {
+        "value": 63.44,
+        "system": "urn:iso:std:iso:4217",
+        "code": "USD"
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+// test.proto
+syntax = "proto3";
+
+package testpackage;
+
+message CarePlan {
+    string test_name = 1; // becomes testName
+    string test_content = 2; // becomes testContent
+}

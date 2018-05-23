@@ -7,12 +7,22 @@ const hashData = (msg) => {
       message = msg;
       break;
     case 'object':
+      if (msg instanceof Uint8Array) {
+        message = msg;
+      } else {
+        message = msg.toString();
+      }
+      break;
     case 'number':
       message = msg.toString();
+      break;
+    case 'Uint8Array':
+      message = msg;
       break;
     default:
       throw new Error('Invalid msg type');
   }
+  console.log(message);
   return SHA3256.create().update(message).hex();
 };
 

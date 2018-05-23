@@ -1,0 +1,47 @@
+{
+  "resourceType": "Observation",
+  "id": "example",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Patient MediBloc</p></div>"
+  },
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/observation-category",
+          "code": "vital-signs",
+          "display": "Vital Signs"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "29463-7",
+        "display": "Body Weight"
+      },
+      {
+        "system": "http://loinc.org",
+        "code": "3141-9",
+        "display": "Body weight Measured"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/example"
+  },
+  "context": {
+    "reference": "Encounter/example"
+  },
+  "effectiveDateTime": "2017-05-15",
+  "valueQuantity": {
+    "value": 78,
+    "unit": "kg",
+    "system": "http://unitsofmeasure.org",
+    "code": "kg"
+  }
+}

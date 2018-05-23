@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package buffer;
+
+import "common.proto";
+
+message PatientData {
+    ManagingOrganization managingOrganization = 1;
+    MaritalStatus maritalStatus = 2;
+    repeated Name name = 3;
+    bool deceasedBoolean = 4;
+    string resourceType = 5;
+    Text text = 6;
+    repeated Address address = 7;
+    repeated Communication communication = 8;
+    string birthDate = 9;
+    repeated Telecom telecom = 10;
+    repeated Contact contact = 11;
+    string gender = 12;
+    bool active = 13;
+    bool multipleBirthBoolean = 14;
+    repeated Identifier identifier = 15;
+    Meta meta = 16;
+    string id = 17;
+}
+
+message MaritalStatus {
+    string text = 1;
+    repeated Coding coding = 2;
+}
