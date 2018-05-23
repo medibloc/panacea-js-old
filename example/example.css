@@ -1,3 +1,16 @@
+@font-face {
+  font-family: 'NexaBold';
+  src: url("./font/Fontfabric - Nexa-Black.otf") format('opentype');
+}
+
+@font-face {
+  font-family: 'NexaRegular';
+  src: url("./font/Fontfabric - Nexa-Regular.otf") format('opentype');
+}
+
+* {
+  font-family: NexaRegular;
+}
 .wrapper {
   border: 1px solid black;
   display: flex;
@@ -5,6 +18,17 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 30px;
+  padding: 20px;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.wrapper > p {
+  text-align: left;
+}
+
+.wrapper > div > p {
+  text-align: left;
 }
 
 .txWrapper {
@@ -12,6 +36,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: left;
+}
+
+.txWrapper input {
+  width: 100%;
+}
+
+.txWrapper textarea {
+  width: 100%;
 }
 
 .txWrapper span {
@@ -20,7 +53,7 @@
 
 button {
   margin: 30px;
-  font-size: 25px;
+  font-size: 2rem !important;
 }
 
 span {
@@ -40,4 +73,80 @@ div {
 p {
   width: 100%;
   word-wrap: break-word;
+}
+
+h1 {
+  font-family: NexaBold;
+}
+
+#selector {
+  display: flex;
+  flex-direction: column;
+  font-family: NexaBold;
+  position: fixed;
+  background-color: #f9f9f9;
+  height: 360px;
+  padding: auto;
+  padding-top: 25px;
+  padding-left: 20px;
+}
+
+.selector > label > input{
+  font-size: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 500px;
+  margin-left: 0px;
+}
+
+.checkbox {
+  display: flex;
+  margin-left: 30px;
+}
+
+.btn-primary:active {
+  background-color: black;
+  color: red;
+}
+
+.toggle-off {
+  border: 2px solid black;
+}
+
+#No1 {
+  display: none;
+}
+
+#No2 {
+  display: none;
+}
+
+#No3 {
+  display: none;
+}
+
+#No4 {
+  display: none;
+}
+
+#No5 {
+  display: none;
+}
+#No6 {
+  display: none;
+}
+#No7 {
+  display: none;
+}
+#No8 {
+  display: none;
+}
+
+div.resultBox {
+  background-color: #F8F9F9;
+  padding: 20px;
+}
+
+#blank {
+  height: 360px;
 }
