@@ -5,7 +5,7 @@ const createCertificate = ({
   issuer, // highly recommend use webpage url as an issuer
   issuerAccount,
   issueDate,
-  passphrase,
+  passphrase = '',
   pubKey,
 }) => {
   if (!(expireDate > issueDate)) throw new Error('Expire date should be later than issue date.');
@@ -23,7 +23,7 @@ const createCertificate = ({
   return certificate;
 };
 
-const verifiyCertificate = (certificate, timeStamp, issuerPubKey) => {
+const verifyCertificate = (certificate, timeStamp, issuerPubKey) => {
   // check timestamp
   if (certificate.issueDate > timeStamp || certificate.expireDate < timeStamp) return false;
 
@@ -39,5 +39,5 @@ const verifiyCertificate = (certificate, timeStamp, issuerPubKey) => {
 
 export default {
   createCertificate,
-  verifiyCertificate,
+  verifyCertificate,
 };
