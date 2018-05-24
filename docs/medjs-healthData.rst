@@ -2,17 +2,17 @@
 
 .. include:: include_announcement.rst
 
-=======================
-medjs.healthData (TODO)
-=======================
+================
+medjs.healthData
+================
 
-The ``medjs.healthData`` object help to encode and decode the health data as :ref:`MHD format, <mhd>`.
+The ``medjs.healthData`` object helps to encode and decode the health data as :ref:`MHD format <mhd>`.
 
 .. code-block:: javascript
 
     var Medjs = require('medjs');
     var medjs = Medjs(['http://localhost:9921']);
-    var healthData = medjs.healthData;
+    var HealthData = medjs.healthData;
 
 .. warning::
   This object is now developing in medjs.
@@ -59,7 +59,7 @@ decodeData
 
 .. code-block:: javascript
 
-    medjs.healthData.decodeData(data)
+    HealthData.decodeData(data)
 
 Returns decoded health data.
 
@@ -82,7 +82,7 @@ Example
     console.log(data);
     > <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
 
-    medjs.healthData.decodeData(data).then(console.log)
+    HealthData.decodeData(data).then(console.log)
     > {
         status: 'final',
         category: [ { coding: [Array] } ],
@@ -106,7 +106,7 @@ decodeDataFromFile
 
 .. code-block:: javascript
 
-    medjs.healthData.decodeDataFromFile(filePath)
+    HealthData.decodeDataFromFile(filePath)
 
 Returns decoded health data from the file path.
 
@@ -125,7 +125,7 @@ Example
 
 .. code-block:: javascript
 
-    medjs.healthData.decodeDataFromFile('/file/path').then(console.log)
+    HealthData.decodeDataFromFile('/file/path').then(console.log)
     > {
         status: 'final',
         category: [ { coding: [Array] } ],
@@ -149,7 +149,7 @@ encodeData
 
 .. code-block:: javascript
 
-    medjs.healthData.encodeData(data, type, subType)
+    HealthData.encodeData(data, type, subType)
 
 Returns encoded ``Buffer|Uint8Array`` object as MHD format of the health data.
 
@@ -189,7 +189,7 @@ Example
         ...
     };
 
-    medjs.healthData.encodeData(data, 'medical-fhir', 'observation').then(console.log)
+    HealthData.encodeData(data, 'medical-fhir', 'observation').then(console.log)
     > {
         <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
     }
@@ -202,7 +202,7 @@ encodeDataFromFile
 
 .. code-block:: javascript
 
-    medjs.healthData.encodeDataFromFile(filePath, type, subType)
+    HealthData.encodeDataFromFile(filePath, type, subType)
 
 Returns encoded ``Buffer|Uint8Array`` object as MHD format object of the health data reading from the file path.
 
@@ -225,7 +225,7 @@ Example
 
 .. code-block:: javascript
 
-    medjs.healthData.encodeDataFromFile('/file/path', 'medical-fhir', 'observation').then(console.log)
+    HealthData.encodeDataFromFile('/file/path', 'medical-fhir', 'observation').then(console.log)
     > {
         <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
     }

@@ -3,10 +3,10 @@
 .. include:: include_announcement.rst
 
 =======================
-medjs.local.Transaction
+medjs.local.transaction
 =======================
 
-The ``medjs.local.Transaction`` contains functions to generate transaction, hash, signature, and so on.
+The ``medjs.local.transaction`` contains functions to generate transaction, hash, signature, and so on.
 
 To use this package standalone use:
 
@@ -14,13 +14,13 @@ To use this package standalone use:
 
   var Medjs = require('medjs');
   var medjs = Medjs(['http://localhost:9921']);
-  var Transaction = medjs.local.Transaction;
+  var Transaction = medjs.local.transaction;
 
 ---------------------------------------------------------------------------
 
 .. _transaction-types:
 
-transaction types
+Transaction types
 =================
 
 MediBloc blockchain has 3 transaction types.

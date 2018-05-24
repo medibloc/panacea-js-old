@@ -16,7 +16,7 @@ Contents:
    :caption: User Documentation
 
    getting-started
-
+   medjs-tutorial
 
 .. toctree::
     :maxdepth: 2
@@ -28,4 +28,5 @@ Contents:
     medjs-account
     medjs-transaction
     medjs-healthData
+    medjs-identification
     medjs-utils

@@ -2,9 +2,9 @@
 
 .. include:: include_announcement.rst
 
-=====
+========
 Tutorial
-=====
+========
 
 This section handles several examples to use medjs.
 

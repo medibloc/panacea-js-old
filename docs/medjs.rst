@@ -11,8 +11,9 @@ The ``medjs`` object has following objects.
 - The :ref:`client <client>` object allows you to interact with MediBloc blockchain.
 - The :ref:`cryptography <cryptography>` object contains cryptographic functions.
 - The :ref:`local.Account <account>` object contains functions to generate MediBloc accounts, which contain encrypted private key and public key and can induce public key from the private key.
-- The :ref:`local.Transaction <transaction>` object contains functions to generate transaction, hash, signature, etc.
-- The :ref:`healthData <healthData>` object help to encode and decode the health data as :ref:`MHD format, <mhd>`.
+- The :ref:`local.transaction <transaction>` object contains functions to generate transaction, hash, signature, etc.
+- The :ref:`healthData <healthData>` object helps to encode and decode the health data as :ref:`MHD format <mhd>`.
+- The :ref:`identification <identification>` contains identification functions.
 - The :ref:`utils <utils>` object provides utility functions for medjs.
 
 **Parameters**

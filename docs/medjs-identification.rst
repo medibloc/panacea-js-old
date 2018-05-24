@@ -14,7 +14,7 @@ To use this package standalone use:
 
   var Medjs = require('medjs');
   var medjs = Medjs(['http://localhost:9921']);
-  var Identification =  medjs.identification;
+  var Id = medjs.identification;
 
 ---------------------------------------------------------------------------
 
@@ -23,10 +23,10 @@ certificate.createCertificate
 
 .. code-block:: javascript
 
-  var certificate = Identification.certificate;
+  var certificate = Id.certificate;
   certificate.createCertificate({ expireDate, issuer, issuerAccount, issueDate, passphrase, pubKey });
 
-To create certificate, you can use ``Identificateion.certificate.createCertificate({ expireDate, issuer, issuerAccount, issueDate, passphrase, pubKey })``. It generates certificate object which contains issuer's signature.
+To create certificate, you can use ``Id.certificate.createCertificate({ expireDate, issuer, issuerAccount, issueDate, passphrase, pubKey })``. It generates certificate object which contains issuer's signature.
 
 ----------
 Parameters
@@ -60,7 +60,7 @@ Example
 .. code-block:: javascript
 
   var issuer = new Account();
-  var createCertificate = Identification.certificate.createCertificate;
+  var createCertificate = Id.certificate.createCertificate;
   createCertificate({
     expireDate: Date.now() + (365 * 24 * 60 * 60 * 1000),
     issuer: "https://medibloc.org",
@@ -87,7 +87,7 @@ certificate.verifyCertificate
   var certificate = Identification.certificate;
   certificate.verifyCertificate(certificate, timeStamp, issuerPubKey);
 
-To verify certificate, you can use ``Identificateion.certificate.verifyCertificate(certificate, timeStamp, issuerPubKey)``.
+To verify certificate, you can use ``Id.certificate.verifyCertificate(certificate, timeStamp, issuerPubKey)``.
 
 ----------
 Parameters
@@ -109,7 +109,7 @@ Example
 
 .. code-block:: javascript
 
-  var verifyCertificate = Identification.certificate.verifyCertificate;
+  var verifyCertificate = Id.certificate.verifyCertificate;
   var certificate = {
     expireDate: 1558588202729,
     issuer: "https://medibloc.org",
