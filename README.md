@@ -1,6 +1,6 @@
 # medjs
 
-Official client-side JavaScript library for the [medibloc](https://github.com/medibloc/go-medibloc) blockchain.
+Official client-side JavaScript library for the [medibloc blockchain](https://github.com/medibloc/go-medibloc).
 
 ## Install
 
