@@ -26,13 +26,13 @@ getAccountState
 
     client.getAccountState(address, height)
 
-Returns a state of the account at the given block height.
+Returns the state of the account at a given block height.
 
 
 Parameters
 ----------
 
-1. ``address`` - ``String``: The address of the account to get state of.
+1. ``address`` - ``String``: The address of the account of which to get the state.
 2. ``height`` - ``Number|String``: The height of the block. Or the string ``"genesis"``, ``"confirmed"``, ``"tail"``.
 
 
@@ -40,7 +40,7 @@ Parameters
 Returns
 -------
 
-``Promise`` returns ``Object`` - The object of account state:
+``Promise`` returns ``Object`` - The object of the account state:
 
   - ``balance`` - ``String``: The balance in 1e-8 MED of the account at the block.
   - ``nonce`` - ``String``: The nonce of the account at the block.
@@ -94,7 +94,7 @@ Returns
 ``Promise`` returns ``Object`` - The Block object:
 
   - ``hash`` - ``String``: The hash of the block.
-  - ``parent_hash`` - ``String``: The parent block hash of the block.
+  - ``parent_hash`` - ``String``: The parent block's hash of the block.
   - ``coinbase`` - ``String``: The coinbase address of the block.
   - ``timestamp`` - ``String``: The timestamp of the block.
   - ``chain_id`` - ``Number``: The chain id of the block.
@@ -143,7 +143,7 @@ getMedState
 
     client.getMedState()
 
-Returns a current state of the node.
+Returns the current state of a node.
 
 
 Returns
@@ -183,7 +183,7 @@ getTransaction
 
     medjs.client.getTransaction(hash)
 
-Returns a transaction matching the given transaction hash.
+Returns the transaction matching a given transaction hash.
 
 
 Parameters
@@ -203,7 +203,7 @@ Returns
   - ``value`` - ``String``: The transferred value in 1e-8 MED.
   - ``timestamp`` - ``String``: The timestamp of the transaction.
   - ``data`` - ``Object``: The transaction data object corresponding to each :ref:`transaction types <transaction-types>`.
-  - ``nonce`` - ``String``: The nonce indicates how many transactions does this account have made.
+  - ``nonce`` - ``String``: The nonce indicates the number of transactions that this account has made.
   - ``chain_id`` - ``Number``: The chain id of the blockchain which this transaction belong to.
   - ``alg`` - ``Number``: The signature algorithm of the transaction.
   - ``sign`` - ``String``: The signature of the transaction.
