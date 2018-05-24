@@ -34,32 +34,27 @@ const decodeData = async (mhd) => {
     OFFSETS.DATA + dataSize,
   );
 
-  let result;
   switch (TYPE_REV[type]) {
-    case 'fhir':
-      result = await DataEncoder.decodeToFHIR(data, SUBTYPE_REV[type][subType]);
-      break;
-    case 'txt':
-      result = await DataEncoder.decodeToTxt(data);
-      break;
+    case 'medical-fhir':
+      return DataEncoder.decodeFHIR(data, SUBTYPE_REV[type][subType]);
+    case 'pghd':
+      if (data instanceof Uint8Array || data instanceof Buffer) {
+        return DataEncoder.decodeTxt(data);
+      } else if (typeof data === 'object') {
+        return DataEncoder.decodeJson(data);
+      }
+      return new Error('not supporting type');
     default:
       throw new Error('not supporting type');
   }
-  console.log(result);
-  // temporary function for test
-  fs.writeFileSync(path.resolve(`src/healthData/samples/${SUBTYPE_REV[type][subType]}_decoded.json`), JSON.stringify(result, null, 2));
-
-  return result;
 };
 
 const decodeDataFromFile = (filePath) => {
   try {
     // TODO: read file as Buffer or Uint8Array
     const data = fs.readFileSync(filePath);
-    console.log(data);
     return decodeData(data);
   } catch (err) {
-    console.log(err);
     throw err;
   }
 };
@@ -73,9 +68,10 @@ const genBuf = (size, param) => {
 const makeMHD = (opts) => {
   const magicNumberBuffer = Buffer.alloc(BYTESIZES.MAGICNUMBER, MHD_MAGICNUMBER, 'hex');
   const versionBuffer = Buffer.alloc(BYTESIZES.VERSION, '0000', 'hex');
-  const typeNum = TYPE[opts.type.toUpperCase()];
+  const typeNum = opts.type && TYPE[opts.type.toUpperCase()] ? TYPE[opts.type.toUpperCase()] : 0;
   const typeBuffer = genBuf(BYTESIZES.TYPE, typeNum);
-  const subTypeNum = SUBTYPE[typeNum][opts.subType.toUpperCase()];
+  const subTypeNum = opts.subType && SUBTYPE[typeNum][opts.subType.toUpperCase()] ?
+    SUBTYPE[typeNum][opts.subType.toUpperCase()] : 0;
   const subTypeBuffer = genBuf(BYTESIZES.SUBTYPE, subTypeNum);
   const hashBuffer = Buffer.alloc(BYTESIZES.HASH, opts.hash, 'hex');
   const dataSizeBufffer = genBuf(BYTESIZES.DATASIZE, opts.size);
@@ -92,36 +88,42 @@ const makeMHD = (opts) => {
 
 const encodeData = async (data, type, subType) => {
   let dataBuffer;
+  // TODO: support other types
   switch (type) {
-    case 'fhir':
-      dataBuffer = await DataEncoder.encodeFromFHIR(data, subType);
+    case 'medical-fhir':
+      dataBuffer = await DataEncoder.encodeFHIR(data, subType);
       break;
-    case 'txt':
-      dataBuffer = await DataEncoder.encodeTxt(data);
+    case 'pghd':
+      if (data instanceof Uint8Array || data instanceof Buffer) {
+        dataBuffer = data;
+      } else if (typeof data === 'object') {
+        dataBuffer = DataEncoder.encodeJson(data);
+      }
       break;
     default:
       return new Error('not supporting type');
   }
-  const result = makeMHD({
+  return makeMHD({
     type,
     subType,
     hash: hash.hashData(dataBuffer),
     size: dataBuffer.length,
     dataBuffer,
   });
-  console.log(result);
-  // temporary function for test
-  fs.writeFileSync(path.resolve(`src/healthData/samples/${subType}.txt`), result, 'binary');
-
-  return result;
 };
 
 const encodeDataFromFile = async (filePath, type, subType) => {
-  const ext = path.extname(filePath);
+  let newFilePath = filePath;
+  if (!path.isAbsolute(filePath)) {
+    newFilePath = path.resolve(__dirname, filePath);
+  }
+  const ext = path.extname(newFilePath);
   let data;
   // TODO: support other extensions
   if (ext === '.json') {
-    data = jsonfile.readFileSync(filePath);
+    data = jsonfile.readFileSync(newFilePath);
+  } else if (ext === '.txt') {
+    data = fs.readFileSync(newFilePath);
   } else {
     throw new Error('not supporting extension');
   }

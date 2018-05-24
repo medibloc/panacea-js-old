@@ -1,13 +1,29 @@
-# Medibloc JavaScript API
+# medjs
 
-A client-side JavaScript library for [MediBloc - Decentralized healthcare information system](https://github.com/medibloc/go-medibloc).
+Official client-side JavaScript library for the [medibloc](https://github.com/medibloc/go-medibloc) blockchain.
 
 ## Install
 
-## Tests
+### Node.js
+
+```bash
+npm install medjs
+```
 
 ## Usage
 
-## Authors
+```javascript
+var Medjs = requrie('medjs');
+var medjs = Medjs(['http://localhost:9921']);
+```
+
+Please refers to the documentation(TODO)
+
+## Test
+
+```bash
+npm test
+```
 
 ## License
+MIT

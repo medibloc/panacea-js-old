@@ -12,6 +12,7 @@ The ``medjs`` object have following objects.
 - The :ref:`cryptography <cryptography>` object contains cryptographic functions.
 - The :ref:`local.Account <account>` object contains functions to generate MediBloc accounts which contain encrypted private key and public key, induce public key from the private key.
 - The :ref:`local.Transaction <transaction>` object contains functions to generate transaction, hash, signature, and so on.
+- The :ref:`healthData <healthData>` object help to encode and decode the health data as :ref:`MHD format, <mhd>`.
 - The :ref:`utils <utils>` object provides utility functions for medjs.
 
 **Parameters**

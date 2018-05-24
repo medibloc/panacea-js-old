@@ -6,7 +6,7 @@
 medjs.healthData (TODO)
 =======================
 
-The ``medjs.healthData`` object help to create healthDataPayload
+The ``medjs.healthData`` object help to encode and decode the health data as :ref:`MHD format, <mhd>`.
 
 .. code-block:: javascript
 
@@ -15,29 +15,42 @@ The ``medjs.healthData`` object help to create healthDataPayload
     var healthData = medjs.healthData;
 
 .. warning::
-  This object is not yet developed in medjs.
+  This object is now developing in medjs.
 
 .. include:: include_blockchain_note.rst
 
 ---------------------------------------------------------------------------
 
+.. _mhd:
+
 MediBloc Health Data(MHD) Format
 ================================
 
-========  ==========   =================================
+========  ==========   ===============================================
 Offset    Bytes        Description
---------  ----------   ---------------------------------
-0         4            magic number(0x004d4844)
+--------  ----------   -----------------------------------------------
+0         4            magic number(=0x004d4844)
 4         2            protocol version
-6         2            type
-8         2            subtype
+6         2            | type code
+                       | ( unknown: 0, medical-fhir: 1,
+                       | claim-fhir: 2, dicom: 3, ... )
+8         2            | subtype code of each type
+                       | ( for medical-fhir type,
+                       | null: 0, patient: 1,
+                       | observation: 2, ... )
 10        32           hash of the encoded health data
 42        6            encoded health data size(m)
 48        m            encoded health data
-========  ==========   =================================
+========  ==========   ===============================================
+
+We defined the MediBloc Health Data(MHD) format like above.
+More kinds of health data type and its subtype will be supported.
+
+User should upload the hash of the encoded health data to the MediBloc blockchain.
+By storing or transferring the health data as MHD type, it is easy to handle the health data with the blockchain.
 
 .. warning::
-  This format may be changed.
+  This format could be changed.
 
 ---------------------------------------------------------------------------
 
@@ -65,10 +78,25 @@ Example
 
 .. code-block:: javascript
 
+    var data = fs.readFileSync('/file/path');
+    console.log(data);
+    > <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
+
     medjs.healthData.decodeData(data).then(console.log)
     > {
-    // TODO show example
-    }
+        status: 'final',
+        category: [ { coding: [Array] } ],
+        code: { coding: [ [Object], [Object] ] },
+        resourceType: 'Observation',
+        effectiveDateTime: '2017-05-15',
+        id: 'f101',
+        context: { reference: 'Encounter/f100' },
+        subject: { reference: 'Patient/f100' },
+        valueQuantity:
+        { code: 'kg',
+            unit: 'kg',
+            value: 78,
+            system: 'http://unitsofmeasure.org' } }
 
 ---------------------------------------------------------------------------
 
@@ -97,11 +125,21 @@ Example
 
 .. code-block:: javascript
 
-    var plainData = medjs.healthData.decodeDataFromFile('./file/path')
-    console.log(plainData)
+    medjs.healthData.decodeDataFromFile('/file/path').then(console.log)
     > {
-    // TODO show example
-    }
+        status: 'final',
+        category: [ { coding: [Array] } ],
+        code: { coding: [ [Object], [Object] ] },
+        resourceType: 'Observation',
+        effectiveDateTime: '2017-05-15',
+        id: 'f101',
+        context: { reference: 'Encounter/f100' },
+        subject: { reference: 'Patient/f100' },
+        valueQuantity:
+        { code: 'kg',
+            unit: 'kg',
+            value: 78,
+            system: 'http://unitsofmeasure.org' } }
 
 ---------------------------------------------------------------------------
 
@@ -133,9 +171,27 @@ Example
 
 .. code-block:: javascript
 
-    medjs.healthData.encodeData(data, 'fhir', 'patient').then(console.log)
+    var data = {
+        "resourceType": "Observation",
+        "id": "f101",
+        "status": "final",
+        "category": [
+            {
+            "coding": [
+                {
+                "system": "http://hl7.org/fhir/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+                }
+            ]
+            }
+        ],
+        ...
+    };
+
+    medjs.healthData.encodeData(data, 'medical-fhir', 'observation').then(console.log)
     > {
-    // TODO show example
+        <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
     }
 
 ---------------------------------------------------------------------------
@@ -148,7 +204,7 @@ encodeDataFromFile
 
     medjs.healthData.encodeDataFromFile(filePath, type, subType)
 
-Returns MHD format object of the health data reading from the file path.
+Returns encoded ``Buffer|Uint8Array`` object as MHD format object of the health data reading from the file path.
 
 
 Parameters
@@ -169,7 +225,7 @@ Example
 
 .. code-block:: javascript
 
-    medjs.healthData.encodeDataFromFile('./file/path', 'fhir', 'patient').then(console.log)
+    medjs.healthData.encodeDataFromFile('/file/path', 'medical-fhir', 'observation').then(console.log)
     > {
-    // TODO show example
+        <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
     }

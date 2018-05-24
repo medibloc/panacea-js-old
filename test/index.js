@@ -34,9 +34,9 @@ describe('medjs', () => {
         .to.be.an('object');
     });
 
-    it('should have a storage object', () => {
+    it('should have a healthData object', () => {
       return expect(medjs)
-        .to.be.property('storage')
+        .to.be.property('healthData')
         .to.be.an('object');
     });
 

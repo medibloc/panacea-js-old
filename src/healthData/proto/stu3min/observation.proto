@@ -27,6 +27,6 @@ message Component {
 message ValueQuantity {
     string code = 1;
     string unit = 2;
-    int64 value = 3;
+    int32 value = 3;
     string system = 4;
 }

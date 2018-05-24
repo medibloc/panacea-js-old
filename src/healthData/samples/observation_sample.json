@@ -1,10 +1,6 @@
 {
   "resourceType": "Observation",
-  "id": "example",
-  "text": {
-    "status": "generated",
-    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Patient MediBloc</p></div>"
-  },
+  "id": "f101",
   "status": "final",
   "category": [
     {
@@ -32,10 +28,10 @@
     ]
   },
   "subject": {
-    "reference": "Patient/example"
+    "reference": "Patient/f100"
   },
   "context": {
-    "reference": "Encounter/example"
+    "reference": "Encounter/f100"
   },
   "effectiveDateTime": "2017-05-15",
   "valueQuantity": {

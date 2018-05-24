@@ -1,12 +1,11 @@
-import fs from 'fs';
 import path from 'path';
 import protobuf from 'protobufjs';
 
-const FHIRResources = [['careplan', 'CarePlan'], ['observation', 'Observation'], ['patient', 'PatientData']];
+const FHIRResources = [['patient', 'PatientData'], ['observation', 'Observation'], ['careplan', 'CarePlan']];
 const FHIRResourcesMap = new Map(FHIRResources);
 
 // TODO: test file path is valid on the other env.
-const decodeToFHIR = (buffer, type) => protobuf.load(path.resolve(`src/healthData/proto/json/${type}.json`))
+const decodeFHIR = (buffer, type) => protobuf.load(path.resolve(`src/healthData/proto/json/${type}.json`))
   .then((root) => {
     const Type = root.lookupType(FHIRResourcesMap.get(type));
 
@@ -31,29 +30,24 @@ const decodeToFHIR = (buffer, type) => protobuf.load(path.resolve(`src/healthDat
     throw err;
   });
 
-const decodeTxt = (filePath) => {
-  try {
-    const data = fs.readFileSync(filePath, 'utf8');
-    console.log(data);
-    return JSON.parse(data);
-  } catch (err) {
-    throw err;
-  }
-};
+const decodeJson = buffer => JSON.parse(buffer.toString());
+
+const decodeTxt = buffer => buffer.toString();
 
 // TODO: test file path is valid on the other env.
-const encodeFromFHIR = (obj, type) => protobuf.load(path.resolve(`src/healthData/proto/json/${type}.json`))
+const encodeFHIR = (obj, type) => protobuf.load(path.resolve(`src/healthData/proto/json/${type}.json`))
   .then((root) => {
     const Type = root.lookupType(FHIRResourcesMap.get(type));
     const errMsg = Type.verify(obj);
-    if (errMsg) { throw Error(errMsg); }
+    if (errMsg) {
+      throw new Error(errMsg);
+    }
 
     // Create a new message
     const message = Type.create(obj); // or use .fromObject if conversion is necessary
 
     // Encode a message to an Uint8Array (browser) or Buffer (node)
     const buffer = Type.encode(message).finish();
-    console.log(buffer);
 
     return buffer;
   }).catch((err) => {
@@ -61,19 +55,12 @@ const encodeFromFHIR = (obj, type) => protobuf.load(path.resolve(`src/healthData
     throw err;
   });
 
-const encodeTxt = (filePath) => {
-  try {
-    const data = fs.readFileSync(filePath, 'utf8');
-    console.log(data);
-    return JSON.stringify(data);
-  } catch (err) {
-    throw err;
-  }
-};
+const encodeJson = obj => Buffer.from(JSON.stringify(obj));
 
 export default {
-  decodeToFHIR,
+  decodeFHIR,
+  decodeJson,
   decodeTxt,
-  encodeFromFHIR,
-  encodeTxt,
+  encodeFHIR,
+  encodeJson,
 };

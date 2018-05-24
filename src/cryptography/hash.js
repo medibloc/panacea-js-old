@@ -22,7 +22,6 @@ const hashData = (msg) => {
     default:
       throw new Error('Invalid msg type');
   }
-  console.log(message);
   return SHA3256.create().update(message).hex();
 };
 

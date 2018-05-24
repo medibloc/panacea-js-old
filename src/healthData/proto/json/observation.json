@@ -79,7 +79,7 @@
               "id": 2
             },
             "value": {
-              "type": "int64",
+              "type": "int32",
               "id": 3
             },
             "system": {
@@ -335,8 +335,7 @@
               "type": "string",
               "id": 1
             },
-            "given": {
-              "rule": "repeated",
+            "text": {
               "type": "string",
               "id": 2
             },
@@ -344,10 +343,24 @@
               "type": "string",
               "id": 3
             },
-            "suffix": {
+            "given": {
               "rule": "repeated",
               "type": "string",
               "id": 4
+            },
+            "prefix": {
+              "rule": "repeated",
+              "type": "string",
+              "id": 5
+            },
+            "suffix": {
+              "rule": "repeated",
+              "type": "string",
+              "id": 6
+            },
+            "period": {
+              "type": "Period",
+              "id": 7
             }
           }
         },
@@ -455,6 +468,10 @@
             "country": {
               "type": "string",
               "id": 9
+            },
+            "text": {
+              "type": "string",
+              "id": 10
             }
           }
         },
@@ -492,6 +509,14 @@
             "value": {
               "type": "string",
               "id": 3
+            },
+            "rank": {
+              "type": "uint32",
+              "id": 4
+            },
+            "period": {
+              "type": "Period",
+              "id": 5
             }
           }
         },
