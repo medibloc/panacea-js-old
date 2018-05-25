@@ -67,7 +67,7 @@ To check the type of the string, you can use ``Utils.isHexadecimal(string)``.
 Parameters
 ----------
 
-``string`` - ``String`` : The string to be validated
+``string`` - ``String`` : The string to be validated.
 
 -------
 Returns

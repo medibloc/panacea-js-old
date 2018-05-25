@@ -41,13 +41,13 @@ Offset    Bytes        Description
 ========  ==========   ===============================================
 
 We defined the MediBloc Health Data(MHD) format like above.
-More kinds of health data type and its subtype will be supported.
+More types of health data and its subtype will be supported.
 
 User should upload the hash of the encoded health data to the MediBloc blockchain.
 By storing or transferring the health data as MHD type, it is easy to handle the health data with the blockchain.
 
 .. warning::
-  This format could be changed.
+  This format can be changed.
 
 ---------------------------------------------------------------------------
 
@@ -68,7 +68,7 @@ Parameters
 Returns
 -------
 
-``Promise`` returns ``Object`` - The JSON object of the health data:
+``Promise`` returns ``Object`` - The JSON object of the health data.
 
 Example
 -------
@@ -116,7 +116,7 @@ Parameters
 Returns
 -------
 
-``Promise`` returns ``Object`` - The JSON object of the health data:
+``Promise`` returns ``Object`` - The JSON object of the health data.
 
 Example
 -------

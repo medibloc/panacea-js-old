@@ -6,8 +6,7 @@
 Getting Started
 ===============
 
-medjs is a client-side JavaScript library for `MediBloc - Decentralized platform for personal health record
-<https://github.com/medibloc/go-medibloc>`_.
+`medjs <https://github.com/medibloc/medjs>`_ is a client-side JavaScript library for `medibloc blockchain <https://github.com/medibloc/go-medibloc>`_.
 
 ---------------------------------------------------------------------------
 
