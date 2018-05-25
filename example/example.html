@@ -32,12 +32,6 @@
           CREATE VALUE TRANSFER TRANSACTION
       </label>
     </div>
-    <!-- <div class="checkbox">
-      <label>
-        <input id='No4Q' type="checkbox" data-toggle="toggle">
-          CREATE WRITER ASSIGN TRANSACTION
-      </label>
-    </div> -->
     <div class="checkbox">
       <label>
         <input id='No3Q' type="checkbox" data-toggle="toggle">
@@ -98,14 +92,6 @@
         storage :
         <input id='storageUpTx' />
       </span>
-      <!-- <span>
-        writerPubKey :
-        <input id='writerUpTx' />
-      </span> -->
-      <!-- <span>
-        ownerEncPrivKey :
-        <input id='encPrivKeyUpTx' />
-      </span> -->
       <span>
         passphrase :
         <input id='passphraseUpTx' />
@@ -117,18 +103,8 @@
         medicalDataPayload :
         <p id="medicalDataPayloadUpTx"></p>
       </span>
-      <!-- <span>
-        from :
-        <input id="fromUpTx" />
-      </span> -->
     </div>
     <button id='createUpTx' class='btn btn-primary'>GENERATE</button>
-    <!-- <div>
-      <span>
-        encPrivKey :
-        <input id='signingKeyUpTx' />
-      </span>
-    </div> -->
     <button id="signUpTx" class='btn btn-primary'>SIGN</button>
     <div class='resultBox'>
       <p id='upTxRaw'></p>
@@ -141,45 +117,9 @@
     </div>
   </div>
 
-  <!-- <div class="wrapper" id="No4">
-    <h1>CREATE WRITER ASSIGN TRANSACTION</h1>
-    <div class='txWrapper'>
-      <span>
-        WRITER :
-        <input id="writerAssTx" />
-      </span>
-    </div>
-    <button id="createAssTx" class='btn btn-primary'>GENERATE</button>
-    <div class='txWrapper'>
-      <span>
-        Encrypted Private Key :
-        <input id="encryptedPrivKeyAssTx" />
-      </span>
-      <span>
-        Passphrase :
-        <input id="passphraseAssTx" />
-      </span>
-    </div>
-    <button id="signAssTx" class='btn btn-primary'>SIGN</button>
-    <div class='resultBox'>
-      <p id='assTxRaw'></p>
-      <p id='assTxHash'></p>
-      <p id='assTxSign'></p>
-    </div>
-    <button id="sendAssTx" class='btn btn-primary'>SEND</button>
-    <div class='resultBox'>
-      <p id='receiptAssTx'></p>
-    </div>
-  </div>
- -->
-
   <div class="wrapper" id='No5'>
     <h1>CREATE VALUE TRANSFER TRANSACTION</h1>
     <div class='txWrapper'>
-      <!-- <span>
-        From :
-        <input id="fromValTx" />
-      </span> -->
       <span>
         Receiver :
         <input id="receiverValTx" />
@@ -191,10 +131,6 @@
     </div>
     <button id="createValTx" class='btn btn-primary'>GENERATE</button>
     <div class='txWrapper'>
-      <!-- <span>
-        Encrypted Private Key :
-        <input id="encryptedPrivKeyValTx" />
-      </span> -->
       <span>
         Passphrase :
         <input id="passphraseValTx" />
@@ -211,10 +147,6 @@
       <p id='receiptValTx'></p>
     </div>
   </div>
-
-
-
-
 
 
   <div class="wrapper" id='No6'>
@@ -282,41 +214,8 @@
       <p> Sign : <span id="rTxsign"></span></p>
     </div>
   </div>
-
-  <!-- <div class="wrapper">
-    <h1>UPLOAD MEDICAL DATA TO DISTRIBUTED STORAGE</h1>
-        <span>
-          TX HASH :
-          <input id="dataTxhash" />
-        </span>
-        <button id="retrieveMedicalDataTx">GET MEDICAL DATA TRANSACTION DATA PAYLOAD</button>
-        <div class="header">
-          <h2>MEDICAL DATA TRANSACTION DATA PAYLOAD</h2>
-        <ul>
-          <li> Data Hash : <span id="dataTxPayloadHash"></span></li>
-          <li> Storage : <span id="dataTxPayloadStorage"></span></li>
-          <li> Enc Key : <span id="dataTxPayloadEncKey"></span></li>
-          <li> Seed : <span id="dataTxPayloadSeed"></span></li>
-        </ul>
-      </div>
-      <button id="sendToIPFS">SEND TO IPFS</button>
-      <div>
-        <p id='sendToIPFSResult'></p>
-      </div>
-  </div>
-
-  <div class="wrapper">
-    <h1>DOWNLOAD MEDICAL DATA FROM DISTRIBUTED STORAGE</h1>
-    <button id="getFromIPFS">GET FROM IPFS</button>
-    <div>
-      <p id='getFromIPFSResult'></p>
-    </div>
-    <button id="decryptMedicalData">DECRYPT MEDICAL DATA</button>
-    <div>
-      <p id='decryptedMedicalData'></p>
-    </div>
-  </div> -->
 </body>
+
 
 <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -324,9 +223,7 @@
   crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-<script type="text/javascript" src="../dist/medjs.js"></script>
-<script src="https://unpkg.com/ipfs-api@20.0.0/dist/index.js"
-  crossorigin="anonymous"></script>
+<script type="text/javascript" src="../dist/medjs.min.js"></script>
 <script type="text/javascript" src="example.js"></script>
 
 </html>
