@@ -27,7 +27,7 @@ MediBloc blockchain has 3 transaction types.
 
 - value transfer transaction : To transfer MED from one account to another.
 - writer assign transaction : To assign an address that can use owner's bandwidth to write.
-- data upload transaction : To upload data related information on the , such as data hash, location, encrypt key and so on, on the blockchain. 
+- data upload transaction : To upload data related information on the , such as data hash, location, encrypt key and so on, on the blockchain.
 
 ---------------------------------------------------------------------------
 
@@ -72,11 +72,9 @@ Returns
   + ``value`` - ``String`` : The amount of value to transfer.
   + ``data`` - ``Object``
 
-    * ``type`` - ``String`` : The transaction type. For the value transfer transaction, it must be ``binary``
-- ``hash`` - ``String`` : The hash to the transaction
-- ``signature`` - ``String`` : The signature to the transaction hash. Default is ``null``
-- ``sign`` - ``Function`` : The function for signing the transaction. It assigns a signature string to ``signature``.
-
+    * ``type`` - ``String`` : The transaction type. For the value transfer transaction, it must be ``binary``.
+- ``hash`` - ``String`` : The hash to the transaction.
+- ``sign`` - ``String`` : The signature to the transaction hash. Default is ``null``.
 
 -------
 Example
@@ -105,14 +103,13 @@ Example
       }
     },
     hash: 'bc02716f5300f734d02ab5557c1f73859344d6371f9207a9ba87a603c81aaf23',
-    signature: null,
-    sign: [Function: sign]
+    sign: null,
   }
 
 ---------------------------------------------------------------------------
 
 writerAssignTx
-=========================
+==============
 
 .. code-block:: javascript
 
@@ -142,18 +139,16 @@ Returns
   + ``alg`` - ``Number`` : The algorithm used in transaction.
   + ``chain_id`` - ``Number`` : The chain to send transaction.
   + ``from`` - ``String`` : The address which allows writer to use its bandwidth.
-  + ``to`` - ``String`` : ``null``
+  + ``to`` - ``String`` : ``null``.
   + ``nonce`` - ``Number`` : The nonce.
   + ``timestamp`` - ``Number`` : The unix timestamp.
-  + ``value`` - ``String`` : ``0``
+  + ``value`` - ``String`` : '0'.
   + ``data`` - ``Object``
 
-    * ``type`` - ``String`` : The transaction type. For the writer assign transaction, it must be ``register_wkey``
+    * ``type`` - ``String`` : The transaction type. For the writer assign transaction, it must be ``register_wkey``.
     * ``payload`` - ``String`` : The payload for the writer assigning. It is the string from json object. (Will be changed to protoBuffer)
-- ``hash`` - ``String`` : The hash to the transaction
-- ``signature`` - ``String`` : The signature to the transaction hash. Default is ``null``
-- ``sign`` - ``Function`` : The function for signing the transaction. It assigns a signature string to ``signature``.
-
+- ``hash`` - ``String`` : The hash to the transaction.
+- ``sign`` - ``String`` : The signature to the transaction hash. Default is ``null``.
 
 .. note:: Transaction for writer assigning does not send any value to any address. Therefore, it has ``null`` in ``to`` parameter.
 
@@ -184,8 +179,7 @@ Example
       }
     },
     hash: 'ecb980d1886da7c1be3cefe445d9554bc0adb8697b43577a8e1d8d7ef2991c34',
-    signature: null,
-    sign: [Function: sign]
+    sign: null,
   }
 
 ---------------------------------------------------------------------------
@@ -237,7 +231,7 @@ Returns
     * ``type`` - ``String`` : The transaction type. For the data upload transaction, it must be ``add_record``
     * ``payload`` - ``String`` : The payload for the data uploading. It is a string from json object. (Will be changed to protoBuffer)
 - ``hash`` - ``String`` : The hash to the transaction
-- ``signature`` - ``String`` : The signature to the transaction hash. Default is ``null``
+- ``signature`` - ``String`` : The signature to the transaction hash. Default is ``null``.
 - ``sign`` - ``Function`` : The function for signing the transaction. It assigns signature string to ``signature``.
 
 
@@ -277,8 +271,7 @@ Example
       }
     },
     hash: '8948e398873c99ce4136e1c00eeecbf3f400c4f221ee78ad22c91ca066c76ea6',
-    signature: null,
-    sign: [Function: sign]
+    sign: null,
   }
 
 ---------------------------------------------------------------------------
@@ -299,7 +292,7 @@ Parameters
 ``dataObject`` - ``object``
 
 - ``data`` - ``Boolean|Number|String|Object`` : The data can be any type that can be hashed.
-- ``storage`` - ``String`` : The storage specifies the location of the stored data. ``Local`` is used when you store the data on your device. (Storage usage guideline will be announced.)
+- ``storage`` - ``String`` : The storage specifies the location of the stored data. ``Local`` is used when you store the data on your device. (Storage usage guideline will be announced)
 - ``ownerAccount`` - ``Object`` : The ownerAccount is the account object from ``new Account()``.
 - ``passphrase`` - ``String`` : The passphrase for the ownerAccount. The passphrase is used to decrypt private key from ownerAccount's ``encryptedPrivKey``.
 - ``writerPubKey`` - ``String`` : The writerPubKey is the address, which is already assigned by owner using ``writerAssignTx()``.
