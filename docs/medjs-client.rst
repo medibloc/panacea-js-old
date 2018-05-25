@@ -269,4 +269,3 @@ Example
     > {
       hash: '2edfc32b61528cedd3cafe7a794020d32ae3bcbfbc45fb810e169f34a4a30208'
     }
-

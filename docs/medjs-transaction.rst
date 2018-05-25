@@ -8,7 +8,7 @@ medjs.local.transaction
 
 The ``medjs.local.transaction`` contains functions to generate transaction, hash, signature, and so on.
 
-To use this package standalone use:
+To use this package in a standalone use:
 
 .. code-block:: javascript
 
@@ -25,9 +25,9 @@ Transaction types
 
 MediBloc blockchain has 3 transaction types.
 
-- value transfer transaction : To transfer MED from one to another.
-- writer assign transaction : To assign the address who can use owner's bandwidth.
-- data upload transaction : To upload data related infomation on the blockchain. Such as data hash, location, encrypt key and so on.
+- value transfer transaction : To transfer MED from one account to another.
+- writer assign transaction : To assign an address that can use owner's bandwidth to write.
+- data upload transaction : To upload data related information on the , such as data hash, location, encrypt key and so on, on the blockchain. 
 
 ---------------------------------------------------------------------------
 
@@ -46,10 +46,10 @@ Parameters
 
 ``transactionData`` - ``Object``
 
-- ``from`` - ``String`` : The address which to send the value from.
-- ``to`` - ``String`` : The address which to take the value.
-- ``value`` - ``String`` : The value to transfer. It must not exceed the amount which the address has.
-- ``nonce`` - ``Number`` : The nonce indicates how many transactions does this account have made. It should be exactly 1 larger than current account's nonce. Highly recommend getting account's latest nonce before making transaction.
+- ``from`` - ``String`` : The address from which to send the value.
+- ``to`` - ``String`` : The address to which to send the value.
+- ``value`` - ``String`` : The amount of value to transfer. It must not exceed the amount that the sender address has.
+- ``nonce`` - ``Number`` : The nonce indicates how many transactions that this account has made. It should be exactly 1 larger than the current account's nonce. Highly recommend getting an account's latest nonce before making any transaction.
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
 
@@ -63,19 +63,20 @@ Returns
 
 - ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``Number`` : The algorythm used in transaction.
+  + ``alg`` - ``Number`` : The algorithm that is used in transaction.
   + ``chain_id`` - ``Number`` : The chain to send transaction.
-  + ``from`` - ``String`` : The address which to send this value from.
-  + ``to`` - ``String`` : The address which to take this value.
+  + ``from`` - ``String`` : The address from which to send this value.
+  + ``to`` - ``String`` : The address to which to send this value.
   + ``nonce`` - ``Number`` : The nonce.
   + ``timestamp`` - ``Number`` : The unix timestamp.
-  + ``value`` - ``String`` : The value to transfer.
+  + ``value`` - ``String`` : The amount of value to transfer.
   + ``data`` - ``Object``
 
     * ``type`` - ``String`` : The transaction type. For the value transfer transaction, it must be ``binary``
 - ``hash`` - ``String`` : The hash to the transaction
 - ``signature`` - ``String`` : The signature to the transaction hash. Default is ``null``
-- ``sign`` - ``Function`` : The function for signing the transaction. It assign signature string to ``signature``.
+- ``sign`` - ``Function`` : The function for signing the transaction. It assigns a signature string to ``signature``.
+
 
 -------
 Example
@@ -117,7 +118,7 @@ writerAssignTx
 
   Transaction.writerAssignTx(transactionData);
 
-To generate writer assigning transaction, you can use ``Transaction.writerAssignTx(transactionData)``.
+To generate writer-assigned transaction, you can use ``Transaction.writerAssignTx(transactionData)``.
 
 ----------
 Parameters
@@ -125,9 +126,9 @@ Parameters
 
 ``transactionData`` - ``Object``
 
-- ``from`` - ``String`` : The address which allows writer to use it's bandwidth.
-- ``writer`` - ``String`` : The address which to take authority to use transaction sender's bandwidth.
-- ``nonce`` - ``Number`` : The nonce indicates how many transactions does this account have made. It should be exactly 1 larger than current account's nonce. Highly recommend getting account's latest nonce before making transaction.
+- ``from`` - ``String`` : The address which allows a writer to use its bandwidth.
+- ``writer`` - ``String`` : The address that takes the authority to use the transaction sender's bandwidth.
+- ``nonce`` - ``Number`` : The nonce indicates the number of transactions that this account has made. It should be exactly 1 larger than the current account's nonce. Highly recommend getting the account's latest nonce before making transaction.
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
 -------
@@ -138,9 +139,9 @@ Returns
 
 - ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``Number`` : The algorythm used in transaction.
+  + ``alg`` - ``Number`` : The algorithm used in transaction.
   + ``chain_id`` - ``Number`` : The chain to send transaction.
-  + ``from`` - ``String`` : The address which allows writer to use it's bandwidth.
+  + ``from`` - ``String`` : The address which allows writer to use its bandwidth.
   + ``to`` - ``String`` : ``null``
   + ``nonce`` - ``Number`` : The nonce.
   + ``timestamp`` - ``Number`` : The unix timestamp.
@@ -151,10 +152,10 @@ Returns
     * ``payload`` - ``String`` : The payload for the writer assigning. It is the string from json object. (Will be changed to protoBuffer)
 - ``hash`` - ``String`` : The hash to the transaction
 - ``signature`` - ``String`` : The signature to the transaction hash. Default is ``null``
-- ``sign`` - ``Function`` : The function for signing the transaction. It assign signature string to ``signature``.
+- ``sign`` - ``Function`` : The function for signing the transaction. It assigns a signature string to ``signature``.
 
 
-.. note:: Transaction for writer assigning doesn't send value to any address. So it has ``null`` in ``to`` parameter.
+.. note:: Transaction for writer assigning does not send any value to any address. Therefore, it has ``null`` in ``to`` parameter.
 
 -------
 Example
@@ -179,7 +180,7 @@ Example
       value: '0',
       data: {
         type: 'register_wkey',
-        payload: '{"Writer":[3,125,145,89,103,39,188,82,37,83,81,11,52,129,95,56,44,32,96,203,183,118,242,118,93,234,251,72,174,82,141,50,75]}'
+        payload: '{'Writer':[3,125,145,89,103,39,188,82,37,83,81,11,52,129,95,56,44,32,96,203,183,118,242,118,93,234,251,72,174,82,141,50,75]}'
       }
     },
     hash: 'ecb980d1886da7c1be3cefe445d9554bc0adb8697b43577a8e1d8d7ef2991c34',
@@ -204,17 +205,17 @@ Parameters
 
 ``transactionData`` - ``Object``
 
-- ``from`` - ``String`` : The address which spend bandwidth to upload data.
+- ``from`` - ``String`` : The address that spends bandwidth to upload data.
 - ``medicalData`` - ``Object`` : The medical data object generated from ``Data.createDataPayload(dataObject)``.
 
-  + ``EncKey`` - ``String`` : The shared secret key generated from owner and writer generated from ECDH.
+  + ``EncKey`` - ``String`` : The shared secret key generated from owner and writer from ECDH.
   + ``Hash`` - ``String`` : The encrypted data's hash.
   + ``Seed`` - ``String`` : The random seed value.
   + ``Storage`` - ``String`` : The storage containing input data.
-- ``nonce`` - ``Number`` : The nonce indicates how many transactions does this account have made. It should be exactly 1 larger than current account's nonce. Highly recommend getting account's latest nonce before making transaction.
+- ``nonce`` - ``Number`` : The nonce indicates the number of transactions that this account has made. It should be exactly 1 larger than current account's nonce. Highly recommend getting account's latest nonce before making transaction.
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
-.. note:: Assigned writer can send transaction using owner(from)'s bandwidth. To use owner's bandwidth, use owner's address as a ``from`` and sign the transaction with assigned writer's private key.
+.. note:: Assigned writer can send transaction using owner(from)'s bandwidth. To use owner's bandwidth, use owner's address as ``from`` and sign the transaction with assigned writer's private key.
 
 -------
 Returns
@@ -224,9 +225,9 @@ Returns
 
 - ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``Number`` : The algorythm used in transaction.
+  + ``alg`` - ``Number`` : The algorithm used in transaction.
   + ``chain_id`` - ``Number`` : The chain to send transaction.
-  + ``from`` - ``String`` : The address which use it's bandwidth to send transaction.
+  + ``from`` - ``String`` : The address which uses its bandwidth to send transaction.
   + ``to`` - ``String`` : ``null``
   + ``nonce`` - ``Number`` : The nonce.
   + ``timestamp`` - ``Number`` : The unix timestamp.
@@ -237,10 +238,10 @@ Returns
     * ``payload`` - ``String`` : The payload for the data uploading. It is a string from json object. (Will be changed to protoBuffer)
 - ``hash`` - ``String`` : The hash to the transaction
 - ``signature`` - ``String`` : The signature to the transaction hash. Default is ``null``
-- ``sign`` - ``Function`` : The function for signing the transaction. It assign signature string to ``signature``.
+- ``sign`` - ``Function`` : The function for signing the transaction. It assigns signature string to ``signature``.
 
 
-.. note:: Transaction for data upload doesn't send value to any address. So it has ``null`` in ``to`` parameter.
+.. note:: Data upload transaction does not send any value to any address. Hence, it has ``null`` in ``to`` parameter.
 
 -------
 Example
@@ -272,7 +273,7 @@ Example
       value: '0',
       data: {
         type: 'add_record',
-        payload: '{"Hash":[185,204,2,91,234,65,189,143,46,162,254,230,41,46,203,245,160,250,239,207,249,205,164,124,121,180,161,245,29,56,221,235],"Storage":"IPFS","EncKey":"Z2QYhMy24+j9xdGDsIofgzSJk/EMrAleXx3aH/4iKQc=","Seed":"DZIRo4Wlve9RMyaErV/QMw=="}'
+        payload: '{'Hash':[185,204,2,91,234,65,189,143,46,162,254,230,41,46,203,245,160,250,239,207,249,205,164,124,121,180,161,245,29,56,221,235],'Storage':'IPFS','EncKey':'Z2QYhMy24+j9xdGDsIofgzSJk/EMrAleXx3aH/4iKQc=','Seed':'DZIRo4Wlve9RMyaErV/QMw=='}'
       }
     },
     hash: '8948e398873c99ce4136e1c00eeecbf3f400c4f221ee78ad22c91ca066c76ea6',
@@ -289,7 +290,7 @@ createDataPayload
 
   Transaction.createDataPayload(dataObject);
 
-To generate data payload for transaction, you can use ``Transaction.createDataPayload(dataObject)``. It generates encrypt key using ECDH, encrypts data with the key, and returns data payload for ``dataUploadTx``.
+To generate data payload transaction, you can use ``Transaction.createDataPayload(dataObject)``. It generates an encryption key using ECDH, encrypts data with the key, and returns data payload for ``dataUploadTx``.
 
 ----------
 Parameters
@@ -297,11 +298,11 @@ Parameters
 
 ``dataObject`` - ``object``
 
-- ``data`` - ``Boolean|Number|String|Object`` : The data can be any type which can be hashed.
-- ``storage`` - ``String`` : The storage specify the location of the stored data. ``Local`` is used when you store the data on your device. (Storage usage guideline will be announced.)
+- ``data`` - ``Boolean|Number|String|Object`` : The data can be any type that can be hashed.
+- ``storage`` - ``String`` : The storage specifies the location of the stored data. ``Local`` is used when you store the data on your device. (Storage usage guideline will be announced.)
 - ``ownerAccount`` - ``Object`` : The ownerAccount is the account object from ``new Account()``.
-- ``passphrase`` - ``String`` : The passphrase for the ownerAccount. Passphrase is used to decrypt private key from ownerAccount's ``encryptedPrivKey``.
-- ``writerPubKey`` - ``String`` : The writerPubKey is the address which is already assigned by owner using ``writerAssignTx()``.
+- ``passphrase`` - ``String`` : The passphrase for the ownerAccount. The passphrase is used to decrypt private key from ownerAccount's ``encryptedPrivKey``.
+- ``writerPubKey`` - ``String`` : The writerPubKey is the address, which is already assigned by owner using ``writerAssignTx()``.
 
 -------
 Returns
@@ -309,7 +310,7 @@ Returns
 
 ``Object`` - The data payload object for data upload transaction payload.
 
-- ``EncKey`` - ``String`` : The shared secret key from owner and writer generated from ECDH.
+- ``EncKey`` - ``String`` : The shared secret key from owner and writer from ECDH.
 - ``Hash`` - ``String`` : The encrypted data's hash.
 - ``Seed`` - ``String`` : The random seed value.
 - ``Storage`` - ``String`` : The storage storing data.

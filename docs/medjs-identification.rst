@@ -63,18 +63,18 @@ Example
   var createCertificate = Id.certificate.createCertificate;
   createCertificate({
     expireDate: Date.now() + (365 * 24 * 60 * 60 * 1000),
-    issuer: "https://medibloc.org",
+    issuer: 'https://medibloc.org',
     issuerAccount: issuer,
     issueDate: Date.now(),
-    passphrase: "",
-    pubKey: "031ae654051968bb57de12e36184fd9118c03d49e6c1d05ef99149074c31a8dcee",
+    passphrase: '',
+    pubKey: '031ae654051968bb57de12e36184fd9118c03d49e6c1d05ef99149074c31a8dcee',
   });
   > {
     expireDate: 1558588202729,
-    issuer: "https://medibloc.org",
+    issuer: 'https://medibloc.org',
     issueDate: 1527052202729,
-    pubKey: "031ae654051968bb57de12e36184fd9118c03d49e6c1d05ef99149074c31a8dcee",
-    signature: "520282dce69b18f2dfefad8345a68e26a7b84ded32bc64e5a43cf0743e35a946629bc4245fe814f40acd196d19d5f9afcec4f185aae936491a8ad0fc9e73224501",
+    pubKey: '031ae654051968bb57de12e36184fd9118c03d49e6c1d05ef99149074c31a8dcee',
+    signature: '520282dce69b18f2dfefad8345a68e26a7b84ded32bc64e5a43cf0743e35a946629bc4245fe814f40acd196d19d5f9afcec4f185aae936491a8ad0fc9e73224501',
   }
 
 ---------------------------------------------------------------------------
@@ -112,10 +112,10 @@ Example
   var verifyCertificate = Id.certificate.verifyCertificate;
   var certificate = {
     expireDate: 1558588202729,
-    issuer: "https://medibloc.org",
+    issuer: 'https://medibloc.org',
     issueDate: 1527052202729,
-    pubKey: "031ae654051968bb57de12e36184fd9118c03d49e6c1d05ef99149074c31a8dcee",
-    signature: "520282dce69b18f2dfefad8345a68e26a7b84ded32bc64e5a43cf0743e35a946629bc4245fe814f40acd196d19d5f9afcec4f185aae936491a8ad0fc9e73224501"
+    pubKey: '031ae654051968bb57de12e36184fd9118c03d49e6c1d05ef99149074c31a8dcee',
+    signature: '520282dce69b18f2dfefad8345a68e26a7b84ded32bc64e5a43cf0743e35a946629bc4245fe814f40acd196d19d5f9afcec4f185aae936491a8ad0fc9e73224501'
   };
-  verifyCertificate(certificate, Date.now(), "0253f338731d59180253be2a9eee8d8266948b23c71181a85df23b9883b19cb187")
+  verifyCertificate(certificate, Date.now(), '0253f338731d59180253be2a9eee8d8266948b23c71181a85df23b9883b19cb187')
   > true

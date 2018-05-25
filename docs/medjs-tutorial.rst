@@ -30,7 +30,7 @@ send transaction
     nonce = parseInt(res.nonce);
   })
 
-  // create medical data payload
+  // creating a medical data payload
   var healthCareDataOption = {
     data: {
       name: "ggomma",
@@ -44,7 +44,7 @@ send transaction
   };
   var healthCareDataPayload = Transaction.createDataPayload(healthCareDataOption);
 
-  // create medical data upload transaction
+  // creating a medical data upload transaction
   var tx1 = Transaction.dataUploadTx({
     from: account.pubKey,
     medicalData: healthCareDataPayload,
@@ -59,4 +59,3 @@ send transaction
     // .. do something
     console.log(res);
   });
-

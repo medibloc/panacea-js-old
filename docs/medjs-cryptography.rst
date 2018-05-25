@@ -8,7 +8,7 @@ medjs.cryptography
 
 The ``medjs.cryptography`` contains cryptographic functions.
 
-To use this package standalone use:
+To use this package in a standalone use:
 
 .. code-block:: javascript
 
@@ -28,9 +28,9 @@ encrypt.encryptData
   var encryptUtil = Cryptography.encrypt;
   encryptUtil.encryptData(accessKey, msg);
 
-To encrypt data you can use ``Cryptography.encrypt.encryptData(accessKey, msg)``. It generates encrypted string message using AES-256-CTR algorithm. Initialization vector(IV) is generated from access key. So there's no need to store iv value, but only need to use access key.
+To encrypt data you can use ``Cryptography.encrypt.encryptData(accessKey, msg)``. This function generates an encrypted string message using AES-256-CTR algorithm. Initialization vector(IV) is generated from the access key. Hence, there is no need to store the IV value; you only need to use the access key.
 
-.. note:: Encrypt algorithm can be changed.
+.. note:: Encryption algorithm can be changed.
 
 ----------
 Parameters
@@ -65,7 +65,7 @@ encrypt.decryptData
   var encryptUtil = Cryptography.encrypt;
   encryptUtil.decryptData(accessKey, encryptedMsg);
 
-To decrypt data you can use ``Cryptography.encrypt.decryptData(accessKey, encryptedMsg)``. It decrypt encrypted message using AES-256-CTR algorithm. Initialization vector(IV) is generated from access key.
+To decrypt data you can use ``Cryptography.encrypt.decryptData(accessKey, encryptedMsg)``. This function decrypts the encrypted message using AES-256-CTR algorithm. Initialization vector(IV) is generated from the access key.
 
 .. note:: Decrypt algorithm can be changed.
 
@@ -76,7 +76,7 @@ Parameters
 1. ``accessKey`` - ``String`` : The access key to decrypt data using symmetric key algorithm. If not given, empty string is used.
 2. ``encryptedMsg`` - ``String`` : The encryptedMsg should be a hexadecimal string.
 
-.. note:: In decryption, ``encryptedMsg`` must be the string generated through ``Cryptography.encrypt``. If not, it returns wrong result.
+.. note:: In decryption, ``encryptedMsg`` must be the string generated through ``Cryptography.encrypt``. If not, this function returns a wrong result.
 
 -------
 Returns
@@ -104,7 +104,7 @@ hash.hashData
   var hashUtil = Cryptography.hash;
   hashUtil.hashData(msg);
 
-To hash message, you can use ``Cryptography.hash.hashData(msg)``. It use SHA3_256 algorithm and returns 256bit hexadecimal string.
+To hash messages, you can use ``Cryptography.hash.hashData(msg)``. This function uses SHA3_256 algorithm and returns 256bit hexadecimal string.
 
 ----------
 Parameters
@@ -138,7 +138,7 @@ keyGen.getKeyPair
   var keyUtil = Cryptography.keyGen;
   keyUtil.getKeyPair();
 
-To get new private, public key pair, you can use ``Cryptography.keyGen.getKeyPair()``. Secp256k1 is used in generating random key pair.
+To get a new private, public key pair, you can use ``Cryptography.keyGen.getKeyPair()``. Secp256k1 is used in generating a random key pair.
 
 -------
 Returns
@@ -241,13 +241,13 @@ keyGen.getRandomSeed
   var keyUtil = Cryptography.keyGen;
   keyUtil.getRandomSeed(length);
 
-To get random seed number, you can use ``Cryptography.keyGen.getRandomSeed(length)``.
+To get a random seed number, you can use ``Cryptography.keyGen.getRandomSeed(length)``.
 
 ----------
 Parameters
 ----------
 
-``length`` - ``Number`` : The bytes size of random seed number. If not given, 16 is used.
+``length`` - ``Number`` : The byte size of a random seed number. If not given, 16 is used.
 
 -------
 Returns
@@ -275,14 +275,14 @@ keyGen.concatKeys
   var keyUtil = Cryptography.keyGen;
   keyUtil.concatKeys(string1, string2);
 
-To concat keys, you can use ``Cryptography.keyGen.concatKeys(string1, string2)``.
+To concatenate keys, you can use ``Cryptography.keyGen.concatKeys(string1, string2)``.
 
 ----------
 Parameters
 ----------
 
-1. ``string1`` - ``String`` : The left side string.
-2. ``string2`` - ``String`` : The right side string.
+1. ``string1`` - ``String`` : The left side of the string.
+2. ``string2`` - ``String`` : The right side of the string.
 
 -------
 Returns
@@ -310,7 +310,7 @@ sign.recoverPubKeyFromSignature
   var signUtil = Cryptography.sign;
   signUtil.recoverPubKeyFromSignature(msgHash, signature);
 
-To recover public key from the signature, you can use ``Cryptography.sign.recoverPubKeyFromSignature(msgHash, signature)``.
+To recover the public key from the signature, you can use ``Cryptography.sign.recoverPubKeyFromSignature(msgHash, signature)``.
 
 ----------
 Parameters
@@ -345,7 +345,7 @@ sign.sign
   var signUtil = Cryptography.sign;
   signUtil.sign(privKey, msgHash);
 
-To make a signature for the message, you can use ``Cryptography.sign.sign(privKey, msgHash)``.
+To make a signature for a message, you can use ``Cryptography.sign.sign(privKey, msgHash)``.
 
 ----------
 Parameters
@@ -380,7 +380,7 @@ sign.verifySignature
   var signUtil = Cryptography.sign;
   signUtil.verifySignature(pubKey, msgHash, signature);
 
-To verify signature, you can use ``Cryptography.sign.verifySignature(pubKey, msgHash, signature)``.
+To verify the signature, you can use ``Cryptography.sign.verifySignature(pubKey, msgHash, signature)``.
 
 ----------
 Parameters
@@ -394,7 +394,7 @@ Parameters
 Returns
 -------
 
-``Bool`` - If signature is made from public key and signature, ``true`` is return.
+``Bool`` - If a a signature is made from a public key and a signature, ``true`` is return.
 
 -------
 Example

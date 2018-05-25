@@ -19,4 +19,3 @@ Adding medjs
 .. code-block:: javascript
 
     npm install medjs
-
