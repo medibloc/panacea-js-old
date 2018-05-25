@@ -8,7 +8,7 @@ medjs.local.Account
 
 The ``medjs.local.Account`` contains functions to generate MediBloc accounts, which contain encrypted private key and public key and can induce public key from the private key.
 
-To use this package standalone use:
+To use this package in a standalone use:
 
 .. code-block:: javascript
 
@@ -81,6 +81,53 @@ Example
 
 ---------------------------------------------------------------------------
 
+createCertificate
+=================
+
+.. code-block:: javascript
+
+  var account = new Account(passphrase, encryptedPrivateKey);
+  account.createCertificate(expireDate, issuer, issueDate, passphrase);
+
+Create the certificate of the account.
+
+----------
+Parameters
+----------
+
+
+1. ``expireDate`` - ``Number`` : The unix timestamp when certificate is expired.
+2. ``issuer`` - ``String`` : The issuer's url to check certificate authenticity.
+3. ``issueDate`` - ``Number`` : The unix timestamp when issuing certificate.
+4. ``passphrase`` - ``String`` :(optional) The passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
+
+.. note:: Account.createCertificate doesn't return anything but assign the certificate object to the account. After signing, ``account.cert`` is changed from ``Null`` to ``Object``.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  var owner = new Account();
+  owner.createCertificate({
+    expireDate: Date.now() + (365 * 24 * 60 * 60 * 1000),
+    issuer: 'https://medibloc.org',
+    issueDate: Date.now(),
+    passphrase: '',
+  });
+  console.log(owner.cert);
+  > {
+    expireDate: 1558759043199,
+    issuer: 'https://medibloc.org',
+    issueDate: 1527223043199,
+    pubKey: '020505d5ce655f7651eddfc6ee8bc96a78c40a622c5e28b1b8dfe1cf0f3af6c448',
+    signature: '1d7b003afb947bcb6e8f27f1366a34d27f473c398e98c7cc36a8720dbfda064e03cfd35cf352057a23194da874afbe9a00d37a20efec8d9ae39c43f943ed14de01'
+  }
+
+
+---------------------------------------------------------------------------
+
 getDecryptedPrivateKey
 =========================
 
@@ -113,12 +160,12 @@ Example
 
   var account = new Account('123456789abcdeABCDE!@#');
   account.getDecryptedPrivateKey('123456789abcdeABCDE!@#');
-  > "960d2ea9a19b2b939b2ecbdbba75ffb50aafa0b63a73cd1b614cb53c50482d26"
+  > '960d2ea9a19b2b939b2ecbdbba75ffb50aafa0b63a73cd1b614cb53c50482d26'
 
 ---------------------------------------------------------------------------
 
 signTx
-=========================
+======
 
 .. code-block:: javascript
 
@@ -154,6 +201,58 @@ Example
   console.log(transaction);
   > {
     rawTx: {...},
-    hash: "15be7e844e19ecdbad46894bf310e7c15bb315837baf4aac82991d0c531b02d8",
-    sign: "882c24751521bae53bff1673b896b3d0cce2b81a03fea9563323975b79955cbe134744cbd21913955093e60c8d56d3884d7863db88b5393135f667f510fcceb200"
+    hash: '15be7e844e19ecdbad46894bf310e7c15bb315837baf4aac82991d0c531b02d8',
+    sign: '882c24751521bae53bff1673b896b3d0cce2b81a03fea9563323975b79955cbe134744cbd21913955093e60c8d56d3884d7863db88b5393135f667f510fcceb200'
+  }
+
+---------------------------------------------------------------------------
+
+signDataPayload
+===============
+
+.. code-block:: javascript
+
+  var account = new Account(passphrase, encryptedPrivateKey);
+  account.signDataPayload(dataPayload, passphrase);
+
+To sign a data payload with the private key, you can use ``Account.signDataPayload(dataPayload, passphrase)``. It assigns signature string to ``dataPayload.sign``.
+
+----------
+Parameters
+----------
+
+1. ``dataPayload`` - ``Object`` : data payload object:
+- ``hash`` - ``String``: The hash string of the data payload.
+2. ``passphrase`` - ``String``:(optional) The passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
+
+.. note:: Account.signDataPayload doesn't return anything but assign the signature string and the certificate to the data payload object. After signing, ``dataPayload.sign`` is changed from ``Null`` to ``String`` and ``dataPayload.cert`` is changed from ``Null`` to ``Object``.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  var owner = new Account();
+  owner.createCertificate({
+    expireDate: Date.now() + (365 * 24 * 60 * 60 * 1000),
+    issuer: 'https://medibloc.org',
+    issueDate: Date.now(),
+    passphrase: '',
+  });
+  var dataPayload = {
+    hash: 'eb36d0606ff84bba5ae84e2af0f2197b2ff4272c3d22c46ffa27ca17851cea7f',
+  };
+  owner.signDataPayload(dataPayload);
+  console.log(dataPayload);
+  > {
+    hash: 'eb36d0606ff84bba5ae84e2af0f2197b2ff4272c3d22c46ffa27ca17851cea7f',
+    sign: 'e04c9c20093d686224bd759e8ca272772ed0528251a80c43502a8e21d3dcbfea21827b37f199132fef58a0fd2325f0ed4aa4a94eaf17e67fe43ca491243bf1ec00',
+    cert: {
+      expireDate: 1558759447996,
+      issuer: 'https://medibloc.org',
+      issueDate: 1527223447996,
+      pubKey: '02a980d3064c6135e75eb4843c5a15382d3dd4fa277625dea86f3fc97864eae288',
+      signature: '9199402de763728112c68ddde02b06fbdb2745b0539ba5e981cb9a5233935c5e1e6f814fafe88f752e63635c77d48f58eea5024c552672d2aed761d14426e21d01'
+    }
   }

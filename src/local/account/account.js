@@ -44,6 +44,12 @@ export default class Account {
     tx.sign = sign.sign(privKey, tx.hash); // eslint-disable-line
   }
 
+  signDataPayload(data, passphrase = '') {
+    const privKey = this.getDecryptedPrivateKey(passphrase);
+    data.sign = sign.sign(privKey, data.hash); // eslint-disable-line
+    data.cert = this.cert; // eslint-disable-line
+  }
+
   createCertificate({
     expireDate,
     issuer,
