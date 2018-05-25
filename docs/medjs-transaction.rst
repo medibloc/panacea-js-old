@@ -55,6 +55,8 @@ Parameters
 
 .. note:: ``value`` must be an integer between 0 and 340282366920938463463374607431768211455. And it's type should be a string.
 
+.. note:: ``value`` '1' indicates '0.00000001' (1e-8) MED. If you want to send 1MED, you need to use '100000000' (1e+8).
+
 -------
 Returns
 -------

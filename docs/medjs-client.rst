@@ -46,6 +46,7 @@ Returns
   - ``nonce`` - ``String``: The nonce of the account at the block.
   - ``type`` - ``Number``: The type of the account at the block.
 
+.. note:: ``balance`` '1' indicates '0.00000001' (1e-8) MED.
 
 Example
 -------
@@ -208,6 +209,7 @@ Returns
   - ``alg`` - ``Number``: The signature algorithm of the transaction.
   - ``sign`` - ``String``: The signature of the transaction.
 
+.. note:: ``value`` '1' indicates '0.00000001' (1e-8) MED.
 
 Example
 -------

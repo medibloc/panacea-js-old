@@ -17,7 +17,7 @@ var Medjs = requrie('medjs');
 var medjs = Medjs(['http://localhost:9921']);
 ```
 
-Please refers to the documentation(TODO)
+Please refers to the [documentation](https://docs.medibloc.org)
 
 ## Test
 
