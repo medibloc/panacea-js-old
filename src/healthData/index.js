@@ -150,10 +150,29 @@ const hashData = async (data, type, subType) => {
   return hash.hashData(dataBuffer);
 };
 
+const hashDataFromFile = async (filePath, type, subType) => {
+  let newFilePath = filePath;
+  if (!path.isAbsolute(filePath)) {
+    newFilePath = path.resolve(__dirname, filePath);
+  }
+  const ext = path.extname(newFilePath);
+  let data;
+  // TODO: support other extensions
+  if (ext === '.json') {
+    data = jsonfile.readFileSync(newFilePath);
+  } else if (ext === '.txt') {
+    data = fs.readFileSync(newFilePath);
+  } else {
+    throw new Error('not supporting extension');
+  }
+  return hashData(data, type, subType);
+};
+
 export default {
   decodeData,
   decodeDataFromFile,
   encodeData,
   encodeDataFromFile,
   hashData,
+  hashDataFromFile,
 };

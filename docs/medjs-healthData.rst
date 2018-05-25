@@ -159,7 +159,7 @@ Parameters
 
 1. ``data`` - ``Object|Uint8Array|Buffer``: The health data to encode.
 2. ``type`` - ``String``: The type of the health data.
-3. ``subType`` - ``String``: (optional) The subtype of the health data.
+3. ``subType`` - ``String``:(optional) The subtype of the health data.
 
 Returns
 -------
@@ -212,7 +212,7 @@ Parameters
 
 1. ``filePath`` - ``String``: The path of the file to read.
 2. ``type`` - ``String``: The type of the health data.
-3. ``subType`` - ``String``: (optional) The subtype of the health data.
+3. ``subType`` - ``String``:(optional) The subtype of the health data.
 
 
 Returns
@@ -248,7 +248,7 @@ Parameters
 
 1. ``data`` - ``Object|Uint8Array|Buffer``: The health data to encode.
 2. ``type`` - ``String``: The type of the health data.
-3. ``subType`` - ``String``: (optional) The subtype of the health data.
+3. ``subType`` - ``String``:(optional) The subtype of the health data.
 
 
 Returns
@@ -280,6 +280,39 @@ Example
     };
 
     HealthData.hashData(data, 'medical-fhir', 'observation').then(console.log);
+    > {
+        'eb36d0606ff84bba5ae84e2af0f2197b2ff4272c3d22c46ffa27ca17851cea7f'
+    }
+
+hashDataFromFile
+================
+
+.. code-block:: javascript
+
+    HealthData.hashDataFromFile(filePath, type, subType)
+
+Returns the hash ``String`` of the health data reading from the file path.
+
+
+Parameters
+----------
+
+1. ``filePath`` - ``String``: The path of the file to read.
+2. ``type`` - ``String``: The type of the health data.
+3. ``subType`` - ``String``:(optional) The subtype of the health data.
+
+
+Returns
+-------
+
+``Promise`` returns ``String`` - The hash of the health data.
+
+Example
+-------
+
+.. code-block:: javascript
+
+    HealthData.hashData('/file/path', 'medical-fhir', 'observation').then(console.log);
     > {
         'eb36d0606ff84bba5ae84e2af0f2197b2ff4272c3d22c46ffa27ca17851cea7f'
     }
