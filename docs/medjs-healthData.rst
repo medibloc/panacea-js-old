@@ -82,7 +82,7 @@ Example
     console.log(data);
     > <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
 
-    HealthData.decodeData(data).then(console.log)
+    HealthData.decodeData(data).then(console.log);
     > {
         status: 'final',
         category: [ { coding: [Array] } ],
@@ -125,7 +125,7 @@ Example
 
 .. code-block:: javascript
 
-    HealthData.decodeDataFromFile('/file/path').then(console.log)
+    HealthData.decodeDataFromFile('/file/path').then(console.log);
     > {
         status: 'final',
         category: [ { coding: [Array] } ],
@@ -157,7 +157,7 @@ Returns encoded ``Buffer|Uint8Array`` object as MHD format of the health data.
 Parameters
 ----------
 
-1. ``data`` - ``Object``: The object of the health data to encode.
+1. ``data`` - ``Object|Uint8Array|Buffer``: The health data to encode.
 2. ``type`` - ``String``: The type of the health data.
 3. ``subType`` - ``String``: (optional) The subtype of the health data.
 
@@ -172,24 +172,24 @@ Example
 .. code-block:: javascript
 
     var data = {
-        "resourceType": "Observation",
-        "id": "f101",
-        "status": "final",
-        "category": [
+        resourceType: 'Observation',
+        id: 'f101',
+        status: 'final',
+        category: [
             {
-            "coding": [
+            coding: [
                 {
-                "system": "http://hl7.org/fhir/observation-category",
-                "code": "vital-signs",
-                "display": "Vital Signs"
-                }
-            ]
-            }
+                system: 'http://hl7.org/fhir/observation-category',
+                code: 'vital-signs',
+                display: 'Vital Signs',
+                },
+            ],
+            },
         ],
         ...
     };
 
-    HealthData.encodeData(data, 'medical-fhir', 'observation').then(console.log)
+    HealthData.encodeData(data, 'medical-fhir', 'observation').then(console.log);
     > {
         <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
     }
@@ -225,7 +225,61 @@ Example
 
 .. code-block:: javascript
 
-    HealthData.encodeDataFromFile('/file/path', 'medical-fhir', 'observation').then(console.log)
+    HealthData.encodeDataFromFile('/file/path', 'medical-fhir', 'observation').then(console.log);
     > {
         <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
+    }
+
+---------------------------------------------------------------------------
+
+
+hashData
+========
+
+.. code-block:: javascript
+
+    HealthData.hashData(data, type, subType)
+
+Returns the hash ``String`` of the health data.
+
+
+Parameters
+----------
+
+1. ``data`` - ``Object|Uint8Array|Buffer``: The health data to encode.
+2. ``type`` - ``String``: The type of the health data.
+3. ``subType`` - ``String``: (optional) The subtype of the health data.
+
+
+Returns
+-------
+
+``Promise`` returns ``String`` - The hash of the health data.
+
+Example
+-------
+
+.. code-block:: javascript
+
+    var data = {
+        resourceType: 'Observation',
+        id: 'f101',
+        status: 'final',
+        category: [
+            {
+            coding: [
+                {
+                system: 'http://hl7.org/fhir/observation-category',
+                code: 'vital-signs',
+                display: 'Vital Signs',
+                },
+            ],
+            },
+        ],
+        ...
+    };
+
+    HealthData.hashData(data, 'medical-fhir', 'observation').then(console.log);
+    > {
+        'eb36d0606ff84bba5ae84e2af0f2197b2ff4272c3d22c46ffa27ca17851cea7f'
     }

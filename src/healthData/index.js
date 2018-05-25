@@ -130,9 +130,30 @@ const encodeDataFromFile = async (filePath, type, subType) => {
   return encodeData(data, type, subType);
 };
 
+const hashData = async (data, type, subType) => {
+  let dataBuffer;
+  // TODO: support other types
+  switch (type) {
+    case 'medical-fhir':
+      dataBuffer = await DataEncoder.encodeFHIR(data, subType);
+      break;
+    case 'pghd':
+      if (data instanceof Uint8Array || data instanceof Buffer) {
+        dataBuffer = data;
+      } else if (typeof data === 'object') {
+        dataBuffer = DataEncoder.encodeJson(data);
+      }
+      break;
+    default:
+      return new Error('not supporting type');
+  }
+  return hash.hashData(dataBuffer);
+};
+
 export default {
   decodeData,
   decodeDataFromFile,
   encodeData,
   encodeDataFromFile,
+  hashData,
 };
