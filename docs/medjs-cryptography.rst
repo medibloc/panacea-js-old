@@ -32,6 +32,8 @@ To encrypt data you can use ``Cryptography.encrypt.encryptData(accessKey, msg)``
 
 .. note:: Encryption algorithm can be changed.
 
+.. note:: The way to generate IV can be changed.
+
 ----------
 Parameters
 ----------
@@ -394,7 +396,7 @@ Parameters
 Returns
 -------
 
-``Bool`` - If a a signature is made from a public key and a signature, ``true`` is return.
+``Bool`` - If a signature is made from a valid public key and message hash pair, ``true`` is returned.
 
 -------
 Example

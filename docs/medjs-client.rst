@@ -33,7 +33,7 @@ Parameters
 ----------
 
 1. ``address`` - ``String``: The address of the account of which to get the state.
-2. ``height`` - ``Number|String``: The height of the block. Or the string ``"genesis"``, ``"confirmed"``, ``"tail"``.
+2. ``height`` - ``Number|String``: The height of the block. Or the string ``'genesis'``, ``'confirmed'``, ``'tail'``.
 
 
 
@@ -85,7 +85,7 @@ Returns a block matching the given block hash.
 Parameters
 ----------
 
-``hash`` - ``String``: The hash of the block. Or the string ``"genesis"``, ``"confirmed"``, ``"tail"``.
+``hash`` - ``String``: The hash of the block. Or the string ``'genesis'``, ``'confirmed'``, ``'tail'``.
 
 
 Returns
@@ -121,7 +121,7 @@ Example
       parent_hash: 'eb71569022ead2d290123bae4563a361a207109c1ef18969646570b566aa02e2',
       coinbase: '02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c',
       timestamp: '1526033040',
-      chain_id: 1010,
+      chain_id: 1,
       alg: 1,
       sign: '8844c0ab33338906f64c45bd4849b7916a458dd9d8a960428b3e5d27369054cd3250fc08133cceeac4f2d75220e3fa8c365ad7bdff167d84fcffd6c62d7cecee01',
       accs_root: 'f70f08d05514f549748620aa7cf677ae5303b8489f872e81078d09a538fcbec6',
@@ -155,7 +155,7 @@ Returns
   - ``tail`` - ``String``: The hash of the most recent block.
   - ``height`` - ``String``: The height of the most recent block.
   - ``protocol_version`` - ``String``: The medibloc protocol version.
-  - ``version`` - ``String``: The medibloc version.
+  - ``version`` - ``String``: The medibloc blockchain version.
 
 
 Example
@@ -166,7 +166,7 @@ Example
     Client.getMedState()
     .then(console.log);
     > {
-      chain_id: 1010,
+      chain_id: 1,
       tail: 'c423c349ccbfd1ee4ff0923c508bd000bc2328363a875958d8b12ed3ed282089',
       height: '5232',
       protocol_version: '',
@@ -224,7 +224,7 @@ Example
       timestamp: '1526285741709',
       data: { type: 'binary', payload: '' },
       nonce: '1',
-      chain_id: 1010,
+      chain_id: 1,
       alg: 1,
       sign: '1fc38decf1deee327e7d745c8023ce6960456c2f789d279f8fa4f23c2667a5907650022bd7443885fc9ec57af40e626981a6cfc19e3a111a315f8b681a1bdd1e00'
     }

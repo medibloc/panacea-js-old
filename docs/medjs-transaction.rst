@@ -231,7 +231,7 @@ Returns
   + ``to`` - ``String`` : ``null``
   + ``nonce`` - ``Number`` : The nonce.
   + ``timestamp`` - ``Number`` : The unix timestamp.
-  + ``value`` - ``String`` : ``0``
+  + ``value`` - ``String`` : '0'
   + ``data`` - ``Object``
 
     * ``type`` - ``String`` : The transaction type. For the data upload transaction, it must be ``add_record``

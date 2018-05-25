@@ -26,14 +26,14 @@ send transaction
   // get account state
   var account = new Account();
   var nonce = 0;
-  Client.getAccountState(account.pubKey, "tail").then(res => {
+  Client.getAccountState(account.pubKey, 'tail').then(res => {
     nonce = parseInt(res.nonce);
   })
 
   // creating a medical data payload
   var healthCareDataOption = {
     data: {
-      name: "ggomma",
+      name: 'ggomma',
       age: 27,
       weight: 74
     },

@@ -6,7 +6,7 @@
 medjs.local.Account
 ===================
 
-The ``medjs.local.Account`` contains functions to generate MediBloc accounts, which contain encrypted private key and public key and can induce public key from the private key.
+The ``medjs.local.Account`` contains functions to generate MediBloc accounts, which contain encrypted private key and public key pair and can induce public key from the private key.
 
 To use this package in a standalone use:
 
@@ -27,7 +27,7 @@ new Account
 
   new Account(passphrase, encryptedPrivateKey);
 
-To generate account, you can use ``medjs.local.Account()``. Basically, account is just a pair private and public key that has several functions described as below.
+To generate account, you can use ``medjs.local.Account()``. Basically, account is just a pair of private and public key that has several functions described as below.
 
 .. note:: MediBloc uses public key as an address.
 
@@ -89,7 +89,7 @@ createCertificate
   var account = new Account(passphrase, encryptedPrivateKey);
   account.createCertificate(expireDate, issuer, issueDate, passphrase);
 
-Create the certificate of the account.
+To create the certificate of the account, use ``account.createCertificate(expireDate, issuer, issueDate, passphrase)``.
 
 ----------
 Parameters
@@ -222,7 +222,7 @@ Parameters
 ----------
 
 1. ``dataPayload`` - ``Object`` : data payload object:
-- ``hash`` - ``String``: The hash string of the data payload.
+  - ``hash`` - ``String``: The hash string of the data payload.
 2. ``passphrase`` - ``String``:(optional) The passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
 
 .. note:: Account.signDataPayload doesn't return anything but assign the signature string and the certificate to the data payload object. After signing, ``dataPayload.sign`` is changed from ``Null`` to ``String`` and ``dataPayload.cert`` is changed from ``Null`` to ``Object``.

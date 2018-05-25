@@ -14,9 +14,6 @@ The ``medjs.healthData`` object helps to encode and decode the health data as :r
     var medjs = Medjs(['http://localhost:9921']);
     var HealthData = medjs.healthData;
 
-.. warning::
-  This object is now developing in medjs.
-
 .. include:: include_blockchain_note.rst
 
 ---------------------------------------------------------------------------

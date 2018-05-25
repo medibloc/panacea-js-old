@@ -6,6 +6,12 @@
 medjs
 =====
 
+.. code-block:: javascript
+
+    var Medjs = require('medjs');
+    var medjs = Medjs(['http://localhost:9921']);
+
+
 The ``medjs`` object has following objects.
 
 - The :ref:`client <client>` object allows you to interact with MediBloc blockchain.
@@ -16,7 +22,8 @@ The ``medjs`` object has following objects.
 - The :ref:`identification <identification>` contains identification functions.
 - The :ref:`utils <utils>` object provides utility functions for medjs.
 
-**Parameters**
+Parameters
+----------
 
 ``nodes`` - ``Array``: The array of node URL that will be used for the request.
 
@@ -24,11 +31,3 @@ The ``medjs`` object has following objects.
     The medjs client sends a request to one of the nodes. If the request fails, it automatically retries the request to another node.
 
 .. include:: include_blockchain_note.rst
-
-
-**Example**
-
-.. code-block:: javascript
-
-    var Medjs = require('medjs');
-    var medjs = Medjs(['http://localhost:9921']);
