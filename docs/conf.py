@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = u'medjs'
-copyright = u'2018, MediBloc Inc.'
+copyright = u'2018, MediBloc'
 author = u'MediBloc'
 
 # The short X.Y version
