@@ -138,5 +138,16 @@ describe('healthData', () => {
           .to.be.equal('559e6fd3a29685fbe1e27b55d716ea78372fd9ce4583e07ae92dce6264ee83c6');
       });
     });
+
+    it('should be work well for dicom', () => {
+      return healthData.hashDataFromFile(
+        'samples/ultrasound_sample.dcm',
+        'dicom',
+        null,
+      ).then((hash) => {
+        return expect(hash)
+          .to.be.equal('11c958fa583e0a3a1184bc318d022936ce347146a47860f4f8b59307c5321aa0');
+      });
+    });
   });
 });

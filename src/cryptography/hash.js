@@ -1,5 +1,7 @@
 import { sha3_256 as SHA3256 } from 'js-sha3';
 
+const createHash = () => SHA3256.create();
+
 const hashData = (msg) => {
   let message = '';
   switch (typeof msg) {
@@ -30,6 +32,7 @@ const hashTo32Byte = accessKey =>
   SHA3256.create().update(accessKey).hex();
 
 export default {
+  createHash,
   hashData,
   hashTo32Byte,
 };
