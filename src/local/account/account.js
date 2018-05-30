@@ -1,23 +1,29 @@
-import { encrypt, keyGen, sign } from 'cryptography';
+import {
+  encryptData,
+  decryptData,
+  getKeyPair,
+  getPubKey,
+  sign,
+} from 'cryptography';
 import { createCertificate } from 'identification/certificate';
 
 // generate new keypair and register
 const generateAccount = (passphrase = '') => {
-  const { privKey, pubKey } = keyGen.getKeyPair();
+  const { privKey, pubKey } = getKeyPair();
 
   return {
-    encryptedPrivKey: encrypt.encryptData(passphrase, privKey),
+    encryptedPrivKey: encryptData(passphrase, privKey),
     pubKey,
   };
 };
 
 // set encrypted private key
 const setEncryptedPrivateKey = (passphrase = '', encryptedPrivKey) => {
-  const privKey = encrypt.decryptData(passphrase, encryptedPrivKey);
+  const privKey = decryptData(passphrase, encryptedPrivKey);
 
   return {
     encryptedPrivKey,
-    pubKey: keyGen.getPubKey(privKey),
+    pubKey: getPubKey(privKey),
   };
 };
 
@@ -36,17 +42,17 @@ export default class Account {
 
   // get decrypted private key
   getDecryptedPrivateKey(passphrase = '') {
-    return encrypt.decryptData(passphrase, this.encryptedPrivKey);
+    return decryptData(passphrase, this.encryptedPrivKey);
   }
 
   signTx(tx, passphrase = '') {
     const privKey = this.getDecryptedPrivateKey(passphrase);
-    tx.sign = sign.sign(privKey, tx.hash); // eslint-disable-line
+    tx.sign = sign(privKey, tx.hash); // eslint-disable-line
   }
 
   signDataPayload(data, passphrase = '') {
     const privKey = this.getDecryptedPrivateKey(passphrase);
-    data.sign = sign.sign(privKey, data.hash); // eslint-disable-line
+    data.sign = sign(privKey, data.hash); // eslint-disable-line
     data.cert = this.cert; // eslint-disable-line
   }
 

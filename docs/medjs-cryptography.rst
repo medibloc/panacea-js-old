@@ -20,15 +20,14 @@ To use this package in a standalone use:
 
 .. _cryptography-encrypt:
 
-encrypt.encryptData
+encryptData
 ===================
 
 .. code-block:: javascript
 
-  var encryptUtil = Cryptography.encrypt;
-  encryptUtil.encryptData(accessKey, msg);
+  Cryptography.encryptData(accessKey, msg);
 
-To encrypt data you can use ``Cryptography.encrypt.encryptData(accessKey, msg)``. This function generates an encrypted string message using AES-256-CTR algorithm. Initialization vector(IV) is generated from the access key. Hence, there is no need to store the IV value; you only need to use the access key.
+To encrypt data you can use ``Cryptography.encryptData(accessKey, msg)``. This function generates an encrypted string message using AES-256-CTR algorithm. Initialization vector(IV) is generated from the access key. Hence, there is no need to store the IV value; you only need to use the access key.
 
 .. note:: Encryption algorithm can be changed.
 
@@ -53,21 +52,19 @@ Example
 
 .. code-block:: javascript
 
-  var encryptUtil = Cryptography.encrypt;
-  encryptUtil.encryptData('this is access key !', 'hello medibloc!');
+  Cryptography.encryptData('this is access key !', 'hello medibloc!');
   > 'fe062e8327e88a06b5d3eb98ea12b4'
 
 ---------------------------------------------------------------------------
 
-encrypt.decryptData
+decryptData
 ===================
 
 .. code-block:: javascript
 
-  var encryptUtil = Cryptography.encrypt;
-  encryptUtil.decryptData(accessKey, encryptedMsg);
+  Cryptography.decryptData(accessKey, encryptedMsg);
 
-To decrypt data you can use ``Cryptography.encrypt.decryptData(accessKey, encryptedMsg)``. This function decrypts the encrypted message using AES-256-CTR algorithm. Initialization vector(IV) is generated from the access key.
+To decrypt data you can use ``Cryptography.decryptData(accessKey, encryptedMsg)``. This function decrypts the encrypted message using AES-256-CTR algorithm. Initialization vector(IV) is generated from the access key.
 
 .. note:: Decrypt algorithm can be changed.
 
@@ -92,55 +89,19 @@ Example
 
 .. code-block:: javascript
 
-  var encryptUtil = Cryptography.encrypt;
-  encryptUtil.decryptData('this is access key !', 'fe062e8327e88a06b5d3eb98ea12b4');
+  Cryptography.decryptData('this is access key !', 'fe062e8327e88a06b5d3eb98ea12b4');
   > 'hello medibloc!'
 
 ---------------------------------------------------------------------------
 
-hash.hashData
-=============
-
-.. code-block:: javascript
-
-  var hashUtil = Cryptography.hash;
-  hashUtil.hashData(msg);
-
-To hash messages, you can use ``Cryptography.hash.hashData(msg)``. This function uses SHA3_256 algorithm and returns 256bit hexadecimal string.
-
-----------
-Parameters
-----------
-
-``msg`` - ``String|Object|Number`` : The message is stringified.
-
--------
-Returns
--------
-
-``String`` - The hash string in hexadecimal format.
-
--------
-Example
--------
-
-.. code-block:: javascript
-
-  var hashUtil = Cryptography.hash;
-  hashUtil.hashData('Hello MediBloc!!!');
-  > '25cd0631574c642502446ace0c9c46811f1404e39d6d892771b346724851dd7e'
-
----------------------------------------------------------------------------
-
-keyGen.getKeyPair
+getKeyPair
 =================
 
 .. code-block:: javascript
 
-  var keyUtil = Cryptography.keyGen;
-  keyUtil.getKeyPair();
+  Cryptography.getKeyPair();
 
-To get a new private, public key pair, you can use ``Cryptography.keyGen.getKeyPair()``. Secp256k1 is used in generating a random key pair.
+To get a new private, public key pair, you can use ``Cryptography.getKeyPair()``. Secp256k1 is used in generating a random key pair.
 
 -------
 Returns
@@ -157,8 +118,7 @@ Example
 
 .. code-block:: javascript
 
-  var keyUtil = Cryptography.keyGen;
-  keyUtil.getKeyPair();
+  Cryptography.getKeyPair();
   > {
     privKey: '1719e598983d472efbd3303cc3c4a619d89aef27a6d285443efe8e07f8100cbd',
     pubKey: '03aa5632864e042271c375c95d1a7418407f986a45d36829879d106883a2e03cb3'
@@ -166,15 +126,14 @@ Example
 
 ---------------------------------------------------------------------------
 
-keyGen.getPubKey
+getPubKey
 ================
 
 .. code-block:: javascript
 
-  var keyUtil = Cryptography.keyGen;
-  keyUtil.getPubKey(privKey);
+  Cryptography.getPubKey(privKey);
 
-To get the public key induced from the private key, you can use ``Cryptography.keyGen.getPubKey(privKey)``.
+To get the public key induced from the private key, you can use ``Cryptography.getPubKey(privKey)``.
 
 ----------
 Parameters
@@ -194,21 +153,19 @@ Example
 
 .. code-block:: javascript
 
-  var keyUtil = Cryptography.keyGen;
-  keyUtil.getPubKey('1719e598983d472efbd3303cc3c4a619d89aef27a6d285443efe8e07f8100cbd');
+  Cryptography.getPubKey('1719e598983d472efbd3303cc3c4a619d89aef27a6d285443efe8e07f8100cbd');
   > '03aa5632864e042271c375c95d1a7418407f986a45d36829879d106883a2e03cb3'
 
 ---------------------------------------------------------------------------
 
-keyGen.getSharedSecretKey
+getSharedSecretKey
 =========================
 
 .. code-block:: javascript
 
-  var keyUtil = Cryptography.keyGen;
-  keyUtil.getSharedSecretKey(privKey, pubKey);
+  Cryptography.getSharedSecretKey(privKey, pubKey);
 
-To get the shared secret key using ECDH, you can use ``Cryptography.keyGen.getSharedSecretKey(privKey, pubKey)``.
+To get the shared secret key using ECDH, you can use ``Cryptography.getSharedSecretKey(privKey, pubKey)``.
 
 ----------
 Parameters
@@ -229,90 +186,19 @@ Example
 
 .. code-block:: javascript
 
-  var keyUtil = Cryptography.keyGen;
-  keyUtil.getSharedSecretKey('1719e598983d472efbd3303cc3c4a619d89aef27a6d285443efe8e07f8100cbd', '03aa5632864e042271c375c95d1a7418407f986a45d36829879d106883a2e03cb3');
+  Cryptography.getSharedSecretKey('1719e598983d472efbd3303cc3c4a619d89aef27a6d285443efe8e07f8100cbd', '03aa5632864e042271c375c95d1a7418407f986a45d36829879d106883a2e03cb3');
   > '21175492259a998204538e66d9cd3cd099147329683e601c408edff9e1e7f93f'
 
 ---------------------------------------------------------------------------
 
-keyGen.getRandomSeed
-====================
-
-.. code-block:: javascript
-
-  var keyUtil = Cryptography.keyGen;
-  keyUtil.getRandomSeed(length);
-
-To get a random seed number, you can use ``Cryptography.keyGen.getRandomSeed(length)``.
-
-----------
-Parameters
-----------
-
-``length`` - ``Number`` : The byte size of a random seed number. If not given, 16 is used.
-
--------
-Returns
--------
-
-``String`` - The random number in hexadecimal format.
-
--------
-Example
--------
-
-.. code-block:: javascript
-
-  var keyUtil = Cryptography.keyGen;
-  keyUtil.getRandomSeed();
-  > 'baab6c02ce89592e03b8f9bbea8eb553'
-
----------------------------------------------------------------------------
-
-keyGen.concatKeys
-=================
-
-.. code-block:: javascript
-
-  var keyUtil = Cryptography.keyGen;
-  keyUtil.concatKeys(string1, string2);
-
-To concatenate keys, you can use ``Cryptography.keyGen.concatKeys(string1, string2)``.
-
-----------
-Parameters
-----------
-
-1. ``string1`` - ``String`` : The left side of the string.
-2. ``string2`` - ``String`` : The right side of the string.
-
--------
-Returns
--------
-
-``String`` - The concat string.
-
--------
-Example
--------
-
-.. code-block:: javascript
-
-  var keyUtil = Cryptography.keyGen;
-  keyUtil.concatKeys('Hello ', 'MediBloc');
-  > 'Hello MediBloc'
-
----------------------------------------------------------------------------
-
-sign.recoverPubKeyFromSignature
+recoverPubKeyFromSignature
 ===============================
 
 .. code-block:: javascript
 
-  var signUtil = Cryptography.sign;
-  signUtil.recoverPubKeyFromSignature(msgHash, signature);
+  Cryptography.recoverPubKeyFromSignature(msgHash, signature);
 
-To recover the public key from the signature, you can use ``Cryptography.sign.recoverPubKeyFromSignature(msgHash, signature)``.
+To recover the public key from the signature, you can use ``Cryptography.recoverPubKeyFromSignature(msgHash, signature)``.
 
 ----------
 Parameters
@@ -333,21 +219,19 @@ Example
 
 .. code-block:: javascript
 
-  var signUtil = Cryptography.sign;
-  signUtil.recoverPubKeyFromSignature('9e2d90f1ebc39cd7852973c6bab748579d82c93e4a2aa5b44a7769e51a606fd9', 'c4f3d2cc47d999cfff0eb6845fb41cab3a0735afecd1fa178235d10e3d9aac835fdea24640626f6bae8795594f82c7ad86c3a1413d059c6fa38e7c442b58d6e001');
+  Cryptography.recoverPubKeyFromSignature('9e2d90f1ebc39cd7852973c6bab748579d82c93e4a2aa5b44a7769e51a606fd9', 'c4f3d2cc47d999cfff0eb6845fb41cab3a0735afecd1fa178235d10e3d9aac835fdea24640626f6bae8795594f82c7ad86c3a1413d059c6fa38e7c442b58d6e001');
   > '03047cd865161c3243c7b7a4d389ff407befbb3dd23f520152bc2a6ff2e2f0463d'
 
 ---------------------------------------------------------------------------
 
-sign.sign
+sign
 =========
 
 .. code-block:: javascript
 
-  var signUtil = Cryptography.sign;
-  signUtil.sign(privKey, msgHash);
+  Cryptography.sign(privKey, msgHash);
 
-To make a signature for a message, you can use ``Cryptography.sign.sign(privKey, msgHash)``.
+To make a signature for a message, you can use ``Cryptography.sign(privKey, msgHash)``.
 
 ----------
 Parameters
@@ -368,21 +252,19 @@ Example
 
 .. code-block:: javascript
 
-  var signUtil = Cryptography.sign;
-  signUtil.sign('aaca80d340f0cc94ea3baf128994376b2de7343f46e9c78efebea9c587edc7d3', '9e2d90f1ebc39cd7852973c6bab748579d82c93e4a2aa5b44a7769e51a606fd9');
+  Cryptography.sign('aaca80d340f0cc94ea3baf128994376b2de7343f46e9c78efebea9c587edc7d3', '9e2d90f1ebc39cd7852973c6bab748579d82c93e4a2aa5b44a7769e51a606fd9');
   > 'c4f3d2cc47d999cfff0eb6845fb41cab3a0735afecd1fa178235d10e3d9aac835fdea24640626f6bae8795594f82c7ad86c3a1413d059c6fa38e7c442b58d6e001'
 
 ---------------------------------------------------------------------------
 
-sign.verifySignature
+verifySignature
 ====================
 
 .. code-block:: javascript
 
-  var signUtil = Cryptography.sign;
-  signUtil.verifySignature(pubKey, msgHash, signature);
+  Cryptography.verifySignature(pubKey, msgHash, signature);
 
-To verify the signature, you can use ``Cryptography.sign.verifySignature(pubKey, msgHash, signature)``.
+To verify the signature, you can use ``Cryptography.verifySignature(pubKey, msgHash, signature)``.
 
 ----------
 Parameters
@@ -404,6 +286,5 @@ Example
 
 .. code-block:: javascript
 
-  var signUtil = Cryptography.sign;
-  signUtil.verifySignature('03047cd865161c3243c7b7a4d389ff407befbb3dd23f520152bc2a6ff2e2f0463d', '9e2d90f1ebc39cd7852973c6bab748579d82c93e4a2aa5b44a7769e51a606fd9', 'c4f3d2cc47d999cfff0eb6845fb41cab3a0735afecd1fa178235d10e3d9aac835fdea24640626f6bae8795594f82c7ad86c3a1413d059c6fa38e7c442b58d6e001');
+  Cryptography.verifySignature('03047cd865161c3243c7b7a4d389ff407befbb3dd23f520152bc2a6ff2e2f0463d', '9e2d90f1ebc39cd7852973c6bab748579d82c93e4a2aa5b44a7769e51a606fd9', 'c4f3d2cc47d999cfff0eb6845fb41cab3a0735afecd1fa178235d10e3d9aac835fdea24640626f6bae8795594f82c7ad86c3a1413d059c6fa38e7c442b58d6e001');
   > true

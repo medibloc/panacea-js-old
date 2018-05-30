@@ -1,19 +1,19 @@
-import { hash as Hash } from 'cryptography';
-import Reader from './reader';
-import Helper from './helper';
+import { sha3 } from 'utils';
+import reader from './reader';
+import helper from './helper';
 
 const hashData = async (data, type, subType) => {
-  const dataBuffer = await Helper.makeBuffer(data, type, subType);
-  return Hash.hashData(dataBuffer);
+  const dataBuffer = await helper.makeBuffer(data, type, subType);
+  return sha3(dataBuffer);
 };
 
 const hashDataFromFile = async (filePath, type, subType) => {
   let data;
   switch (type) {
     case 'dicom':
-      return Reader.hashDataStream(filePath);
+      return reader.hashDataStream(filePath);
     default:
-      data = await Reader.readData(filePath);
+      data = await reader.readData(filePath);
       return hashData(data, type, subType);
   }
 };

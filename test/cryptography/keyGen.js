@@ -1,5 +1,5 @@
 import chai, { expect } from 'chai';
-import { keyGen } from 'cryptography';
+import cryptography from 'cryptography';
 import chaiHexString from 'test/helpers/chaiHexString';
 
 chai.use(chaiHexString);
@@ -7,7 +7,7 @@ chai.use(chaiHexString);
 describe('#keyGen', () => {
   let keyPair;
   beforeEach(() => {
-    keyPair = keyGen.getKeyPair();
+    keyPair = cryptography.getKeyPair();
     return Promise.resolve();
   });
 
@@ -32,26 +32,15 @@ describe('#keyGen', () => {
   describe('#getPubKey', () => {
     it('should be matched with the public key', () => {
       expect(keyPair.pubKey)
-        .to.be.equal(keyGen.getPubKey(keyPair.privKey));
-    });
-  });
-
-  describe('#getRandomSeed', () => {
-    it('should generate 16 bytes size hex string', () => {
-      const randomSeed = keyGen.getRandomSeed();
-      expect(Buffer.byteLength(randomSeed, 'hex'))
-        .to.be.equal(16);
-      expect(randomSeed)
-        .to.be.hexString
-        .and.not.to.be.equal(keyGen.getRandomSeed());
+        .to.be.equal(cryptography.getPubKey(keyPair.privKey));
     });
   });
 
   describe('#getSharedSecretKey', () => {
     it('should same with each other', () => {
-      const secondKeyPair = keyGen.getKeyPair();
-      expect(keyGen.getSharedSecretKey(keyPair.privKey, secondKeyPair.pubKey))
-        .to.be.equal(keyGen.getSharedSecretKey(secondKeyPair.privKey, keyPair.pubKey));
+      const secondKeyPair = cryptography.getKeyPair();
+      expect(cryptography.getSharedSecretKey(keyPair.privKey, secondKeyPair.pubKey))
+        .to.be.equal(cryptography.getSharedSecretKey(secondKeyPair.privKey, keyPair.pubKey));
     });
   });
 });

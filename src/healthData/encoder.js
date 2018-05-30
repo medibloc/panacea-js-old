@@ -1,4 +1,4 @@
-import { hash as Hash } from 'cryptography';
+import { sha3 } from 'utils';
 import { BYTESIZES, OFFSETS, TYPE_REV, SUBTYPE_REV } from './constants';
 import Helper from './helper';
 import Reader from './reader';
@@ -63,7 +63,7 @@ const encodeData = async (data, type, subType) => {
   return mhd.makeMHD({
     type,
     subType,
-    hash: Hash.hashData(dataBuffer),
+    hash: sha3(dataBuffer),
     size: dataBuffer.length,
     dataBuffer,
   });

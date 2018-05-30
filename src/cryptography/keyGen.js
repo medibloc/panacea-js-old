@@ -1,4 +1,4 @@
-import { createECDH, randomBytes } from 'crypto';
+import { createECDH } from 'crypto';
 
 const concatKeys = (string1, string2) => string1.concat(string2);
 
@@ -27,12 +27,9 @@ const getSharedSecretKey = (privKey, pubKey) => {
   return ec.computeSecret(pubKey, 'hex', 'hex');
 };
 
-const getRandomSeed = (length = 16) => randomBytes(length).toString('hex');
-
 export default {
   concatKeys,
   getKeyPair,
   getPubKey,
-  getRandomSeed,
   getSharedSecretKey,
 };

@@ -1,9 +1,7 @@
-import {
-  isAddress,
-  isHexadecimal,
-} from './utils';
+import hash from './hash';
+import utils from './utils';
 
 export default {
-  isAddress,
-  isHexadecimal,
+  ...hash,
+  ...utils,
 };

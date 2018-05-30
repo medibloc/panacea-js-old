@@ -1,4 +1,5 @@
-import { sign, hash } from 'cryptography';
+import { sign, verifySignature } from 'cryptography';
+import { sha3 } from 'utils';
 
 const createCertificate = ({
   expireDate,
@@ -16,9 +17,9 @@ const createCertificate = ({
     issueDate,
     pubKey,
   };
-  const certificateHash = hash.hashData(certificate);
+  const certificateHash = sha3(certificate);
   const privKey = issuerAccount.getDecryptedPrivateKey(passphrase);
-  certificate.signature = sign.sign(privKey, certificateHash);
+  certificate.signature = sign(privKey, certificateHash);
 
   return certificate;
 };
@@ -28,9 +29,9 @@ const verifyCertificate = (certificate, timeStamp, issuerPubKey) => {
   if (certificate.issueDate > timeStamp || certificate.expireDate < timeStamp) return false;
 
   // check signature owner
-  if (!sign.verifySignature(
+  if (!verifySignature(
     issuerPubKey,
-    hash.hashData(certificate),
+    sha3(certificate),
     certificate.signature,
   )) return false;
 

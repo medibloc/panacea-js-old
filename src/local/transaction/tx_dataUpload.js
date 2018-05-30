@@ -1,4 +1,5 @@
-import { encrypt, hash, keyGen } from 'cryptography';
+import { encryptData, getSharedSecretKey } from 'cryptography';
+import { sha3, randomHex } from 'utils';
 import { checkTx, constants, setTx } from './utils';
 
 const { REQUIRED_DATA_UPLOAD_TX_PARAMETERS } = constants;
@@ -33,14 +34,13 @@ const createDataPayload = ({
   storage,
   writerPubKey,
 }) => {
-  const encryptKey = keyGen.getRandomSeed();
-  const encryptedDataHash = hash.hashData(encrypt.encryptData(encryptKey, data));
+  const encryptKey = randomHex();
+  const encryptedDataHash = sha3(encryptData(encryptKey, data));
   const privKey = ownerAccount.getDecryptedPrivateKey(passphrase);
-  const sharedSecretKey = keyGen.getSharedSecretKey(privKey, writerPubKey);
-  const randomSeed = keyGen.getRandomSeed();
-  const hashedSharedSecretKey =
-    hash.hashData(keyGen.concatKeys(sharedSecretKey, randomSeed));
-  const encryptedSecretKey = encrypt.encryptData(hashedSharedSecretKey, encryptKey);
+  const sharedSecretKey = getSharedSecretKey(privKey, writerPubKey);
+  const randomSeed = randomHex();
+  const hashedSharedSecretKey = sha3(sharedSecretKey.concat(randomSeed));
+  const encryptedSecretKey = encryptData(hashedSharedSecretKey, encryptKey);
 
   return {
     Hash: encryptedDataHash,

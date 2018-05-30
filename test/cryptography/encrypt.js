@@ -1,5 +1,5 @@
 import chai, { expect } from 'chai';
-import { encrypt } from 'cryptography';
+import cryptography from 'cryptography';
 import chaiHexString from 'test/helpers/chaiHexString';
 
 chai.use(chaiHexString);
@@ -11,8 +11,8 @@ describe('#encryptData / #decryptData', () => {
   const msg = 'Hello medibloc. It\'s good time to surf';
   const testMsg = 'Hello medibloc. It\'s good time to surf!';
   describe('should make encrypted message', () => {
-    const encryptedMsg = encrypt.encryptData(accessKey, msg);
-    const encryptedTestMsg = encrypt.encryptData(accessKey, testMsg);
+    const encryptedMsg = cryptography.encryptData(accessKey, msg);
+    const encryptedTestMsg = cryptography.encryptData(accessKey, testMsg);
     it('Encrypted data should be hex formatted', () => {
       expect(encryptedMsg).to.be.hexString;
     });
@@ -22,20 +22,20 @@ describe('#encryptData / #decryptData', () => {
     });
   });
   describe('can be decrypted with right access key', () => {
-    const encryptedMsg = encrypt.encryptData(accessKey, msg);
+    const encryptedMsg = cryptography.encryptData(accessKey, msg);
     it('Access key can decrypt message', () => {
-      const decryptedMsg = encrypt.decryptData(accessKey, encryptedMsg);
+      const decryptedMsg = cryptography.decryptData(accessKey, encryptedMsg);
       expect(decryptedMsg).to.be.equal(msg);
     });
     it('encrypted message format should be hexadecimal', () => {
       try {
-        encrypt.decryptData(fakeAccessKey, 'hello medibloc');
+        cryptography.decryptData(fakeAccessKey, 'hello medibloc');
       } catch (err) {
         expect(err.message).to.equal('Message should be hexadecimal');
       }
     });
     it('Only right access key should work', () => {
-      const unMatchedMsg = encrypt.decryptData(fakeAccessKey, encryptedMsg);
+      const unMatchedMsg = cryptography.decryptData(fakeAccessKey, encryptedMsg);
       expect(unMatchedMsg).not.to.equal(msg);
     });
   });

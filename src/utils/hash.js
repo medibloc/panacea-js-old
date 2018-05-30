@@ -1,6 +1,6 @@
 import { sha3_256 as SHA3256 } from 'js-sha3';
 
-const hashData = (msg) => {
+const sha3 = (msg) => {
   let message = '';
   switch (typeof msg) {
     case 'string':
@@ -25,7 +25,7 @@ const hashData = (msg) => {
   return SHA3256.create().update(message).hex();
 };
 
-const hashDataStream = async stream => new Promise((resolve) => {
+const sha3Stream = async stream => new Promise((resolve) => {
   const hash = SHA3256.create();
   stream.on('data', (data) => {
     hash.update(data);
@@ -36,6 +36,6 @@ const hashDataStream = async stream => new Promise((resolve) => {
 });
 
 export default {
-  hashData,
-  hashDataStream,
+  sha3,
+  sha3Stream,
 };

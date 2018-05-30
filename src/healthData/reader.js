@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import jsonfile from 'jsonfile';
-import { hash as Hash } from 'cryptography';
+import { sha3Stream } from 'utils';
 
 const getFilePath = (filePath) => {
   let newFilePath = filePath;
@@ -19,7 +19,7 @@ const getFileSize = async (filePath) => {
 
 const hashDataStream = async (filePath) => {
   const stream = fs.createReadStream(getFilePath(filePath));
-  return Hash.hashDataStream(stream);
+  return sha3Stream(stream);
 };
 
 const readData = async (filePath) => {
