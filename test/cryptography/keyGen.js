@@ -4,22 +4,54 @@ import chaiHexString from 'test/helpers/chaiHexString';
 
 chai.use(chaiHexString);
 
-// getKeyPair
-describe('#getKeyPair / #getPubKey', () => {
-  describe('Generate private, public Key Pair', () => {
-    const keyPair = keyGen.getKeyPair();
-    it('It should return private, public key pair in hex format', () => {
-      expect(keyPair).to.have.property('privKey').be.hexString;
-      expect(keyPair).to.have.property('pubKey').be.hexString;
+describe('#keyGen', () => {
+  let keyPair;
+  beforeEach(() => {
+    keyPair = keyGen.getKeyPair();
+    return Promise.resolve();
+  });
+
+  describe('#getKeyPair', () => {
+    it('should return 32 bytes private key in hex format', () => {
+      expect(keyPair)
+        .to.have.property('privKey')
+        .and.to.be.hexString;
+      expect(Buffer.byteLength(keyPair.privKey, 'hex'))
+        .to.be.equal(32);
     });
-    it('PublicKey shouuld have 33 byte size', () => {
-      const pubKeyBuffer = Buffer.from(keyPair.pubKey, 'hex');
-      expect(pubKeyBuffer.byteLength).equal(33);
+
+    it('should return 33 bytes public key in hex format', () => {
+      expect(keyPair)
+        .to.have.property('pubKey')
+        .and.to.be.hexString;
+      expect(Buffer.byteLength(keyPair.pubKey, 'hex'))
+        .to.be.equal(33);
     });
-    it('PrivateKey and PublicKey should be matched', () => {
-      const pubKeyFromPrivKey = keyGen.getPubKey(keyPair.privKey);
-      expect(keyPair.pubKey).equal(pubKeyFromPrivKey);
+  });
+
+  describe('#getPubKey', () => {
+    it('should be matched with the public key', () => {
+      expect(keyPair.pubKey)
+        .to.be.equal(keyGen.getPubKey(keyPair.privKey));
+    });
+  });
+
+  describe('#getRandomSeed', () => {
+    it('should generate 16 bytes size hex string', () => {
+      const randomSeed = keyGen.getRandomSeed();
+      expect(Buffer.byteLength(randomSeed, 'hex'))
+        .to.be.equal(16);
+      expect(randomSeed)
+        .to.be.hexString
+        .and.not.to.be.equal(keyGen.getRandomSeed());
+    });
+  });
+
+  describe('#getSharedSecretKey', () => {
+    it('should same with each other', () => {
+      const secondKeyPair = keyGen.getKeyPair();
+      expect(keyGen.getSharedSecretKey(keyPair.privKey, secondKeyPair.pubKey))
+        .to.be.equal(keyGen.getSharedSecretKey(secondKeyPair.privKey, keyPair.pubKey));
     });
   });
 });
-
