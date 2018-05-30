@@ -39,7 +39,7 @@ const createDataPayload = ({
   const sharedSecretKey = keyGen.getSharedSecretKey(privKey, writerPubKey);
   const randomSeed = keyGen.getRandomSeed();
   const hashedSharedSecretKey =
-    hash.hashTo32Byte(keyGen.concatKeys(sharedSecretKey, randomSeed));
+    hash.hashData(keyGen.concatKeys(sharedSecretKey, randomSeed));
   const encryptedSecretKey = encrypt.encryptData(hashedSharedSecretKey, encryptKey);
 
   return {

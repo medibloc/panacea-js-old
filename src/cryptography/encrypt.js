@@ -1,6 +1,6 @@
 import { createCipheriv, createDecipheriv } from 'crypto';
 import { sha3_256 as SHA3256 } from 'js-sha3';
-import { hashTo32Byte } from './hash';
+import { hashData } from './hash';
 import { isHexadecimal } from '../utils';
 
 const generateIv = key =>
@@ -25,7 +25,7 @@ const encryptData = (accessKey = '', msg) => {
   const algorithm = 'AES-256-CTR';
   const iv = generateIv(accessKey);
   const Iv = Buffer.from(iv, 'hex');
-  const hashedAccessKey = hashTo32Byte(accessKey);
+  const hashedAccessKey = hashData(accessKey);
   const cipher = createCipheriv(algorithm, Buffer.from(hashedAccessKey, 'hex'), Iv);
 
   return cipher.update(message, 'utf8', 'hex') + cipher.final('hex');
@@ -35,7 +35,7 @@ const decryptData = (accessKey = '', encryptedMsg) => {
   const algorithm = 'AES-256-CTR';
   const iv = generateIv(accessKey);
   const Iv = Buffer.from(iv, 'hex');
-  const hashedAccessKey = hashTo32Byte(accessKey);
+  const hashedAccessKey = hashData(accessKey);
   if (!isHexadecimal(encryptedMsg)) throw new Error('Message should be hexadecimal');
   const decipher = createDecipheriv(algorithm, Buffer.from(hashedAccessKey, 'hex'), Iv);
   const decryptedMsg = decipher.update(encryptedMsg, 'hex', 'utf8');

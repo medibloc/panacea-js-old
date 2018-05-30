@@ -1,7 +1,5 @@
 import { sha3_256 as SHA3256 } from 'js-sha3';
 
-const createHash = () => SHA3256.create();
-
 const hashData = (msg) => {
   let message = '';
   switch (typeof msg) {
@@ -27,12 +25,17 @@ const hashData = (msg) => {
   return SHA3256.create().update(message).hex();
 };
 
-// const hashDataStream = () => {};
-const hashTo32Byte = accessKey =>
-  SHA3256.create().update(accessKey).hex();
+const hashDataStream = async stream => new Promise((resolve) => {
+  const hash = SHA3256.create();
+  stream.on('data', (data) => {
+    hash.update(data);
+  });
+  stream.on('end', () => {
+    resolve(hash.hex());
+  });
+});
 
 export default {
-  createHash,
   hashData,
-  hashTo32Byte,
+  hashDataStream,
 };

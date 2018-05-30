@@ -17,19 +17,9 @@ const getFileSize = async (filePath) => {
   return stats.size;
 };
 
-const hashStream = async stream => new Promise((resolve) => {
-  const hash = Hash.createHash();
-  stream.on('data', (data) => {
-    hash.update(data);
-  });
-  stream.on('end', () => {
-    resolve(hash.hex());
-  });
-});
-
 const hashDataStream = async (filePath) => {
   const stream = fs.createReadStream(getFilePath(filePath));
-  return hashStream(stream);
+  return Hash.hashDataStream(stream);
 };
 
 const readData = async (filePath) => {
