@@ -84,6 +84,7 @@ const Account = med.local.Account;
 const Transaction = med.local.transaction;
 const Client = med.client;
 const Cryptography = med.cryptography;
+const Utils = med.utils;
 
 const valueTransferTx = Transaction.valueTransferTx;
 const writerAssignTx = Transaction.writerAssignTx;
@@ -96,7 +97,7 @@ let account = {};
 let nonce = 0;
 
 function getAccState() {
-  client.getAccountState(account.pubKey, 'tail').then(res => {
+  Client.getAccountState(account.pubKey, 'tail').then(res => {
     balance = parseInt(res.balance);
     nonce = parseInt(res.nonce);
   });
@@ -113,7 +114,7 @@ function genKey() {
 }
 
 function accStateGet() {
-  client.getAccountState(account.pubKey, 'tail').then(res => {
+  Client.getAccountState(account.pubKey, 'tail').then(res => {
     nonce = parseInt(res.nonce);
     document.getElementById('accBalance').innerHTML = `Balance : ${res.balance}`;
     document.getElementById('accNonce').innerHTML = `Nonce : ${res.nonce}`;
@@ -123,7 +124,7 @@ function accStateGet() {
 function retrieveTx() {
   const txContent = ['hash', 'from', 'to', 'value', 'timestamp', 'data', 'nonce', 'sign'];
   const txHash = document.getElementById('rTxhash').value;
-  client.getTransaction(txHash).then(res => {
+  Client.getTransaction(txHash).then(res => {
     txContent.forEach(content => {
       document.getElementById('rTx' + content).innerHTML = res[content];
     });
@@ -133,7 +134,7 @@ function retrieveTx() {
 function retrieveMedicalDataTx() {
   const txContent = ['Hash', 'Storage', 'EncKey', 'Seed'];
   const txHash = document.getElementById('dataTxhash').value;
-  client.getTransaction(txHash).then(res => {
+  Client.getTransaction(txHash).then(res => {
     const payload = JSON.parse(res.data.payload)
     if (payload) {
       txContent.forEach(content => {
@@ -146,7 +147,7 @@ function retrieveMedicalDataTx() {
 function retrieveBlock() {
   const blockContent = ['coinbase', 'hash', 'parent_hash', 'sign', 'timestamp'];
   const blockHash = document.getElementById('rBlockHash').value;
-  client.getBlock(blockHash).then(res => {
+  Client.getBlock(blockHash).then(res => {
     blockContent.forEach(content => {
       document.getElementById('r' + content).innerHTML = res[content];
     });
@@ -163,7 +164,7 @@ function retrieveBlock() {
 
 function getBlockStatus() {
   const blockContent = ['coinbase', 'hash', 'parent_hash', 'sign', 'timestamp'];
-  client.getBlock('tail').then(res => {
+  Client.getBlock('tail').then(res => {
     blockContent.forEach(content => {
       document.getElementById(content).innerHTML = res[content];
     });
@@ -216,7 +217,7 @@ function signAssTx() {
 }
 
 function sendAssTx() {
-  client.sendTransaction(tx).then(res => {
+  Client.sendTransaction(tx).then(res => {
     document.getElementById('receiptAssTx').innerHTML = res.hash;
   })
   getAccState()
@@ -243,7 +244,7 @@ function signValTx() {
 }
 
 function sendValTx() {
-  client.sendTransaction(tx).then(res => {
+  Client.sendTransaction(tx).then(res => {
     document.getElementById('receiptValTx').innerHTML = res.hash;
   })
   getAccState()
@@ -286,7 +287,7 @@ function signUpTx() {
 }
 
 function sendUpTx() {
-  client.sendTransaction(tx).then(res => {
+  Client.sendTransaction(tx).then(res => {
     document.getElementById('receiptUpTx').innerHTML = res.hash;
   })
   getAccState()
@@ -304,9 +305,9 @@ function getEncyptKey() {
   const writerPubKey = document.getElementById('writerUpTx').value;
   const encryptedSecretKey = document.getElementById('dataTxPayloadEncKey').innerHTML;
   const randomSeed = document.getElementById('dataTxPayloadSeed').innerHTML;
-  const sharedSecretKey = cryptography.keyGen.getSharedSecretKey(privKey, writerPubKey);
-  const hashedSharedSecretKey = cryptography.hash.hashTo32Byte(cryptography.keyGen.concatKeys(sharedSecretKey, base64ToHex(randomSeed)));
-  const encryptKey = cryptography.encrypt.decryptData(hashedSharedSecretKey, base64ToHex(encryptedSecretKey));
+  const sharedSecretKey = Cryptography.getSharedSecretKey(privKey, writerPubKey);
+  const hashedSharedSecretKey = Cryptography.sha3(sharedSecretKey.concat(base64ToHex(randomSeed)));
+  const encryptKey = Cryptography.decryptData(hashedSharedSecretKey, base64ToHex(encryptedSecretKey));
   return encryptKey;
 }
 

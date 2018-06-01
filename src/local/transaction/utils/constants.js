@@ -11,36 +11,27 @@ const BYTESIZES = {
   VALUE: 16,
 };
 
-const REQUIRED_DATA_UPLOAD_TX_PARAMETERS = [
+const COMMON_REQUIRED = [
   'alg',
   'chain_id',
   'from',
   'nonce',
-  'payload',
   'timestamp',
   'type',
 ];
 
-const REQUIRED_VALUE_TRANSFER_TX_PARAMETERS = [
-  'alg',
-  'chain_id',
-  'from',
-  'nonce',
-  'timestamp',
+const REQUIRED_DATA_UPLOAD_TX_PARAMETERS = COMMON_REQUIRED.concat([
+  'payload',
+]);
+
+const REQUIRED_VALUE_TRANSFER_TX_PARAMETERS = COMMON_REQUIRED.concat([
   'to',
-  'type',
   'value',
-];
+]);
 
-const REQUIRED_WRITER_ASSIGN_TX_PARAMETERS = [
-  'alg',
-  'chain_id',
-  'from',
-  'nonce',
-  'timestamp',
-  'type',
+const REQUIRED_WRITER_ASSIGN_TX_PARAMETERS = COMMON_REQUIRED.concat([
   'payload',
-];
+]);
 
 export default {
   DATA_UPLOAD,

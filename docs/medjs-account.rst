@@ -222,7 +222,9 @@ Parameters
 ----------
 
 1. ``dataPayload`` - ``Object`` : data payload object:
+
   - ``hash`` - ``String``: The hash string of the data payload.
+
 2. ``passphrase`` - ``String``:(optional) The passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
 
 .. note:: Account.signDataPayload doesn't return anything but assign the signature string and the certificate to the data payload object. After signing, ``dataPayload.sign`` is changed from ``Null`` to ``String`` and ``dataPayload.cert`` is changed from ``Null`` to ``Object``.
