@@ -36,7 +36,7 @@ Parameters
 ----------
 
 1. ``accessKey`` - ``String`` : The access key to encrypt data using symmetric key algorithm. If not given, empty string is used.
-2. ``data`` - ``String|Object|Number`` : The data is stringified and encrypted with the access key.
+2. ``data`` - ``String`` : The data to encrypt with the access key.
 
 -------
 Returns

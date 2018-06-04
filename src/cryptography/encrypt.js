@@ -3,17 +3,8 @@ import utils from '../utils';
 
 const encryptData = (accessKey = '', data) => {
   // TODO Need to get stream files also.
-  let message = '';
-  switch (typeof data) {
-    case 'string':
-      message = data;
-      break;
-    case 'object':
-    case 'number':
-      message = data.toString();
-      break;
-    default:
-      throw new Error('Invalid msg type');
+  if (typeof data !== 'string') {
+    throw new Error('Invalid msg type');
   }
 
   const algorithm = 'AES-256-CTR';
@@ -21,7 +12,7 @@ const encryptData = (accessKey = '', data) => {
   const hashedAccessKey = utils.sha3(accessKey);
 
   const cipher = createCipheriv(algorithm, Buffer.from(hashedAccessKey, 'hex'), iv);
-  const encryptedText = `${cipher.update(message, 'utf8', 'hex')}${cipher.final('hex')}`;
+  const encryptedText = `${cipher.update(data, 'utf8', 'hex')}${cipher.final('hex')}`;
   return `${iv.toString('hex')}:${encryptedText}`;
 };
 
