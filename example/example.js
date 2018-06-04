@@ -84,6 +84,7 @@ const Account = med.local.Account;
 const Transaction = med.local.transaction;
 const Client = med.client;
 const Cryptography = med.cryptography;
+const HealthData = med.healthData;
 const Utils = med.utils;
 
 const valueTransferTx = Transaction.valueTransferTx;
@@ -122,17 +123,21 @@ function accStateGet() {
 }
 
 function retrieveTx() {
-  const txContent = ['hash', 'from', 'to', 'value', 'timestamp', 'data', 'nonce', 'sign'];
+  const txContent = ['hash', 'from', 'to', 'value', 'timestamp', 'nonce', 'sign'];
+  const dataContent = ['type', 'payload'];
   const txHash = document.getElementById('rTxhash').value;
   Client.getTransaction(txHash).then(res => {
     txContent.forEach(content => {
       document.getElementById('rTx' + content).innerHTML = res[content];
     });
+    dataContent.forEach(content => {
+      document.getElementById('rTxdata' + content).innerHTML = res['data'][content];
+    })
   })
 };
 
 function retrieveMedicalDataTx() {
-  const txContent = ['Hash', 'Storage', 'EncKey', 'Seed'];
+  const txContent = ['Hash'];
   const txHash = document.getElementById('dataTxhash').value;
   Client.getTransaction(txHash).then(res => {
     const payload = JSON.parse(res.data.payload)
@@ -253,21 +258,16 @@ function sendValTx() {
 
 function createMedicalDataPayload() {
   const medicalData = document.getElementById('medicalDataUpTx').value;
-  const storage = document.getElementById('storageUpTx').value;
   const passphrase = document.getElementById('passphraseUpTx').value;
   const owner = account;
-  const medicalDataOptions = {
-    data: medicalData,
-    storage: storage,
-    writerPubKey: owner.pubKey,
-    ownerAccount: owner,
-    passphrase: passphrase,
-  };
-  const medicalDataPayload = Transaction.createDataPayload(medicalDataOptions);
-  document.getElementById('medicalDataPayloadUpTx').innerHTML = JSON.stringify(medicalDataPayload);
+  HealthData.hashData(medicalData, 'pghd').then(hash => {
+    const payload = Transaction.createDataPayload(hash);
+    document.getElementById('medicalDataPayloadUpTx').innerHTML = JSON.stringify(payload);
+  });
 }
 
 function createUpTx() {
+  getAccState()
   const medicalRecordTxData = {
     from: document.getElementById('ownerUpTx').value,
     medicalData: JSON.parse(document.getElementById('medicalDataPayloadUpTx').innerHTML),

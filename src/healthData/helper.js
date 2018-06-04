@@ -57,6 +57,8 @@ const encodeFHIR = (obj, type) => protobuf.load(path.resolve(`src/healthData/pro
 
 const encodeJson = obj => Buffer.from(JSON.stringify(obj));
 
+const encodeString = str => Buffer.from(str);
+
 const makeBuffer = async (data, type, subType) => {
   let dataBuffer;
   // TODO: support other types
@@ -69,6 +71,10 @@ const makeBuffer = async (data, type, subType) => {
         dataBuffer = data;
       } else if (typeof data === 'object') {
         dataBuffer = encodeJson(data);
+      } else if (typeof data === 'string') {
+        dataBuffer = encodeString(data);
+      } else {
+        return new Error('not supporting type');
       }
       break;
     case 'dicom':
@@ -86,5 +92,6 @@ export default {
   decodeTxt,
   encodeFHIR,
   encodeJson,
+  encodeString,
   makeBuffer,
 };

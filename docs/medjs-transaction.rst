@@ -6,7 +6,7 @@
 medjs.local.transaction
 =======================
 
-The ``medjs.local.transaction`` contains functions to generate transaction, hash, signature, and so on.
+The ``medjs.local.transaction`` contains functions to generate transaction.
 
 To use this package in a standalone use:
 
@@ -27,7 +27,7 @@ MediBloc blockchain has 3 transaction types.
 
 - value transfer transaction : To transfer MED from one account to another.
 - writer assign transaction : To assign an address that can use owner's bandwidth to write.
-- data upload transaction : To upload data related information on the , such as data hash, location, encrypt key and so on, on the blockchain.
+- data upload transaction : To upload the hash of the data on the blockchain.
 
 ---------------------------------------------------------------------------
 
@@ -90,21 +90,22 @@ Example
     value: '55',
     nonce: 3
   }
-  Transaction.valueTransferTx(transactionData);
+  var tx = Transaction.valueTransferTx(transactionData);
+  console.log(tx);
   > {
     rawTx: {
       alg: 1,
-      chain_id: 1010,
+      chain_id: 1,
       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
       to: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
       nonce: 3,
-      timestamp: 1526284778755,
+      timestamp: 1528081588884,
       value: '55',
       data: {
         type: 'binary',
       }
     },
-    hash: 'bc02716f5300f734d02ab5557c1f73859344d6371f9207a9ba87a603c81aaf23',
+    hash: '20761ec51cb312d231343f8803cada003ada97e94e4a4074980ee6917ec3b159',
     sign: null,
   }
 
@@ -165,29 +166,30 @@ Example
     writer: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
     nonce: 3
   }
-  Transaction.writerAssignTx(transactionData);
+  var tx = Transaction.writerAssignTx(transactionData);
+  console.log(tx);
   > {
     rawTx: {
       alg: 1,
-      chain_id: 1010,
+      chain_id: 1,
       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
       to: null,
       nonce: 3,
-      timestamp: 1526284778755,
+      timestamp: 1528081711031,
       value: '0',
       data: {
         type: 'register_wkey',
-        payload: '{'Writer':[3,125,145,89,103,39,188,82,37,83,81,11,52,129,95,56,44,32,96,203,183,118,242,118,93,234,251,72,174,82,141,50,75]}'
+        payload: '{"Writer":[3,125,145,89,103,39,188,82,37,83,81,11,52,129,95,56,44,32,96,203,183,118,242,118,93,234,251,72,174,82,141,50,75]}'
       }
     },
-    hash: 'ecb980d1886da7c1be3cefe445d9554bc0adb8697b43577a8e1d8d7ef2991c34',
+    hash: '9790340160c16101e516cd539bed8f678501dd8612157fe8873e8424cb22665d',
     sign: null,
   }
 
 ---------------------------------------------------------------------------
 
 dataUploadTx
-=======================
+============
 
 .. code-block:: javascript
 
@@ -204,10 +206,7 @@ Parameters
 - ``from`` - ``String`` : The address that spends bandwidth to upload data.
 - ``medicalData`` - ``Object`` : The medical data object generated from ``Data.createDataPayload(dataObject)``.
 
-  + ``EncKey`` - ``String`` : The shared secret key generated from owner and writer from ECDH.
   + ``Hash`` - ``String`` : The encrypted data's hash.
-  + ``Seed`` - ``String`` : The random seed value.
-  + ``Storage`` - ``String`` : The storage containing input data.
 - ``nonce`` - ``Number`` : The nonce indicates the number of transactions that this account has made. It should be exactly 1 larger than current account's nonce. Highly recommend getting account's latest nonce before making transaction.
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
@@ -245,59 +244,50 @@ Example
 
 .. code-block:: javascript
 
-  var medicalData = Data.createDataPayload({
-    data: 'hello MediBloc!',
-    storage: 'IPFS',
-    ownerAccount: new Account(),
-    passphrase: '',
-    writerPubKey: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
+  medjs.healthData.hashData('hello MediBloc!', 'pghd').then((hash) => {
+    var payload = Transaction.createDataPayload(hash);
+    var transactionData = {
+      from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
+      medicalData: payload,
+      nonce: 4,
+    };
+    var tx = Transaction.dataUploadTx(transactionData);
+    console.log(tx);
   });
-  var transactionData = {
-    from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
-    medicalData: medicalData,
-    nonce: 4
-  }
-  Transaction.medicalRecordTx(transactionData);
   > {
     rawTx: {
       alg: 1,
-      chain_id: 1010,
+      chain_id: 1,
       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
       to: null,
       nonce: 4,
-      timestamp: 1526359594043,
+      timestamp: 1528077453209,
       value: '0',
       data: {
         type: 'add_record',
-        payload: '{'Hash':[185,204,2,91,234,65,189,143,46,162,254,230,41,46,203,245,160,250,239,207,249,205,164,124,121,180,161,245,29,56,221,235],'Storage':'IPFS','EncKey':'Z2QYhMy24+j9xdGDsIofgzSJk/EMrAleXx3aH/4iKQc=','Seed':'DZIRo4Wlve9RMyaErV/QMw=='}'
+        payload: '{"Hash":"boWTsoo+YOIZ0tz5P6kwfbswEwkI6OKIDk9UaaaRskw="}'
       }
     },
-    hash: '8948e398873c99ce4136e1c00eeecbf3f400c4f221ee78ad22c91ca066c76ea6',
+    hash: 'ba5b1abc9a5db23a00adfba35e0c0fc96255e70a25ed3c6480af801284fa6587',
     sign: null,
   }
 
 ---------------------------------------------------------------------------
 
 createDataPayload
-===================
+=================
 
 .. code-block:: javascript
 
-  Transaction.createDataPayload(dataObject);
+  Transaction.createDataPayload(hash);
 
-To generate data payload transaction, you can use ``Transaction.createDataPayload(dataObject)``. It generates an encryption key using ECDH, encrypts data with the key, and returns data payload for ``dataUploadTx``.
+To generate data payload transaction, you can use ``Transaction.createDataPayload(hash)``. It returns data payload for ``dataUploadTx``.
 
 ----------
 Parameters
 ----------
 
-``dataObject`` - ``object``
-
-- ``data`` - ``Boolean|Number|String|Object`` : The data can be any type that can be hashed.
-- ``storage`` - ``String`` : The storage specifies the location of the stored data. ``Local`` is used when you store the data on your device. (Storage usage guideline will be announced)
-- ``ownerAccount`` - ``Object`` : The ownerAccount is the account object from ``new Account()``.
-- ``passphrase`` - ``String`` : The passphrase for the ownerAccount. The passphrase is used to decrypt private key from ownerAccount's ``encryptedPrivKey``.
-- ``writerPubKey`` - ``String`` : The writerPubKey is the address, which is already assigned by owner using ``writerAssignTx()``.
+``hash`` - ``String``: The hash of the data.
 
 -------
 Returns
@@ -305,12 +295,7 @@ Returns
 
 ``Object`` - The data payload object for data upload transaction payload.
 
-- ``EncKey`` - ``String`` : The shared secret key from owner and writer from ECDH.
-- ``Hash`` - ``String`` : The encrypted data's hash.
-- ``Seed`` - ``String`` : The random seed value.
-- ``Storage`` - ``String`` : The storage storing data.
-
-.. note:: To understand this process deeply, see ``How does data payload not reveal personal information?``
+- ``Hash`` - ``String`` : The hash of the data.
 
 -------
 Example
@@ -318,16 +303,10 @@ Example
 
 .. code-block:: javascript
 
-  Transaction.createDataPayload({
-    data: 'Hello MediBloc',
-    storage: 'Local',
-    ownerAccount: new Account(),
-    passphrase: '',
-    writerPubKey: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b'
-  })
+  medjs.healthData.hashData('hello MediBloc!', 'pghd').then((hash) => {
+    var payload = Transaction.createDataPayload(hash);
+    console.log(payload);
+  });
   > {
-    EncKey: '665b9300cb06c856e3f857d65b668d9965c48c0b62cbe3c6ce71281d84c027bd',
-    Hash: 'b06207ba101ab9e8195146581d2d1f720b74fcd42b54ee7c99358c5c6ef9f3b3',
-    Seed: '87d3f849b0d5654f59502b88fad59c26',
-    Storage: 'Local',
+    Hash: '6e8593b28a3e60e219d2dcf93fa9307dbb30130908e8e2880e4f5469a691b24c',
   }

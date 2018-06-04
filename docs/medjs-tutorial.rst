@@ -13,49 +13,41 @@ This section handles several examples to use medjs.
   var Medjs = require('medjs');
   var medjs = Medjs(['http://localhost:9921']);
   var Account = medjs.local.Account;
+  var Client = medjs.client;
+  var HealthData = medjs.healthData;
   var Transaction = medjs.local.transaction;
-  var Client = med.client;
 
 ---------------------------------------------------------------------------
 
-send transaction
-================
+send data upload transaction
+============================
 
 .. code-block:: javascript
 
-  // get account state
+  // create a new account
   var account = new Account();
-  var nonce = 0;
+  // get account state
   Client.getAccountState(account.pubKey, 'tail').then(res => {
-    nonce = parseInt(res.nonce);
-  })
+    var nonce = parseInt(res.nonce);
 
-  // creating a medical data payload
-  var healthCareDataOption = {
-    data: {
-      name: 'ggomma',
-      age: 27,
-      weight: 74
-    },
-    storage: 'local',
-    ownerAccount: account,
-    passphrase: '',
-    writerPubKey: '0327506f9adac651965c5a33ba8fe1f324654b40d4b3ad1cba5abc1aaa294b1183'
-  };
-  var healthCareDataPayload = Transaction.createDataPayload(healthCareDataOption);
+    // calculate hash of the medical data file
+    HealthData.hashDataFromFile('/file/path', 'medical-fhir', 'observation').then((hash) => {
+      // creating a medical data payload
+      var healthDataPayload = Transaction.createDataPayload(hash);
 
-  // creating a medical data upload transaction
-  var tx1 = Transaction.dataUploadTx({
-    from: account.pubKey,
-    medicalData: healthCareDataPayload,
-    nonce: nonce + 1
-  });
+      // creating a medical data upload transaction
+      var tx = Transaction.dataUploadTx({
+        from: account.pubKey,
+        medicalData: healthDataPayload,
+        nonce: nonce + 1
+      });
 
-  // sign transaction
-  account.signTx(tx1);
+      // sign transaction
+      account.signTx(tx);
 
-  // send transaction
-  client.sendTransaction(tx).then(res => {
-    // .. do something
-    console.log(res);
+      // send transaction
+      Client.sendTransaction(tx).then(res => {
+        // .. do something
+      });
+    });
   });
