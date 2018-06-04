@@ -21,7 +21,7 @@ describe('# Account class', () => {
     it('Account object can not be made with decrypted privKey', () => {
       const { privKey } = getKeyPair();
       const passphrase = 'medibloc';
-      expect(() => new Account(passphrase, privKey)).to.throw(Error, 'Wrong format of private key');
+      expect(() => new Account(passphrase, privKey)).to.throw(Error, 'Invalid encrypted data format');
     });
     it('Account object can be made with encrypted privKey', () => {
       const { privKey } = getKeyPair();

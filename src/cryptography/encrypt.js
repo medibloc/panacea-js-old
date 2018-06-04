@@ -1,48 +1,48 @@
-import { createCipheriv, createDecipheriv } from 'crypto';
-import { sha3_256 as SHA3256 } from 'js-sha3';
+import { createCipheriv, createDecipheriv, randomBytes } from 'crypto';
 import utils from '../utils';
 
-const generateIv = key =>
-  SHA3256.create().update(key).hex().substring(0, 32);
-
-const encryptData = (accessKey = '', msg) => {
-  // TODO => update iv to have sync with go-medibloc
+const encryptData = (accessKey = '', data) => {
   // TODO Need to get stream files also.
   let message = '';
-  switch (typeof msg) {
+  switch (typeof data) {
     case 'string':
-      message = msg;
+      message = data;
       break;
     case 'object':
     case 'number':
-      message = msg.toString();
+      message = data.toString();
       break;
     default:
       throw new Error('Invalid msg type');
   }
 
   const algorithm = 'AES-256-CTR';
-  const iv = generateIv(accessKey);
-  const Iv = Buffer.from(iv, 'hex');
+  const iv = randomBytes(16);
   const hashedAccessKey = utils.sha3(accessKey);
-  const cipher = createCipheriv(algorithm, Buffer.from(hashedAccessKey, 'hex'), Iv);
 
-  return cipher.update(message, 'utf8', 'hex') + cipher.final('hex');
+  const cipher = createCipheriv(algorithm, Buffer.from(hashedAccessKey, 'hex'), iv);
+  const encryptedText = `${cipher.update(message, 'utf8', 'hex')}${cipher.final('hex')}`;
+  return `${iv.toString('hex')}:${encryptedText}`;
 };
 
-const decryptData = (accessKey = '', encryptedMsg) => {
-  const algorithm = 'AES-256-CTR';
-  const iv = generateIv(accessKey);
-  const Iv = Buffer.from(iv, 'hex');
-  const hashedAccessKey = utils.sha3(accessKey);
-  if (!utils.isHexadecimal(encryptedMsg)) {
-    throw new Error('Message should be hexadecimal');
+const decryptData = (accessKey = '', encryptedData) => {
+  if (!encryptedData) {
+    return null;
   }
-  const decipher = createDecipheriv(algorithm, Buffer.from(hashedAccessKey, 'hex'), Iv);
-  const decryptedMsg = decipher.update(encryptedMsg, 'hex', 'utf8');
+  const algorithm = 'AES-256-CTR';
+  const textParts = encryptedData.split(':');
+  if (textParts.length < 2) {
+    throw new Error('Invalid encrypted data format');
+  }
+  const iv = Buffer.from(textParts.shift(), 'hex');
+  const encryptedText = Buffer.from(textParts.join(':'), 'hex');
+  const hashedAccessKey = utils.sha3(accessKey);
+
+  const decipher = createDecipheriv(algorithm, Buffer.from(hashedAccessKey, 'hex'), iv);
+  const decryptedData = decipher.update(encryptedText, 'hex', 'utf8');
 
   try {
-    return decryptedMsg + decipher.final('utf8');
+    return decryptedData + decipher.final('utf8');
   } catch (err) {
     throw new Error('Wrong Access Key');
   }

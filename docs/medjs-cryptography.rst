@@ -21,30 +21,28 @@ To use this package in a standalone use:
 .. _cryptography-encrypt:
 
 encryptData
-===================
+===========
 
 .. code-block:: javascript
 
-  Cryptography.encryptData(accessKey, msg);
+  Cryptography.encryptData(accessKey, data);
 
-To encrypt data you can use ``Cryptography.encryptData(accessKey, msg)``. This function generates an encrypted string message using AES-256-CTR algorithm. Initialization vector(IV) is generated from the access key. Hence, there is no need to store the IV value; you only need to use the access key.
+To encrypt data you can use ``Cryptography.encryptData(accessKey, data)``. This function generates an encrypted string using AES-256-CTR algorithm. Initialization vector(IV) is randomly generated and prepended with the delimiter ``:``.
 
-.. note:: Encryption algorithm can be changed.
-
-.. note:: The way to generate IV can be changed.
+.. note:: Encryption algorithm can be added or changed.
 
 ----------
 Parameters
 ----------
 
 1. ``accessKey`` - ``String`` : The access key to encrypt data using symmetric key algorithm. If not given, empty string is used.
-2. ``msg`` - ``String|Object|Number`` : The message is stringified and encrypted with the access key.
+2. ``data`` - ``String|Object|Number`` : The data is stringified and encrypted with the access key.
 
 -------
 Returns
 -------
 
-``String`` - The encrypted message in hexadecimal format.
+``String`` - The encrypted data.
 
 -------
 Example
@@ -53,35 +51,35 @@ Example
 .. code-block:: javascript
 
   Cryptography.encryptData('this is access key !', 'hello medibloc!');
-  > 'fe062e8327e88a06b5d3eb98ea12b4'
+  > 'cc3ecbfc39c59fcab796d63458ff27fb:a32ae9c5c19068c6a3c90f57cc8662'
 
 ---------------------------------------------------------------------------
 
 decryptData
-===================
+===========
 
 .. code-block:: javascript
 
-  Cryptography.decryptData(accessKey, encryptedMsg);
+  Cryptography.decryptData(accessKey, encryptedData);
 
-To decrypt data you can use ``Cryptography.decryptData(accessKey, encryptedMsg)``. This function decrypts the encrypted message using AES-256-CTR algorithm. Initialization vector(IV) is generated from the access key.
+To decrypt data you can use ``Cryptography.decryptData(accessKey, encryptedData)``. This function decrypts the encrypted data using AES-256-CTR algorithm. Initialization vector(IV) is parsed from the encrypted data.
 
-.. note:: Decrypt algorithm can be changed.
+.. note:: Decrypt algorithm can be added or changed.
 
 ----------
 Parameters
 ----------
 
 1. ``accessKey`` - ``String`` : The access key to decrypt data using symmetric key algorithm. If not given, empty string is used.
-2. ``encryptedMsg`` - ``String`` : The encryptedMsg should be a hexadecimal string.
+2. ``encryptedData`` - ``String`` : The encrypted data.
 
-.. note:: In decryption, ``encryptedMsg`` must be the string generated through ``Cryptography.encrypt``. If not, this function returns a wrong result.
+.. note:: In decryption, ``encryptedData`` must be the string generated through ``Cryptography.encrypt``. If not, this function returns a wrong result.
 
 -------
 Returns
 -------
 
-``String`` - The encrypted message in hexadecimal format.
+``String`` - The original data.
 
 -------
 Example
@@ -89,7 +87,7 @@ Example
 
 .. code-block:: javascript
 
-  Cryptography.decryptData('this is access key !', 'fe062e8327e88a06b5d3eb98ea12b4');
+  Cryptography.decryptData('this is access key !', ''cc3ecbfc39c59fcab796d63458ff27fb:a32ae9c5c19068c6a3c90f57cc8662'');
   > 'hello medibloc!'
 
 ---------------------------------------------------------------------------
