@@ -18,15 +18,14 @@ To use this package standalone use:
 
 ---------------------------------------------------------------------------
 
-certificate.createCertificate
+createCertificate
 ==============================
 
 .. code-block:: javascript
 
-  var certificate = Id.certificate;
-  certificate.createCertificate({ expireDate, issuer, issuerAccount, issueDate, passphrase, pubKey });
+  Id.createCertificate({ expireDate, issuer, issuerAccount, issueDate, passphrase, pubKey });
 
-To create certificate, you can use ``Id.certificate.createCertificate({ expireDate, issuer, issuerAccount, issueDate, passphrase, pubKey })``. It generates certificate object which contains issuer's signature.
+To create certificate, you can use ``Id.createCertificate({ expireDate, issuer, issuerAccount, issueDate, passphrase, pubKey })``. It generates certificate object which contains issuer's signature.
 
 ----------
 Parameters
@@ -60,8 +59,7 @@ Example
 .. code-block:: javascript
 
   var issuer = new Account();
-  var createCertificate = Id.certificate.createCertificate;
-  createCertificate({
+  Id.createCertificate({
     expireDate: Date.now() + (365 * 24 * 60 * 60 * 1000),
     issuer: 'https://medibloc.org',
     issuerAccount: issuer,
@@ -79,15 +77,14 @@ Example
 
 ---------------------------------------------------------------------------
 
-certificate.verifyCertificate
+verifyCertificate
 ==============================
 
 .. code-block:: javascript
 
-  var certificate = Identification.certificate;
-  certificate.verifyCertificate(certificate, timeStamp, issuerPubKey);
+  Id.verifyCertificate(certificate, timeStamp, issuerPubKey);
 
-To verify certificate, you can use ``Id.certificate.verifyCertificate(certificate, timeStamp, issuerPubKey)``.
+To verify certificate, you can use ``Id.verifyCertificate(certificate, timeStamp, issuerPubKey)``.
 
 ----------
 Parameters
@@ -109,7 +106,6 @@ Example
 
 .. code-block:: javascript
 
-  var verifyCertificate = Id.certificate.verifyCertificate;
   var certificate = {
     expireDate: 1558588202729,
     issuer: 'https://medibloc.org',
@@ -117,5 +113,5 @@ Example
     pubKey: '031ae654051968bb57de12e36184fd9118c03d49e6c1d05ef99149074c31a8dcee',
     signature: '520282dce69b18f2dfefad8345a68e26a7b84ded32bc64e5a43cf0743e35a946629bc4245fe814f40acd196d19d5f9afcec4f185aae936491a8ad0fc9e73224501'
   };
-  verifyCertificate(certificate, Date.now(), '0253f338731d59180253be2a9eee8d8266948b23c71181a85df23b9883b19cb187')
+  Id.verifyCertificate(certificate, Date.now(), '0253f338731d59180253be2a9eee8d8266948b23c71181a85df23b9883b19cb187')
   > true

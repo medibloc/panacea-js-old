@@ -5,7 +5,7 @@ import {
   getPubKey,
   sign,
 } from 'cryptography';
-import { createCertificate } from 'identification/certificate';
+import { createCertificate } from 'identification';
 
 // generate new keypair and register
 const generateAccount = (passphrase = '') => {
