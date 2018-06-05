@@ -14,7 +14,7 @@ To use this package in a standalone use:
 
   var Medjs = require('medjs');
   var medjs = Medjs(['http://localhost:9921']);
-  var Cryptography =  medjs.cryptography
+  var Cryptography =  medjs.cryptography;
 
 ---------------------------------------------------------------------------
 
@@ -143,7 +143,7 @@ Parameters
 Returns
 -------
 
-``String`` - The public key induced from the private key
+``String`` - The public key induced from the private key.
 
 -------
 Example
@@ -176,7 +176,7 @@ Parameters
 Returns
 -------
 
-``String`` - The public key from the private key
+``String`` - The public key from the private key.
 
 -------
 Example
@@ -203,7 +203,7 @@ Parameters
 ----------
 
 1. ``msgHash`` - ``String`` : The hash string of the message.
-2. ``signature`` - ``String`` : The signature for the ``msgHash``
+2. ``signature`` - ``String`` : The signature for the ``msgHash``.
 
 -------
 Returns
@@ -223,7 +223,7 @@ Example
 ---------------------------------------------------------------------------
 
 sign
-=========
+====
 
 .. code-block:: javascript
 
@@ -268,15 +268,15 @@ To verify the signature, you can use ``Cryptography.verifySignature(pubKey, msgH
 Parameters
 ----------
 
-1. ``pubKey`` - ``String`` : The public key.
-2. ``msgHash`` - ``String`` : The message hash string.
-3. ``signature`` - ``String`` : The signature.
+1. ``pubKey`` - ``String`` : The public key of the signature.
+2. ``msgHash`` - ``String`` : The hash string of the message.
+3. ``signature`` - ``String`` : The signature for the ``msgHash``.
 
 -------
 Returns
 -------
 
-``Bool`` - If a signature is made from a valid public key and message hash pair, ``true`` is returned.
+``Boolean`` - If a signature is made from a valid public key and message hash pair, ``true`` is returned.
 
 -------
 Example
