@@ -1,9 +1,17 @@
 import { expect } from 'chai';
-import { encryptData, getKeyPair, getPubKey } from 'cryptography';
+import { randomBytes } from 'crypto';
+import { getPubKey } from 'cryptography';
 import { Account } from 'local/account';
 
 // Account
 describe('# Account class', () => {
+  let account;
+  let passphrase;
+  beforeEach(() => {
+    passphrase = 'medibloc';
+    account = new Account(passphrase);
+    return Promise.resolve();
+  });
   describe('can generate account object', () => {
     it('Account object can be made without any arguments', () => {
       const newAccount = new Account();
@@ -11,34 +19,25 @@ describe('# Account class', () => {
       expect(newAccount).to.have.own.property('pubKey');
     });
     it('Account object can be made with passphrase', () => {
-      const newAccount = new Account('');
-      const newAccountWithPassphrase = new Account('medibloc');
-      expect(newAccount).to.have.own.property('encryptedPrivKey');
-      expect(newAccount).to.have.own.property('pubKey');
-      expect(newAccountWithPassphrase).to.have.own.property('encryptedPrivKey');
-      expect(newAccountWithPassphrase).to.have.own.property('pubKey');
+      expect(account).to.have.own.property('encryptedPrivKey');
+      expect(account).to.have.own.property('pubKey');
     });
     it('Account object can not be made with decrypted privKey', () => {
-      const { privKey } = getKeyPair();
-      const passphrase = 'medibloc';
-      expect(() => new Account(passphrase, privKey)).to.throw(Error, 'Invalid encrypted data format');
+      const privKey = randomBytes(32).toString('hex');
+      expect(() => new Account(passphrase, privKey)).to.throw(Error);
     });
     it('Account object can be made with encrypted privKey', () => {
-      const { privKey } = getKeyPair();
-      const passphrase = 'medibloc';
-      const encryptedPrivKey = encryptData(passphrase, privKey);
-      const newAccount = new Account(passphrase, encryptedPrivKey);
+      const newAccount = new Account(passphrase, account.encryptedPrivKey);
       expect(newAccount).to.have.own.property('encryptedPrivKey');
       expect(newAccount).to.have.own.property('pubKey');
     });
     it('Get decrypted private key with appropriate passphrase', () => {
-      const passphrase = 'medibloc';
+      const decryptedPrivKey = account.getDecryptedPrivateKey(passphrase);
+      expect(getPubKey(decryptedPrivKey)).to.be.equal(account.pubKey);
+    });
+    it('Get decrypted private key with appropriate passphrase', () => {
       const wrongPassphrase = 'medibloc!';
-      const newAccount = new Account(passphrase);
-      const decryptedPrivKey = newAccount.getDecryptedPrivateKey(passphrase);
-      const wrongDecryptedPrivKey = newAccount.getDecryptedPrivateKey(wrongPassphrase);
-      expect(getPubKey(decryptedPrivKey)).to.be.equal(newAccount.pubKey);
-      expect(wrongDecryptedPrivKey).not.to.be.equal(newAccount.pubKey);
+      expect(() => account.getDecryptedPrivateKey(wrongPassphrase)).to.throw(Error, 'Key derivation failed - possibly wrong passphrase');
     });
   });
 });

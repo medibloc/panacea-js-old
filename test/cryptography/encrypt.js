@@ -1,4 +1,5 @@
 import chai, { expect } from 'chai';
+import { randomBytes } from 'crypto';
 import cryptography from 'cryptography';
 import chaiHexString from 'test/helpers/chaiHexString';
 
@@ -35,5 +36,28 @@ describe('#encryptData / #decryptData', () => {
       const mismatchedData = cryptography.decryptData(fakeAccessKey, encryptedData);
       expect(mismatchedData).not.to.equal(data);
     });
+  });
+});
+
+// encrypt and decrypt key
+describe('#key encryption and decryption', () => {
+  const password = 'medibloc12345^&*()';
+  const privKey = randomBytes(32).toString('hex');
+
+  it('should be done with pbkdf2 algorithm', () => {
+    const options = {
+      pdf: 'pbkdf2',
+    };
+    const encryptedPrivKey = cryptography.encryptKey(password, privKey, options);
+    expect(encryptedPrivKey).to.be.a('object');
+    expect(cryptography.decryptKey(password, encryptedPrivKey)).to.be.equal(privKey);
+  });
+  it('should be done with scrypt algorithm', () => {
+    const options = {
+      pdf: 'scrypt',
+    };
+    const encryptedPrivKey = cryptography.encryptKey(password, privKey, options);
+    expect(encryptedPrivKey).to.be.a('object');
+    expect(cryptography.decryptKey(password, encryptedPrivKey)).to.be.equal(privKey);
   });
 });

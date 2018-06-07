@@ -73,7 +73,7 @@ Parameters
 1. ``accessKey`` - ``String`` : The access key to decrypt data using symmetric key algorithm. If not given, empty string is used.
 2. ``encryptedData`` - ``String`` : The encrypted data.
 
-.. note:: In decryption, ``encryptedData`` must be the string generated through ``Cryptography.encrypt``. If not, this function returns a wrong result.
+.. note:: In decryption, ``encryptedData`` must be the string generated through ``Cryptography.encryptData``. If not, this function returns a wrong result.
 
 -------
 Returns
@@ -87,8 +87,106 @@ Example
 
 .. code-block:: javascript
 
-  Cryptography.decryptData('this is access key !', ''cc3ecbfc39c59fcab796d63458ff27fb:a32ae9c5c19068c6a3c90f57cc8662'');
+  Cryptography.decryptData('this is access key !', 'cc3ecbfc39c59fcab796d63458ff27fb:a32ae9c5c19068c6a3c90f57cc8662');
   > 'hello medibloc!'
+
+---------------------------------------------------------------------------
+
+encryptKey
+==========
+
+.. code-block:: javascript
+
+  Cryptography.encryptKey(password, privKey, options);
+
+To encrypt key you can use ``Cryptography.encryptKey(password, privKey, options)``. This function generates an encrypted key defined as same as `Ethereum web3 secret storage definition <https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition#pbkdf2-sha-256>`_.
+
+----------
+Parameters
+----------
+
+1. ``password`` - ``String`` : The password to encrypt key. It should be long and complicated.
+2. ``privKey`` - ``String`` : The private key to encrypt with the password.
+3. ``options`` - ``Object`` :(optional) Encryption options such as ``salt``, ``iv``, ``kdf``, etc.
+
+-------
+Returns
+-------
+
+``Object`` - The encrypted key.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  var encryptedKey = Cryptography.encryptKey('medibloc12345^&*()', '337c72130334930ee3ad42a9fe323648bc33f4b4ff8fd2a7d71ea816078f7a27');
+  console.log(encryptedKey);
+  > {
+    version: 3,
+    id: '8a58575c-4367-4be8-a5de-cdf82931b53e',
+    address: '0256b32f907826155408d41662b51e77878ef9bb58f8dfcdae98eb2eaf4dc3ce7a',
+    crypto: {
+      ciphertext: '303460753670210a53f023aac4e7252e04d0cd93b79f0aa3889f6735de729919fea0fdf0c22be8d5d427c09d51902210494ed58b3b12dfd77cf93187a252da55',
+      cipherparams: {
+        iv: 'd1f1f735155432b640b5229c8a5de5d1'
+      },
+      cipher: 'aes-128-ctr',
+      kdf: 'scrypt',
+      kdfparams:{
+        dklen: 32,
+        salt: '932db3b379fb2a3762e876a5714079a89188f686c85c3b880775eebbd3c3b0c8',
+        n: 8192,
+        r: 8,
+        p: 1
+      },
+      mac: 'a59dcc2e6dfaadb5aca6d1270e6341207817a64618323cb95f23d7b027318f54'
+      }
+    }
+
+---------------------------------------------------------------------------
+
+decryptKey
+==========
+
+.. code-block:: javascript
+
+  Cryptography.decryptKey(password, encryptedKey);
+
+To decrypt encrypted key you can use ``Cryptography.decryptKey(password, encryptedKey)``. This function decrypts the encrypted key.
+
+----------
+Parameters
+----------
+
+1. ``password`` - ``String`` : The password used to encrypt ``encryptedKey``.
+2. ``encryptedKey`` - ``Object|String`` : The encrypted key to decrypt.
+
+.. note:: In decryption, ``encryptedKey`` must be the object or string generated through ``Cryptography.encryptKey``. If not, this function returns a error.
+
+-------
+Returns
+-------
+
+``String`` - The original key.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  var encryptedKey = {
+    version: 3,
+    id: '8a58575c-4367-4be8-a5de-cdf82931b53e',
+    address: '0256b32f907826155408d41662b51e77878ef9bb58f8dfcdae98eb2eaf4dc3ce7a',
+    ...
+  };
+
+  var decryptedKey = Cryptography.decryptData('medibloc12345^&*()', encryptedKey);
+  console.log(decryptedKey);
+  > '337c72130334930ee3ad42a9fe323648bc33f4b4ff8fd2a7d71ea816078f7a27'
 
 ---------------------------------------------------------------------------
 

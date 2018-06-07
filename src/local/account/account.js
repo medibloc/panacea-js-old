@@ -1,6 +1,6 @@
 import {
-  encryptData,
-  decryptData,
+  decryptKey,
+  encryptKey,
   getKeyPair,
   getPubKey,
   sign,
@@ -12,14 +12,14 @@ const generateAccount = (passphrase = '') => {
   const { privKey, pubKey } = getKeyPair();
 
   return {
-    encryptedPrivKey: encryptData(passphrase, privKey),
+    encryptedPrivKey: encryptKey(passphrase, privKey),
     pubKey,
   };
 };
 
 // set encrypted private key
 const setEncryptedPrivateKey = (passphrase = '', encryptedPrivKey) => {
-  const privKey = decryptData(passphrase, encryptedPrivKey);
+  const privKey = decryptKey(passphrase, encryptedPrivKey);
 
   return {
     encryptedPrivKey,
@@ -42,7 +42,7 @@ export default class Account {
 
   // get decrypted private key
   getDecryptedPrivateKey(passphrase = '') {
-    return decryptData(passphrase, this.encryptedPrivKey);
+    return decryptKey(passphrase, this.encryptedPrivKey);
   }
 
   signTx(tx, passphrase = '') {
