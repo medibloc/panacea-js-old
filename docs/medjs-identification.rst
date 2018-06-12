@@ -12,9 +12,13 @@ To use this package standalone use:
 
 .. code-block:: javascript
 
-  var Medjs = require('medjs');
-  var medjs = Medjs(['http://localhost:9921']);
-  var Id = medjs.identification;
+  var Id = require('medjs').identification;
+  //
+  // Instead, you can import from medjs like below.
+  //
+  // var Medjs = require('medjs');
+  // var medjs = Medjs(['http://localhost:9921']);
+  // var Id = medjs.identification;
 
 ---------------------------------------------------------------------------
 

@@ -11,8 +11,13 @@ The ``medjs.client`` object allows you to interact with the MediBloc blockchain.
 .. code-block:: javascript
 
     var Medjs = require('medjs');
-    var medjs = Medjs(['http://localhost:9921']);
-    var Client = medjs.client;
+    var Client = Medjs.client(['http://localhost:9921']);
+    //
+    // Instead, you can import from medjs like below.
+    //
+    // var Medjs = require('medjs');
+    // var medjs = Medjs(['http://localhost:9921']);
+    // var Client = medjs.client(['http://localhost:9921']);
 
 .. include:: include_blockchain_note.rst
 

@@ -12,9 +12,13 @@ To use this package in a standalone use:
 
 .. code-block:: javascript
 
-  var Medjs = require('medjs');
-  var medjs = Medjs(['http://localhost:9921']);
-  var Cryptography =  medjs.cryptography;
+  var Cryptography = require('medjs').cryptography;
+  //
+  // Instead, you can import from medjs like below.
+  //
+  // var Medjs = require('medjs');
+  // var medjs = Medjs(['http://localhost:9921']);
+  // var Cryptography = medjs.cryptography;
 
 ---------------------------------------------------------------------------
 

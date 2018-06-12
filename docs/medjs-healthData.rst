@@ -10,9 +10,13 @@ The ``medjs.healthData`` object helps to encode and decode the health data as :r
 
 .. code-block:: javascript
 
-    var Medjs = require('medjs');
-    var medjs = Medjs(['http://localhost:9921']);
-    var HealthData = medjs.healthData;
+  var HealthData = require('medjs').healthData;
+  //
+  // Instead, you can import from medjs like below.
+  //
+  // var Medjs = require('medjs');
+  // var medjs = Medjs(['http://localhost:9921']);
+  // var HealthData = medjs.healthData;
 
 .. include:: include_blockchain_note.rst
 
@@ -56,7 +60,7 @@ decodeData
 
 .. code-block:: javascript
 
-    HealthData.decodeData(data)
+  HealthData.decodeData(data)
 
 Returns decoded health data.
 
@@ -75,26 +79,26 @@ Example
 
 .. code-block:: javascript
 
-    var data = fs.readFileSync('/file/path');
-    console.log(data);
-    > <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
+  var data = fs.readFileSync('/file/path');
+  console.log(data);
+  > <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
 
-    HealthData.decodeData(data)
-    .then(console.log);
-    > {
-        status: 'final',
-        category: [ { coding: [Array] } ],
-        code: { coding: [ [Object], [Object] ] },
-        resourceType: 'Observation',
-        effectiveDateTime: '2017-05-15',
-        id: 'f101',
-        context: { reference: 'Encounter/f100' },
-        subject: { reference: 'Patient/f100' },
-        valueQuantity:
-        { code: 'kg',
-            unit: 'kg',
-            value: 78,
-            system: 'http://unitsofmeasure.org' } }
+  HealthData.decodeData(data)
+  .then(console.log);
+  > {
+      status: 'final',
+      category: [ { coding: [Array] } ],
+      code: { coding: [ [Object], [Object] ] },
+      resourceType: 'Observation',
+      effectiveDateTime: '2017-05-15',
+      id: 'f101',
+      context: { reference: 'Encounter/f100' },
+      subject: { reference: 'Patient/f100' },
+      valueQuantity:
+      { code: 'kg',
+        unit: 'kg',
+        value: 78,
+        system: 'http://unitsofmeasure.org' } }
 
 ---------------------------------------------------------------------------
 
@@ -104,7 +108,7 @@ decodeDataFromFile
 
 .. code-block:: javascript
 
-    HealthData.decodeDataFromFile(filePath)
+  HealthData.decodeDataFromFile(filePath)
 
 Returns decoded health data from the file path.
 
@@ -123,22 +127,22 @@ Example
 
 .. code-block:: javascript
 
-    HealthData.decodeDataFromFile('/file/path')
-    .then(console.log);
-    > {
-        status: 'final',
-        category: [ { coding: [Array] } ],
-        code: { coding: [ [Object], [Object] ] },
-        resourceType: 'Observation',
-        effectiveDateTime: '2017-05-15',
-        id: 'f101',
-        context: { reference: 'Encounter/f100' },
-        subject: { reference: 'Patient/f100' },
-        valueQuantity:
-        { code: 'kg',
-            unit: 'kg',
-            value: 78,
-            system: 'http://unitsofmeasure.org' } }
+  HealthData.decodeDataFromFile('/file/path')
+  .then(console.log);
+  > {
+    status: 'final',
+    category: [ { coding: [Array] } ],
+    code: { coding: [ [Object], [Object] ] },
+    resourceType: 'Observation',
+    effectiveDateTime: '2017-05-15',
+    id: 'f101',
+    context: { reference: 'Encounter/f100' },
+    subject: { reference: 'Patient/f100' },
+    valueQuantity:
+    { code: 'kg',
+      unit: 'kg',
+      value: 78,
+      system: 'http://unitsofmeasure.org' } }
 
 ---------------------------------------------------------------------------
 
@@ -148,7 +152,7 @@ encodeData
 
 .. code-block:: javascript
 
-    HealthData.encodeData(data, type, subType)
+  HealthData.encodeData(data, type, subType)
 
 Returns encoded ``Buffer|Uint8Array`` object as MHD format of the health data.
 
@@ -170,29 +174,29 @@ Example
 
 .. code-block:: javascript
 
-    var data = {
-        resourceType: 'Observation',
-        id: 'f101',
-        status: 'final',
-        category: [
-            {
-            coding: [
-                {
-                system: 'http://hl7.org/fhir/observation-category',
-                code: 'vital-signs',
-                display: 'Vital Signs',
-                },
-            ],
-            },
-        ],
-        ...
-    };
+  var data = {
+    resourceType: 'Observation',
+    id: 'f101',
+    status: 'final',
+    category: [
+      {
+      coding: [
+        {
+        system: 'http://hl7.org/fhir/observation-category',
+        code: 'vital-signs',
+        display: 'Vital Signs',
+        },
+      ],
+      },
+    ],
+    ...
+  };
 
-    HealthData.encodeData(data, 'medical-fhir', 'observation')
-    .then(console.log);
-    > {
-        <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
-    }
+  HealthData.encodeData(data, 'medical-fhir', 'observation')
+  .then(console.log);
+  > {
+    <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
+  }
 
 ---------------------------------------------------------------------------
 
@@ -202,7 +206,7 @@ encodeDataFromFile
 
 .. code-block:: javascript
 
-    HealthData.encodeDataFromFile(filePath, type, subType)
+  HealthData.encodeDataFromFile(filePath, type, subType)
 
 Returns encoded ``Buffer|Uint8Array`` object as MHD format object of the health data reading from the file path.
 
@@ -225,11 +229,11 @@ Example
 
 .. code-block:: javascript
 
-    HealthData.encodeDataFromFile('/file/path', 'medical-fhir', 'observation')
-    .then(console.log);
-    > {
-        <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
-    }
+  HealthData.encodeDataFromFile('/file/path', 'medical-fhir', 'observation')
+  .then(console.log);
+  > {
+    <Buffer 00 4d 48 44 00 00 00 01 00 02 eb 36 d0 60 6f f8 4b ba 5a e8 4e 2a f0 f2 19 7b 2f f4 27 2c 3d 22 c4 6f fa 27 ca 17 85 1c ea 7f 00 00 00 00 01 15 0a 05 ... >
+  }
 
 ---------------------------------------------------------------------------
 
@@ -239,7 +243,7 @@ hashData
 
 .. code-block:: javascript
 
-    HealthData.hashData(data, type, subType)
+  HealthData.hashData(data, type, subType)
 
 Returns the hash ``String`` of the health data.
 
@@ -262,29 +266,29 @@ Example
 
 .. code-block:: javascript
 
-    var data = {
-        resourceType: 'Observation',
-        id: 'f101',
-        status: 'final',
-        category: [
-            {
-            coding: [
-                {
-                system: 'http://hl7.org/fhir/observation-category',
-                code: 'vital-signs',
-                display: 'Vital Signs',
-                },
-            ],
-            },
-        ],
-        ...
-    };
+  var data = {
+    resourceType: 'Observation',
+    id: 'f101',
+    status: 'final',
+    category: [
+      {
+      coding: [
+        {
+        system: 'http://hl7.org/fhir/observation-category',
+        code: 'vital-signs',
+        display: 'Vital Signs',
+        },
+      ],
+      },
+    ],
+    ...
+  };
 
-    HealthData.hashData(data, 'medical-fhir', 'observation')
-    .then(console.log);
-    > {
-        'eb36d0606ff84bba5ae84e2af0f2197b2ff4272c3d22c46ffa27ca17851cea7f'
-    }
+  HealthData.hashData(data, 'medical-fhir', 'observation')
+  .then(console.log);
+  > {
+    'eb36d0606ff84bba5ae84e2af0f2197b2ff4272c3d22c46ffa27ca17851cea7f'
+  }
 
 ---------------------------------------------------------------------------
 
@@ -293,7 +297,7 @@ hashDataFromFile
 
 .. code-block:: javascript
 
-    HealthData.hashDataFromFile(filePath, type, subType)
+  HealthData.hashDataFromFile(filePath, type, subType)
 
 Returns the hash ``String`` of the health data reading from the file path.
 
@@ -316,8 +320,8 @@ Example
 
 .. code-block:: javascript
 
-    HealthData.hashDataFromFile('/file/path', 'medical-fhir', 'observation')
-    .then(console.log);
-    > {
-        'eb36d0606ff84bba5ae84e2af0f2197b2ff4272c3d22c46ffa27ca17851cea7f'
-    }
+  HealthData.hashDataFromFile('/file/path', 'medical-fhir', 'observation')
+  .then(console.log);
+  > {
+    'eb36d0606ff84bba5ae84e2af0f2197b2ff4272c3d22c46ffa27ca17851cea7f'
+  }

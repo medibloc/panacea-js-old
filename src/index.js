@@ -1,15 +1,21 @@
-import client from './client';
-import cryptography from './cryptography';
-import identification from './identification';
-import local from './local';
-import healthData from './healthData';
-import utils from './utils';
+import Client from './client';
+import Cryptography from './cryptography';
+import HealthData from './healthData';
+import Identification from './identification';
+import Local from './local';
+import Utils from './utils';
 
 export default nodes => ({
-  client: client(nodes),
-  cryptography,
-  local,
-  healthData,
-  utils,
-  identification,
+  client: Client(nodes),
+  cryptography: Cryptography,
+  healthData: HealthData,
+  identification: Identification,
+  local: Local,
+  utils: Utils,
 });
+export const client = nodes => Client(nodes);
+export const cryptography = Cryptography;
+export const healthData = HealthData;
+export const identification = Identification;
+export const local = Local;
+export const utils = Utils;
