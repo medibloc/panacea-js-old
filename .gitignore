@@ -16,5 +16,8 @@ node_modules
 ##Temporary ignore for documentation
 docs/_build
 
+#Temporary ignore for development
+package-lock.json
+
 #Logs
 npm-debug.log*
