@@ -1,0 +1,10 @@
+.babelrc
+.eslintignore
+.eslintrc.js
+.gitignore
+
+.vscode/
+docs/
+example/
+src/
+test/
