@@ -1,11 +1,16 @@
 export default ({ sendRequest }) => {
-  const subscribe = topics => Array.isArray(topics) && sendRequest({
-    method: 'post',
-    path: 'v1/subscribe',
-    payload: {
-      topics,
-    },
-  }, true);
+  const subscribe = (topics) => {
+    if (!Array.isArray(topics)) {
+      throw new Error('topics should be an array type');
+    }
+    return sendRequest({
+      method: 'post',
+      path: 'v1/subscribe',
+      payload: {
+        topics,
+      },
+    }, true);
+  };
 
   return {
     subscribe,
