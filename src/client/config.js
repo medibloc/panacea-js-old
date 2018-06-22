@@ -1,28 +1,23 @@
 import {
   APPLICATION_JSON,
-  DEFAULT_TIMEOUT,
+  NETWORK_TIMEOUT,
   GET,
   POST,
   STREAM_TIMEOUT,
 } from './constants';
-
-const defaultConfig = {
-  timeout: DEFAULT_TIMEOUT,
-};
 
 const buildConfig = ({
   baseURL,
   method,
   path,
   payload,
-  timeout = DEFAULT_TIMEOUT,
   responseType = 'json',
 }) => {
   const customConfig = {
     baseURL,
     method,
     responseType,
-    timeout,
+    timeout: responseType === 'stream' ? STREAM_TIMEOUT : NETWORK_TIMEOUT,
     url: path,
     ...method === GET && { params: payload },
     ...method === POST && {
@@ -30,12 +25,8 @@ const buildConfig = ({
       headers: APPLICATION_JSON,
     },
   };
-  if (timeout === 'stream') {
-    customConfig.timeout = STREAM_TIMEOUT;
-  }
 
-
-  return Object.assign({}, defaultConfig, customConfig);
+  return customConfig;
 };
 
 export default {

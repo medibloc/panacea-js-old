@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import {
   APPLICATION_JSON,
-  DEFAULT_TIMEOUT,
+  NETWORK_TIMEOUT,
   GET,
   POST,
 } from 'client/constants';
@@ -40,7 +40,7 @@ describe('config', () => {
       it('should have a timeout field as default', () => {
         return expect(getConfig)
           .to.have.property('timeout')
-          .and.equal(DEFAULT_TIMEOUT);
+          .and.equal(NETWORK_TIMEOUT);
       });
 
       it('should have the correct baseURL field', () => {
