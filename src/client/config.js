@@ -3,6 +3,7 @@ import {
   DEFAULT_TIMEOUT,
   GET,
   POST,
+  STREAM_TIMEOUT,
 } from './constants';
 
 const defaultConfig = {
@@ -29,6 +30,9 @@ const buildConfig = ({
       headers: APPLICATION_JSON,
     },
   };
+  if (timeout === 'stream') {
+    customConfig.timeout = STREAM_TIMEOUT;
+  }
 
 
   return Object.assign({}, defaultConfig, customConfig);

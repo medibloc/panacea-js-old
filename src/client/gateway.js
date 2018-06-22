@@ -16,7 +16,7 @@ export default (nodeBucket) => {
     };
     if (stream) {
       option.responseType = 'stream';
-      option.timeout = 300000;
+      option.timeout = 'stream';
     }
     const config = buildConfig(option);
     for (let i = 0; i < MAX_REQUEST_RETRY_COUNT; i += 1) {
