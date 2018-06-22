@@ -5,7 +5,7 @@ export default ({ sendRequest }) => {
     payload: {
       topics,
     },
-  }, null, null, true);
+  }, true);
 
   return {
     subscribe,

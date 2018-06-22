@@ -8,18 +8,8 @@ export default (nodeBucket) => {
   }
 
   // sendRequest handle request using the nodeBucket.
-  const sendRequest = async ({ method, path, payload }, prevConfig, count, stream = false) => {
-    const baseURL = nodeBucket.getRequestNode();
-    const retryCount = count || 0;
-
-    // return error when retry count exceed limit.
-    if (retryCount >= nodeBucket.getSize() ||
-        retryCount > MAX_REQUEST_RETRY_COUNT) {
-      throw new Error('send request failed.');
-    }
-
+  const sendRequest = async ({ method, path, payload }, stream = false) => {
     const option = {
-      baseURL,
       method,
       path,
       payload,
@@ -28,18 +18,17 @@ export default (nodeBucket) => {
       option.responseType = 'stream';
       option.timeout = 300000;
     }
-
-    // set or build a config.
-    const config = prevConfig ?
-      { ...prevConfig, baseURL } :
-      buildConfig(option);
-    try {
-      return request(config);
-    } catch (err) {
-      // retry if request throw error.
-      nodeBucket.replaceRequestNode();
-      return sendRequest({}, config, retryCount + 1);
+    const config = buildConfig(option);
+    for (let i = 0; i < MAX_REQUEST_RETRY_COUNT; i += 1) {
+      const baseURL = nodeBucket.getRequestNode();
+      try {
+        return request({ ...config, baseURL });
+      } catch (err) {
+        // retry if request throw error.
+        nodeBucket.replaceRequestNode();
+      }
     }
+    throw new Error('send request failed.');
   };
 
   return {
