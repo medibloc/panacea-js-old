@@ -2,6 +2,7 @@ import {
   account,
   block,
   node,
+  subscribe,
   transaction,
 } from './apis';
 import nodeBucket from './nodeBucket';
@@ -13,6 +14,7 @@ export default (nodes) => {
     ...account(apiGateway),
     ...block(apiGateway),
     ...node(apiGateway),
+    ...subscribe(apiGateway),
     ...transaction(apiGateway),
   };
 };

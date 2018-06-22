@@ -14,10 +14,14 @@ const buildConfig = ({
   method,
   path,
   payload,
+  timeout = DEFAULT_TIMEOUT,
+  responseType = 'json',
 }) => {
   const customConfig = {
     baseURL,
     method,
+    responseType,
+    timeout,
     url: path,
     ...method === GET && { params: payload },
     ...method === POST && {
@@ -25,6 +29,7 @@ const buildConfig = ({
       headers: APPLICATION_JSON,
     },
   };
+
 
   return Object.assign({}, defaultConfig, customConfig);
 };
