@@ -9,7 +9,7 @@ medjs
 .. code-block:: javascript
 
     var Medjs = require('medjs');
-    var medjs = Medjs(['http://localhost:9921']);
+    var medjs = Medjs.init(['http://localhost:9921']);
 
 
 The ``medjs`` object has following objects.

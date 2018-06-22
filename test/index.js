@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import Medjs, {
+import {
+  init,
   client,
   cryptography,
   healthData,
@@ -11,10 +12,10 @@ import Medjs, {
 describe('medjs', () => {
   const defaultNodes = ['http://localhost:10000'];
 
-  describe('#default export returned', () => {
+  describe('#should export a init', () => {
     let medjs;
     beforeEach(() => {
-      medjs = Medjs(defaultNodes);
+      medjs = init(defaultNodes);
       return Promise.resolve();
     });
 

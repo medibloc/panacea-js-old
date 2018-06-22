@@ -17,7 +17,7 @@ To use this package standalone use:
   // Instead, you can import from medjs like below.
   //
   // var Medjs = require('medjs');
-  // var medjs = Medjs(['http://localhost:9921']);
+  // var medjs = Medjs.init(['http://localhost:9921']);
   // var Id = medjs.identification;
 
 ---------------------------------------------------------------------------

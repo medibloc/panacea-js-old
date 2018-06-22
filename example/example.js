@@ -79,7 +79,7 @@ $(function() {
   })
 })
 
-const med = medjs(['http://localhost:9921']);
+const med = medjs.init(['http://localhost:9921']);
 const Account = med.local.Account;
 const Transaction = med.local.transaction;
 const Client = med.client;

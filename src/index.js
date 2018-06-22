@@ -5,7 +5,7 @@ import Identification from './identification';
 import Local from './local';
 import Utils from './utils';
 
-export default nodes => ({
+export const init = nodes => ({
   client: Client(nodes),
   cryptography: Cryptography,
   healthData: HealthData,

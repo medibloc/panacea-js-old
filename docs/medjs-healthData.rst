@@ -15,7 +15,7 @@ The ``medjs.healthData`` object helps to encode and decode the health data as :r
   // Instead, you can import from medjs like below.
   //
   // var Medjs = require('medjs');
-  // var medjs = Medjs(['http://localhost:9921']);
+  // var medjs = Medjs.init(['http://localhost:9921']);
   // var HealthData = medjs.healthData;
 
 .. include:: include_blockchain_note.rst

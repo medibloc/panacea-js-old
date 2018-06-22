@@ -11,7 +11,7 @@ This section handles several examples to use medjs.
 .. code-block:: javascript
 
   var Medjs = require('medjs');
-  var medjs = Medjs(['http://localhost:9921']);
+  var medjs = Medjs.init(['http://localhost:9921']);
   var Account = medjs.local.Account;
   var Client = medjs.client;
   var HealthData = medjs.healthData;
