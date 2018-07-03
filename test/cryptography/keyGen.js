@@ -7,13 +7,10 @@ chai.use(chaiHexString);
 describe('#keyGen', () => {
   let keyPair;
   let keyPairFP; // keyPairFromPassphrase
-  let keyPairFPWP; // keyPairFromPassphraseWithPassword
   const passphrase = 'a b c d e f g h i j k l';
-  const password = 'password';
   beforeEach(() => {
     keyPair = cryptography.getKeyPair();
     keyPairFP = cryptography.getKeyPairFromPassphrase(passphrase);
-    keyPairFPWP = cryptography.getKeyPairFromPassphrase(passphrase, password);
     return Promise.resolve();
   });
 
@@ -53,24 +50,6 @@ describe('#keyGen', () => {
           .to.be.equal(33);
       });
     });
-
-    describe('#with password', () => {
-      it('should return 32 bytes private key in hex format', () => {
-        expect(keyPairFPWP)
-          .to.have.property('privKey')
-          .and.to.be.hexString;
-        expect(Buffer.byteLength(keyPairFPWP.privKey, 'hex'))
-          .to.be.equal(32);
-      });
-
-      it('should return 33 bytes public key in hex format', () => {
-        expect(keyPairFPWP)
-          .to.have.property('pubKey')
-          .and.to.be.hexString;
-        expect(Buffer.byteLength(keyPairFPWP.pubKey, 'hex'))
-          .to.be.equal(33);
-      });
-    });
   });
 
   describe('#getPubKey', () => {
@@ -79,8 +58,6 @@ describe('#keyGen', () => {
         .to.be.equal(cryptography.getPubKey(keyPair.privKey));
       expect(keyPairFP.pubKey)
         .to.be.equal(cryptography.getPubKey(keyPairFP.privKey));
-      expect(keyPairFPWP.pubKey)
-        .to.be.equal(cryptography.getPubKey(keyPairFPWP.privKey));
     });
   });
 

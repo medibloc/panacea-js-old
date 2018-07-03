@@ -4,8 +4,6 @@ import unorm from 'unorm';
 
 const concatKeys = (string1, string2) => string1.concat(string2);
 
-const salt = password => `salt${password || ''}`;
-
 const getKeyPair = () => {
   const ec = createECDH('secp256k1');
   ec.generateKeys('hex', 'compressed');
@@ -24,10 +22,9 @@ const getPubKey = (privKey) => {
   }
 };
 
-const getKeyPairFromPassphrase = (passphrase, password = '') => {
+const getKeyPairFromPassphrase = (passphrase) => {
   const passphraseBuffer = Buffer.from(unorm.nfkd(passphrase), 'utf8');
-  const saltBuffer = Buffer.from(salt(unorm.nfkd(password)), 'utf8');
-  const privKey = pbkdf2Sync(passphraseBuffer, saltBuffer, 262144, 32, 'sha256').toString('hex');
+  const privKey = pbkdf2Sync(passphraseBuffer, '', 262144, 32, 'sha256').toString('hex');
 
   return {
     privKey,
