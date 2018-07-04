@@ -2,8 +2,10 @@ import { checkTx, constants, setTx } from './utils';
 
 const { REQUIRED_DATA_UPLOAD_TX_PARAMETERS } = constants;
 
-const validateTx = tx =>
+const validateTx = (tx) => {
+  checkTx.checkObject(tx);
   checkTx.checkRequiredParams(tx, REQUIRED_DATA_UPLOAD_TX_PARAMETERS);
+};
 
 const createTx = (from, medicalData, nonce, timestamp) => {
   const medicalDataPayload = {

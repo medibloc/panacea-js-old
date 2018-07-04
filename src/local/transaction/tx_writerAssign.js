@@ -3,6 +3,7 @@ import { checkTx, constants, setTx } from './utils';
 const { REQUIRED_WRITER_ASSIGN_TX_PARAMETERS } = constants;
 
 const validateTx = (tx) => {
+  checkTx.checkObject(tx);
   checkTx.checkRequiredParams(tx, REQUIRED_WRITER_ASSIGN_TX_PARAMETERS);
 };
 

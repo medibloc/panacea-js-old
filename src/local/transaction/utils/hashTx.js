@@ -9,15 +9,9 @@ const genBuf = (param, size) => {
 };
 
 const hashTx = (tx) => {
-  if (typeof tx !== 'object') throw new Error('Transaction format should be object.');
   const TX = JSON.parse(JSON.stringify(tx));
 
-  // VALUE
-  if (typeof TX.value !== 'string') throw new Error('Type of value need to be string');
   const value = new BigNumber(TX.value); // From Decimal
-  const MAX_VALUE = new BigNumber('ffffffffffffffffffffffffffffffff', 16);
-  if (value.lt(0)) throw new Error('Can not send negative value');
-  if (value.gt(MAX_VALUE)) throw new Error('Amount is too large');
   const valueBuffer = genBuf(value.toString(16), BYTESIZES.VALUE);
 
   const fromBuffer = Buffer.alloc(BYTESIZES.ADDRESS, TX.from, 'hex');

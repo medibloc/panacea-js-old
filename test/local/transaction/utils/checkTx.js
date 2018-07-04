@@ -2,9 +2,9 @@ import { expect } from 'chai';
 import { Account } from 'local/account';
 import { checkTx, constants, setTx } from 'local/transaction/utils';
 
-// chechTx
-describe('# chechTx function', () => {
-  const { checkRequiredParams } = checkTx;
+// checkTx
+describe('# checkTx function', () => {
+  const { checkObject, checkRequiredParams, checkValue } = checkTx;
   const {
     REQUIRED_VALUE_TRANSFER_TX_PARAMETERS,
     REQUIRED_WRITER_ASSIGN_TX_PARAMETERS,
@@ -29,6 +29,13 @@ describe('# chechTx function', () => {
     },
   };
   const writerAssignTx = setTx(writerAssignTxData);
+
+  it('Throw error unless tx input is object', () => {
+    const stringInput = JSON.stringify(valueTransferTx);
+    expect(() => checkObject(stringInput)).to.throw(Error, 'Transaction format should be object.');
+    const numberInput = 123;
+    expect(() => checkObject(numberInput)).to.throw(Error, 'Transaction format should be object.');
+  });
 
   it('Throw error if transaction doesn\'t have required params', () => {
     REQUIRED_VALUE_TRANSFER_TX_PARAMETERS.forEach((param) => {
@@ -57,5 +64,18 @@ describe('# chechTx function', () => {
       tempTx.data = Object.assign({}, tempTx.data, { [param]: undefined });
       expect(() => checkRequiredParams(tempTx, REQUIRED_WRITER_ASSIGN_TX_PARAMETERS)).to.throw(Error, `Transaction should have ${param} field.`);
     });
+  });
+
+  it('Throw error if value type isnt a string or value exceeds the max or negative', () => {
+    // MAX : 340282366920938463463374607431768211455
+    valueTransferTxData.value = 7922816251426;
+    const wrongTypeValueTx = setTx(valueTransferTxData);
+    expect(() => checkValue(wrongTypeValueTx)).to.throw(Error, 'Type of value need to be string');
+    valueTransferTxData.value = '340282366920938463463374607431768211456';
+    const overValueTx = setTx(valueTransferTxData);
+    expect(() => checkValue(overValueTx)).to.throw(Error, 'Amount is too large');
+    valueTransferTxData.value = '-100';
+    const negativeValueTx = setTx(valueTransferTxData);
+    expect(() => checkValue(negativeValueTx)).to.throw(Error, 'Can not send negative value');
   });
 });
