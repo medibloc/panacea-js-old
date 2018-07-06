@@ -97,23 +97,21 @@ Example
   var tx = Transaction.valueTransferTx(transactionData);
   console.log(tx);
   > {
-    rawTx: {
-      alg: 1,
+    hash: 'e7e838973c9ee679cfc34d950304d3b3ce1ad539a4f3a9946ad289ac19aa2bb1',
+    rawTx:
+    { alg: 1,
       chain_id: 1,
       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
-      to: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
       nonce: 3,
-      timestamp: 1528081588884,
-      value: '55',
-      data: {
-        type: 'binary',
-      }
-    },
-    hash: '20761ec51cb312d231343f8803cada003ada97e94e4a4074980ee6917ec3b159',
-    sign: null,
+      data: { type: 'binary' },
+      timestamp: 1530854902566,
+      to: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
+      value: '55' },
+    sign: null
   }
 
 ---------------------------------------------------------------------------
+
 
 writerAssignTx
 ==============
@@ -173,24 +171,23 @@ Example
   var tx = Transaction.writerAssignTx(transactionData);
   console.log(tx);
   > {
-    rawTx: {
-      alg: 1,
-      chain_id: 1,
-      from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
-      to: null,
-      nonce: 3,
-      timestamp: 1528081711031,
-      value: '0',
-      data: {
-        type: 'register_wkey',
-        payload: '{"Writer":[3,125,145,89,103,39,188,82,37,83,81,11,52,129,95,56,44,32,96,203,183,118,242,118,93,234,251,72,174,82,141,50,75]}'
-      }
-    },
-    hash: '9790340160c16101e516cd539bed8f678501dd8612157fe8873e8424cb22665d',
-    sign: null,
+    hash: '8027623dccedd3ae8f153b43a65ac8206f55f264d1838ec9be69d981412c5f12',
+    rawTx:
+     { alg: 1,
+       chain_id: 1,
+       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
+       nonce: 3,
+       data:
+        { payload: '{"Writer":[3,125,145,89,103,39,188,82,37,83,81,11,52,129,95,56,44,32,96,203,183,118,242,118,93,234,251,72,174,82,141,50,75]}',
+          type: 'register_wkey' },
+       timestamp: 1530854757957,
+       to: null,
+       value: '0' },
+    sign: null
   }
 
 ---------------------------------------------------------------------------
+
 
 dataUploadTx
 ============
@@ -259,24 +256,23 @@ Example
     console.log(tx);
   });
   > {
-    rawTx: {
-      alg: 1,
-      chain_id: 1,
-      from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
-      to: null,
-      nonce: 4,
-      timestamp: 1528077453209,
-      value: '0',
-      data: {
-        type: 'add_record',
-        payload: '{"Hash":"boWTsoo+YOIZ0tz5P6kwfbswEwkI6OKIDk9UaaaRskw="}'
-      }
-    },
-    hash: 'ba5b1abc9a5db23a00adfba35e0c0fc96255e70a25ed3c6480af801284fa6587',
-    sign: null,
+    hash: 'd668ba9f62542e882e8b1699b4a678d79f8bddc82f0be03861abfcf1b9a4dda9',
+    rawTx:
+     { alg: 1,
+       chain_id: 1,
+       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
+       nonce: 4,
+       data:
+        { payload: '{"Hash":"boWTsoo+YOIZ0tz5P6kwfbswEwkI6OKIDk9UaaaRskw="}',
+          type: 'add_record' },
+       timestamp: 1530855002759,
+       to: null,
+       value: '0' },
+    sign: null
   }
 
 ---------------------------------------------------------------------------
+
 
 createDataPayload
 =================

@@ -10,14 +10,14 @@ The ``medjs.client`` object allows you to interact with the MediBloc blockchain.
 
 .. code-block:: javascript
 
-    var Medjs = require('medjs');
-    var Client = Medjs.client(['http://localhost:9921']);
-    //
-    // Instead, you can import from medjs like below.
-    //
-    // var Medjs = require('medjs');
-    // var medjs = Medjs.init(['http://localhost:9921']);
-    // var Client = medjs.client;
+  var Medjs = require('medjs');
+  var Client = Medjs.client(['http://localhost:9921']);
+  //
+  // Instead, you can import from medjs like below.
+  //
+  // var Medjs = require('medjs');
+  // var medjs = Medjs.init(['http://localhost:9921']);
+  // var Client = medjs.client;
 
 .. include:: include_blockchain_note.rst
 
@@ -29,7 +29,7 @@ getAccountState
 
 .. code-block:: javascript
 
-    Client.getAccountState(address, height)
+  Client.getAccountState(address, height)
 
 Returns the state of the account at a given block height.
 
@@ -47,33 +47,48 @@ Returns
 
 ``Promise`` returns ``Object`` - The object of the account state:
 
+  - ``address`` - ``String``: The address of the account.
   - ``balance`` - ``String``: The balance in 1e-8 MED of the account at the block.
+  - ``certs_issued`` - ``Array``: Account addresses certificated by the account.
+  - ``certs_received`` - ``Array``: Account addresses that have certificated the account.
   - ``nonce`` - ``String``: The nonce of the account at the block.
-  - ``type`` - ``Number``: The type of the account at the block.
+  - ``records`` - ``Array``: Hash list of records.
+  - ``vesting`` - ``String``: The vesting in 1e-8 MED of the account at the block.
+  - ``voted`` - ``String``: Voted address.
 
-.. note:: ``balance`` '1' indicates '0.00000001' (1e-8) MED.
+.. note:: ``balance`` and ``vesting`` '1' indicates '0.00000001' (1e-8) MED.
 
 Example
 -------
 
 .. code-block:: javascript
 
-    Client.getAccountState('02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c', 0)
-    .then(console.log);
-    > {
-      balance: '100000000000000000',
-      nonce: '0',
-      type: 0
-    }
+  Client.getAccountState('02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c', 1)
+  .then(console.log);
+  > {
+    address: '02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c',
+    balance: '100000000000000000',
+    certs_issued: [],
+    certs_received: [],
+    nonce: '0',
+    records: [],
+    vesting: '0',
+    voted: ''
+  }
 
 
-    Client.getAccountState('02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c', 'latest')
-    .then(console.log);
-    > {
-      balance: '99999999900000000',
-      nonce: '1',
-      type: 0
-    }
+  Client.getAccountState('02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c', 'latest')
+  .then(console.log);
+  > {
+    address: '02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c',
+    balance: '99999999000000000',
+    certs_issued: [],
+    certs_received: [],
+    nonce: '1',
+    records: [],
+    vesting: '0',
+    voted: ''
+  }
 
 ---------------------------------------------------------------------------
 
@@ -83,7 +98,7 @@ getBlock
 
 .. code-block:: javascript
 
-    Client.getBlock(hash)
+  Client.getBlock(hash)
 
 Returns a block matching the given block hash.
 
@@ -120,24 +135,24 @@ Example
 
 .. code-block:: javascript
 
-    Client.getBlock('1091173fe2bc7087e559bedf871a04e99927c92dad42d6270ae22c1bba720c30')
-    .then(console.log);
-    > {
-      hash: '1091173fe2bc7087e559bedf871a04e99927c92dad42d6270ae22c1bba720c30',
-      parent_hash: 'eb71569022ead2d290123bae4563a361a207109c1ef18969646570b566aa02e2',
-      coinbase: '02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c',
-      timestamp: '1526033040',
-      chain_id: 1,
-      alg: 1,
-      sign: '8844c0ab33338906f64c45bd4849b7916a458dd9d8a960428b3e5d27369054cd3250fc08133cceeac4f2d75220e3fa8c365ad7bdff167d84fcffd6c62d7cecee01',
-      accs_root: 'f70f08d05514f549748620aa7cf677ae5303b8489f872e81078d09a538fcbec6',
-      txs_root: '0362e767ab9fe76d940368cf97ae0318a99fb38dce60dd0bb56d23e28b86c3d7',
-      usage_root: '7788b87f9b2be5b10e27cc080cf662e144b5f78d7222bd265b5721c7481ba39a',
-      records_root: '7788b87f9b2be5b10e27cc080cf662e144b5f78d7222bd265b5721c7481ba39a',
-      consensus_root: 'bc28b8ef7f709b7457f5459db562a011e481232148dcbcb44b1e9f3d0eefdfbc',
-      transactions: [],
-      height: '5093'
-    }
+  Client.getBlock('1091173fe2bc7087e559bedf871a04e99927c92dad42d6270ae22c1bba720c30')
+  .then(console.log);
+  > {
+    hash: '1091173fe2bc7087e559bedf871a04e99927c92dad42d6270ae22c1bba720c30',
+    parent_hash: 'eb71569022ead2d290123bae4563a361a207109c1ef18969646570b566aa02e2',
+    coinbase: '02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c',
+    timestamp: '1526033040',
+    chain_id: 1,
+    alg: 1,
+    sign: '8844c0ab33338906f64c45bd4849b7916a458dd9d8a960428b3e5d27369054cd3250fc08133cceeac4f2d75220e3fa8c365ad7bdff167d84fcffd6c62d7cecee01',
+    accs_root: 'f70f08d05514f549748620aa7cf677ae5303b8489f872e81078d09a538fcbec6',
+    txs_root: '0362e767ab9fe76d940368cf97ae0318a99fb38dce60dd0bb56d23e28b86c3d7',
+    usage_root: '7788b87f9b2be5b10e27cc080cf662e144b5f78d7222bd265b5721c7481ba39a',
+    records_root: '7788b87f9b2be5b10e27cc080cf662e144b5f78d7222bd265b5721c7481ba39a',
+    consensus_root: 'bc28b8ef7f709b7457f5459db562a011e481232148dcbcb44b1e9f3d0eefdfbc',
+    transactions: [],
+    height: '5093'
+  }
 
 ---------------------------------------------------------------------------
 
@@ -147,7 +162,7 @@ getMedState
 
 .. code-block:: javascript
 
-    Client.getMedState()
+  Client.getMedState()
 
 Returns the current state of a node.
 
@@ -160,8 +175,7 @@ Returns
   - ``chain_id`` - ``Number``: The chain id of the node.
   - ``tail`` - ``String``: The hash of the most recent block.
   - ``height`` - ``String``: The height of the most recent block.
-  - ``protocol_version`` - ``String``: The medibloc protocol version.
-  - ``version`` - ``String``: The medibloc blockchain version.
+  - ``LIB`` - ``String``: The hash of the last irreversible block.
 
 
 Example
@@ -169,15 +183,14 @@ Example
 
 .. code-block:: javascript
 
-    Client.getMedState()
-    .then(console.log);
-    > {
-      chain_id: 1,
-      tail: 'c423c349ccbfd1ee4ff0923c508bd000bc2328363a875958d8b12ed3ed282089',
-      height: '5232',
-      protocol_version: '',
-      version: ''
-    }
+  Client.getMedState()
+  .then(console.log);
+  > {
+    chain_id: 1,
+    tail: 'e2bd04e46ffd8ee1226d8ad8577a414ae57e226512d38d6b422e0413df36dfc0',
+    height: '541',
+    LIB: '432492182c8be7f30b552bceafe3f6bdaacd77a16bd396a9feaa112dbd52b5d5'
+  }
 
 ---------------------------------------------------------------------------
 
@@ -187,7 +200,7 @@ getTransaction
 
 .. code-block:: javascript
 
-    Client.getTransaction(hash)
+  Client.getTransaction(hash)
 
 Returns the transaction matching a given transaction hash.
 
@@ -213,6 +226,8 @@ Returns
   - ``chain_id`` - ``Number``: The chain id of the blockchain which this transaction belong to.
   - ``alg`` - ``Number``: The signature algorithm of the transaction.
   - ``sign`` - ``String``: The signature of the transaction.
+  - ``payer_sign`` - ``String``: The signature of the payer.
+  - ``executed`` - ``Boolean``: ``True if the transaction is executed and included in the block. otherwise, false.``:
 
 .. note:: ``value`` '1' indicates '0.00000001' (1e-8) MED.
 
@@ -221,21 +236,22 @@ Example
 
 .. code-block:: javascript
 
-    Client.getTransaction()
-    .then(console.log);
-    > {
-      hash: '2edfc32b61528cedd3cafe7a794020d32ae3bcbfbc45fb810e169f34a4a30208',
-      from: '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21',
-      to: '03528fa3684218f32c9fd7726a2839cff3ddef49d89bf4904af11bc12335f7c939',
-      value: '100000000',
-      timestamp: '1526285741709',
-      data: { type: 'binary', payload: '' },
-      nonce: '1',
-      chain_id: 1,
-      alg: 1,
-      sign: '1fc38decf1deee327e7d745c8023ce6960456c2f789d279f8fa4f23c2667a5907650022bd7443885fc9ec57af40e626981a6cfc19e3a111a315f8b681a1bdd1e00'
-    }
-
+  Client.getTransaction('e6e2cbd69c32604f4a5195bbc0063876611c36d42a64ec95c6005bb1f3234d88')
+  .then(console.log);
+  > {
+    hash: 'e6e2cbd69c32604f4a5195bbc0063876611c36d42a64ec95c6005bb1f3234d88',
+    from: '02b83999492119eeea90a44bd621059e9a2f0b8219e067fb040473754a1821da07',
+    to: '02b83999492119eeea90a44ad621059e9a2f0b8219e067fb040473754a1821da07',
+    value: '100000000',
+    timestamp: '1530853255670',
+    data: { type: 'binary', payload: '' },
+    nonce: '3',
+    chain_id: 1,
+    alg: 1,
+    sign: 'ca4b60467a75c53a95f7f85578c7e01a4e72598e6bc10866cd2db54daa59f7786ad07467b45164b47147039d2969863a7b2d208fd6e24042d04431a804333bd501',
+    payer_sign: '',
+    executed: true
+  }
 
 ---------------------------------------------------------------------------
 
@@ -245,7 +261,7 @@ sendTransaction
 
 .. code-block:: javascript
 
-    Client.sendTransaction(transaction)
+  Client.sendTransaction(transaction)
 
 Returns a transaction hash.
 
@@ -271,8 +287,8 @@ Example
 
 .. code-block:: javascript
 
-    Client.sendTransaction(tx)
-    .then(console.log);
-    > {
-      hash: '2edfc32b61528cedd3cafe7a794020d32ae3bcbfbc45fb810e169f34a4a30208'
-    }
+  Client.sendTransaction(tx)
+  .then(console.log);
+  > {
+    hash: '2edfc32b61528cedd3cafe7a794020d32ae3bcbfbc45fb810e169f34a4a30208'
+  }

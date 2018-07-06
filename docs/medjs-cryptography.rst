@@ -231,16 +231,15 @@ getKeyPairFromPassphrase
 
 .. code-block:: javascript
 
-  Cryptography.getKeyPairFromPassphrase(passphrase, password);
+  Cryptography.getKeyPairFromPassphrase(passphrase);
 
-To get a new private, public key pair from passphrase, you can use ``Cryptography.getKeyPairFromPassphrase(passphrase, password)``. Secp256k1 is used in generating a random key pair.
+To get a new private, public key pair from passphrase, you can use ``Cryptography.getKeyPairFromPassphrase(passphrase)``.
 
 ----------
 Parameters
 ----------
 
-1. ``passphrase`` - ``String`` : The passphrase using as a seed to generate the key pair.
-2. ``password`` - ``String`` : (optional) The password using as a salt.
+``passphrase`` - ``String`` : The passphrase using as a seed to generate the key pair.
 
 -------
 Returns
@@ -259,8 +258,8 @@ Example
 
   Cryptography.getKeyPairFromPassphrase('med med med med med med med med med med med med');
   > {
-    privKey: 'd896041af69966be06ef9459c96a834deaa478bd1c44149e38b20c8eabb15f12',
-    pubKey: '0208b8e17da9f704b200db3dd4bb705b7cb254f4510fa4ada998299d3d8ad207cc'
+    privKey: '891ce3a670e6680bd5055bb2eb9ac6e134bcac827658172ef62655e6a7f75d87',
+    pubKey: '02f5ef5b17dc0e40fa390c1cfe6a04eb9d3d111f82693cd52dc97335f0c008b492'
   }
 
 ---------------------------------------------------------------------------
