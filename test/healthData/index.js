@@ -38,13 +38,14 @@ describe('healthData', () => {
 
   describe('#encode and decode', () => {
     it('should be work well for medical-fhir patient', () => {
+      const filePath = path.resolve(__dirname, './samples/patient_sample.json');
       return healthData.encodeDataFromFile(
-        'samples/patient_sample.json',
+        filePath,
         'medical-fhir',
         'patient',
       ).then((encodedData) => {
         return healthData.decodeData(encodedData).then((decodedData) => {
-          const data = jsonfile.readFileSync(path.resolve(__dirname, '../../src/healthData/samples/patient_sample.json'));
+          const data = jsonfile.readFileSync(filePath);
           return expect(decodedData)
             .to.be.deep.equal(data);
         });
@@ -52,13 +53,14 @@ describe('healthData', () => {
     });
 
     it('should be work well for medical-fhir observation', () => {
+      const filePath = path.resolve(__dirname, './samples/observation_sample.json');
       return healthData.encodeDataFromFile(
-        'samples/observation_sample.json',
+        filePath,
         'medical-fhir',
         'observation',
       ).then((encodedData) => {
         return healthData.decodeData(encodedData).then((decodedData) => {
-          const data = jsonfile.readFileSync(path.resolve(__dirname, '../../src/healthData/samples/observation_sample.json'));
+          const data = jsonfile.readFileSync(filePath);
           return expect(decodedData)
             .to.be.deep.equal(data);
         });
@@ -66,13 +68,14 @@ describe('healthData', () => {
     });
 
     it('should be work well for pghd txt format', () => {
+      const filePath = path.resolve(__dirname, './samples/pghd.txt');
       return healthData.encodeDataFromFile(
-        'samples/pghd.txt',
+        filePath,
         'pghd',
         null,
       ).then((encodedData) => {
         return healthData.decodeData(encodedData).then((decodedData) => {
-          const data = fs.readFileSync(path.resolve(__dirname, '../../src/healthData/samples/pghd.txt'), 'utf-8');
+          const data = fs.readFileSync(filePath, 'utf-8');
           return expect(decodedData)
             .to.be.deep.equal(data);
         });
@@ -80,13 +83,14 @@ describe('healthData', () => {
     });
 
     it('should be work well for pghd json format', () => {
+      const filePath = path.resolve(__dirname, './samples/pghd.json');
       return healthData.encodeDataFromFile(
-        'samples/pghd.json',
+        filePath,
         'pghd',
         null,
       ).then((encodedData) => {
         return healthData.decodeData(encodedData).then((decodedData) => {
-          const data = jsonfile.readFileSync(path.resolve(__dirname, '../../src/healthData/samples/pghd.json'));
+          const data = jsonfile.readFileSync(filePath);
           return expect(JSON.parse(decodedData))
             .to.be.deep.equal(data);
         });
@@ -96,8 +100,9 @@ describe('healthData', () => {
 
   describe('#hashDataFromFile', () => {
     it('should be work well for medical-fhir patient', () => {
+      const filePath = path.resolve(__dirname, './samples/patient_sample.json');
       return healthData.hashDataFromFile(
-        'samples/patient_sample.json',
+        filePath,
         'medical-fhir',
         'patient',
       ).then((hash) => {
@@ -107,8 +112,9 @@ describe('healthData', () => {
     });
 
     it('should be work well for medical-fhir observation', () => {
+      const filePath = path.resolve(__dirname, './samples/observation_sample.json');
       return healthData.hashDataFromFile(
-        'samples/observation_sample.json',
+        filePath,
         'medical-fhir',
         'observation',
       ).then((hash) => {
@@ -118,8 +124,9 @@ describe('healthData', () => {
     });
 
     it('should be work well for pghd txt format', () => {
+      const filePath = path.resolve(__dirname, './samples/pghd.txt');
       return healthData.hashDataFromFile(
-        'samples/pghd.txt',
+        filePath,
         'pghd',
         null,
       ).then((hash) => {
@@ -129,8 +136,9 @@ describe('healthData', () => {
     });
 
     it('should be work well for pghd json format', () => {
+      const filePath = path.resolve(__dirname, './samples/pghd.json');
       return healthData.hashDataFromFile(
-        'samples/pghd.json',
+        filePath,
         'pghd',
         null,
       ).then((hash) => {
@@ -140,8 +148,9 @@ describe('healthData', () => {
     });
 
     it('should be work well for dicom', () => {
+      const filePath = path.resolve(__dirname, './samples/ultrasound_sample.dcm');
       return healthData.hashDataFromFile(
-        'samples/ultrasound_sample.dcm',
+        filePath,
         'dicom',
         null,
       ).then((hash) => {

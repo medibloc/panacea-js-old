@@ -8,7 +8,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "babel": "babel src -d lib",
+    "babel": "babel src -d lib --copy-files",
     "browserify": "browserify ./lib/index.js -o ./dist/medjs.js -s medjs",
     "build": "npm run babel && npm run browserify && npm run uglify",
     "test": "mocha --recursive --require babel-core/register --reporter spec",
