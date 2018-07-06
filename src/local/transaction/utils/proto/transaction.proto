@@ -1,0 +1,17 @@
+syntax = "proto3";
+package corepb;
+
+message Data {
+  string type = 1;
+  bytes payload = 2;
+}
+
+message TransactionHashTarget {
+  bytes from = 1;
+  bytes to = 2;
+  bytes value = 3;
+  int64 timestamp = 4;
+  Data data = 5;
+  uint64 nonce = 6;
+  uint32 chain_id = 7;
+}

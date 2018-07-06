@@ -1,0 +1,52 @@
+{
+  "nested": {
+    "corepb": {
+      "nested": {
+        "Data": {
+          "fields": {
+            "type": {
+              "type": "string",
+              "id": 1
+            },
+            "payload": {
+              "type": "bytes",
+              "id": 2
+            }
+          }
+        },
+        "TransactionHashTarget": {
+          "fields": {
+            "from": {
+              "type": "bytes",
+              "id": 1
+            },
+            "to": {
+              "type": "bytes",
+              "id": 2
+            },
+            "value": {
+              "type": "bytes",
+              "id": 3
+            },
+            "timestamp": {
+              "type": "int64",
+              "id": 4
+            },
+            "data": {
+              "type": "Data",
+              "id": 5
+            },
+            "nonce": {
+              "type": "uint64",
+              "id": 6
+            },
+            "chainId": {
+              "type": "uint32",
+              "id": 7
+            }
+          }
+        }
+      }
+    }
+  }
+}

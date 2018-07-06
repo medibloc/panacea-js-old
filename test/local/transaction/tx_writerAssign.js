@@ -12,7 +12,7 @@ describe('# writerAssignTx function', () => {
         nonce: 1,
         timestamp: 1524549462850,
       };
-      const txHashFromGo = 'f79dee55baaa4bd14ab23080a374012546e3c3f867b6c325993b785f76e9d8cd';
+      const txHashFromGo = '1e90399d0563a5bbe5f69de6fe671fcc89e4c21623849f157b7b0f1de292c329';
       const txFromGo = writerAssignTx(dataFromGo);
       expect(txFromGo.hash).to.be.equal(txHashFromGo);
     });
