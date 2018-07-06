@@ -22,6 +22,39 @@ To use this package standalone use:
 
 ---------------------------------------------------------------------------
 
+genHexBuf
+=========
+
+.. code-block:: javascript
+
+  Utils.genHexBuf(str, bytesLen);
+
+Returns ``Buffer`` or ``Uint8Array`` from a string with exact length in bytes.
+
+----------
+Parameters
+----------
+
+1. ``str`` - ``String`` : The string to generate a buffer.
+2. ``bytesLen`` - ``Number`` : The target length in bytes.
+
+-------
+Returns
+-------
+
+``Buffer|Uint8Array`` - The result Buffer or Uint8Array.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  Utils.genHexBuf('12ab', 5);
+  > <Buffer 00 00 00 12 ab>
+
+---------------------------------------------------------------------------
+
 .. _utils-isAddress:
 
 isAddress
@@ -87,6 +120,39 @@ Example
 
   Utils.isHexadecimal('1234567890abcdef');
   > true
+
+---------------------------------------------------------------------------
+
+padLeftWithZero
+===============
+
+.. code-block:: javascript
+
+  Utils.padLeftWithZero(str, len);
+
+Adds a ``'0'`` padding on the left of a string.
+
+----------
+Parameters
+----------
+
+1. ``str`` - ``String`` : The string to add padding on the left.
+2. ``len`` - ``Number`` : The total length of the string should have.
+
+-------
+Returns
+-------
+
+``String`` - The padded string.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  Utils.padLeftWithZero('12ab', 10);
+  > 00000012ab
 
 ---------------------------------------------------------------------------
 

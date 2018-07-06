@@ -29,4 +29,26 @@ describe('#utils', () => {
       });
     });
   });
+
+  describe('#padLeftWithZero', () => {
+    it('should pad when len is longer than string length', () => {
+      expect(utils.padLeftWithZero('12ab', 10))
+        .to.be.equal('00000012ab');
+    });
+    it('should not pad when len is shorter than string length', () => {
+      expect(utils.padLeftWithZero('01234', 1))
+        .to.be.equal('01234');
+    });
+    it('should not pad when len is empty', () => {
+      expect(utils.padLeftWithZero('01234'))
+        .to.be.equal('01234');
+    });
+  });
+
+  describe('#genHexBuf', () => {
+    it('should generate hex buffer', () => {
+      expect(utils.genHexBuf('12ab', 5))
+        .to.be.eql(Buffer.from('00000012ab', 'hex'));
+    });
+  });
 });
