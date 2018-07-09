@@ -36,7 +36,7 @@ MediBloc blockchain has 3 transaction types.
 ---------------------------------------------------------------------------
 
 valueTransferTx
-==========================
+===============
 
 .. code-block:: javascript
 
@@ -107,82 +107,6 @@ Example
       timestamp: 1530854902566,
       to: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
       value: '55' },
-    sign: null
-  }
-
----------------------------------------------------------------------------
-
-
-writerAssignTx
-==============
-
-.. code-block:: javascript
-
-  Transaction.writerAssignTx(transactionData);
-
-To generate writer-assigned transaction, you can use ``Transaction.writerAssignTx(transactionData)``.
-
-----------
-Parameters
-----------
-
-``transactionData`` - ``Object``
-
-- ``from`` - ``String`` : The address which allows a writer to use its bandwidth.
-- ``writer`` - ``String`` : The address that takes the authority to use the transaction sender's bandwidth.
-- ``nonce`` - ``Number`` : The nonce indicates the number of transactions that this account has made. It should be exactly 1 larger than the current account's nonce. Highly recommend getting the account's latest nonce before making transaction.
-- ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
-
--------
-Returns
--------
-
-``Object`` - The transaction object with the following structure:
-
-- ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
-
-  + ``alg`` - ``Number`` : The algorithm used in transaction.
-  + ``chain_id`` - ``Number`` : The chain to send transaction.
-  + ``from`` - ``String`` : The address which allows writer to use its bandwidth.
-  + ``to`` - ``String`` : ``null``.
-  + ``nonce`` - ``Number`` : The nonce.
-  + ``timestamp`` - ``Number`` : The unix timestamp.
-  + ``value`` - ``String`` : '0'.
-  + ``data`` - ``Object``
-
-    * ``type`` - ``String`` : The transaction type. For the writer assign transaction, it must be ``register_wkey``.
-    * ``payload`` - ``String`` : The payload for the writer assigning. It is the string from json object. (Will be changed to protoBuffer)
-- ``hash`` - ``String`` : The hash to the transaction.
-- ``sign`` - ``String`` : The signature to the transaction hash. Default is ``null``.
-
-.. note:: Transaction for writer assigning does not send any value to any address. Therefore, it has ``null`` in ``to`` parameter.
-
--------
-Example
--------
-
-.. code-block:: javascript
-
-  var transactionData = {
-    from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
-    writer: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
-    nonce: 3
-  }
-  var tx = Transaction.writerAssignTx(transactionData);
-  console.log(tx);
-  > {
-    hash: '8027623dccedd3ae8f153b43a65ac8206f55f264d1838ec9be69d981412c5f12',
-    rawTx:
-     { alg: 1,
-       chain_id: 1,
-       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
-       nonce: 3,
-       data:
-        { payload: '{"Writer":[3,125,145,89,103,39,188,82,37,83,81,11,52,129,95,56,44,32,96,203,183,118,242,118,93,234,251,72,174,82,141,50,75]}',
-          type: 'register_wkey' },
-       timestamp: 1530854757957,
-       to: null,
-       value: '0' },
     sign: null
   }
 
