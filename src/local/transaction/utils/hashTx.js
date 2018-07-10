@@ -6,12 +6,10 @@ import { BYTESIZES } from './constants';
 import * as jsonDescriptor from './proto/transaction.pb.json';
 
 const hashTx = (tx) => {
-  const value = new BigNumber(tx.value);
-
   const txHashTarget = {
     from: genHexBuf(tx.from, BYTESIZES.ADDRESS),
     to: genHexBuf(tx.to ? tx.to : '', BYTESIZES.ADDRESS),
-    value: genHexBuf(value.toString(16), BYTESIZES.VALUE),
+    value: genHexBuf(tx.value ? BigNumber(tx.value).toString(16) : '', BYTESIZES.VALUE),
     data: {
       type: tx.data.type,
       payload: tx.data.payload ? Buffer.from(tx.data.payload) : null,

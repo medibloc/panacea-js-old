@@ -27,8 +27,8 @@ send data upload transaction
   // create a new account
   var account = new Account();
   // get account state
-  Client.getAccountState(account.pubKey, 'tail').then(res => {
-    var nonce = parseInt(res.nonce);
+  Client.getAccountState(account.pubKey, 'tail').then((res) => {
+    var nonce = parseInt(res.nonce, 10);
 
     // calculate hash of the medical data file
     HealthData.hashDataFromFile('/file/path', 'medical-fhir', 'observation').then((hash) => {
@@ -38,7 +38,7 @@ send data upload transaction
       // creating a medical data upload transaction
       var tx = Transaction.dataUploadTx({
         from: account.pubKey,
-        medicalData: healthDataPayload,
+        payload: healthDataPayload,
         nonce: nonce + 1
       });
 
@@ -46,7 +46,7 @@ send data upload transaction
       account.signTx(tx);
 
       // send transaction
-      Client.sendTransaction(tx).then(res => {
+      Client.sendTransaction(tx).then((res2) => {
         // .. do something
       });
     });

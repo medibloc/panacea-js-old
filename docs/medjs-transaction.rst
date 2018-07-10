@@ -232,5 +232,5 @@ Example
     console.log(payload);
   });
   > {
-    Hash: '6e8593b28a3e60e219d2dcf93fa9307dbb30130908e8e2880e4f5469a691b24c',
+    Hash: 'boWTsoo+YOIZ0tz5P6kwfbswEwkI6OKIDk9UaaaRskw=',
   }

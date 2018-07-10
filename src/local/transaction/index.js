@@ -1,32 +1,16 @@
-import { createTx as createDataUploadTx, createDataPayload } from './tx_dataUpload';
-import { createTx as createValueTransferTx } from './tx_valueTransfer';
-import { hashTx } from './utils';
+import createDataUploadTx from './tx_dataUpload';
+import createValueTransferTx from './tx_valueTransfer';
+import payload from './payload';
 
-const txWrapper = rawTx => ({
-  hash: hashTx(rawTx),
-  rawTx,
-  sign: null,
-});
-
+/**
+ * - dataUploadTx fields
+ * { from, payload - { hash }, nonce, timestamp(optional) }
+ *
+ * - valueTransferTx fields
+ * { from, to, value, nonce, timestamp(optional) }
+ */
 export default {
-  createDataPayload,
-  dataUploadTx: ({
-    from,
-    medicalData,
-    nonce,
-    timestamp,
-  }) => {
-    const rawTx = createDataUploadTx(from, medicalData, nonce, timestamp);
-    return txWrapper(rawTx);
-  },
-  valueTransferTx: ({
-    from,
-    nonce,
-    timestamp,
-    to,
-    value,
-  }) => {
-    const rawTx = createValueTransferTx(from, to, value, nonce, timestamp);
-    return txWrapper(rawTx);
-  },
+  dataUploadTx: fields => createDataUploadTx(fields),
+  valueTransferTx: fields => createValueTransferTx(fields),
+  ...payload,
 };

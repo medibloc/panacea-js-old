@@ -6,29 +6,31 @@ import { checkTx, constants, setTx } from 'local/transaction/utils';
 describe('# checkTx function', () => {
   const { checkObject, checkRequiredParams, checkValue } = checkTx;
   const {
+    DATA_UPLOAD,
+    VALUE_TRANSFER,
+    REQUIRED_DATA_UPLOAD_TX_PARAMETERS,
     REQUIRED_VALUE_TRANSFER_TX_PARAMETERS,
-    REQUIRED_WRITER_ASSIGN_TX_PARAMETERS,
   } = constants;
 
   const user = new Account('');
+  const dataUploadTxData = {
+    from: user.pubKey,
+    nonce: 3,
+    type: DATA_UPLOAD,
+    payload: {
+      Hash: 'hash',
+    },
+  };
+  const dataUploadTx = setTx(dataUploadTxData);
+
   const valueTransferTxData = {
     from: user.pubKey,
     to: user.pubKey,
     value: '5',
     nonce: 3,
-    type: 'binary',
+    type: VALUE_TRANSFER,
   };
   const valueTransferTx = setTx(valueTransferTxData);
-
-  const writerAssignTxData = {
-    from: user.pubKey,
-    nonce: 3,
-    type: 'register_wkey',
-    payload: {
-      Writer: user.pubKey,
-    },
-  };
-  const writerAssignTx = setTx(writerAssignTxData);
 
   it('Throw error unless tx input is object', () => {
     const stringInput = JSON.stringify(valueTransferTx);
@@ -53,16 +55,16 @@ describe('# checkTx function', () => {
       expect(() => checkRequiredParams(tempTx, REQUIRED_VALUE_TRANSFER_TX_PARAMETERS)).to.throw(Error, `Transaction should have ${param} field.`);
     });
 
-    REQUIRED_WRITER_ASSIGN_TX_PARAMETERS.forEach((param) => {
+    REQUIRED_DATA_UPLOAD_TX_PARAMETERS.forEach((param) => {
       const tempTx = Object.assign(
         {},
-        writerAssignTx,
+        dataUploadTx,
         {
           [param]: undefined,
         },
       );
       tempTx.data = Object.assign({}, tempTx.data, { [param]: undefined });
-      expect(() => checkRequiredParams(tempTx, REQUIRED_WRITER_ASSIGN_TX_PARAMETERS)).to.throw(Error, `Transaction should have ${param} field.`);
+      expect(() => checkRequiredParams(tempTx, REQUIRED_DATA_UPLOAD_TX_PARAMETERS)).to.throw(Error, `Transaction should have ${param} field.`);
     });
   });
 

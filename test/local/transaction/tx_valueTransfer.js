@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { encryptKey } from 'cryptography/encrypt';
 import { Account } from 'local/account';
-import { valueTransferTx } from 'local/transaction';
+import valueTransferTx from 'local/transaction/tx_valueTransfer';
 
 // overall valueTransferTx
 describe('# valueTransferTx function', () => {

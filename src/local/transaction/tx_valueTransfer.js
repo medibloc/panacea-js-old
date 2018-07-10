@@ -1,4 +1,4 @@
-import { checkTx, constants, setTx } from './utils';
+import { checkTx, constants, setTx, wrapTxCreator } from './utils';
 
 const {
   REQUIRED_VALUE_TRANSFER_TX_PARAMETERS,
@@ -11,20 +11,10 @@ const validateTx = (tx) => {
   checkTx.checkValue(tx);
 };
 
-const createTx = (from, to, value, nonce, timestamp) => {
-  const tx = setTx({
-    from,
-    nonce,
-    timestamp,
-    to,
-    type: VALUE_TRANSFER,
-    value,
-  });
-
+const createTx = (fields) => {
+  const tx = setTx(Object.assign({}, fields, { type: VALUE_TRANSFER }));
   validateTx(tx);
   return tx;
 };
 
-export default {
-  createTx,
-};
+export default wrapTxCreator(createTx);
