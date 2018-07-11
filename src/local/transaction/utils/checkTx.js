@@ -8,8 +8,14 @@ const checkObject = (tx) => {
 
 const checkRequiredParams = (tx, requiredParams) => {
   requiredParams.forEach((param) => {
-    if (tx[param] === undefined && tx.data[param] === undefined) {
+    const p = param.split('.');
+    if (p.length === 1 && tx[p[0]] === undefined) {
       throw new Error(`Transaction should have ${param} field.`);
+    } else if (p.length === 2 &&
+      (tx[p[0]] === undefined || tx[p[0]][p[1]] === undefined)) {
+      throw new Error(`Transaction should have ${param} field.`);
+    } else if (p.length > 2) {
+      throw new Error('Transaction should have field with max 2 depths.');
     }
   });
 };

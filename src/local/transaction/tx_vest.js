@@ -1,13 +1,13 @@
 import { constants, setTx, validateTx, wrapTxCreator } from './utils';
 
 const {
-  DATA_UPLOAD,
   REQUIRED_TX_PARAMS,
+  VEST,
 } = constants;
 
 const createTx = (fields) => {
-  const tx = setTx(Object.assign({}, fields, { type: DATA_UPLOAD }));
-  validateTx(tx, REQUIRED_TX_PARAMS[DATA_UPLOAD]);
+  const tx = setTx(Object.assign({}, fields, { type: VEST }));
+  validateTx(tx, REQUIRED_TX_PARAMS[VEST]);
   return tx;
 };
 
