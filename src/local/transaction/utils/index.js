@@ -2,6 +2,7 @@ import checkTx from './checkTx';
 import constants from './constants';
 import hashTx from './hashTx';
 import setTx from './setTx';
+import validateTx from './validateTx';
 import wrapTxCreator from './wrapTxCreator';
 
 export default {
@@ -9,5 +10,6 @@ export default {
   constants,
   hashTx,
   setTx,
+  validateTx,
   wrapTxCreator,
 };

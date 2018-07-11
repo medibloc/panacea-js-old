@@ -1,15 +1,13 @@
-import { checkTx, constants, setTx, wrapTxCreator } from './utils';
+import { constants, setTx, validateTx, wrapTxCreator } from './utils';
 
-const { REQUIRED_DATA_UPLOAD_TX_PARAMETERS } = constants;
-
-const validateTx = (tx) => {
-  checkTx.checkObject(tx);
-  checkTx.checkRequiredParams(tx, REQUIRED_DATA_UPLOAD_TX_PARAMETERS);
-};
+const {
+  DATA_UPLOAD,
+  REQUIRED_DATA_UPLOAD_TX_PARAMETERS,
+} = constants;
 
 const createTx = (fields) => {
-  const tx = setTx(Object.assign({}, fields, { type: constants.DATA_UPLOAD }));
-  validateTx(tx);
+  const tx = setTx(Object.assign({}, fields, { type: DATA_UPLOAD }));
+  validateTx(tx, REQUIRED_DATA_UPLOAD_TX_PARAMETERS);
   return tx;
 };
 
