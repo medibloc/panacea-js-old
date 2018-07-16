@@ -7,7 +7,13 @@ export default ({ sendRequest }) => {
     },
   });
 
+  const getCurrentAccountTxs = address => sendRequest({
+    method: 'get',
+    path: `v1/user/${address}/transactions`,
+  });
+
   return {
     getAccountState,
+    getCurrentAccountTxs,
   };
 };
