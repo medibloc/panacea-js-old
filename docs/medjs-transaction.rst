@@ -37,7 +37,84 @@ MediBloc blockchain has below transaction types.
 - quit candidacy transaction: To quit candidacy for the delegate.
 - vote transaction: To vote one of the candidate.(It could be change to multiple voting.)
 
+---------------------------------------------------------------------------
 
+valueTransferTx
+===============
+
+.. code-block:: javascript
+
+  Transaction.valueTransferTx(transactionData);
+
+Returns a transaction which type is ``"value transfer"``.
+
+----------
+Parameters
+----------
+
+``transactionData`` - ``Object``
+
+- ``from`` - ``String`` : The address from which to send the value.
+- ``to`` - ``String`` : The address to which to send the value.
+- ``value`` - ``String`` : The amount of value to transfer. It must not exceed the amount that the sender address has.
+- ``nonce`` - ``Number`` : The nonce indicates how many transactions that this account has made. It should be exactly 1 larger than the current account's nonce. Highly recommend getting an account's latest nonce before making any transaction.
+- ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
+
+
+.. note:: ``value`` must be an integer between 0 and 340282366920938463463374607431768211455. And it's type should be a string.
+
+.. note:: ``value`` '1' indicates '0.00000001' (1e-8) MED. If you want to send 1MED, you need to use '100000000' (1e+8).
+
+-------
+Returns
+-------
+
+``Object`` - The transaction object with the following structure:
+
+- ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
+
+  + ``alg`` - ``Number`` : The algorithm that is used in transaction.
+  + ``chain_id`` - ``Number`` : The chain id of the blockchain.
+  + ``from`` - ``String`` : The address from which to send this value.
+  + ``to`` - ``String`` : The address to which to send this value.
+  + ``nonce`` - ``Number`` : The nonce.
+  + ``timestamp`` - ``Number`` : The unix timestamp.
+  + ``value`` - ``String`` : The amount of value to transfer.
+  + ``data`` - ``Object``
+
+    * ``type`` - ``String`` : The transaction type. For the value transfer transaction, it must be ``binary``.
+- ``hash`` - ``String`` : The hash to the transaction.
+- ``sign`` - ``String`` : The signature to the transaction hash. Default is ``null``.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  var transactionData = {
+    from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
+    to: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
+    value: '55',
+    nonce: 3
+  }
+  var tx = Transaction.valueTransferTx(transactionData);
+  console.log(tx);
+  > {
+    hash: 'e7e838973c9ee679cfc34d950304d3b3ce1ad539a4f3a9946ad289ac19aa2bb1',
+    rawTx:
+    { alg: 1,
+      chain_id: 1,
+      from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
+      nonce: 3,
+      data: { type: 'binary' },
+      timestamp: 1530854902566,
+      to: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
+      value: '55' },
+    sign: null
+  }
+
+---------------------------------------------------------------------------
 
 
 dataUploadTx
@@ -182,7 +259,7 @@ Example
     value: '100',
     nonce: 3
   }
-  var tx = Transaction.vest(transactionData);
+  var tx = Transaction.vestTx(transactionData);
   console.log(tx);
   > {
     hash: '108dcbd0eb0c72f4e42220191acbe572853a92a9c94fc8bf5693894f98728823',
@@ -258,7 +335,7 @@ Example
     value: '100',
     nonce: 3
   }
-  var tx = Transaction.withdrawVesting(transactionData);
+  var tx = Transaction.withdrawVestingTx(transactionData);
   console.log(tx);
   > {
     hash: '92fc4a56a34d9b67990c7e5b238e30920f13d4d353065336a9296e3440b3d5c2',
@@ -423,7 +500,7 @@ Example
 
 
 voteTx
-===============
+======
 
 .. code-block:: javascript
 
