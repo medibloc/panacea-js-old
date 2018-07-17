@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import withdrawVesting from 'local/transaction/tx_withdrawVesting';
+import withdrawVestingTx from 'local/transaction/tx_withdrawVesting';
 import { constants } from 'local/transaction/utils';
 
 const {
@@ -7,14 +7,14 @@ const {
   WITHDRAW_VESTING,
 } = constants;
 
-describe('# quitCandidate', () => {
+describe('# withdrawVestingTx', () => {
   const fields = {
     from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
     nonce: 1,
     timestamp: 1524549462850,
     value: '100000000',
   };
-  const tx = withdrawVesting(fields);
+  const tx = withdrawVestingTx(fields);
 
   it('should return transaction contains hash', () => {
     expect(tx).to.have.property('hash');

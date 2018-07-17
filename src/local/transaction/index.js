@@ -1,10 +1,10 @@
-import createBecomeCandidate from './tx_becomeCandidate';
+import createBecomeCandidateTx from './tx_becomeCandidate';
 import createDataUploadTx from './tx_dataUpload';
-import createQuitCandidate from './tx_quitCandidate';
+import createQuitCandidacyTx from './tx_quitCandidacy';
 import createValueTransferTx from './tx_valueTransfer';
-import createVest from './tx_vest';
-import createVote from './tx_vote';
-import createWithdrawVesting from './tx_withdrawVesting';
+import createVestTx from './tx_vest';
+import createVoteTx from './tx_vote';
+import createWithdrawVestingTx from './tx_withdrawVesting';
 import payload from './payload';
 
 /**
@@ -14,29 +14,29 @@ import payload from './payload';
  * - dataUploadTx required fields
  * { data - { payload }, from, nonce }
  *
- * - quitCandidate required fields
+ * - quitCandidacyTx required fields
  * { from, nonce }
  *
  * - valueTransferTx required fields
  * { from, nonce, to, value }
  *
- * - vest required fields
+ * - vestTx required fields
  * { from, nonce, value }
  *
- * - vote required fields
+ * - voteTx required fields
  * { from, nonce, to }
  *
- * - withdrawVesting required fields
+ * - withdrawVestingTx required fields
  * { from, nonce, value }
  *
  */
 export default {
-  becomeCandidate: fields => createBecomeCandidate(fields),
+  becomeCandidateTx: fields => createBecomeCandidateTx(fields),
   dataUploadTx: fields => createDataUploadTx(fields),
-  quitCandidate: fields => createQuitCandidate(fields),
+  quitCandidacyTx: fields => createQuitCandidacyTx(fields),
   valueTransferTx: fields => createValueTransferTx(fields),
-  vest: fields => createVest(fields),
-  vote: fields => createVote(fields),
-  withdrawVesting: fields => createWithdrawVesting(fields),
+  vestTx: fields => createVestTx(fields),
+  voteTx: fields => createVoteTx(fields),
+  withdrawVestingTx: fields => createWithdrawVestingTx(fields),
   ...payload,
 };

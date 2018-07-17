@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import vest from 'local/transaction/tx_vest';
+import vestTx from 'local/transaction/tx_vest';
 import { constants } from 'local/transaction/utils';
 
 const {
@@ -7,14 +7,14 @@ const {
   VEST,
 } = constants;
 
-describe('# quitCandidate', () => {
+describe('# vestTx', () => {
   const fields = {
     from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
     nonce: 1,
     timestamp: 1524549462850,
     value: '100000000',
   };
-  const tx = vest(fields);
+  const tx = vestTx(fields);
 
   it('should return transaction contains hash', () => {
     expect(tx).to.have.property('hash');

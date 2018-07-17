@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import quitCandidate from 'local/transaction/tx_quitCandidate';
+import quitCandidacyTx from 'local/transaction/tx_quitCandidacy';
 import { constants } from 'local/transaction/utils';
 
 const {
@@ -7,13 +7,13 @@ const {
   QUIT_CANDIDATE,
 } = constants;
 
-describe('# quitCandidate', () => {
+describe('# quitCandidacyTx', () => {
   const fields = {
     from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
     nonce: 1,
     timestamp: 1524549462850,
   };
-  const tx = quitCandidate(fields);
+  const tx = quitCandidacyTx(fields);
 
   it('should return transaction contains hash', () => {
     expect(tx).to.have.property('hash');
