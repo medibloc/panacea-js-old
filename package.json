@@ -1,6 +1,6 @@
 {
   "name": "medjs",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "JavaScript library for MediBloc",
   "main": "lib/index.js",
   "directories": {
