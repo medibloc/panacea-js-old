@@ -10,7 +10,7 @@ describe('# hashTx function', () => {
     to: user.pubKey,
     value: '5',
     nonce: 3,
-    type: 'binary',
+    type: 'transfer',
   };
   const valueTrasnferTx = setTx(valueTransferTxData);
 
