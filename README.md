@@ -13,7 +13,7 @@ npm install medjs
 ## Usage
 
 ```javascript
-var Medjs = requrie('medjs');
+var Medjs = require('medjs');
 var medjs = Medjs.init(['http://localhost:9921']);
 ```
 
