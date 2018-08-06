@@ -4,8 +4,7 @@ import protobuf from 'protobufjs';
 const FHIRResources = [['patient', 'PatientData'], ['observation', 'Observation'], ['careplan', 'CarePlan']];
 const FHIRResourcesMap = new Map(FHIRResources);
 
-// TODO: test file path is valid on the other env.
-const decodeFHIR = (buffer, type) => protobuf.load(path.resolve(`src/healthData/proto/json/${type}.json`))
+const decodeFHIR = (buffer, type) => protobuf.load(path.resolve(__dirname, `./proto/json/${type}.json`))
   .then((root) => {
     const Type = root.lookupType(FHIRResourcesMap.get(type));
 
@@ -34,8 +33,7 @@ const decodeJson = buffer => JSON.parse(buffer.toString());
 
 const decodeTxt = buffer => buffer.toString();
 
-// TODO: test file path is valid on the other env.
-const encodeFHIR = (obj, type) => protobuf.load(path.resolve(`src/healthData/proto/json/${type}.json`))
+const encodeFHIR = (obj, type) => protobuf.load(path.resolve(__dirname, `./proto/json/${type}.json`))
   .then((root) => {
     const Type = root.lookupType(FHIRResourcesMap.get(type));
     const errMsg = Type.verify(obj);
