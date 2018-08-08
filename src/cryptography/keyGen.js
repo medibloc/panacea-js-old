@@ -7,8 +7,10 @@ const concatKeys = (string1, string2) => string1.concat(string2);
 const getKeyPair = () => {
   const ec = createECDH('secp256k1');
   ec.generateKeys('hex', 'compressed');
+  let privKey = ec.getPrivateKey('hex');
+  privKey = '0'.repeat(64 - privKey.length) + privKey;
   return {
-    privKey: ec.getPrivateKey('hex'),
+    privKey,
     pubKey: ec.getPublicKey('hex', 'compressed'),
   };
 };
