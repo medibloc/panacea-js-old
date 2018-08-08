@@ -1,14 +1,21 @@
-import { createECDH, pbkdf2Sync } from 'crypto';
+import { createECDH, pbkdf2Sync, randomBytes } from 'crypto';
+import { sha3_256 as SHA3256 } from 'js-sha3';
 import secp256k1 from 'secp256k1';
 import unorm from 'unorm';
 
 const concatKeys = (string1, string2) => string1.concat(string2);
 
 const getKeyPair = () => {
+  let privKey = '';
+  let check = false;
+  while (check === false) {
+    privKey = SHA3256(randomBytes(32) + randomBytes(32));
+    check = secp256k1.privateKeyVerify(Buffer.from(privKey, 'hex'));
+  }
+
   const ec = createECDH('secp256k1');
-  ec.generateKeys('hex', 'compressed');
-  let privKey = ec.getPrivateKey('hex');
-  privKey = '0'.repeat(64 - privKey.length) + privKey;
+  ec.setPrivateKey(privKey, 'hex');
+
   return {
     privKey,
     pubKey: ec.getPublicKey('hex', 'compressed'),
