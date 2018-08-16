@@ -1,4 +1,5 @@
-import { ALG, CHAIN_ID } from 'config';
+import { ALG, CHAIN_ID } from '../../../config';
+import { setPayload } from '../payload';
 
 const defaultOptions = {
   alg: ALG,
@@ -18,13 +19,15 @@ const setTx = (options) => {
     chain_id: opts.chain_id,
     from: opts.from,
     nonce: opts.nonce,
-    payload: opts.payload,
+    [setPayload(opts.type)]: opts.payload,
     timestamp: opts.timestamp || Math.floor(new Date().getTime()),
     to: opts.to,
     type: opts.type,
     value: opts.value,
   };
-  return JSON.parse(JSON.stringify(tx));
+
+  // return JSON.parse(JSON.stringify(tx));
+  return tx;
 };
 
 export default setTx;

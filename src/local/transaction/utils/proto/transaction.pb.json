@@ -6,57 +6,70 @@
           "oneofs": {
             "payload": {
               "oneof": [
-                "votePayload",
+                "defaultPayload",
                 "addCertificationPayload",
+                "addRecordPayload",
                 "revokeCertificationPayload",
-                "addRecordPayload"
+                "votePayload"
               ]
             }
           },
           "fields": {
             "txType": {
               "type": "string",
-              "id": 2
+              "id": 1
             },
             "from": {
               "type": "bytes",
-              "id": 3
+              "id": 2
             },
             "to": {
               "type": "bytes",
-              "id": 4
+              "id": 3
             },
             "value": {
               "type": "bytes",
-              "id": 5
+              "id": 4
             },
             "timestamp": {
               "type": "int64",
-              "id": 6
+              "id": 5
             },
             "nonce": {
               "type": "uint64",
-              "id": 7
+              "id": 6
             },
             "chainId": {
               "type": "uint32",
-              "id": 8
+              "id": 7
             },
-            "votePayload": {
-              "type": "VotePayload",
-              "id": 10
+            "defaultPayload": {
+              "type": "DefaultPayload",
+              "id": 20
             },
             "addCertificationPayload": {
               "type": "AddCertificationPayload",
-              "id": 11
-            },
-            "revokeCertificationPayload": {
-              "type": "RevokeCertificationPayload",
-              "id": 12
+              "id": 21
             },
             "addRecordPayload": {
               "type": "AddRecordPayload",
-              "id": 13
+              "id": 22
+            },
+            "revokeCertificationPayload": {
+              "type": "RevokeCertificationPayload",
+              "id": 23
+            },
+            "votePayload": {
+              "type": "VotePayload",
+              "id": 24
+            }
+          }
+        },
+        "DefaultPayload": {
+          "fields": {
+            "message": {
+              "type": "string",
+              "id": 1
             }
           }
         },

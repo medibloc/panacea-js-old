@@ -27,12 +27,12 @@ const COMMON_REQUIRED = [
   'from',
   'nonce',
   'timestamp',
-  'data.type',
+  'type',
 ];
 
 const REQUIRED_TX_PARAMS = {
   [BECOME_CANDIDATE]: COMMON_REQUIRED.concat(['value']),
-  [DATA_UPLOAD]: COMMON_REQUIRED.concat(['data.payload']),
+  [DATA_UPLOAD]: COMMON_REQUIRED.concat(['payload']),
   [QUIT_CANDIDATE]: COMMON_REQUIRED.concat([]),
   [VALUE_TRANSFER]: COMMON_REQUIRED.concat(['to', 'value']),
   [VEST]: COMMON_REQUIRED.concat(['value']),
