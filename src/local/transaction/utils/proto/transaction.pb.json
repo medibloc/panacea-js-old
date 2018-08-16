@@ -2,47 +2,102 @@
   "nested": {
     "corepb": {
       "nested": {
-        "Data": {
-          "fields": {
-            "type": {
-              "type": "string",
-              "id": 1
-            },
-            "payload": {
-              "type": "bytes",
-              "id": 2
-            }
-          }
-        },
         "TransactionHashTarget": {
+          "oneofs": {
+            "payload": {
+              "oneof": [
+                "votePayload",
+                "addCertificationPayload",
+                "revokeCertificationPayload",
+                "addRecordPayload"
+              ]
+            }
+          },
           "fields": {
-            "from": {
-              "type": "bytes",
-              "id": 1
-            },
-            "to": {
-              "type": "bytes",
+            "txType": {
+              "type": "string",
               "id": 2
             },
-            "value": {
+            "from": {
               "type": "bytes",
               "id": 3
             },
-            "timestamp": {
-              "type": "int64",
+            "to": {
+              "type": "bytes",
               "id": 4
             },
-            "data": {
-              "type": "Data",
+            "value": {
+              "type": "bytes",
               "id": 5
+            },
+            "timestamp": {
+              "type": "int64",
+              "id": 6
             },
             "nonce": {
               "type": "uint64",
-              "id": 6
+              "id": 7
             },
             "chainId": {
               "type": "uint32",
-              "id": 7
+              "id": 8
+            },
+            "votePayload": {
+              "type": "VotePayload",
+              "id": 10
+            },
+            "addCertificationPayload": {
+              "type": "AddCertificationPayload",
+              "id": 11
+            },
+            "revokeCertificationPayload": {
+              "type": "RevokeCertificationPayload",
+              "id": 12
+            },
+            "addRecordPayload": {
+              "type": "AddRecordPayload",
+              "id": 13
+            }
+          }
+        },
+        "VotePayload": {
+          "fields": {
+            "candidates": {
+              "rule": "repeated",
+              "type": "bytes",
+              "id": 1
+            }
+          }
+        },
+        "AddCertificationPayload": {
+          "fields": {
+            "issueTime": {
+              "type": "int64",
+              "id": 1
+            },
+            "expirationTime": {
+              "type": "int64",
+              "id": 2
+            },
+            "hash": {
+              "type": "bytes",
+              "id": 3
+            }
+          }
+        },
+        "RevokeCertificationPayload": {
+          "fields": {
+            "hash": {
+              "type": "bytes",
+              "id": 1
+            }
+          }
+        },
+        "AddRecordPayload": {
+          "fields": {
+            "hash": {
+              "type": "bytes",
+              "id": 1
             }
           }
         }

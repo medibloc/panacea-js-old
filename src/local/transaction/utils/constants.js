@@ -6,6 +6,12 @@ const VEST = 'vest';
 const VOTE = 'vote';
 const WITHDRAW_VESTING = 'withdraw_vesting';
 
+// PAYLOAD
+const ADD_CERTIFICATION_PAYLOAD = 'addCertificationPayload';
+const ADD_RECORD_PAYLOAD = 'addRecordPayload';
+const REVOKE_CERTIFICATION_PAYLOAD = 'revokeCertificationPayload';
+const VOTE_PAYLOAD = 'votePayload';
+
 const BYTESIZES = {
   ADDRESS: 33,
   ALG: 4,
@@ -46,4 +52,9 @@ export default {
   BYTESIZES,
 
   REQUIRED_TX_PARAMS,
+
+  ADD_CERTIFICATION_PAYLOAD,
+  ADD_RECORD_PAYLOAD,
+  REVOKE_CERTIFICATION_PAYLOAD,
+  VOTE_PAYLOAD,
 };

@@ -18,12 +18,10 @@ const setTx = (options) => {
     chain_id: opts.chain_id,
     from: opts.from,
     nonce: opts.nonce,
-    data: {
-      payload: JSON.stringify(opts.payload),
-      type: opts.type,
-    },
+    payload: opts.payload,
     timestamp: opts.timestamp || Math.floor(new Date().getTime()),
     to: opts.to,
+    type: opts.type,
     value: opts.value,
   };
   return JSON.parse(JSON.stringify(tx));

@@ -1,17 +1,37 @@
 syntax = "proto3";
 package corepb;
 
-message Data {
-  string type = 1;
-  bytes payload = 2;
+message TransactionHashTarget {
+  string tx_type = 2;
+  bytes from = 3;
+  bytes to = 4;
+  bytes value = 5;
+  int64 timestamp = 6;
+  uint64 nonce = 7;
+  uint32 chain_id = 8;
+
+  oneof payload {
+    VotePayload votePayload = 10;
+    AddCertificationPayload addCertificationPayload = 11;
+    RevokeCertificationPayload revokeCertificationPayload = 12;
+    AddRecordPayload addRecordPayload = 13;
+  }
 }
 
-message TransactionHashTarget {
-  bytes from = 1;
-  bytes to = 2;
-  bytes value = 3;
-  int64 timestamp = 4;
-  Data data = 5;
-  uint64 nonce = 6;
-  uint32 chain_id = 7;
+message VotePayload {
+  repeated bytes candidates = 1;
+}
+
+message AddCertificationPayload {
+  int64 issueTime = 1;
+  int64 expirationTime = 2;
+  bytes hash = 3;
+}
+
+message RevokeCertificationPayload {
+  bytes hash = 1;
+}
+
+message AddRecordPayload {
+  bytes hash = 1;
 }
