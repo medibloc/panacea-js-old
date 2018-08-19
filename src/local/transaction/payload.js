@@ -3,6 +3,7 @@ import {
   VOTE,
 
   ADD_RECORD_PAYLOAD,
+  DEFAULT_PAYLOAD,
   VOTE_PAYLOAD,
 } from './utils/constants';
 
@@ -20,7 +21,7 @@ const setPayload = (txType) => {
     // Add Certification
     // Revoke Certification
     default:
-      return null;
+      return DEFAULT_PAYLOAD;
   }
 };
 

@@ -1,5 +1,4 @@
 import { ALG, CHAIN_ID } from '../../../config';
-import { setPayload } from '../payload';
 
 const defaultOptions = {
   alg: ALG,
@@ -19,7 +18,8 @@ const setTx = (options) => {
     chain_id: opts.chain_id,
     from: opts.from,
     nonce: opts.nonce,
-    [setPayload(opts.type)]: opts.payload,
+    payload: opts.payload,
+
     timestamp: opts.timestamp || Math.floor(new Date().getTime()),
     to: opts.to,
     type: opts.type,

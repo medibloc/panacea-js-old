@@ -9,6 +9,7 @@ const WITHDRAW_VESTING = 'withdraw_vesting';
 // PAYLOAD
 const ADD_CERTIFICATION_PAYLOAD = 'addCertificationPayload';
 const ADD_RECORD_PAYLOAD = 'addRecordPayload';
+const DEFAULT_PAYLOAD = 'defaultPayload';
 const REVOKE_CERTIFICATION_PAYLOAD = 'revokeCertificationPayload';
 const VOTE_PAYLOAD = 'votePayload';
 
@@ -55,6 +56,7 @@ export default {
 
   ADD_CERTIFICATION_PAYLOAD,
   ADD_RECORD_PAYLOAD,
+  DEFAULT_PAYLOAD,
   REVOKE_CERTIFICATION_PAYLOAD,
   VOTE_PAYLOAD,
 };
