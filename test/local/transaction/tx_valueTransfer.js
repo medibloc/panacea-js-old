@@ -11,6 +11,7 @@ describe('# valueTransferTx function', () => {
     to: user.pubKey,
     value: '1000',
     nonce: 1,
+    type: 'transfer',
   };
 
   describe('# TX validation', () => {

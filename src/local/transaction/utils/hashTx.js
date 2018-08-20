@@ -8,20 +8,19 @@ import * as jsonDescriptor from './proto/transaction.pb.json';
 
 
 const genPayloadBuf = (payload, type) => {
-  // eslint-disable-next-line
-  if (type === DEFAULT_PAYLOAD) payload = JSON.stringify(payload);
-  const payloadTarget = {
-    [type]: payload,
-  };
+  if (payload === undefined || payload === null) return null;
+  if (type === DEFAULT_PAYLOAD) {
+    // eslint-disable-next-line
+    payload = {
+      message: JSON.stringify(payload),
+    };
+  }
   const root = protobuf.Root.fromJSON(jsonDescriptor);
   const PayloadTarget = root.lookupType(type.charAt(0).toUpperCase() + type.slice(1));
-  const errMsg = PayloadTarget.verify(PayloadTarget);
-  if (errMsg) {
-    throw Error(errMsg);
-  }
-  const message = PayloadTarget.create(payloadTarget);
-  const buf = PayloadTarget.encode(message).finish();
-  return null;
+  const errMsg = PayloadTarget.verify(payload);
+  if (errMsg) throw Error(errMsg);
+  const message = PayloadTarget.create(payload);
+  return PayloadTarget.encode(message).finish().toString('hex');
 };
 
 const hashTx = (tx) => {
@@ -39,13 +38,10 @@ const hashTx = (tx) => {
   };
   // eslint-disable-next-line
   tx.payload = genPayloadBuf(tx.payload, payloadType);
-
   const root = protobuf.Root.fromJSON(jsonDescriptor);
   const TxHashTarget = root.lookupType('TransactionHashTarget');
   const errMsg = TxHashTarget.verify(txHashTarget);
-  if (errMsg) {
-    throw Error(errMsg);
-  }
+  if (errMsg) throw Error(errMsg);
   const message = TxHashTarget.create(txHashTarget);
   const buf = TxHashTarget.encode(message).finish();
   const hash = SHA3256.create();
