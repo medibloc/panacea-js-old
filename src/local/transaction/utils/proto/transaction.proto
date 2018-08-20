@@ -10,13 +10,7 @@ message TransactionHashTarget {
   uint64 nonce = 6;
   uint32 chain_id = 7;
 
-  oneof payload {
-    DefaultPayload default_payload = 20;
-    AddCertificationPayload add_certification_payload = 21;
-    AddRecordPayload add_record_payload = 22;
-    RevokeCertificationPayload revoke_certification_payload = 23;
-    VotePayload vote_payload = 24;
-  }
+  bytes payload = 10;
 }
 
 message DefaultPayload {

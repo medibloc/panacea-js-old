@@ -22,7 +22,7 @@ const setTx = (options) => {
 
     timestamp: opts.timestamp || Math.floor(new Date().getTime()),
     to: opts.to,
-    type: opts.type,
+    tx_type: opts.type,
     value: opts.value,
   };
 

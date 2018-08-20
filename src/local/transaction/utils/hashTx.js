@@ -8,23 +8,25 @@ import * as jsonDescriptor from './proto/transaction.pb.json';
 
 
 const genPayloadBuf = (payload, type) => {
+  let Payload = payload;
   if (payload === undefined || payload === null) return null;
   if (type === DEFAULT_PAYLOAD) {
     // eslint-disable-next-line
-    payload = {
+    Payload = {
       message: JSON.stringify(payload),
     };
   }
   const root = protobuf.Root.fromJSON(jsonDescriptor);
   const PayloadTarget = root.lookupType(type.charAt(0).toUpperCase() + type.slice(1));
-  const errMsg = PayloadTarget.verify(payload);
+  const errMsg = PayloadTarget.verify(Payload);
   if (errMsg) throw Error(errMsg);
-  const message = PayloadTarget.create(payload);
-  return PayloadTarget.encode(message).finish().toString('hex');
+  const message = PayloadTarget.create(Payload);
+  return PayloadTarget.encode(message).finish();
 };
 
 const hashTx = (tx) => {
   const payloadType = setPayload(tx.type);
+  const payloadBuf = genPayloadBuf(tx.payload, payloadType);
 
   const txHashTarget = {
     txType: tx.type,
@@ -34,14 +36,16 @@ const hashTx = (tx) => {
     timestamp: tx.timestamp,
     nonce: tx.nonce,
     chainId: tx.chain_id,
-    [payloadType]: tx.payload, // TODO @ggomma defaultPayload string check
+    payload: payloadBuf, // TODO @ggomma defaultPayload string check
   };
   // eslint-disable-next-line
-  tx.payload = genPayloadBuf(tx.payload, payloadType);
+  if (payloadBuf !== null) tx.payload = payloadBuf.toString('hex');
+
   const root = protobuf.Root.fromJSON(jsonDescriptor);
   const TxHashTarget = root.lookupType('TransactionHashTarget');
   const errMsg = TxHashTarget.verify(txHashTarget);
   if (errMsg) throw Error(errMsg);
+
   const message = TxHashTarget.create(txHashTarget);
   const buf = TxHashTarget.encode(message).finish();
   const hash = SHA3256.create();

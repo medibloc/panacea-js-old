@@ -3,17 +3,6 @@
     "corepb": {
       "nested": {
         "TransactionHashTarget": {
-          "oneofs": {
-            "payload": {
-              "oneof": [
-                "defaultPayload",
-                "addCertificationPayload",
-                "addRecordPayload",
-                "revokeCertificationPayload",
-                "votePayload"
-              ]
-            }
-          },
           "fields": {
             "txType": {
               "type": "string",
@@ -43,25 +32,9 @@
               "type": "uint32",
               "id": 7
             },
-            "defaultPayload": {
-              "type": "DefaultPayload",
-              "id": 20
-            },
-            "addCertificationPayload": {
-              "type": "AddCertificationPayload",
-              "id": 21
-            },
-            "addRecordPayload": {
-              "type": "AddRecordPayload",
-              "id": 22
-            },
-            "revokeCertificationPayload": {
-              "type": "RevokeCertificationPayload",
-              "id": 23
-            },
-            "votePayload": {
-              "type": "VotePayload",
-              "id": 24
+            "payload": {
+              "type": "bytes",
+              "id": 10
             }
           }
         },

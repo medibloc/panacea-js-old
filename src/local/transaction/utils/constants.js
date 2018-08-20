@@ -28,7 +28,7 @@ const COMMON_REQUIRED = [
   'from',
   'nonce',
   'timestamp',
-  'type',
+  'tx_type',
 ];
 
 const REQUIRED_TX_PARAMS = {
