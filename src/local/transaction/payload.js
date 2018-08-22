@@ -1,8 +1,10 @@
 import {
+  ADD_CERTIFICATION,
   DATA_UPLOAD,
   REVOKE_CERTIFICATION,
   VOTE,
 
+  ADD_CERTIFICATION_PAYLOAD,
   ADD_RECORD_PAYLOAD,
   DEFAULT_PAYLOAD,
   REVOKE_CERTIFICATION_PAYLOAD,
@@ -20,7 +22,8 @@ const setPayload = (txType) => {
       return ADD_RECORD_PAYLOAD;
     case VOTE:
       return VOTE_PAYLOAD;
-    // Add Certification
+    case ADD_CERTIFICATION:
+      return ADD_CERTIFICATION_PAYLOAD;
     case REVOKE_CERTIFICATION:
       return REVOKE_CERTIFICATION_PAYLOAD;
     default:
