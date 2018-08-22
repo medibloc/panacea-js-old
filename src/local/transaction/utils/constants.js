@@ -1,6 +1,8 @@
+const ADD_CERTIFICATION = 'add_certification';
 const BECOME_CANDIDATE = 'become_candidate';
 const DATA_UPLOAD = 'add_record';
 const QUIT_CANDIDATE = 'quit_candidate';
+const REVOKE_CERTIFICATION = 'revoke_certification';
 const VALUE_TRANSFER = 'transfer';
 const VEST = 'vest';
 const VOTE = 'vote';
@@ -32,19 +34,23 @@ const COMMON_REQUIRED = [
 ];
 
 const REQUIRED_TX_PARAMS = {
+  [ADD_CERTIFICATION]: COMMON_REQUIRED.concat(['payload', 'to']),
   [BECOME_CANDIDATE]: COMMON_REQUIRED.concat(['value']),
   [DATA_UPLOAD]: COMMON_REQUIRED.concat(['payload']),
   [QUIT_CANDIDATE]: COMMON_REQUIRED.concat([]),
+  [REVOKE_CERTIFICATION]: COMMON_REQUIRED.concat(['payload']),
   [VALUE_TRANSFER]: COMMON_REQUIRED.concat(['to', 'value']),
   [VEST]: COMMON_REQUIRED.concat(['value']),
-  [VOTE]: COMMON_REQUIRED.concat(['to']),
+  [VOTE]: COMMON_REQUIRED.concat(['payload']),
   [WITHDRAW_VESTING]: COMMON_REQUIRED.concat(['value']),
 };
 
 export default {
+  ADD_CERTIFICATION,
   BECOME_CANDIDATE,
   DATA_UPLOAD,
   QUIT_CANDIDATE,
+  REVOKE_CERTIFICATION,
   VALUE_TRANSFER,
   VEST,
   VOTE,

@@ -20,16 +20,17 @@ const genPayloadBuf = (payload, type) => {
   const PayloadTarget = root.lookupType(type.charAt(0).toUpperCase() + type.slice(1));
   const errMsg = PayloadTarget.verify(Payload);
   if (errMsg) throw Error(errMsg);
+
   const message = PayloadTarget.create(Payload);
   return PayloadTarget.encode(message).finish();
 };
 
 const hashTx = (tx) => {
-  const payloadType = setPayload(tx.type);
+  const payloadType = setPayload(tx.tx_type);
   const payloadBuf = genPayloadBuf(tx.payload, payloadType);
 
   const txHashTarget = {
-    txType: tx.type,
+    txType: tx.tx_type,
     from: genHexBuf(tx.from, BYTESIZES.ADDRESS),
     to: genHexBuf(tx.to ? tx.to : '', BYTESIZES.ADDRESS),
     value: genHexBuf(tx.value ? BigNumber(tx.value).toString(16) : '', BYTESIZES.VALUE),

@@ -1,6 +1,8 @@
+import createAddCertificationTx from './tx_addCertification';
 import createBecomeCandidateTx from './tx_becomeCandidate';
 import createDataUploadTx from './tx_dataUpload';
 import createQuitCandidacyTx from './tx_quitCandidacy';
+import createRevokeCertificationTx from './tx_revokeCertification';
 import createValueTransferTx from './tx_valueTransfer';
 import createVestTx from './tx_vest';
 import createVoteTx from './tx_vote';
@@ -31,9 +33,11 @@ import payload from './payload';
  *
  */
 export default {
+  addCertificationTx: fields => createAddCertificationTx(fields),
   becomeCandidateTx: fields => createBecomeCandidateTx(fields),
   dataUploadTx: fields => createDataUploadTx(fields),
   quitCandidacyTx: fields => createQuitCandidacyTx(fields),
+  revokeCertificationTx: fields => createRevokeCertificationTx(fields),
   valueTransferTx: fields => createValueTransferTx(fields),
   vestTx: fields => createVestTx(fields),
   voteTx: fields => createVoteTx(fields),
