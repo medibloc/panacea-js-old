@@ -1,3 +1,4 @@
+import { genHexBuf } from 'utils';
 import {
   ADD_CERTIFICATION,
   DATA_UPLOAD,
@@ -9,12 +10,54 @@ import {
   DEFAULT_PAYLOAD,
   REVOKE_CERTIFICATION_PAYLOAD,
   VOTE_PAYLOAD,
+
+  BYTESIZES,
 } from './utils/constants';
 
 
+const createAddCertificationPayload = ({
+  issueTime = Math.floor(new Date().getTime()),
+  expirationTime = Math.floor(new Date(new Date()
+    .setFullYear(new Date()
+      .getFullYear() + 1))
+    .getTime()), // 1 year later
+  hash,
+}) => {
+  if (issueTime > expirationTime) throw new Error('Issuacne time should be earlier than expiration time');
+  return ({
+    issueTime,
+    expirationTime,
+    hash,
+  });
+};
+
 const createDataPayload = hash => ({
-  Hash: Buffer.from(hash, 'hex').toString('base64'),
+  hash: genHexBuf(hash, BYTESIZES.HASH),
 });
+
+// All parameter type is allowed
+const createDefaultPayload = (message) => {
+  // eslint-disable-next-line
+  message = JSON.stringify(message);
+  return ({
+    message,
+  });
+};
+
+const createRevokeCertificationPayload = hash => ({
+  hash: genHexBuf(hash, BYTESIZES.HASH),
+});
+
+const createVotePayload = (addresses) => {
+  const candidates = [];
+  for (let i = 0; i < addresses.length; i += 1) {
+    candidates.append(genHexBuf(addresses[i], BYTESIZES.ADDRESS));
+  }
+  return ({
+    candidates,
+  });
+};
+
 
 const setPayload = (txType) => {
   switch (txType) {
@@ -33,6 +76,10 @@ const setPayload = (txType) => {
 
 
 export default {
+  createAddCertificationPayload,
   createDataPayload,
+  createDefaultPayload,
+  createRevokeCertificationPayload,
+  createVotePayload,
   setPayload,
 };

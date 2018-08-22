@@ -22,6 +22,7 @@ const BYTESIZES = {
   NONCE: 8,
   TIMESTAMP: 8,
   VALUE: 16,
+  HASH: 32,
 };
 
 const COMMON_REQUIRED = [
