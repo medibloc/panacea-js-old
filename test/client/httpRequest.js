@@ -16,7 +16,7 @@ describe('httpRequest', () => {
       address: 'abcd',
       height: 1,
     },
-    url: '/v1/user/accountstate',
+    url: '/v1/user/account',
     validateStatus(status) {
       return status >= 200 && status < 500;
     },

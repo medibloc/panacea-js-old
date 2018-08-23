@@ -17,7 +17,7 @@ describe('gateway', () => {
 
   const defaultReqConfig = {
     method: GET,
-    path: 'v1/user/accountstate',
+    path: 'v1/user/account',
     payload: {
       address: 'address',
       height: 0,
