@@ -1,19 +1,22 @@
 export default ({ sendRequest }) => {
-  const getAccountState = (address, height) => sendRequest({
+  const getAccount = (address, height, type) => sendRequest({
     method: 'get',
-    path: 'v1/user/accountstate',
+    path: 'v1/account',
     payload: {
-      address, height,
+      address, height, type,
     },
   });
 
-  const getCurrentAccountTxs = address => sendRequest({
+  const getAccountTransactions = (address, includePending) => sendRequest({
     method: 'get',
     path: `v1/user/${address}/transactions`,
+    payload: {
+      includePending,
+    },
   });
 
   return {
-    getAccountState,
-    getCurrentAccountTxs,
+    getAccount,
+    getAccountTransactions,
   };
 };

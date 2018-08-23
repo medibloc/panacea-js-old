@@ -1,4 +1,9 @@
 export default ({ sendRequest }) => {
+  const getPendingTransactions = () => sendRequest({
+    method: 'get',
+    path: 'v1/transactions/pending',
+  });
+
   const getTransaction = hash => sendRequest({
     method: 'get',
     path: 'v1/transaction',
@@ -20,6 +25,7 @@ export default ({ sendRequest }) => {
   });
 
   return {
+    getPendingTransactions,
     getTransaction,
     sendTransaction,
   };
