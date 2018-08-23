@@ -36,13 +36,9 @@ const createDataPayload = hash => ({
 });
 
 // All parameter type is allowed
-const createDefaultPayload = (message) => {
-  // eslint-disable-next-line
-  message = JSON.stringify(message);
-  return ({
-    message,
-  });
-};
+const createDefaultPayload = message => ({
+  message: JSON.stringify(message),
+});
 
 const createRevokeCertificationPayload = hash => ({
   hash: genHexBuf(hash, BYTESIZES.HASH),
