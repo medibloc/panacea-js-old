@@ -16,11 +16,11 @@ import {
 
 
 const createAddCertificationPayload = ({
-  issueTime = Math.floor(new Date().getTime()),
+  issueTime = Math.floor(new Date().getTime() / 1000),
   expirationTime = Math.floor(new Date(new Date()
     .setFullYear(new Date()
       .getFullYear() + 1))
-    .getTime()), // 1 year later
+    .getTime() / 1000), // 1 year later
   hash,
 }) => {
   if (issueTime > expirationTime) throw new Error('Issuacne time should be earlier than expiration time');

@@ -20,7 +20,7 @@ const setTx = (options) => {
     nonce: opts.nonce,
     payload: opts.payload,
 
-    timestamp: opts.timestamp || Math.floor(new Date().getTime()),
+    timestamp: opts.timestamp || Math.floor(new Date().getTime() / 1000),
     to: opts.to,
     tx_type: opts.type,
     value: opts.value,
