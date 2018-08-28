@@ -33,7 +33,7 @@ const getPubKey = (privKey) => {
 
 const getKeyPairFromPassphrase = (passphrase) => {
   const passphraseBuffer = Buffer.from(unorm.nfkd(passphrase), 'utf8');
-  const privKey = pbkdf2Sync(passphraseBuffer, '', 262144, 32, 'sha256').toString('hex');
+  const privKey = pbkdf2Sync(passphraseBuffer, '', 32768, 32, 'sha256').toString('hex');
 
   return {
     privKey,
