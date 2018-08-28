@@ -7,10 +7,13 @@
     "test": "test"
   },
   "scripts": {
-    "lint": "eslint .",
     "babel": "babel src -d lib --copy-files",
     "browserify": "browserify ./lib/index.js -o ./dist/medjs.js -s medjs",
-    "build": "npm run babel && npm run browserify && npm run uglify",
+    "build": "npm run clean && npm run babel && npm run browserify && npm run uglify",
+    "clean": "npm run clean-dist && npm run clean-lib",
+    "clean-dist": "rm -rf dist",
+    "clean-lib": "rm -rf lib",
+    "lint": "eslint .",
     "test": "mocha --recursive --require babel-core/register --reporter spec",
     "uglify": "uglifyjs -nm -o ./dist/medjs.min.js ./dist/medjs.js"
   },
