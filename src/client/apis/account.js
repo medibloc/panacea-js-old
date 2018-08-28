@@ -9,7 +9,7 @@ export default ({ sendRequest }) => {
 
   const getAccountTransactions = (address, includePending) => sendRequest({
     method: 'get',
-    path: `v1/user/${address}/transactions`,
+    path: `v1/account/${address}/transactions`,
     payload: {
       includePending,
     },
