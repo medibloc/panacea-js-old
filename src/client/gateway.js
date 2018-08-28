@@ -17,7 +17,6 @@ export default (nodeBucket) => {
         delete purePayload[name];
       }
     });
-    console.log(payload, purePayload);
     const option = {
       method,
       path,
