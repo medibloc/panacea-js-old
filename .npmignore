@@ -1,6 +1,7 @@
 .babelrc
 .eslintignore
 .eslintrc.js
+.idea
 .gitignore
 
 .vscode/
