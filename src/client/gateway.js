@@ -9,10 +9,19 @@ export default (nodeBucket) => {
 
   // sendRequest handle request using the nodeBucket.
   const sendRequest = async ({ method, path, payload }, stream = false) => {
+    // remove blank parameters in the payload
+    const purePayload = payload;
+    const propsName = Object.getOwnPropertyNames(purePayload);
+    propsName.forEach((name) => {
+      if (purePayload[name] === null || purePayload[name] === undefined) {
+        delete purePayload[name];
+      }
+    });
+    console.log(payload, purePayload);
     const option = {
       method,
       path,
-      payload,
+      payload: purePayload,
     };
     if (stream) {
       option.responseType = 'stream';
