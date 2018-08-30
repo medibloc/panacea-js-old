@@ -1,4 +1,5 @@
 import { BigNumber } from 'bignumber.js';
+import binary from 'bops';
 import { sha3_256 as SHA3256 } from 'js-sha3';
 import protobuf from 'protobufjs/light';
 import { genHexBuf } from 'utils';
@@ -40,7 +41,7 @@ const hashTx = (tx) => {
     payload: payloadBuf, // TODO @ggomma defaultPayload string check
   };
   // eslint-disable-next-line
-  if (payloadBuf !== null) tx.payload = payloadBuf.toString('hex');
+  if (payloadBuf !== null) tx.payload = binary.to(payloadBuf, 'hex');
 
   const root = protobuf.Root.fromJSON(jsonDescriptor);
   const TxHashTarget = root.lookupType('TransactionHashTarget');
