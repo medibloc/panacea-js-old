@@ -11,12 +11,14 @@ export default (nodeBucket) => {
   const sendRequest = async ({ method, path, payload }, stream = false) => {
     // remove blank parameters in the payload
     const purePayload = payload;
-    const propsName = Object.getOwnPropertyNames(purePayload);
-    propsName.forEach((name) => {
-      if (purePayload[name] === null || purePayload[name] === undefined) {
-        delete purePayload[name];
-      }
-    });
+    if (payload) {
+      const propsName = Object.getOwnPropertyNames(purePayload);
+      propsName.forEach((name) => {
+        if (purePayload[name] === null || purePayload[name] === undefined) {
+          delete purePayload[name];
+        }
+      });
+    }
     const option = {
       method,
       path,
