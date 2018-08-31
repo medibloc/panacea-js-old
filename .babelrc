@@ -1,8 +1,9 @@
 {
   "presets": [
-        "es2015"
+      "es2015"
     ],
     "plugins": [
+      "async-to-promises",
       "add-module-exports",
       "babel-plugin-transform-object-rest-spread",
       "transform-runtime",
