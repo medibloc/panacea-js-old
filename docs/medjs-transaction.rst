@@ -62,7 +62,9 @@ Parameters
 - ``nonce`` - ``Number`` : The nonce indicates how many transactions that this account has made. It should be exactly 1 larger than the current account's nonce. Highly recommend getting an account's latest nonce before making any transaction.
 - ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
-- ``payload`` - ``String`` :(optional) The payload string which to store on the blockchain. Recommend to use ``Transaction.createDefaultPayload(data)``.
+- ``payload`` - ``Object`` :(optional) The payload object. Recommend to use ``Transaction.createDefaultPayload(data)``.
+
+  + ``message`` - ``Any Type`` : Any type of message which to store on the blockchain.
 
 .. note:: ``value`` must be an integer between 0 and 340282366920938463463374607431768211455. And it's type should be a string.
 
@@ -140,7 +142,10 @@ Parameters
 
 - ``from`` - ``String`` : The address that spends bandwidth to upload data.
 - ``nonce`` - ``Number`` : The nonce indicates the number of transactions that this account has made. It should be exactly 1 larger than current account's nonce. Highly recommend getting account's latest nonce before making transaction.
-- ``payload`` - ``String`` : The medical data hash string which to store on the blockchain. Recommend to use ``Transaction.createDataPayload(dataHash)``
+- ``payload`` - ``Object`` : The medical data payload which to store on the blockchain. Recommend to use ``Transaction.createDataPayload(dataHash)``
+
+  + ``hash`` - ``Buffer|Uint8Array`` : The hash byte array generated from entered data hash.
+
 - ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
@@ -527,7 +532,10 @@ Parameters
 
 - ``from`` - ``String`` : The address of voter.
 - ``nonce`` - ``Number`` : The nonce indicates how many transactions that this account has made. It should be exactly 1 larger than the current account's nonce. Highly recommend getting an account's latest nonce before making any transaction.
-- ``payload`` - ``String`` : The hash string from candidate list. Recommend to use ``Transaction.createVotePayload([candidates])``
+- ``payload`` - ``Object`` : The payload object from candidate list. Recommend to use ``Transaction.createVotePayload([candidates])``
+
+  + ``candidates`` - ``Array`` : The array of the candidates address byte array.
+
 - ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
@@ -602,7 +610,12 @@ Parameters
 - ``from`` - ``String`` : The address of issuer.
 - ``to`` - ``String`` : The address of receiver.
 - ``nonce`` - ``Number`` : The nonce indicates how many transactions that this account has made. It should be exactly 1 larger than the current account's nonce. Highly recommend getting an account's latest nonce before making any transaction.
-- ``payload`` - ``String`` : The hash string from the certificate data. Recommend to use ``Transaction.createAddCertificationPayload(data)``.
+- ``payload`` - ``Object`` : The payload object from the certificate data. Recommend to use ``Transaction.createAddCertificationPayload(data)``.
+
+  + ``issueTime`` - ``Number`` : The timestamp of the issuance. The unit must be seconds.
+  + ``expirationTime`` - ``Number`` : The timestamp of the expiration. The unit must be seconds.
+  + ``hash`` - ``String`` : The hash string of the certificate.
+
 - ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
@@ -681,7 +694,10 @@ Parameters
 
 - ``from`` - ``String`` : The address of issuer.
 - ``nonce`` - ``Number`` : The nonce indicates how many transactions that this account has made. It should be exactly 1 larger than the current account's nonce. Highly recommend getting an account's latest nonce before making any transaction.
-- ``payload`` - ``String`` : The hash string from the certificate hash. Recommend to use ``Transaction.createRevokeCertificationPayload(data)``.
+- ``payload`` - ``Object`` : The payload object from the certificate hash. Recommend to use ``Transaction.createRevokeCertificationPayload(data)``.
+
+  + ``hash`` - ``Buffer|Uint8Array`` : The hash byte array generated from entered data hash.
+
 - ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
@@ -737,6 +753,43 @@ Example
 
 ---------------------------------------------------------------------------
 
+createDefaultPayload
+====================
+
+.. code-block:: javascript
+
+  Transaction.createDefaultPayload(message);
+
+To generate default payload transaction, you can use ``Transaction.createDefaultPayload(message)``. It is not executed on the blockchain, but only stored.
+
+----------
+Parameters
+----------
+
+``message`` - ``Any type``: Any type of message can be entered. It automatically changed to string.
+
+-------
+Returns
+-------
+
+``Object`` - The payload object.
+
+- ``message`` - ``String`` : The stringified data.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  var payload = Transaction.createDefaultPayload({Medi: 'Bloc'});
+  console.log(payload);
+  > {
+    message: "{"Medi":"Bloc"}"
+  }
+
+---------------------------------------------------------------------------
+
 createDataPayload
 =================
 
@@ -756,9 +809,9 @@ Parameters
 Returns
 -------
 
-``Object`` - The data payload object for data upload transaction payload.
+``Object`` - The data payload object for data upload transaction.
 
-- ``Hash`` - ``String`` : The hash of the data.
+- ``hash`` - ``Buffer|Uint8Array`` : The hash of the data.
 
 -------
 Example
@@ -771,5 +824,132 @@ Example
     console.log(payload);
   });
   > {
-    Hash: 'boWTsoo+YOIZ0tz5P6kwfbswEwkI6OKIDk9UaaaRskw=',
+    hash: [110, 133, 147, ...]
+  }
+
+---------------------------------------------------------------------------
+
+createVotePayload
+=================
+
+.. code-block:: javascript
+
+  Transaction.createVotePayload([addresses]);
+
+To generate vote payload transaction, you can use ``Transaction.createVotePayload([addresses])``. It returns payload for ``voteTx``.
+
+----------
+Parameters
+----------
+
+``addresses`` - ``Array``: The array of the candidates address.
+
+-------
+Returns
+-------
+
+``Object`` - The vote payload object for vote transaction.
+
+- ``candidates`` - ``Array`` : The array of the address byte array.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  var payload = Transaction.createVotePayload([
+    '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b'
+  ]);
+  console.log(payload);
+  > {
+    candidates: [
+      [3, 125, 145, 89, ...]
+    ]
+  }
+
+---------------------------------------------------------------------------
+
+createAddCertificationPayload
+=============================
+
+.. code-block:: javascript
+
+  Transaction.createAddCertificationPayload(data);
+
+To generate add certification payload transaction, you can use ``Transaction.createAddCertificationPayload(data)``. It returns payload for ``addCertificationTx``.
+
+----------
+Parameters
+----------
+
+``Object`` - The data object for certification.
+
+- ``issueTime`` - ``Number`` : The timestamp of the issuance. The unit must be seconds.
+- ``expirationTime`` - ``Number`` : The timestamp of the expiration. The unit must be seconds.
+- ``hash`` - ``String`` : The hash string of the certificate.
+
+-------
+Returns
+-------
+
+``Object`` - The certification payload object for add certification transaction.
+
+- ``issueTime`` - ``Number`` : The timestamp of the issuance. The unit must be seconds.
+- ``expirationTime`` - ``Number`` : The timestamp of the expiration. The unit must be seconds.
+- ``hash`` - ``Buffer|Uint8Array`` : The hash byte array generated from entered certification hash.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  var payload = Transaction.createAddCertificationPayload({
+    issueTime: Math.floor(Date.now() / 1000),
+    expirationTime: Math.floor(Date.now() / 1000),
+    hash: '487b69767e201f485a67b915f1726e39a9d84d72ce3753dfdc824ebdf22e9b33',
+  });
+  console.log(payload);
+  > {
+    expirationTime: 1536039205,
+    hash: [72, 123, 105, 118, ...],
+    issueTime: 1536039205,
+  }
+
+---------------------------------------------------------------------------
+
+createRevokeCertificationPayload
+================================
+
+.. code-block:: javascript
+
+  Transaction.createRevokeCertificationPayload(hash);
+
+To generate revoke certification payload transaction, you can use ``Transaction.createRevokeCertificationPayload(hash)``. It returns payload for ``revokeCertificationTx``.
+
+----------
+Parameters
+----------
+
+``hash`` - ``String`` : The hash string of the certificate.
+
+-------
+Returns
+-------
+
+``Object`` - The certification payload object for revoke certification transaction.
+
+- ``hash`` - ``Buffer|Uint8Array`` : The hash byte array generated from entered certification hash.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  var payload = Transaction.createRevokeCertificationPayload('487b69767e201f485a67b915f1726e39a9d84d72ce3753dfdc824ebdf22e9b33');
+  console.log(payload);
+  > {
+    hash: [72, 123, 105, 118, ...]
   }
