@@ -34,7 +34,7 @@ describe('# payload', () => {
         expirationTime: 1566538808,
         hash: '9eca7128409f609b2a72fc24985645665bbb99152b4b14261c3c3c93fb17cf54',
       });
-      const target = '08b891f9db0510b8f8fdea051a30f5e71aef5dbce34f5feb4f5bd9aef67dcdb8f7ce7ae39ebae5b6dbf7dd79d9be1bd78dbad5cddcddcf777dbd7b71fe78';
+      const target = '08b891f9db0510b8f8fdea051a209eca7128409f609b2a72fc24985645665bbb99152b4b14261c3c3c93fb17cf54';
       expect(genPayloadPb(payload, type)).to.be.eql(target);
     });
   });
