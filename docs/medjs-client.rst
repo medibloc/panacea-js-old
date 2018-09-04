@@ -24,12 +24,12 @@ The ``medjs.client`` object allows you to interact with the MediBloc blockchain.
 ---------------------------------------------------------------------------
 
 
-getAccountState
-===============
+getAccount
+==========
 
 .. code-block:: javascript
 
-  Client.getAccountState(address, height)
+  Client.getAccount(address, height, type)
 
 Returns the state of the account at a given block height.
 
@@ -38,9 +38,10 @@ Parameters
 ----------
 
 1. ``address`` - ``String``: The address of the account of which to get the state.
-2. ``height`` - ``Number|String``: The height of the block. Or the string ``'genesis'``, ``'confirmed'``, ``'tail'``.
+2. ``height`` - ``Number``: The height of the block.
+3. ``type`` - ``String``: The string ``'genesis'``, ``'confirmed'``, ``'tail'``.
 
-
+.. note:: If type is set among ``'genesis'``, ``'confirmed'`` and ``'tail'``, height is ignored.
 
 Returns
 -------
@@ -48,46 +49,30 @@ Returns
 ``Promise`` returns ``Object`` - The object of the account state:
 
   - ``address`` - ``String``: The address of the account.
-  - ``balance`` - ``String``: The balance in 1e-8 MED of the account at the block.
-  - ``certs_issued`` - ``Array``: Account addresses certificated by the account.
-  - ``certs_received`` - ``Array``: Account addresses that have certificated the account.
+  - ``balance`` - ``String``: The balance in 1e-12 MED of the account at the block.
+  - ``bandwidth`` - ``String``: The consumed bandwidth.
   - ``nonce`` - ``String``: The nonce of the account at the block.
-  - ``records`` - ``Array``: Hash list of records.
-  - ``vesting`` - ``String``: The vesting in 1e-8 MED of the account at the block.
+  - ``unstaking`` - ``String``: The amount of MED which is in progress of unstaking.
+  - ``vesting`` - ``String``: The vesting in 1e-12 MED of the account at the block.
   - ``voted`` - ``String``: Voted address.
 
-.. note:: ``balance`` and ``vesting`` '1' indicates '0.00000001' (1e-8) MED.
+.. note:: ``balance`` and ``vesting`` '1' indicates '0.000000000001' (1e-12) MED.
 
 Example
 -------
 
 .. code-block:: javascript
 
-  Client.getAccountState('02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c', 1)
+  Client.getAccount('02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c', 1, 'tail')
   .then(console.log);
   > {
-    address: '02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c',
-    balance: '100000000000000000',
-    certs_issued: [],
-    certs_received: [],
-    nonce: '0',
-    records: [],
-    vesting: '0',
-    voted: ''
-  }
-
-
-  Client.getAccountState('02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c', 'latest')
-  .then(console.log);
-  > {
-    address: '02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c',
-    balance: '99999999000000000',
-    certs_issued: [],
-    certs_received: [],
-    nonce: '1',
-    records: [],
-    vesting: '0',
-    voted: ''
+    address: "02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c",
+    balance: "500000690000000000000",
+    bandwidth: "0",
+    nonce: "1",
+    unstaking: "0",
+    vesting: "500000000000000000000",
+    voted: ["02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c"],
   }
 
 ---------------------------------------------------------------------------
@@ -98,7 +83,7 @@ getBlock
 
 .. code-block:: javascript
 
-  Client.getBlock(hash)
+  Client.getBlock(hash, height, type)
 
 Returns a block matching the given block hash.
 
@@ -106,28 +91,31 @@ Returns a block matching the given block hash.
 Parameters
 ----------
 
-``hash`` - ``String``: The hash of the block. Or the string ``'genesis'``, ``'confirmed'``, ``'tail'``.
+1. ``hash`` - ``String``: The hash of the block.
+2. ``height`` - ``Number``: The height of the block.
+3. ``type`` - ``String``: The string ``'genesis'``, ``'confirmed'``, ``'tail'``.
 
+.. note:: If hash is sent, other fields are ignored.
 
 Returns
 -------
 
 ``Promise`` returns ``Object`` - The Block object:
 
-  - ``hash`` - ``String``: The hash of the block.
-  - ``parent_hash`` - ``String``: The parent block's hash of the block.
-  - ``coinbase`` - ``String``: The coinbase address of the block.
-  - ``timestamp`` - ``String``: The timestamp of the block.
-  - ``chain_id`` - ``Number``: The chain id of the block.
-  - ``alg`` - ``Number``: The signature algorithm of the block.
-  - ``sign`` - ``String``: The signature of the block.
   - ``accs_root`` - ``String``: The root hash of the accounts trie at the block.
-  - ``txs_root`` - ``String``: The root hash of the transactions trie at the block.
-  - ``usage_root`` - ``String``: The root hash of the usage trie at the block.
-  - ``records_root`` - ``String``: The root hash of the records trie at the block.
-  - ``consensus_root`` - ``String``: The root hash of the consensus trie at the block.
-  - ``transactions`` - ``Array``: The transaction objects array of the block.
+  - ``alg`` - ``Number``: The signature algorithm of the block.
+  - ``chain_id`` - ``Number``: The chain id of the block.
+  - ``coinbase`` - ``String``: The coinbase address of the block.
+  - ``dpos_root`` - ``String``: The root hash of the dpos trie at the block.
+  - ``hash`` - ``String``: The hash of the block.
   - ``height`` - ``String``: The height of the block.
+  - ``parent_hash`` - ``String``: The parent block's hash of the block.
+  - ``reward`` - ``String``: The block producing reward.
+  - ``sign`` - ``String``: The signature of the block.
+  - ``supply`` - ``String``: The total supply of MED.
+  - ``timestamp`` - ``String``: The timestamp of the block.
+  - ``transactions`` - ``Array``: The transaction objects array of the block.
+  - ``txs_root`` - ``String``: The root hash of the transactions trie at the block.
 
 
 Example
@@ -135,24 +123,76 @@ Example
 
 .. code-block:: javascript
 
-  Client.getBlock('1091173fe2bc7087e559bedf871a04e99927c92dad42d6270ae22c1bba720c30')
+  Client.getBlock('4341669cbe7ed0c04640ebb2882e2290abdfbc4b9d162474826e5bd2a6efd259')
   .then(console.log);
   > {
-    hash: '1091173fe2bc7087e559bedf871a04e99927c92dad42d6270ae22c1bba720c30',
-    parent_hash: 'eb71569022ead2d290123bae4563a361a207109c1ef18969646570b566aa02e2',
-    coinbase: '02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c',
-    timestamp: '1526033040',
-    chain_id: 1,
+    accs_root: "829745260cde8156131871962eae28db7a57736053c40d49261656e91a49062a"
     alg: 1,
-    sign: '8844c0ab33338906f64c45bd4849b7916a458dd9d8a960428b3e5d27369054cd3250fc08133cceeac4f2d75220e3fa8c365ad7bdff167d84fcffd6c62d7cecee01',
-    accs_root: 'f70f08d05514f549748620aa7cf677ae5303b8489f872e81078d09a538fcbec6',
-    txs_root: '0362e767ab9fe76d940368cf97ae0318a99fb38dce60dd0bb56d23e28b86c3d7',
-    usage_root: '7788b87f9b2be5b10e27cc080cf662e144b5f78d7222bd265b5721c7481ba39a',
-    records_root: '7788b87f9b2be5b10e27cc080cf662e144b5f78d7222bd265b5721c7481ba39a',
-    consensus_root: 'bc28b8ef7f709b7457f5459db562a011e481232148dcbcb44b1e9f3d0eefdfbc',
+    chain_id: 1,
+    coinbase: "02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c",
+    dpos_root: "0a2017e57591d063ce1bc6bef82e1067f3e331037be811f3a192e346bd74a6ae06ae1220cd68b8e3a73670bd261712c76464d9814aef9b49012c690096277fc0aaebb2b7",
+    hash: "4341669cbe7ed0c04640ebb2882e2290abdfbc4b9d162474826e5bd2a6efd259",
+    height: "361",
+    parent_hash: "0049aecc65a6383003d7dd392f925c0dfbd79c5e61ca789246f511b59c3970a7",
+    reward: "46000000000000",
+    sign: "649b96816d3dbc4d3df536f72cf1baf9886d00cd8b91b95132d1103f1308ae1f13101aca4a5f8b9193cb4ac23d19056eaeea45705ab47b13cf4f7e27e131f57f01",
+    supply: "10000016560000000000000",
+    timestamp: "1536044076",
     transactions: [],
-    height: '5093'
+    txs_root: "7a3d9780b7d68a05fb96ac180b67041e1b4c1ca68b8c2772566fce2dadd28dcb"
   }
+
+---------------------------------------------------------------------------
+
+
+getBlocks
+=========
+
+.. code-block:: javascript
+
+  Client.getBlocks(from, to)
+
+Returns blocks in given range.
+
+
+Parameters
+----------
+
+1. ``from`` - ``Number``: The from height of the block.
+2. ``to`` - ``Number``: The to height of the block.
+
+Returns
+-------
+
+``Promise`` returns ``Array`` - The array of the Blocks:
+
+  - ``accs_root`` - ``String``: The root hash of the accounts trie at the block.
+  - ``alg`` - ``Number``: The signature algorithm of the block.
+  - ``chain_id`` - ``Number``: The chain id of the block.
+  - ``coinbase`` - ``String``: The coinbase address of the block.
+  - ``dpos_root`` - ``String``: The root hash of the dpos trie at the block.
+  - ``hash`` - ``String``: The hash of the block.
+  - ``height`` - ``String``: The height of the block.
+  - ``parent_hash`` - ``String``: The parent block's hash of the block.
+  - ``reward`` - ``String``: The block producing reward.
+  - ``sign`` - ``String``: The signature of the block.
+  - ``supply`` - ``String``: The total supply of MED.
+  - ``timestamp`` - ``String``: The timestamp of the block.
+  - ``transactions`` - ``Array``: The transaction objects array of the block.
+  - ``txs_root`` - ``String``: The root hash of the transactions trie at the block.
+
+
+Example
+-------
+
+.. code-block:: javascript
+
+  Client.getBlocks(3, 4)
+  .then(console.log);
+  > [
+    {height: '3', ...},
+    {height: '4', ...}
+  ]
 
 ---------------------------------------------------------------------------
 
@@ -195,6 +235,78 @@ Example
 ---------------------------------------------------------------------------
 
 
+getCandidates
+=============
+
+.. code-block:: javascript
+
+  Client.getCandidates()
+
+Returns the list of candidates.
+
+
+Returns
+-------
+
+``Promise`` returns ``Array`` - The array of the candidates:
+
+  - ``address`` - ``String``: The address of the candidate.
+  - ``collatral`` - ``String``: The collatral of the candidate.
+  - ``votePower`` - ``String``: The vote power of the candidate.
+
+
+Example
+-------
+
+.. code-block:: javascript
+
+  Client.getCandidates()
+  .then(console.log);
+  > [
+    {
+      address: "03528fa3684218f32c9fd7726a2839cff3ddef49d89bf4904af11bc12335f7c939",
+      collatral: "0",
+      votePower: "500000000000000000000",
+    },
+    ...
+  ]
+
+---------------------------------------------------------------------------
+
+
+getDynasty
+==========
+
+.. code-block:: javascript
+
+  Client.getDynasty()
+
+Returns the list of block producers.
+
+
+Returns
+-------
+
+``Promise`` returns ``Array`` - The array of the candidates:
+
+  - ``address`` - ``String``: The address of the block producer.
+
+
+Example
+-------
+
+.. code-block:: javascript
+
+  Client.getDynasty()
+  .then(console.log);
+  > [
+    "03528fa3684218f32c9fd7726a2839cff3ddef49d89bf4904af11bc12335f7c939",
+    "02fc22ea22d02fc2469f5ec8fab44bc3de42dda2bf9ebc0c0055a9eb7df579056c",
+    ...
+  ]
+
+---------------------------------------------------------------------------
+
 getTransaction
 ==============
 
@@ -219,9 +331,10 @@ Returns
   - ``hash`` - ``String``: The hash of the transaction.
   - ``from`` - ``String``: The address which use it's bandwidth. Or the address which to send this value from.
   - ``to`` - ``String``: The address which to take this value.
-  - ``value`` - ``String``: The transferred value in 1e-8 MED.
+  - ``value`` - ``String``: The transferred value in 1e-12 MED.
   - ``timestamp`` - ``String``: The timestamp of the transaction.
-  - ``data`` - ``Object``: The transaction data object corresponding to each :ref:`transaction types <transaction-types>`.
+  - ``payload`` - ``String``: The payload hex string made from protoBuffer.
+  - ``tx_type`` - ``String``: The type of the transaction.
   - ``nonce`` - ``String``: The nonce indicates the number of transactions that this account has made.
   - ``chain_id`` - ``Number``: The chain id of the blockchain which this transaction belong to.
   - ``alg`` - ``Number``: The signature algorithm of the transaction.
@@ -229,7 +342,7 @@ Returns
   - ``payer_sign`` - ``String``: The signature of the payer.
   - ``executed`` - ``Boolean``: ``True if the transaction is executed and included in the block. otherwise, false.``:
 
-.. note:: ``value`` '1' indicates '0.00000001' (1e-8) MED.
+.. note:: ``value`` '1' indicates '0.000000000001' (1e-12) MED.
 
 Example
 -------
@@ -243,8 +356,9 @@ Example
     from: '02b83999492119eeea90a44bd621059e9a2f0b8219e067fb040473754a1821da07',
     to: '02b83999492119eeea90a44ad621059e9a2f0b8219e067fb040473754a1821da07',
     value: '100000000',
-    timestamp: '1530853255670',
-    data: { type: 'binary', payload: '' },
+    timestamp: '1530853255',
+    payload: '',
+    tx_type: 'transfer',
     nonce: '3',
     chain_id: 1,
     alg: 1,
