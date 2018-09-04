@@ -15,19 +15,19 @@ import {
 } from './utils/constants';
 
 
+// The time unit must be seconds
 const createAddCertificationPayload = ({
-  issueTime = Math.floor(new Date().getTime() / 1000),
-  expirationTime = Math.floor(new Date(new Date()
-    .setFullYear(new Date()
-      .getFullYear() + 1))
-    .getTime() / 1000), // 1 year later
+  issueTime,
+  expirationTime,
   hash,
 }) => {
+  if (!issueTime || !expirationTime || !hash) throw new Error('All parameter should be entered');
+  if (issueTime.toString().length !== 10 || expirationTime.toString().length !== 10) throw new Error('Timestamp unit should be seconds');
   if (issueTime > expirationTime) throw new Error('Issuacne time should be earlier than expiration time');
   return ({
     issueTime,
     expirationTime,
-    hash,
+    hash: genHexBuf(hash, BYTESIZES.HASH),
   });
 };
 
