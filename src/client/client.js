@@ -1,6 +1,7 @@
 import {
   account,
   block,
+  consensus,
   node,
   subscribe,
   transaction,
@@ -13,6 +14,7 @@ export default (nodes) => {
   return {
     ...account(apiGateway),
     ...block(apiGateway),
+    ...consensus(apiGateway),
     ...node(apiGateway),
     ...subscribe(apiGateway),
     ...transaction(apiGateway),
