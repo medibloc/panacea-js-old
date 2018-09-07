@@ -1,6 +1,3 @@
-import http from 'http';
-import https from 'https';
-
 import {
   APPLICATION_JSON,
   NETWORK_TIMEOUT,
@@ -18,8 +15,6 @@ const buildConfig = ({
 }) => {
   const customConfig = {
     baseURL,
-    httpAgent: new http.Agent({ keepAlive: true }),
-    httpsAgent: new https.Agent({ keepAlive: true }),
     method,
     responseType,
     timeout: responseType === 'stream' ? STREAM_TIMEOUT : NETWORK_TIMEOUT,
