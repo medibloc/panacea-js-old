@@ -1,4 +1,4 @@
-import { genHexBuf } from 'utils';
+import { genHexBuf, recoverFromPayload } from 'utils';
 import {
   ADD_CERTIFICATION,
   DATA_UPLOAD,
@@ -13,6 +13,7 @@ import {
 
   BYTESIZES,
 } from './utils/constants';
+import * as jsonDescriptor from './utils/proto/transaction.pb.json';
 
 
 // The time unit must be seconds
@@ -31,18 +32,42 @@ const createAddCertificationPayload = ({
   });
 };
 
+const recoverAddCertificationPayload = payloadMsg => recoverFromPayload(
+  payloadMsg,
+  ADD_CERTIFICATION_PAYLOAD,
+  jsonDescriptor,
+);
+
 const createDataPayload = hash => ({
   hash: genHexBuf(hash, BYTESIZES.HASH),
 });
+
+const recoverDataPayload = payloadMsg => recoverFromPayload(
+  payloadMsg,
+  ADD_RECORD_PAYLOAD,
+  jsonDescriptor,
+);
 
 // All parameter type is allowed
 const createDefaultPayload = message => ({
   message: JSON.stringify(message),
 });
 
+const recoverDefaultPayload = payloadMsg => recoverFromPayload(
+  payloadMsg,
+  DEFAULT_PAYLOAD,
+  jsonDescriptor,
+);
+
 const createRevokeCertificationPayload = hash => ({
   hash: genHexBuf(hash, BYTESIZES.HASH),
 });
+
+const recoverRevokeCertificationPayload = payloadMsg => recoverFromPayload(
+  payloadMsg,
+  REVOKE_CERTIFICATION_PAYLOAD,
+  jsonDescriptor,
+);
 
 const createVotePayload = (addresses) => {
   const candidates = [];
@@ -54,6 +79,11 @@ const createVotePayload = (addresses) => {
   });
 };
 
+const recoverVotePayload = payloadMsg => recoverFromPayload(
+  payloadMsg,
+  VOTE_PAYLOAD,
+  jsonDescriptor,
+);
 
 const setPayload = (txType) => {
   switch (txType) {
@@ -77,5 +107,12 @@ export default {
   createDefaultPayload,
   createRevokeCertificationPayload,
   createVotePayload,
+
+  recoverAddCertificationPayload,
+  recoverDataPayload,
+  recoverDefaultPayload,
+  recoverRevokeCertificationPayload,
+  recoverVotePayload,
+
   setPayload,
 };
