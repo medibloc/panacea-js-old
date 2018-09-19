@@ -16,7 +16,12 @@ const recoverFromPayload = (payload, type, jsonDescriptor) => {
   const payloadBuf = Buffer.from(payload, 'hex');
   const root = protobuf.Root.fromJSON(jsonDescriptor);
   const PayloadTarget = root.lookupType(type.charAt(0).toUpperCase() + type.slice(1));
-  return JSON.parse(PayloadTarget.decode(payloadBuf).message);
+  const { message } = PayloadTarget.decode(payloadBuf);
+  try {
+    return JSON.parse(message);
+  } catch (err) {
+    return message;
+  }
 };
 
 export default {
