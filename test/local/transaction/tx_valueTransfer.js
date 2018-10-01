@@ -48,7 +48,7 @@ describe('# valueTransferTx function', () => {
         nonce: 1,
         timestamp: 1524549462850,
       };
-      const txHashFromGo = '9b9cdd44d20189ad7f32c3a51d5c9091e0340310f454731e8de121d63c68d4de';
+      const txHashFromGo = 'd029baf68c2bdf1365c793396f465fd2d80cabeb6275d3857c4c46a513940e0f';
       const txFromGo = valueTransferTx(dataFromGo);
       expect(txFromGo.hash).to.be.equal(txHashFromGo);
     });

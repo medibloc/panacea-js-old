@@ -13,7 +13,7 @@ describe('# dataUploadTx function', () => {
         nonce: 1,
         timestamp: 1524549462850,
       };
-      const txHashFromGo = '9488940ef63487be2dcac2afc2982050a8ebe7a6a34efbd2b1dedb5f1a34f382';
+      const txHashFromGo = '0fe99e16cc2f90f1faf9e344996a20011d9755bf40762a247e442ede91f57edc';
       const tx = dataUploadTx(dataFromGo);
       expect(tx.hash).to.be.equal(txHashFromGo);
     });

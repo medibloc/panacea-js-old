@@ -18,7 +18,8 @@
     "uglify": "uglifyjs -nm -o ./dist/medjs.min.js ./dist/medjs.js"
   },
   "pre-commit": [
-    "lint"
+    "lint",
+    "test"
   ],
   "repository": {
     "type": "git",
