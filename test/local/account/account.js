@@ -28,8 +28,17 @@ describe('# Account class', () => {
     });
     it('Account object can be made with encrypted privKey', () => {
       const newAccount = new Account(passphrase, account.encryptedPrivKey);
-      expect(newAccount).to.have.own.property('encryptedPrivKey');
-      expect(newAccount).to.have.own.property('pubKey');
+      expect(newAccount).to.have.own.property('encryptedPrivKey')
+        .to.eq(account.encryptedPrivKey);
+      expect(newAccount).to.have.own.property('pubKey')
+        .to.equal(account.pubKey);
+    });
+    it('Account object can be made with encrypted privKey and pubKey', () => {
+      const newAccount = new Account(null, account.encryptedPrivKey, account.pubKey);
+      expect(newAccount).to.have.own.property('encryptedPrivKey')
+        .to.eq(account.encryptedPrivKey);
+      expect(newAccount).to.have.own.property('pubKey')
+        .to.equal(account.pubKey);
     });
     it('Get decrypted private key with appropriate passphrase', () => {
       const decryptedPrivKey = account.getDecryptedPrivateKey(passphrase);

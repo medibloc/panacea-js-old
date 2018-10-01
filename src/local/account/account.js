@@ -6,6 +6,7 @@ import {
   sign,
 } from 'cryptography';
 import { createCertificate } from 'identification';
+import { isAddress } from 'utils';
 
 // generate new keypair and register
 const generateAccount = (passphrase = '') => {
@@ -18,22 +19,18 @@ const generateAccount = (passphrase = '') => {
 };
 
 // set encrypted private key
-const setEncryptedPrivateKey = (passphrase = '', encryptedPrivKey) => {
-  const privKey = decryptKey(passphrase, encryptedPrivKey);
-
-  return {
-    encryptedPrivKey,
-    pubKey: getPubKey(privKey),
-  };
-};
+const setEncryptedPrivateKey = (passphrase = '', encryptedPrivKey, pubKey) => ({
+  encryptedPrivKey,
+  pubKey: isAddress(pubKey) ? pubKey : getPubKey(decryptKey(passphrase, encryptedPrivKey)),
+});
 
 export default class Account {
-  constructor(passphrase, encryptedPrivKey = '') {
+  constructor(passphrase, encryptedPrivKey = '', pubKey) {
     let newAccount;
     if (encryptedPrivKey === '') {
       newAccount = generateAccount(passphrase);
     } else {
-      newAccount = setEncryptedPrivateKey(passphrase, encryptedPrivKey);
+      newAccount = setEncryptedPrivateKey(passphrase, encryptedPrivKey, pubKey);
     }
     Object.keys(newAccount).forEach((key) => {
       this[key] = newAccount[key];

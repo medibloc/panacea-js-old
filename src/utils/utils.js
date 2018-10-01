@@ -1,7 +1,12 @@
 import { randomBytes } from 'crypto';
 
-const isAddress = pubKey =>
-  (Buffer.from(pubKey, 'hex').length === 33);
+const isAddress = (pubKey) => {
+  try {
+    return (Buffer.from(pubKey, 'hex').length === 33);
+  } catch (err) {
+    return false;
+  }
+};
 
 const isHexadecimal = str => /^[0-9a-fA-F]+$/.test(str);
 
