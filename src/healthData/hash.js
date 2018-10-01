@@ -2,21 +2,25 @@ import { sha3 } from 'utils';
 import reader from './reader';
 import helper from './helper';
 
-const hashData = async (data, type, subType = null) => {
-  const dataBuffer = await helper.makeBuffer(data, type, subType);
-  return sha3(dataBuffer);
-};
+const hashData = (data, type, subType = null) =>
+  new Promise((resolve, reject) => {
+    helper.makeBuffer(data, type, subType)
+      .then(dataBuffer => resolve(sha3(dataBuffer)))
+      .catch(err => reject(err));
+  });
 
-const hashDataFromFile = async (filePath, type, subType = null) => {
-  let data;
-  switch (type) {
-    case 'dicom':
-      return reader.hashDataStream(filePath);
-    default:
-      data = await reader.readData(filePath);
-      return hashData(data, type, subType);
-  }
-};
+const hashDataFromFile = (filePath, type, subType = null) =>
+  new Promise((resolve, reject) => {
+    switch (type) {
+      case 'dicom':
+        resolve(reader.hashDataStream(filePath));
+        break;
+      default:
+        reader.readData(filePath)
+          .then(data => resolve(hashData(data, type, subType)))
+          .catch(err => reject(err));
+    }
+  });
 
 export default {
   hashData,

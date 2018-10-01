@@ -20,7 +20,6 @@ describe('# becomeCandidateTx', () => {
     expect(tx).to.have.property('hash');
   });
   it('should return transaction contains rawTx', () => {
-    console.log(tx.rawTx);
     expect(tx).to.have.property('rawTx')
       .to.contain.all.keys(REQUIRED_TX_PARAMS[BECOME_CANDIDATE].map(param => param.split('.')[0]));
   });

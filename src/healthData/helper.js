@@ -15,14 +15,12 @@ const decodeFHIR = (buffer, type) => protobuf.load(path.resolve(__dirname, `./pr
     if (errMsg) { throw Error(errMsg); }
 
     // Maybe convert the message back to a plain object
-    const object = Type.toObject(message, {
+    return Type.toObject(message, {
       longs: String,
       enums: String,
       bytes: String,
       // see ConversionOptions
     });
-
-    return object;
   })
   .catch((err) => {
     console.log(err);
@@ -45,9 +43,7 @@ const encodeFHIR = (obj, type) => protobuf.load(path.resolve(__dirname, `./proto
     const message = Type.create(obj); // or use .fromObject if conversion is necessary
 
     // Encode a message to an Uint8Array (browser) or Buffer (node)
-    const buffer = Type.encode(message).finish();
-
-    return buffer;
+    return Type.encode(message).finish();
   }).catch((err) => {
     console.log(err);
     throw err;
@@ -57,32 +53,33 @@ const encodeJson = obj => Buffer.from(JSON.stringify(obj));
 
 const encodeString = str => Buffer.from(str);
 
-const makeBuffer = async (data, type, subType) => {
-  let dataBuffer;
-  // TODO: support other types
-  switch (type) {
-    case 'medical-fhir':
-      dataBuffer = await encodeFHIR(data, subType);
-      break;
-    case 'pghd':
-      if (data instanceof Uint8Array || data instanceof Buffer) {
-        dataBuffer = data;
-      } else if (typeof data === 'object') {
-        dataBuffer = encodeJson(data);
-      } else if (typeof data === 'string') {
-        dataBuffer = encodeString(data);
-      } else {
-        return new Error('not supporting type');
-      }
-      break;
-    case 'dicom':
-      dataBuffer = data;
-      break;
-    default:
-      return new Error('not supporting type');
-  }
-  return dataBuffer;
-};
+const makeBuffer = (data, type, subType) =>
+  new Promise((resolve, reject) => {
+    // TODO: support other types
+    switch (type) {
+      case 'medical-fhir':
+        encodeFHIR(data, subType)
+          .then(dataBuffer => resolve(dataBuffer))
+          .catch(err => reject(err));
+        break;
+      case 'pghd':
+        if (data instanceof Uint8Array || data instanceof Buffer) {
+          resolve(data);
+        } else if (typeof data === 'object') {
+          resolve(encodeJson(data));
+        } else if (typeof data === 'string') {
+          resolve(encodeString(data));
+        } else {
+          reject(new Error('not supporting type'));
+        }
+        break;
+      case 'dicom':
+        resolve(data);
+        break;
+      default:
+        reject(new Error('not supporting type'));
+    }
+  });
 
 export default {
   decodeFHIR,

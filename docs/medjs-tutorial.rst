@@ -27,7 +27,7 @@ send data upload transaction
   // create a new account
   var account = new Account();
   // get account state
-  Client.getAccountState(account.pubKey, 'tail').then((res) => {
+  Client.getAccount(account.pubKey, null, 'tail').then((res) => {
     var nonce = parseInt(res.nonce, 10);
 
     // calculate hash of the medical data file

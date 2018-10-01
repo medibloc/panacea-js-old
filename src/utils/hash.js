@@ -25,15 +25,16 @@ const sha3 = (msg) => {
   return SHA3256.create().update(message).hex();
 };
 
-const sha3Stream = async stream => new Promise((resolve) => {
-  const hash = SHA3256.create();
-  stream.on('data', (data) => {
-    hash.update(data);
+const sha3Stream = stream =>
+  new Promise((resolve) => {
+    const hash = SHA3256.create();
+    stream.on('data', (data) => {
+      hash.update(data);
+    });
+    stream.on('end', () => {
+      resolve(hash.hex());
+    });
   });
-  stream.on('end', () => {
-    resolve(hash.hex());
-  });
-});
 
 export default {
   sha3,
