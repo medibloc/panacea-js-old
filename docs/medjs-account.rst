@@ -29,7 +29,7 @@ new Account
 
 .. code-block:: javascript
 
-  new Account(passphrase, encryptedPrivateKey);
+  new Account(passphrase, encryptedPrivateKey, pubKey);
 
 To generate account, you can use ``medjs.local.Account()``. Basically, account is just a pair of private and public key that has several functions described as below.
 
@@ -41,6 +41,7 @@ Parameters
 
 1. ``passphrase`` - ``String`` :(optional) If ``encryptedPrivateKey`` is not given, passphrase works as a key to encrypt private key. If ``encryptedPrivateKey`` is given, passphrase works as a key to decrypt encryptedPrivateKey and it must be used in encryption of the ``encryptedPrivateKey``. If not given, passphrase is set with an empty string. 
 2. ``encryptedPrivateKey`` - ``String`` :(optional) Restore account is matched with the given encrypted private key. If not given, it will generate a new keypair.
+3. ``pubKey`` - ``String``(optional) Restore account is matched with the given public key. If not given, it will be decrypted from the given passphrase and the given encryptedPrivateKey.
 
 .. note:: If ``passphrase`` does not match with ``encryptedPrivateKey``, it will return a different private key.
 
@@ -51,8 +52,8 @@ Returns
 ``Object`` - The account object with the following structure:
 
 - ``pubKey`` - ``String``: The account's public key.
-- ``encryptedPrivKey`` - ``String``: The account's encrypted private key. This should never be shared or stored anywhere.
-- ``getDecryptedPrivateKey(passphrase)`` - ``Function``: The function to decrypt an account's ``encryptedPrivKey`` and return a private key.
+- ``encryptedPrivKey`` - ``String``: The account's encrypted private key. This should be carefully shared or stored.
+- And other following functions...
 
 -------
 Example
@@ -60,26 +61,39 @@ Example
 
 .. code-block:: javascript
 
-  new Account();
-  > {
-    encryptedPrivKey: '6cd4d5aa9385c9897f7b143adc104e8c7d185a4c87eb21c828…fefa6b2a087f47445908b766bebe9c5f05c2551901c0e29cb',
-    pubKey: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
-    getDecryptedPrivateKey: function(passphrase){...}
+  var accountNoPassphrase = new Account();
+  console.log(accountNoPassphrase);
+  > Account {
+    encryptedPrivKey: {
+      version: 3,
+      id: '6402eabe-db3f-497e-8d22-134d3690c349',
+      address: '02ed468d1c8e4ee91b889b3e8fe79cd024df5ef4087c4ab1141d365a7b8d218ca4',
+      ...
+    },
+    pubKey: '02ed468d1c8e4ee91b889b3e8fe79cd024df5ef4087c4ab1141d365a7b8d218ca4',
+    ...
   }
 
-  new Account('123456789abcdeABCDE!@#');
-  > {
-    encryptedPrivKey: '6cd4d5aa9385c9897f7b143adc104e8c7d185a4c87eb21c828…fefa6b2a087f47445908b766bebe9c5f05c2551901c0e29cb',
+  var account = new Account('123456789abcdeABCDE!@#');
+  console.log(account);
+  > Account {
+    encryptedPrivKey: {
+      version: 3,
+      id: 'ca05cb03-7f84-4251-9c8c-e468fda47f0f',
+      address: '0387e6dd9576a9bc792658bcedcb257311739c88b8a3ca68eef980316bb73a45d9',
+      ...
+    },
     pubKey: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
-    getDecryptedPrivateKey: function(passphrase){...}
+    ...
   }
 
-  new Account('123456789abcdeABCDE!@#', '6cd4d5aa9385c9897f7b143adc104e8c7d185a4c87eb21c828…fefa6b2a087f47445908b766bebe9c5f05c2551901c0e29cb');
-  > {
-    encryptedPrivKey: '6cd4d5aa9385c9897f7b143adc104e8c7d185a4c87eb21c828…fefa6b2a087f47445908b766bebe9c5f05c2551901c0e29cb',
-    pubKey: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
-    getDecryptedPrivateKey: function(passphrase){...}
-  }
+  var account1 = new Account('123456789abcdeABCDE!@#', account.encryptedPrivKey);
+  console.log(account1);
+  > // same with the previous result
+
+  var account2 = new Account('', account.encryptedPrivKey, account.pubKey);
+  console.log(account2);
+  > // same with the previous result
 
 .. note:: SDK doesn't hold or share unencrypted private key. Account object holds encrypted private key and only the right passphrase can retrieve the unencrypted private key.
 
@@ -133,14 +147,14 @@ Example
 ---------------------------------------------------------------------------
 
 getDecryptedPrivateKey
-=========================
+======================
 
 .. code-block:: javascript
 
   var account = new Account(passphrase, encryptedPrivateKey);
   account.getDecryptedPrivateKey(passphrase);
 
-To decrypt encrypted private key with the passphrase from the ``account`` object, you can use ``Account.getDecryptedPrivateKey(passphrase)``.
+To decrypt encrypted private key with the passphrase from the ``account`` object, you can use ``account.getDecryptedPrivateKey(passphrase)``.
 
 ----------
 Parameters
@@ -176,7 +190,7 @@ signTx
   var account = new Account(passphrase, encryptedPrivateKey);
   account.signTx(tx, passphrase);
 
-To sign a transaction with the private key, you can use ``Account.signTx(tx, passphrase)``. It assigns signature string to ``tx.sign``.
+To sign a transaction with the private key, you can use ``account.signTx(tx, passphrase)``. It assigns signature string to ``tx.sign``.
 
 ----------
 Parameters
@@ -185,7 +199,7 @@ Parameters
 1. ``tx`` - ``Object`` : Transaction object created from one of the :ref:`transaction creation functions <transaction>`.
 2. ``passphrase`` - ``String`` :(optional) The passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt the encrypted private key.
 
-.. note:: Account.signTx doesn't return anything but assign a signature string to the transaction object. After signing, ``transaction.sign`` is changed from ``Null`` to ``String``.
+.. note:: account.signTx doesn't return anything but assign a signature string to the transaction object. After signing, ``transaction.sign`` is changed from ``null`` to ``String``.
 
 -------
 Example
@@ -219,7 +233,7 @@ signDataPayload
   var account = new Account(passphrase, encryptedPrivateKey);
   account.signDataPayload(dataPayload, passphrase);
 
-To sign a data payload with the private key, you can use ``Account.signDataPayload(dataPayload, passphrase)``. It assigns signature string to ``dataPayload.sign``.
+To sign a data payload with the private key, you can use ``account.signDataPayload(dataPayload, passphrase)``. It assigns signature string to ``dataPayload.sign``.
 
 ----------
 Parameters
@@ -231,7 +245,7 @@ Parameters
 
 2. ``passphrase`` - ``String``:(optional) The passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt.
 
-.. note:: Account.signDataPayload doesn't return anything but assign the signature string and the certificate to the data payload object. After signing, ``dataPayload.sign`` is changed from ``Null`` to ``String`` and ``dataPayload.cert`` is changed from ``Null`` to ``Object``.
+.. note:: account.signDataPayload doesn't return anything but assign the signature string and the certificate to the data payload object. After signing, ``dataPayload.sign`` is changed from ``Null`` to ``String`` and ``dataPayload.cert`` is changed from ``Null`` to ``Object``.
 
 -------
 Example
