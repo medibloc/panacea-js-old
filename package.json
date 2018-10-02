@@ -1,6 +1,6 @@
 {
   "name": "medjs",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "JavaScript library for MediBloc",
   "main": "lib/index.js",
   "directories": {
@@ -30,7 +30,7 @@
     "javascript",
     "library"
   ],
-  "author": "MediBloc <dev-sys@medibloc.org>",
+  "author": "MediBloc <dev@medibloc.org>",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/medibloc/medjs/issues"

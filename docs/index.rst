@@ -1,8 +1,8 @@
 .. include:: include_announcement.rst
 
-==================================
-medjs - MediBloc JavaScript API
-==================================
+========================================
+medjs - MediBloc JavaScript API(v0.2.13)
+========================================
 
 `medjs <https://github.com/medibloc/medjs>`_ is a client-side JavaScript library for `medibloc blockchain <https://github.com/medibloc/go-medibloc>`_.
 
