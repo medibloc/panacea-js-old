@@ -19,6 +19,7 @@ export default ({ sendRequest }) => {
       payload: {
         ...tx.rawTx,
         hash: tx.hash,
+        payer_sign: tx.payerSign,
         sign: tx.sign,
       },
     },

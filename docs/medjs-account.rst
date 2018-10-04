@@ -225,6 +225,52 @@ Example
 
 ---------------------------------------------------------------------------
 
+signTxAsPayer
+=============
+
+.. code-block:: javascript
+
+  var account = new Account(passphrase, encryptedPrivateKey);
+  account.signTxAsPayer(tx, passphrase);
+
+To sign a transaction as payer with the private key, you can use ``account.signTxAsPayer(tx, passphrase)``. It assigns signature string to ``tx.payerSign``.
+
+----------
+Parameters
+----------
+
+1. ``tx`` - ``Object`` : Transaction object created from one of the :ref:`transaction creation functions <transaction>` and signed by a requester.
+2. ``passphrase`` - ``String`` :(optional) The passphrase to decrypt encrypted private key. If not given, empty string is used to decrypt the encrypted private key.
+
+.. note:: account.signTxAsPayer doesn't return anything but assign a signature string to the transaction object. After signing, ``transaction.payerSign`` is set as ``String``.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  var requester = new Account('MediBloc1!');
+  var payer = new Account('MediBloc2@');
+  var transactionData = {
+    from: requester.pubKey,
+    to: '0266e30b34c9b377c9699c026872429a0fa582ac802759a3f35f9e90b352b8d932',
+    value: '5',
+    nonce: 3
+  };
+  var transaction = Transaction.valueTransferTx(transactionData);
+  requester.signTx(transaction, 'MediBloc1!');
+  payer.signTxAsPayer(transaction, 'MediBloc2@');
+  console.log(transaction);
+  > {
+    rawTx: {...},
+    hash: 'd04bd6cb8eef9f59e9cab7fcb253303d003ce34f30bd8e0f59c09fba5281c303',
+    sign: '5351c2e3375570ab15c4f1ef36b4d854516a368a4e0ad3e1c26d32df854083bb3bf9cc188fdc242484183edff5aeb8615cda7c1ebb4f6948ec00641bd9bfa06000',
+    payerSign: '0b0b28624ab007538c7044624f7a1f90c5e7b215118e8894288378c8895f2a585d10087d4be3d20a22bf381360fb70a5da2c4da95dc8430218a3d0ec3acfc11001',
+  }
+
+---------------------------------------------------------------------------
+
 signDataPayload
 ===============
 

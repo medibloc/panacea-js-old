@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { randomBytes } from 'crypto';
 import { getPubKey } from 'cryptography';
 import { Account } from 'local/account';
+import Transaction from '../../../src/local/transaction';
 
 // Account
 describe('# Account class', () => {
@@ -48,5 +49,77 @@ describe('# Account class', () => {
       const wrongPassphrase = 'medibloc!';
       expect(() => account.getDecryptedPrivateKey(wrongPassphrase)).to.throw(Error, 'Key derivation failed - possibly wrong passphrase');
     });
+  });
+});
+
+describe('# Account object', () => {
+  let account1;
+  let account2;
+  const passphrase1 = 'MediBloc1!';
+  const passphrase2 = 'MediBloc2@';
+  const pubKey1 = '028b51f14da514bd29683da96c39b07ca9a5c008c3c5d392fe5f16db36388e73d1';
+  const pubKey2 = '03c236cdff9cbd4a1e896dc2ea8b30f6ce2afe14a6da4a5aaec176970b519ed9bf';
+  const encryptedPrivKey1 = {
+    version: 3,
+    id: '33ed4df1-e57b-436f-8cdc-29a8cc359503',
+    address: '028b51f14da514bd29683da96c39b07ca9a5c008c3c5d392fe5f16db36388e73d1',
+    crypto: {
+      ciphertext: '2e8a30aad53bb99c7c5913425feeef84033f00a33157e674672cc5aceb91db03c3032a36bdb19cb1673a0121d3a7c26e436cb550132571555455542ef95693de',
+      cipherparams: {
+        iv: '972e35a23ca7f41b1becfb1f6db6cbff',
+      },
+      cipher: 'aes-128-ctr',
+      kdf: 'scrypt',
+      kdfparams: {
+        dklen: 32,
+        salt: '4f0080d7939f3902443703b13613a3ff25ccd2c1c3b6d666026048f49b83aff1',
+        n: 8192,
+        r: 8,
+        p: 1,
+      },
+      mac: '052e319223f86812c34e61921908dc133a81cb427a494a778aa19803e3907dbc',
+    },
+  };
+  const encryptedPrivKey2 = {
+    version: 3,
+    id: '0952fdd3-e2f7-44df-b22c-d092eeb6be5b',
+    address: '03c236cdff9cbd4a1e896dc2ea8b30f6ce2afe14a6da4a5aaec176970b519ed9bf',
+    crypto: {
+      ciphertext: '600e485cdf5defa5bc1b234c781ffab3bf562e25e4550510cdd027d6e5dbafce90017deda9cd40f5cfdd5817dd7d8dd4d73f6e5a579bba9cae0ad692ac2d8fd5',
+      cipherparams: {
+        iv: '48d6e2e5aaf9efb00a08acb430a3b8fa',
+      },
+      cipher: 'aes-128-ctr',
+      kdf: 'scrypt',
+      kdfparams: {
+        dklen: 32,
+        salt: '3d36647a323c3400eb89e6639dd5b1b4d013a377412cdc1aee442fc84692ba77',
+        n: 8192,
+        r: 8,
+        p: 1,
+      },
+      mac: '599b11bf8390174a960fa990792dfc5dd0f36d9b9e48bc309cb2be410f9ee617',
+    },
+  };
+  const payerSignFromGo = '0b0b28624ab007538c7044624f7a1f90c5e7b215118e8894288378c8895f2a585d10087d4be3d20a22bf381360fb70a5da2c4da95dc8430218a3d0ec3acfc11001';
+  beforeEach(() => {
+    account1 = new Account(passphrase1, encryptedPrivKey1, pubKey1);
+    account2 = new Account(passphrase2, encryptedPrivKey2, pubKey2);
+    return Promise.resolve();
+  });
+
+  it('can sign transaction as payer', () => {
+    const txData = {
+      from: '028b51f14da514bd29683da96c39b07ca9a5c008c3c5d392fe5f16db36388e73d1',
+      to: '03c236cdff9cbd4a1e896dc2ea8b30f6ce2afe14a6da4a5aaec176970b519ed9bf',
+      timestamp: 1234567890,
+      payload: Transaction.createDefaultPayload(),
+      nonce: 1,
+    };
+    const tx = Transaction.valueTransferTx(txData);
+    account1.signTx(tx, 'MediBloc1!');
+    account2.signTxAsPayer(tx, 'MediBloc2@');
+    console.log(tx);
+    expect(tx.payerSign).to.equal(payerSignFromGo);
   });
 });

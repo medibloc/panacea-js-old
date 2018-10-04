@@ -1,3 +1,4 @@
+import { sha3_256 as SHA3256 } from 'js-sha3';
 import {
   decryptKey,
   encryptKey,
@@ -45,6 +46,15 @@ export default class Account {
   signTx(tx, passphrase = '') {
     const privKey = this.getDecryptedPrivateKey(passphrase);
     tx.sign = sign(privKey, tx.hash); // eslint-disable-line
+  }
+
+  signTxAsPayer(tx, passphrase = '') {
+    const privKey = this.getDecryptedPrivateKey(passphrase);
+    const hash = SHA3256.create();
+    hash.update(Buffer.from(tx.hash, 'hex'));
+    hash.update(Buffer.from(tx.sign, 'hex'));
+    // eslint-disable-next-line no-param-reassign
+    tx.payerSign = sign(privKey, hash.hex());
   }
 
   signDataPayload(data, passphrase = '') {
