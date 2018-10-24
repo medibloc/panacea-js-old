@@ -2,16 +2,12 @@ import { BigNumber } from 'bignumber.js';
 import binary from 'bops';
 import { sha3_256 as SHA3256 } from 'js-sha3';
 import protobuf from 'protobufjs/light';
-import { genHexBuf, genPayloadBuf } from 'utils';
-import { getPayloadType } from '../payload';
+import { genHexBuf } from 'utils';
 import { BYTESIZES } from './constants';
 import * as jsonDescriptor from './proto/transaction.pb.json';
 
-
 const hashTx = (tx) => {
-  const payloadType = getPayloadType(tx.tx_type);
-  const payloadBuf = genPayloadBuf(tx.payload, payloadType, jsonDescriptor);
-
+  // TODO @ggomma defaultPayload string check
   const txHashTarget = {
     txType: tx.tx_type,
     from: genHexBuf(tx.from, BYTESIZES.ADDRESS),
@@ -20,10 +16,8 @@ const hashTx = (tx) => {
     timestamp: tx.timestamp,
     nonce: tx.nonce,
     chainId: tx.chain_id,
-    payload: payloadBuf, // TODO @ggomma defaultPayload string check
+    payload: (tx.payload === undefined) ? null : binary.from(tx.payload, 'hex'),
   };
-  // eslint-disable-next-line
-  if (payloadBuf !== null) tx.payload = binary.to(payloadBuf, 'hex');
 
   const root = protobuf.Root.fromJSON(jsonDescriptor);
   const TxHashTarget = root.lookupType('TransactionHashTarget');

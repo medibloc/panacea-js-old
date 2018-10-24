@@ -111,7 +111,6 @@ describe('# valueTransferTx', () => {
 
   describe('# recoverPayload', () => {
     it('should recover expected transaction payload', () => {
-      console.log(payload);
       expect(recoverPayload(tx)).to.eql(payload);
     });
   });
