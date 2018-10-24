@@ -1,21 +1,43 @@
 import { expect } from 'chai';
-import { dataUploadTx } from 'local/transaction';
+import {
+  createDataPayload,
+  dataUploadTx,
+  recoverPayload,
+} from 'local/transaction';
+import { constants } from 'local/transaction/utils';
 
-// overall dataUploadTx
-describe('# dataUploadTx function', () => {
-  describe('# TX hash', () => {
-    it('Should be matched with go-medibloc', () => {
-      const dataFromGo = {
-        from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
-        payload: {
-          hash: 'nspxKECfYJsqcvwkmFZFZlu7mRUrSxQmHDw8k/sXz1Q=',
-        },
-        nonce: 1,
-        timestamp: 1524549462850,
-      };
-      const txHashFromGo = '0fe99e16cc2f90f1faf9e344996a20011d9755bf40762a247e442ede91f57edc';
-      const tx = dataUploadTx(dataFromGo);
-      expect(tx.hash).to.be.equal(txHashFromGo);
+const {
+  REQUIRED_TX_PARAMS,
+  DATA_UPLOAD,
+} = constants;
+
+describe('# dataUploadTx', () => {
+  const payload = createDataPayload('487b69767e201f485a67b915f1726e39a9d84d72ce3753dfdc824ebdf22e9b33');
+  const fields = {
+    from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
+    nonce: 1,
+    payload,
+    timestamp: 1540000000,
+  };
+  const tx = dataUploadTx(fields);
+  const txHashFromGo = '9ae59f5dbe447ddec2e2631ed81e2e2e2c00ed3c380c8a875729d60a3af5730c';
+
+  it('should return transaction contains hash', () => {
+    expect(tx).to.have.property('hash')
+      .to.equal(txHashFromGo);
+  });
+  it('should return transaction contains rawTx', () => {
+    expect(tx).to.have.property('rawTx')
+      .to.contain.all.keys(REQUIRED_TX_PARAMS[DATA_UPLOAD].map(param => param.split('.')[0]));
+  });
+  it('should return transaction not contains signature', () => {
+    expect(tx).to.have.property('sign')
+      .to.equal(null);
+  });
+
+  describe('# recoverPayload', () => {
+    it('should recover expected transaction payload', () => {
+      expect(recoverPayload(tx)).to.eql(payload);
     });
   });
 });

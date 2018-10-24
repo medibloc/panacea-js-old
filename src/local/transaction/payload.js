@@ -24,7 +24,7 @@ const createAddCertificationPayload = ({
 }) => {
   if (!issueTime || !expirationTime || !hash) throw new Error('All parameter should be entered');
   if (issueTime.toString().length !== 10 || expirationTime.toString().length !== 10) throw new Error('Timestamp unit should be seconds');
-  if (issueTime > expirationTime) throw new Error('Issuacne time should be earlier than expiration time');
+  if (issueTime > expirationTime) throw new Error('Issuance time should be earlier than expiration time');
   return ({
     issueTime,
     expirationTime,
@@ -32,42 +32,18 @@ const createAddCertificationPayload = ({
   });
 };
 
-const recoverAddCertificationPayload = payloadMsg => recoverFromPayload(
-  payloadMsg,
-  ADD_CERTIFICATION_PAYLOAD,
-  jsonDescriptor,
-);
-
 const createDataPayload = hash => ({
   hash: genHexBuf(hash, BYTESIZES.HASH),
 });
-
-const recoverDataPayload = payloadMsg => recoverFromPayload(
-  payloadMsg,
-  ADD_RECORD_PAYLOAD,
-  jsonDescriptor,
-);
 
 // All parameter type is allowed
 const createDefaultPayload = message => ({
   message: JSON.stringify(message),
 });
 
-const recoverDefaultPayload = payloadMsg => recoverFromPayload(
-  payloadMsg,
-  DEFAULT_PAYLOAD,
-  jsonDescriptor,
-);
-
 const createRevokeCertificationPayload = hash => ({
   hash: genHexBuf(hash, BYTESIZES.HASH),
 });
-
-const recoverRevokeCertificationPayload = payloadMsg => recoverFromPayload(
-  payloadMsg,
-  REVOKE_CERTIFICATION_PAYLOAD,
-  jsonDescriptor,
-);
 
 const createVotePayload = (addresses) => {
   const candidates = [];
@@ -79,13 +55,7 @@ const createVotePayload = (addresses) => {
   });
 };
 
-const recoverVotePayload = payloadMsg => recoverFromPayload(
-  payloadMsg,
-  VOTE_PAYLOAD,
-  jsonDescriptor,
-);
-
-const setPayload = (txType) => {
+const getPayloadType = (txType) => {
   switch (txType) {
     case DATA_UPLOAD:
       return ADD_RECORD_PAYLOAD;
@@ -100,6 +70,16 @@ const setPayload = (txType) => {
   }
 };
 
+const recoverPayload = (transaction) => {
+  if (!(transaction.rawTx &&
+    transaction.rawTx.tx_type &&
+    transaction.rawTx.payload)) return null;
+  return recoverFromPayload(
+    transaction.rawTx.payload,
+    getPayloadType(transaction.rawTx.tx_type),
+    jsonDescriptor,
+  );
+};
 
 export default {
   createAddCertificationPayload,
@@ -107,12 +87,6 @@ export default {
   createDefaultPayload,
   createRevokeCertificationPayload,
   createVotePayload,
-
-  recoverAddCertificationPayload,
-  recoverDataPayload,
-  recoverDefaultPayload,
-  recoverRevokeCertificationPayload,
-  recoverVotePayload,
-
-  setPayload,
+  getPayloadType,
+  recoverPayload,
 };

@@ -16,10 +16,11 @@ const recoverFromPayload = (payload, type, jsonDescriptor) => {
   const payloadBuf = Buffer.from(payload, 'hex');
   const root = protobuf.Root.fromJSON(jsonDescriptor);
   const PayloadTarget = root.lookupType(type.charAt(0).toUpperCase() + type.slice(1));
-  const PAYLOAD = PayloadTarget.decode(payloadBuf);
-
-  // To remove useless protobuffer constants
-  return JSON.parse(JSON.stringify(PAYLOAD));
+  const payloadMessage = PayloadTarget.decode(payloadBuf);
+  return PayloadTarget.toObject(payloadMessage, {
+    enums: String,
+    longs: Number,
+  });
 };
 
 export default {

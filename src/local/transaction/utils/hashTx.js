@@ -3,13 +3,13 @@ import binary from 'bops';
 import { sha3_256 as SHA3256 } from 'js-sha3';
 import protobuf from 'protobufjs/light';
 import { genHexBuf, genPayloadBuf } from 'utils';
-import { setPayload } from '../payload';
+import { getPayloadType } from '../payload';
 import { BYTESIZES } from './constants';
 import * as jsonDescriptor from './proto/transaction.pb.json';
 
 
 const hashTx = (tx) => {
-  const payloadType = setPayload(tx.tx_type);
+  const payloadType = getPayloadType(tx.tx_type);
   const payloadBuf = genPayloadBuf(tx.payload, payloadType, jsonDescriptor);
 
   const txHashTarget = {

@@ -1,7 +1,17 @@
 import { expect } from 'chai';
 import { encryptKey } from 'cryptography/encrypt';
 import { Account } from 'local/account';
-import valueTransferTx from 'local/transaction/tx_valueTransfer';
+import {
+  createDefaultPayload,
+  valueTransferTx,
+  recoverPayload,
+} from 'local/transaction';
+import { constants } from 'local/transaction/utils';
+
+const {
+  REQUIRED_TX_PARAMS,
+  VALUE_TRANSFER,
+} = constants;
 
 // overall valueTransferTx
 describe('# valueTransferTx function', () => {
@@ -46,9 +56,9 @@ describe('# valueTransferTx function', () => {
         to: '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21',
         value: '10',
         nonce: 1,
-        timestamp: 1524549462850,
+        timestamp: 1540000000,
       };
-      const txHashFromGo = 'd029baf68c2bdf1365c793396f465fd2d80cabeb6275d3857c4c46a513940e0f';
+      const txHashFromGo = '19b9ae49f9b35bca4cda025cac9c25d5d7bf7f7b2e8dcc8ff1906afafda7166f';
       const txFromGo = valueTransferTx(dataFromGo);
       expect(txFromGo.hash).to.be.equal(txHashFromGo);
     });
@@ -69,6 +79,40 @@ describe('# valueTransferTx function', () => {
 
     it('Throw error if user put unmatched passphrase', () => {
       expect(() => user.signTx(tx, 'wrongPassphrase')).to.throw(Error);
+    });
+  });
+});
+
+describe('# valueTransferTx', () => {
+  const payload = createDefaultPayload('Hello MediBloc!');
+  const fields = {
+    from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
+    nonce: 1,
+    payload,
+    timestamp: 1540000000,
+    to: '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21',
+    value: '10',
+  };
+  const tx = valueTransferTx(fields);
+  const txHashFromGo = 'fea899b536be78e7e45dc7f65aa8e381a496ffee4cf7276f9be079605bf81095';
+
+  it('should return transaction contains hash', () => {
+    expect(tx).to.have.property('hash')
+      .to.equal(txHashFromGo);
+  });
+  it('should return transaction contains rawTx', () => {
+    expect(tx).to.have.property('rawTx')
+      .to.contain.all.keys(REQUIRED_TX_PARAMS[VALUE_TRANSFER].map(param => param.split('.')[0]));
+  });
+  it('should return transaction not contains signature', () => {
+    expect(tx).to.have.property('sign')
+      .to.equal(null);
+  });
+
+  describe('# recoverPayload', () => {
+    it('should recover expected transaction payload', () => {
+      console.log(payload);
+      expect(recoverPayload(tx)).to.eql(payload);
     });
   });
 });
