@@ -1,20 +1,6 @@
 import { genHexBuf, recoverFromPayload } from 'utils';
-import {
-  ADD_CERTIFICATION,
-  DATA_UPLOAD,
-  REVOKE_CERTIFICATION,
-  VOTE,
-
-  ADD_CERTIFICATION_PAYLOAD,
-  ADD_RECORD_PAYLOAD,
-  DEFAULT_PAYLOAD,
-  REVOKE_CERTIFICATION_PAYLOAD,
-  VOTE_PAYLOAD,
-
-  BYTESIZES,
-} from './utils/constants';
+import { BYTESIZES, PAYLOAD_TYPES } from './utils/constants';
 import * as jsonDescriptor from './utils/proto/transaction.pb.json';
-
 
 // The time unit must be seconds
 const createAddCertificationPayload = ({
@@ -55,28 +41,14 @@ const createVotePayload = (addresses) => {
   });
 };
 
-const getPayloadType = (txType) => {
-  switch (txType) {
-    case DATA_UPLOAD:
-      return ADD_RECORD_PAYLOAD;
-    case VOTE:
-      return VOTE_PAYLOAD;
-    case ADD_CERTIFICATION:
-      return ADD_CERTIFICATION_PAYLOAD;
-    case REVOKE_CERTIFICATION:
-      return REVOKE_CERTIFICATION_PAYLOAD;
-    default:
-      return DEFAULT_PAYLOAD;
-  }
-};
-
 const recoverPayload = (transaction) => {
   if (!(transaction.rawTx &&
     transaction.rawTx.tx_type &&
-    transaction.rawTx.payload)) return null;
+    transaction.rawTx.payload &&
+    PAYLOAD_TYPES[transaction.rawTx.tx_type])) return null;
   return recoverFromPayload(
     transaction.rawTx.payload,
-    getPayloadType(transaction.rawTx.tx_type),
+    PAYLOAD_TYPES[transaction.rawTx.tx_type],
     jsonDescriptor,
   );
 };
@@ -87,6 +59,5 @@ export default {
   createDefaultPayload,
   createRevokeCertificationPayload,
   createVotePayload,
-  getPayloadType,
   recoverPayload,
 };

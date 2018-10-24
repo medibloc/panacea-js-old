@@ -7,11 +7,12 @@ import {
   createVotePayload,
 } from 'local/transaction/payload';
 import {
-  ADD_CERTIFICATION_PAYLOAD,
-  ADD_RECORD_PAYLOAD,
-  DEFAULT_PAYLOAD,
-  REVOKE_CERTIFICATION_PAYLOAD,
-  VOTE_PAYLOAD,
+  ADD_CERTIFICATION,
+  DATA_UPLOAD,
+  PAYLOAD_TYPES,
+  REVOKE_CERTIFICATION,
+  VALUE_TRANSFER,
+  VOTE,
 } from 'local/transaction/utils/constants';
 import protobuf from 'protobufjs/light';
 import * as jsonDescriptor from 'local/transaction/utils/proto/transaction.pb.json';
@@ -27,8 +28,8 @@ const genPayloadPb = (payload, type) => {
 describe('# payload', () => {
   describe('# createAddCertificationPayload', () => {
     it('should be matched with the expected result', () => {
-      const type = ADD_CERTIFICATION_PAYLOAD.charAt(0).toUpperCase() +
-        ADD_CERTIFICATION_PAYLOAD.slice(1);
+      const type = PAYLOAD_TYPES[ADD_CERTIFICATION].charAt(0).toUpperCase() +
+        PAYLOAD_TYPES[ADD_CERTIFICATION].slice(1);
       const payload = createAddCertificationPayload({
         issueTime: 1535002808,
         expirationTime: 1566538808,
@@ -41,8 +42,8 @@ describe('# payload', () => {
 
   describe('# createDataPayload', () => {
     it('should be matched with the expected result', () => {
-      const type = ADD_RECORD_PAYLOAD.charAt(0).toUpperCase() +
-        ADD_RECORD_PAYLOAD.slice(1);
+      const type = PAYLOAD_TYPES[DATA_UPLOAD].charAt(0).toUpperCase() +
+        PAYLOAD_TYPES[DATA_UPLOAD].slice(1);
       const payload = createDataPayload('9eca7128409f609b2a72fc24985645665bbb99152b4b14261c3c3c93fb17cf54');
       const target = '0a209eca7128409f609b2a72fc24985645665bbb99152b4b14261c3c3c93fb17cf54';
       expect(genPayloadPb(payload, type)).to.be.eql(target);
@@ -51,8 +52,8 @@ describe('# payload', () => {
 
   describe('# createDefaultPayload', () => {
     it('should be matched with the expected result', () => {
-      const type = DEFAULT_PAYLOAD.charAt(0).toUpperCase() +
-        DEFAULT_PAYLOAD.slice(1);
+      const type = PAYLOAD_TYPES[VALUE_TRANSFER].charAt(0).toUpperCase() +
+        PAYLOAD_TYPES[VALUE_TRANSFER].slice(1);
       const payload = createDefaultPayload('Hello MediBloc');
       const target = '0a102248656c6c6f204d656469426c6f6322';
       expect(genPayloadPb(payload, type)).to.be.eql(target);
@@ -61,8 +62,8 @@ describe('# payload', () => {
 
   describe('# createRevokeCertificationPayload', () => {
     it('should be matched with the expected result', () => {
-      const type = REVOKE_CERTIFICATION_PAYLOAD.charAt(0).toUpperCase() +
-        REVOKE_CERTIFICATION_PAYLOAD.slice(1);
+      const type = PAYLOAD_TYPES[REVOKE_CERTIFICATION].charAt(0).toUpperCase() +
+        PAYLOAD_TYPES[REVOKE_CERTIFICATION].slice(1);
       const payload = createRevokeCertificationPayload('9eca7128409f609b2a72fc24985645665bbb99152b4b14261c3c3c93fb17cf54');
       const target = '0a209eca7128409f609b2a72fc24985645665bbb99152b4b14261c3c3c93fb17cf54';
       expect(genPayloadPb(payload, type)).to.be.eql(target);
@@ -71,8 +72,8 @@ describe('# payload', () => {
 
   describe('# createVotePayload', () => {
     it('should be matched with the expected result', () => {
-      const type = VOTE_PAYLOAD.charAt(0).toUpperCase() +
-        VOTE_PAYLOAD.slice(1);
+      const type = PAYLOAD_TYPES[VOTE].charAt(0).toUpperCase() +
+        PAYLOAD_TYPES[VOTE].slice(1);
       const payload = createVotePayload(['03528fa3684218f32c9fd7726a2839cff3ddef49d89bf4904af11bc12335f7c939',
         '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21']);
       const target = '0a2103528fa3684218f32c9fd7726a2839cff3ddef49d89bf4904af11bc12335f7c9390a2103e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21';

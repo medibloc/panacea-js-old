@@ -1,7 +1,7 @@
 import binary from 'bops';
 import { genPayloadBuf } from 'utils';
 import { ALG, CHAIN_ID } from '../../../config';
-import { getPayloadType } from '../payload';
+import { PAYLOAD_TYPES } from './constants';
 import * as jsonDescriptor from './proto/transaction.pb.json';
 
 const defaultOptions = {
@@ -17,8 +17,8 @@ const defaultOptions = {
 
 const setTx = (options) => {
   const opts = Object.assign({}, defaultOptions, options);
-  const payloadType = getPayloadType(opts.type);
-  const payloadBuf = genPayloadBuf(opts.payload, payloadType, jsonDescriptor);
+  const payloadType = PAYLOAD_TYPES[opts.type];
+  const payloadBuf = payloadType ? genPayloadBuf(opts.payload, payloadType, jsonDescriptor) : null;
   return {
     alg: opts.alg,
     chain_id: opts.chain_id,
