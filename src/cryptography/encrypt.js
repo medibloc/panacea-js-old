@@ -7,7 +7,6 @@ import {
 import scryptsy from 'scrypt.js';
 import _ from 'underscore';
 import uuidv4 from 'uuid/v4';
-// import { getPubKey } from 'cryptography';
 import { sha3 } from 'utils';
 import { getPubKey } from './keyGen';
 
@@ -70,7 +69,9 @@ const decryptKey = (password, encryptedKey) => {
   }
 
   const decipher = createDecipheriv(json.crypto.cipher, derivedKey.slice(0, 16), Buffer.from(json.crypto.cipherparams.iv, 'hex'));
-  return Buffer.concat([decipher.update(ciphertext), decipher.final()]).toString();
+  return ciphertext.length > 32 ?
+    Buffer.concat([decipher.update(ciphertext), decipher.final()]).toString() :
+    Buffer.concat([decipher.update(ciphertext), decipher.final()]).toString('hex');
 };
 
 const encryptData = (accessKey = '', data) => {
@@ -127,7 +128,7 @@ const encryptKey = (password, privKey, options) => {
     throw new Error('Unsupported cipher');
   }
 
-  const ciphertext = Buffer.concat([cipher.update(privKey), cipher.final()]);
+  const ciphertext = Buffer.concat([cipher.update(Buffer.from(privKey, 'hex')), cipher.final()]);
 
   const mac = sha3(Buffer.concat([derivedKey.slice(16, 32), Buffer.from(ciphertext, 'hex')]));
 
