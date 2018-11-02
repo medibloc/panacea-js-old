@@ -5,17 +5,19 @@ import Identification from './identification';
 import Local from './local';
 import Utils from './utils';
 
-export const init = nodes => ({
-  client: Client(nodes),
+export default {
+  init: nodes => ({
+    client: Client(nodes),
+    cryptography: Cryptography,
+    healthData: HealthData,
+    identification: Identification,
+    local: Local,
+    utils: Utils,
+  }),
+  client: nodes => Client(nodes),
   cryptography: Cryptography,
   healthData: HealthData,
   identification: Identification,
   local: Local,
   utils: Utils,
-});
-export const client = nodes => Client(nodes);
-export const cryptography = Cryptography;
-export const healthData = HealthData;
-export const identification = Identification;
-export const local = Local;
-export const utils = Utils;
+};
