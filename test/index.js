@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import {
+import Medjs, {
   init,
   client,
   cryptography,
@@ -12,12 +12,8 @@ import {
 describe('medjs', () => {
   const defaultNodes = ['http://localhost:10000'];
 
-  describe('#should export a init', () => {
-    let medjs;
-    beforeEach(() => {
-      medjs = init(defaultNodes);
-      return Promise.resolve();
-    });
+  describe('#should export medjs', () => {
+    const medjs = Medjs.init(defaultNodes);
 
     it('should be a object', () => {
       return expect(medjs)
@@ -61,9 +57,59 @@ describe('medjs', () => {
     });
   });
 
+  describe('#should export a init', () => {
+    const medjsFromInit = init(defaultNodes);
+
+    it('should be a object', () => {
+      return expect(medjsFromInit)
+        .to.be.an('object');
+    });
+
+    it('should have a client object', () => {
+      return expect(medjsFromInit)
+        .to.be.property('client')
+        .to.be.a('object');
+    });
+
+    it('should have a cryptography object', () => {
+      return expect(medjsFromInit)
+        .to.be.property('cryptography')
+        .to.be.an('object');
+    });
+
+    it('should have a healthData object', () => {
+      return expect(medjsFromInit)
+        .to.be.property('healthData')
+        .to.be.an('object');
+    });
+
+    it('should have a identification object', () => {
+      return expect(medjsFromInit)
+        .to.be.property('identification')
+        .to.be.an('object');
+    });
+
+    it('should have a local object', () => {
+      return expect(medjsFromInit)
+        .to.be.property('local')
+        .to.be.an('object');
+    });
+
+    it('should have a utils object', () => {
+      return expect(medjsFromInit)
+        .to.be.property('utils')
+        .to.be.an('object');
+    });
+  });
+
+  it('should export a init object', () => {
+    return expect(init)
+      .to.be.a('function');
+  });
+
   it('should export a client object', () => {
     return expect(client)
-      .to.be.an('function');
+      .to.be.a('function');
   });
 
   it('should export a cryptography object', () => {
