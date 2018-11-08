@@ -23,7 +23,6 @@ describe('# dataUploadTx', () => {
   const txHashFromGo = '52df9f7e6a2836170f453fe9a48bb68547ecd609890f848ad470f5040d978afa';
 
   it('should return transaction contains hash', () => {
-    console.log(tx)
     expect(tx).to.have.property('hash')
       .to.equal(txHashFromGo);
   });

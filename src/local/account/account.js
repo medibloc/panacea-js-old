@@ -7,7 +7,11 @@ import {
   sign,
 } from 'cryptography';
 import { createCertificate } from 'identification';
-import { isAddress } from 'utils';
+import protobuf from 'protobufjs/light';
+import { isAddress, isHexadecimal, genHexBuf } from 'utils';
+import * as jsonDescriptor from '../transaction/utils/proto/transaction.pb.json';
+import { BYTESIZES } from '../../healthData/constants';
+
 
 // generate new keypair and register
 const generateAccount = (passphrase = '') => {
@@ -49,12 +53,25 @@ export default class Account {
   }
 
   signTxAsPayer(tx, passphrase = '') {
+    if (tx.hash.length === BYTESIZES.HASH || tx.sign.length === 0) {
+      throw new Error('Valid transaction hash and signature are required');
+    }
     const privKey = this.getDecryptedPrivateKey(passphrase);
-    const hash = SHA3256.create();
-    hash.update(Buffer.from(tx.hash, 'hex'));
-    hash.update(Buffer.from(tx.sign, 'hex'));
-    // eslint-disable-next-line no-param-reassign
-    tx.payerSign = sign(privKey, hash.hex());
+
+    const txPayerSignTarget = {
+      hash: genHexBuf(tx.hash, BYTESIZES.HASH),
+      sign: Buffer.from(tx.sign, 'hex'),
+    };
+
+    const root = protobuf.Root.fromJSON(jsonDescriptor);
+    const TxPayerSignTarget = root.lookupType('TransactionPayerSignTarget');
+    const errMsg = TxPayerSignTarget.verify(txPayerSignTarget);
+    if (errMsg) throw Error(errMsg);
+
+    const message = TxPayerSignTarget.create(txPayerSignTarget);
+    const buf = TxPayerSignTarget.encode(message).finish();
+
+    tx.payerSign = sign(privKey, SHA3256.create().update(buf).hex());
   }
 
   signDataPayload(data, passphrase = '') {

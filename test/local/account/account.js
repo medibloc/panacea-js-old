@@ -101,25 +101,28 @@ describe('# Account object', () => {
       mac: '599b11bf8390174a960fa990792dfc5dd0f36d9b9e48bc309cb2be410f9ee617',
     },
   };
-  const payerSignFromGo = '9492bae7b6298458fd596abfea1c5011a46ab5bd731b9e9654594b8996f7fd1c7d8b9c1648e2745d417d9b4a6f3c541a6e99566913c7cdce8a56356e666802be01';
+  // payerSignFromGo checked by @ggomma
+  const payerSignFromGo = '7426ba583dde00a900fbdc106da0999adb0006de720c0f9fec872f3e082e3f2468d5ec19c480f991f1cc38c0658f7bf727557f452b8c3432950b3aebada885bb01';
   beforeEach(() => {
     account1 = new Account(passphrase1, encryptedPrivKey1, pubKey1);
     account2 = new Account(passphrase2, encryptedPrivKey2, pubKey2);
     return Promise.resolve();
   });
 
+  // TODO @ggomma double check this test due to change of hash algorithm
   it('can sign transaction as payer', () => {
+    const txHashFromGo = "75c413496674854d35762b0889cb1f68e7b776ce0507d775d8532f1504bf203a";
     const txData = {
-      chian_id: 1,
+      chain_id: 1,
       to: '03c236cdff9cbd4a1e896dc2ea8b30f6ce2afe14a6da4a5aaec176970b519ed9bf',
       timestamp: 1234567890,
-      payload: Transaction.createDefaultPayload(),
       nonce: 1,
     };
     const tx = Transaction.valueTransferTx(txData);
     account1.signTx(tx, 'MediBloc1!');
     account2.signTxAsPayer(tx, 'MediBloc2@');
-    console.log(tx);
+    
+    expect(tx.hash).to.equal(txHashFromGo)
     expect(tx.payerSign).to.equal(payerSignFromGo);
   });
 });

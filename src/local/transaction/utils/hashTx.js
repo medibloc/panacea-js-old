@@ -8,7 +8,6 @@ import * as jsonDescriptor from './proto/transaction.pb.json';
 
 const hashTx = (tx) => {
   // TODO @ggomma defaultPayload string check
-  console.log(tx.payload)
   const txHashTarget = {
     txType: tx.tx_type,
     to: genHexBuf(tx.to ? tx.to : '', BYTESIZES.ADDRESS),
