@@ -8,7 +8,7 @@ import {
 } from 'cryptography';
 import { createCertificate } from 'identification';
 import protobuf from 'protobufjs/light';
-import { isAddress, isHexadecimal, genHexBuf } from 'utils';
+import { isAddress, genHexBuf } from 'utils';
 import * as jsonDescriptor from '../transaction/utils/proto/transaction.pb.json';
 import { BYTESIZES } from '../../healthData/constants';
 
@@ -71,6 +71,7 @@ export default class Account {
     const message = TxPayerSignTarget.create(txPayerSignTarget);
     const buf = TxPayerSignTarget.encode(message).finish();
 
+    // eslint-disable-next-line no-param-reassign
     tx.payerSign = sign(privKey, SHA3256.create().update(buf).hex());
   }
 

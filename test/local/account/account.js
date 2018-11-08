@@ -111,7 +111,7 @@ describe('# Account object', () => {
 
   // TODO @ggomma double check this test due to change of hash algorithm
   it('can sign transaction as payer', () => {
-    const txHashFromGo = "75c413496674854d35762b0889cb1f68e7b776ce0507d775d8532f1504bf203a";
+    const txHashFromGo = '75c413496674854d35762b0889cb1f68e7b776ce0507d775d8532f1504bf203a';
     const txData = {
       chain_id: 1,
       to: '03c236cdff9cbd4a1e896dc2ea8b30f6ce2afe14a6da4a5aaec176970b519ed9bf',
@@ -121,8 +121,8 @@ describe('# Account object', () => {
     const tx = Transaction.valueTransferTx(txData);
     account1.signTx(tx, 'MediBloc1!');
     account2.signTxAsPayer(tx, 'MediBloc2@');
-    
-    expect(tx.hash).to.equal(txHashFromGo)
+
+    expect(tx.hash).to.equal(txHashFromGo);
     expect(tx.payerSign).to.equal(payerSignFromGo);
   });
 });
