@@ -128,8 +128,6 @@ describe('gateway', () => {
       return invalidGateway.sendRequest(defaultReqConfig).catch((err) => {
         expect(requestStub).not.to.be.calledThrice;
         // expect(sendRequestSpyIG).to.be.calledThrice;
-        console.log(err);
-        console.log('awefawefawefawef');
         return expect(err.message).to.be.eql('send request failed.');
       });
     });

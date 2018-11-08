@@ -14,15 +14,16 @@ const {
 describe('# dataUploadTx', () => {
   const payload = createDataPayload('487b69767e201f485a67b915f1726e39a9d84d72ce3753dfdc824ebdf22e9b33');
   const fields = {
-    from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
     nonce: 1,
+    chain_id: 1,
     payload,
     timestamp: 1540000000,
   };
   const tx = dataUploadTx(fields);
-  const txHashFromGo = '9ae59f5dbe447ddec2e2631ed81e2e2e2c00ed3c380c8a875729d60a3af5730c';
+  const txHashFromGo = '52df9f7e6a2836170f453fe9a48bb68547ecd609890f848ad470f5040d978afa';
 
   it('should return transaction contains hash', () => {
+    console.log(tx)
     expect(tx).to.have.property('hash')
       .to.equal(txHashFromGo);
   });

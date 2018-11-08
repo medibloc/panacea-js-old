@@ -28,7 +28,6 @@ const BYTESIZES = {
 const COMMON_REQUIRED = [
   'alg',
   'chain_id',
-  'from',
   'nonce',
   'timestamp',
   'tx_type',

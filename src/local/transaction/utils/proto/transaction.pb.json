@@ -8,29 +8,25 @@
               "type": "string",
               "id": 1
             },
-            "from": {
+            "to": {
               "type": "bytes",
               "id": 2
             },
-            "to": {
+            "value": {
               "type": "bytes",
               "id": 3
             },
-            "value": {
-              "type": "bytes",
-              "id": 4
-            },
             "timestamp": {
               "type": "int64",
-              "id": 5
+              "id": 4
             },
             "nonce": {
               "type": "uint64",
-              "id": 6
+              "id": 5
             },
             "chainId": {
               "type": "uint32",
-              "id": 7
+              "id": 6
             },
             "payload": {
               "type": "bytes",

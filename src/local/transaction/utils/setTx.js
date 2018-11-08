@@ -22,7 +22,6 @@ const setTx = (options) => {
   return {
     alg: opts.alg,
     chain_id: opts.chain_id,
-    from: opts.from,
     nonce: opts.nonce,
     payload: payloadBuf ? binary.to(payloadBuf, 'hex') : undefined,
 

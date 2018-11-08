@@ -17,7 +17,6 @@ const {
 describe('# valueTransferTx function', () => {
   const user = new Account('');
   const valueTransferTxData = {
-    from: user.pubKey,
     to: user.pubKey,
     value: '1000',
     nonce: 1,
@@ -25,17 +24,6 @@ describe('# valueTransferTx function', () => {
   };
 
   describe('# TX validation', () => {
-    it('It should have \'from\' field', () => {
-      const tempTxData = Object.assign(
-        {},
-        valueTransferTxData,
-        {
-          from: undefined,
-        },
-      );
-      expect(() => valueTransferTx(tempTxData)).to.throw(Error, 'Transaction should have from field.');
-    });
-
     it('It should have adequate transfer value', () => {
       const tempTxData = Object.assign(
         {},
@@ -52,14 +40,15 @@ describe('# valueTransferTx function', () => {
     it('Should be matched with go-medibloc', () => {
       // DATA from go-medibloc
       const dataFromGo = {
-        from: '03528fa3684218f32c9fd7726a2839cff3ddef49d89bf4904af11bc12335f7c939',
+        chain_id: 1,
         to: '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21',
-        value: '10',
+        value: '10000000000000',
         nonce: 1,
         timestamp: 1540000000,
       };
-      const txHashFromGo = '19b9ae49f9b35bca4cda025cac9c25d5d7bf7f7b2e8dcc8ff1906afafda7166f';
+      const txHashFromGo = '2ba4cef8b5ff415128ebfea642243e9b51b054cdcfe1f9c3fc3d42794a6a7c71';
       const txFromGo = valueTransferTx(dataFromGo);
+      console.log(txFromGo);
       expect(txFromGo.hash).to.be.equal(txHashFromGo);
     });
   });
@@ -86,15 +75,16 @@ describe('# valueTransferTx function', () => {
 describe('# valueTransferTx', () => {
   const payload = createDefaultPayload('Hello MediBloc!');
   const fields = {
-    from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
+    chain_id: 1,
     nonce: 1,
     payload,
     timestamp: 1540000000,
     to: '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21',
-    value: '10',
+    value: '10000000000000',
   };
   const tx = valueTransferTx(fields);
-  const txHashFromGo = 'fea899b536be78e7e45dc7f65aa8e381a496ffee4cf7276f9be079605bf81095';
+  console.log(tx);
+  const txHashFromGo = 'be8d1e82c16f082904b12618b8dc64924abd6658863e75e96f96d40269670904';
 
   it('should return transaction contains hash', () => {
     expect(tx).to.have.property('hash')

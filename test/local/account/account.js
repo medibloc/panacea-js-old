@@ -101,7 +101,7 @@ describe('# Account object', () => {
       mac: '599b11bf8390174a960fa990792dfc5dd0f36d9b9e48bc309cb2be410f9ee617',
     },
   };
-  const payerSignFromGo = '0b0b28624ab007538c7044624f7a1f90c5e7b215118e8894288378c8895f2a585d10087d4be3d20a22bf381360fb70a5da2c4da95dc8430218a3d0ec3acfc11001';
+  const payerSignFromGo = '9492bae7b6298458fd596abfea1c5011a46ab5bd731b9e9654594b8996f7fd1c7d8b9c1648e2745d417d9b4a6f3c541a6e99566913c7cdce8a56356e666802be01';
   beforeEach(() => {
     account1 = new Account(passphrase1, encryptedPrivKey1, pubKey1);
     account2 = new Account(passphrase2, encryptedPrivKey2, pubKey2);
@@ -110,7 +110,7 @@ describe('# Account object', () => {
 
   it('can sign transaction as payer', () => {
     const txData = {
-      from: '028b51f14da514bd29683da96c39b07ca9a5c008c3c5d392fe5f16db36388e73d1',
+      chian_id: 1,
       to: '03c236cdff9cbd4a1e896dc2ea8b30f6ce2afe14a6da4a5aaec176970b519ed9bf',
       timestamp: 1234567890,
       payload: Transaction.createDefaultPayload(),
