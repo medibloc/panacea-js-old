@@ -98,7 +98,6 @@ Example
 .. code-block:: javascript
 
   var transactionData = {
-    from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
     to: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
     chain_id: 1,
     value: '55',
@@ -112,7 +111,6 @@ Example
     rawTx:
     { alg: 1,
       chain_id: 1,
-      from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
       nonce: 3,
       payload: '0a1d7b226d657373616765223a225c2248656c6c6f20576f726c645c22227d',
       timestamp: 1535946728,
@@ -185,7 +183,6 @@ Example
   medjs.healthData.hashData('hello MediBloc!', 'pghd').then((hash) => {
     var payload = Transaction.createDataPayload(hash);
     var transactionData = {
-      from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
       payload: payload,
       nonce: 4,
       chain_id: 1,
@@ -198,7 +195,6 @@ Example
     rawTx:
      { alg: 1,
        chain_id: 1,
-       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
        nonce: 4,
        payload: '0a206e8593b28a3e60e219d2dcf93fa9307dbb30130908e8e2880e4f5469a691b24c',
        timestamp: 1535953283,
@@ -264,7 +260,6 @@ Example
 .. code-block:: javascript
 
   var transactionData = {
-    from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
     value: '100',
     nonce: 3,
     chain_id: 1,
@@ -276,7 +271,6 @@ Example
     rawTx:
      { alg: 1,
        chain_id: 1,
-       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
        nonce: 3,
        payload: undefined,
        timestamp: 1535967004,
@@ -342,7 +336,6 @@ Example
 .. code-block:: javascript
 
   var transactionData = {
-    from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
     value: '100',
     nonce: 3,
     chain_id: 1,
@@ -354,7 +347,6 @@ Example
     rawTx:
      { alg: 1,
        chain_id: 1,
-       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
        nonce: 3,
        payload: undefined,
        timestamp: 1531800486773,
@@ -419,7 +411,6 @@ Example
 .. code-block:: javascript
 
   var transactionData = {
-    from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
     value: '10000',
     nonce: 2,
     chain_id: 1,
@@ -431,7 +422,6 @@ Example
     rawTx:
      { alg: 1,
        chain_id: 1,
-       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
        nonce: 2,
        payload: undefined,
        timestamp: 1535967821,
@@ -491,7 +481,6 @@ Example
 .. code-block:: javascript
 
   var transactionData = {
-    from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
     nonce: 3,
     chain_id: 1,
   }
@@ -502,7 +491,6 @@ Example
     rawTx:
      { alg: 1,
        chain_id: 1,
-       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
        nonce: 3,
        payload: undefined,
        timestamp: 1536027597,
@@ -567,8 +555,7 @@ Example
 .. code-block:: javascript
 
   var transactionData = {
-    from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
-	nonce: 4,
+    nonce: 4,
 	chain_id: 1,
     payload: Transaction.createVotePayload(['037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b'])
   }
@@ -579,7 +566,6 @@ Example
     rawTx:
      { alg: 1,
        chain_id: 1,
-       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
        nonce: 4,
        payload: "0a21037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b",
        timestamp: 1536027879,
@@ -647,7 +633,6 @@ Example
 .. code-block:: javascript
 
   var transactionData = {
-    from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
     to: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
 	nonce: 4,
 	chain_id: 1,
@@ -664,7 +649,6 @@ Example
     rawTx:
      { alg: 1,
        chain_id: 1,
-       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
        nonce: 4,
        payload: '088cecb7dc05108cecb7dc051a30e3cedbebdefaededb4d5fe3ce5aebb6fdd797f5ef6e9edfd6bd77ce1def671edfbe7775f75cf36e1e6dd7f6d9ef5bdf7',
        timestamp: 1536030220,
@@ -729,8 +713,7 @@ Example
 .. code-block:: javascript
 
   var transactionData = {
-    from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
-	nonce: 4,
+    nonce: 4,
 	chain_id: 1,
     payload: Transaction.createRevokeCertificationPayload('487b69767e201f485a67b915f1726e39a9d84d72ce3753dfdc824ebdf22e9b33'),
   }
@@ -741,7 +724,6 @@ Example
     rawTx:
      { alg: 1,
        chain_id: 1,
-       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
        nonce: 4,
        payload: '0a20487b69767e201f485a67b915f1726e39a9d84d72ce3753dfdc824ebdf22e9b33',
        timestamp: 1536035291,
@@ -985,7 +967,6 @@ Example
 
   var payload = Transaction.createDefaultPayload('Hello MediBloc!');
   var fields = {
-    from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
     nonce: 1,
     payload,
     to: '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21',
