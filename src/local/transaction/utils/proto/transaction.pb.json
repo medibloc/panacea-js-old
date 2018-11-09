@@ -28,6 +28,14 @@
               "type": "uint32",
               "id": 6
             },
+            "hashAlg": {
+              "type": "uint32",
+              "id": 7
+            },
+            "cryptoAlg": {
+              "type": "uint32",
+              "id": 8
+            },
             "payload": {
               "type": "bytes",
               "id": 10

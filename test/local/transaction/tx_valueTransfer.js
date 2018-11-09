@@ -46,7 +46,7 @@ describe('# valueTransferTx function', () => {
         nonce: 1,
         timestamp: 1540000000,
       };
-      const txHashFromGo = '2ba4cef8b5ff415128ebfea642243e9b51b054cdcfe1f9c3fc3d42794a6a7c71';
+      const txHashFromGo = 'c7803bec9b6723a2cac1db32217650efc2866c37939af9d3069c45d553d5b7e3';
       const txFromGo = valueTransferTx(dataFromGo);
       console.log(txFromGo);
       expect(txFromGo.hash).to.be.equal(txHashFromGo);
@@ -83,8 +83,7 @@ describe('# valueTransferTx', () => {
     value: '10000000000000',
   };
   const tx = valueTransferTx(fields);
-  console.log(tx);
-  const txHashFromGo = 'be8d1e82c16f082904b12618b8dc64924abd6658863e75e96f96d40269670904';
+  const txHashFromGo = '13ec5b077fc06a1a91cac247f6b96fa0030d87da2e8f0a5406397692803a7d96';
 
   it('should return transaction contains hash', () => {
     expect(tx).to.have.property('hash')

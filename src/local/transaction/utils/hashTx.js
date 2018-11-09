@@ -15,6 +15,8 @@ const hashTx = (tx) => {
     timestamp: tx.timestamp,
     nonce: tx.nonce,
     chainId: tx.chain_id,
+    hashAlg: tx.hash_alg,
+    cryptoAlg: tx.crypto_alg,
     payload: (tx.payload === undefined) ? null : binary.from(tx.payload, 'hex'),
   };
 

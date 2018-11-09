@@ -15,6 +15,12 @@ const DEFAULT_PAYLOAD = 'defaultPayload';
 const REVOKE_CERTIFICATION_PAYLOAD = 'revokeCertificationPayload';
 const VOTE_PAYLOAD = 'votePayload';
 
+// Algorithm
+const ALGORITHM = {
+  SECP256K1: 1,
+  SHA3256: 2,
+};
+
 const BYTESIZES = {
   ADDRESS: 33,
   ALG: 4,
@@ -26,9 +32,10 @@ const BYTESIZES = {
 };
 
 const COMMON_REQUIRED = [
-  'alg',
   'chain_id',
+  'crypto_alg',
   'nonce',
+  'hash_alg',
   'timestamp',
   'tx_type',
 ];
@@ -67,6 +74,8 @@ export default {
   VEST,
   VOTE,
   WITHDRAW_VESTING,
+
+  ALGORITHM,
 
   BYTESIZES,
 
