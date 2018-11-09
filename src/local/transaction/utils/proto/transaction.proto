@@ -1,3 +1,6 @@
+// Synced with blockchain core
+// DATE : 09 Nov 2018
+// Core Commit : f52f23dfa4aae0af8d262a1bf9a47655f2814afc
 syntax = "proto3";
 package corepb;
 
