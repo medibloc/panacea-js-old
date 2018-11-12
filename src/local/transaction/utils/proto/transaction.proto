@@ -1,20 +1,20 @@
 // Synced with blockchain core
-// DATE : 09 Nov 2018
-// Core Commit : c2475a51bee6057b82aa3b9e1ab2cea833fda3f7
+// DATE : 12 Nov 2018
+// Core Commit : 2af5bda9fbdca1f7053883cfa6ce8c5f9442223c
 syntax = "proto3";
 package corepb;
 
 message TransactionHashTarget {
   string tx_type = 1;
-  bytes to = 2;
-  bytes value = 3;
-  int64 timestamp = 4;
-  uint64 nonce = 5;
-  uint32 chain_id = 6;
-  uint32 hash_alg = 7;
-  uint32 crypto_alg = 8;
-
-  bytes payload = 10;
+  bytes from = 2;
+  bytes to = 3;
+  bytes value = 4;
+  int64 timestamp = 5;
+  uint64 nonce = 6;
+  uint32 chain_id = 7;
+  uint32 hash_alg = 8;
+  uint32 crypto_alg = 9;
+  bytes payload = 11;
 }
 
 message TransactionPayerSignTarget {

@@ -23,6 +23,7 @@ const setTx = (options) => {
   const payloadBuf = payloadType ? genPayloadBuf(opts.payload, payloadType, jsonDescriptor) : null;
   return {
     chain_id: opts.chain_id,
+    from: opts.from,
     nonce: opts.nonce,
     payload: payloadBuf ? binary.to(payloadBuf, 'hex') : undefined,
 

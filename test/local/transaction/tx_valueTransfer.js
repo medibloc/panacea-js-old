@@ -17,6 +17,7 @@ const {
 describe('# valueTransferTx function', () => {
   const user = new Account('');
   const valueTransferTxData = {
+    from: user.pubKey,
     to: user.pubKey,
     value: '1000',
     nonce: 1,
@@ -24,6 +25,17 @@ describe('# valueTransferTx function', () => {
   };
 
   describe('# TX validation', () => {
+    it('It should have \'from\' field', () => {
+      const tempTxData = Object.assign(
+        {},
+        valueTransferTxData,
+        {
+          from: undefined,
+        },
+      );
+      expect(() => valueTransferTx(tempTxData)).to.throw(Error, 'Transaction should have from field.');
+    });
+
     it('It should have adequate transfer value', () => {
       const tempTxData = Object.assign(
         {},
@@ -41,12 +53,13 @@ describe('# valueTransferTx function', () => {
       // DATA from go-medibloc
       const dataFromGo = {
         chain_id: 1,
+        from: '03528fa3684218f32c9fd7726a2839cff3ddef49d89bf4904af11bc12335f7c939',
         to: '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21',
         value: '10000000000000',
         nonce: 1,
         timestamp: 1540000000,
       };
-      const txHashFromGo = 'c7803bec9b6723a2cac1db32217650efc2866c37939af9d3069c45d553d5b7e3';
+      const txHashFromGo = '8a0d7a8d40bcb6a631254c3f3e4481465da2b24071d3019a52f24ba24324d86f';
       const txFromGo = valueTransferTx(dataFromGo);
       console.log(txFromGo);
       expect(txFromGo.hash).to.be.equal(txHashFromGo);
@@ -76,6 +89,7 @@ describe('# valueTransferTx', () => {
   const payload = createDefaultPayload('Hello MediBloc!');
   const fields = {
     chain_id: 1,
+    from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
     nonce: 1,
     payload,
     timestamp: 1540000000,
@@ -83,7 +97,7 @@ describe('# valueTransferTx', () => {
     value: '10000000000000',
   };
   const tx = valueTransferTx(fields);
-  const txHashFromGo = '13ec5b077fc06a1a91cac247f6b96fa0030d87da2e8f0a5406397692803a7d96';
+  const txHashFromGo = '986d95d8c08d4c7a24f92be92d1e3bae2a9e8406cd5a9a00ae087a0741405b80';
 
   it('should return transaction contains hash', () => {
     expect(tx).to.have.property('hash')

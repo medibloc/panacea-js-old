@@ -34,6 +34,7 @@ const BYTESIZES = {
 const COMMON_REQUIRED = [
   'chain_id',
   'crypto_alg',
+  'from',
   'nonce',
   'hash_alg',
   'timestamp',

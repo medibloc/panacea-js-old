@@ -14,6 +14,7 @@ const {
 describe('# addCertificationCandidateTx', () => {
   const payload = createRevokeCertificationPayload('487b69767e201f485a67b915f1726e39a9d84d72ce3753dfdc824ebdf22e9b33');
   const fields = {
+    from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
     nonce: 1,
     payload,
     timestamp: 1540000000,

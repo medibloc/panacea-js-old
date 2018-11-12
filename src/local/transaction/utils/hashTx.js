@@ -10,6 +10,7 @@ const hashTx = (tx) => {
   // TODO @ggomma defaultPayload string check
   const txHashTarget = {
     txType: tx.tx_type,
+    from: genHexBuf(tx.from, BYTESIZES.ADDRESS),
     to: genHexBuf(tx.to ? tx.to : '', BYTESIZES.ADDRESS),
     value: genHexBuf(tx.value ? BigNumber(tx.value).toString(16) : '', BYTESIZES.VALUE),
     timestamp: tx.timestamp,
