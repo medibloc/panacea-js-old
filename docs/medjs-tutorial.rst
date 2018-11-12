@@ -37,6 +37,7 @@ send data upload transaction
 
       // creating a medical data upload transaction
       var tx = Transaction.dataUploadTx({
+        from: account.pubKey,
         payload: healthDataPayload,
         nonce: nonce + 1
       });
