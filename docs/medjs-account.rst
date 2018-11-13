@@ -39,7 +39,7 @@ To generate account, you can use ``medjs.local.Account()``. Basically, account i
 Parameters
 ----------
 
-1. ``passphrase`` - ``String`` :(optional) If ``encryptedPrivateKey`` is not given, passphrase works as a key to encrypt private key. If ``encryptedPrivateKey`` is given, passphrase works as a key to decrypt encryptedPrivateKey and it must be used in encryption of the ``encryptedPrivateKey``. If not given, passphrase is set with an empty string.
+1. ``passphrase`` - ``String`` :(optional) If ``encryptedPrivateKey`` is not given, passphrase works as a key to encrypt private key. If ``encryptedPrivateKey`` is given, passphrase works as a key to decrypt encryptedPrivateKey and it must be used in encryption of the ``encryptedPrivateKey``. If not given, passphrase is set with an empty string. 
 2. ``encryptedPrivateKey`` - ``String`` :(optional) Restore account is matched with the given encrypted private key. If not given, it will generate a new keypair.
 3. ``pubKey`` - ``String``(optional) Restore account is matched with the given public key. If not given, it will be decrypted from the given passphrase and the given encryptedPrivateKey.
 

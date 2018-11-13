@@ -52,16 +52,14 @@ describe('# valueTransferTx function', () => {
     it('Should be matched with go-medibloc', () => {
       // DATA from go-medibloc
       const dataFromGo = {
-        chain_id: 1,
         from: '03528fa3684218f32c9fd7726a2839cff3ddef49d89bf4904af11bc12335f7c939',
         to: '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21',
-        value: '10000000000000',
+        value: '10',
         nonce: 1,
         timestamp: 1540000000,
       };
-      const txHashFromGo = '8a0d7a8d40bcb6a631254c3f3e4481465da2b24071d3019a52f24ba24324d86f';
+      const txHashFromGo = '19b9ae49f9b35bca4cda025cac9c25d5d7bf7f7b2e8dcc8ff1906afafda7166f';
       const txFromGo = valueTransferTx(dataFromGo);
-      console.log(txFromGo);
       expect(txFromGo.hash).to.be.equal(txHashFromGo);
     });
   });
@@ -88,16 +86,15 @@ describe('# valueTransferTx function', () => {
 describe('# valueTransferTx', () => {
   const payload = createDefaultPayload('Hello MediBloc!');
   const fields = {
-    chain_id: 1,
     from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
     nonce: 1,
     payload,
     timestamp: 1540000000,
     to: '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21',
-    value: '10000000000000',
+    value: '10',
   };
   const tx = valueTransferTx(fields);
-  const txHashFromGo = '986d95d8c08d4c7a24f92be92d1e3bae2a9e8406cd5a9a00ae087a0741405b80';
+  const txHashFromGo = 'fea899b536be78e7e45dc7f65aa8e381a496ffee4cf7276f9be079605bf81095';
 
   it('should return transaction contains hash', () => {
     expect(tx).to.have.property('hash')

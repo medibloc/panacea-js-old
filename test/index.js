@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import Medjs, {
+import {
   init,
   client,
   cryptography,
@@ -12,104 +12,58 @@ import Medjs, {
 describe('medjs', () => {
   const defaultNodes = ['http://localhost:10000'];
 
-  describe('#should export medjs', () => {
-    const medjs = Medjs.init(defaultNodes);
-
-    it('should be a object', () => {
-      return expect(medjs)
-        .to.be.an('object');
-    });
-
-    it('should have a client object', () => {
-      return expect(medjs)
-        .to.be.property('client')
-        .to.be.a('object');
-    });
-
-    it('should have a cryptography object', () => {
-      return expect(medjs)
-        .to.be.property('cryptography')
-        .to.be.an('object');
-    });
-
-    it('should have a healthData object', () => {
-      return expect(medjs)
-        .to.be.property('healthData')
-        .to.be.an('object');
-    });
-
-    it('should have a identification object', () => {
-      return expect(medjs)
-        .to.be.property('identification')
-        .to.be.an('object');
-    });
-
-    it('should have a local object', () => {
-      return expect(medjs)
-        .to.be.property('local')
-        .to.be.an('object');
-    });
-
-    it('should have a utils object', () => {
-      return expect(medjs)
-        .to.be.property('utils')
-        .to.be.an('object');
-    });
-  });
-
   describe('#should export a init', () => {
-    const medjsFromInit = init(defaultNodes);
+    let medjs;
+    beforeEach(() => {
+      medjs = init(defaultNodes);
+      return Promise.resolve();
+    });
 
     it('should be a object', () => {
-      return expect(medjsFromInit)
+      return expect(medjs)
         .to.be.an('object');
     });
 
     it('should have a client object', () => {
-      return expect(medjsFromInit)
+      return expect(medjs)
         .to.be.property('client')
         .to.be.a('object');
     });
 
     it('should have a cryptography object', () => {
-      return expect(medjsFromInit)
+      return expect(medjs)
         .to.be.property('cryptography')
         .to.be.an('object');
     });
 
     it('should have a healthData object', () => {
-      return expect(medjsFromInit)
+      return expect(medjs)
         .to.be.property('healthData')
         .to.be.an('object');
     });
 
     it('should have a identification object', () => {
-      return expect(medjsFromInit)
+      return expect(medjs)
         .to.be.property('identification')
         .to.be.an('object');
     });
 
     it('should have a local object', () => {
-      return expect(medjsFromInit)
+      return expect(medjs)
         .to.be.property('local')
         .to.be.an('object');
     });
 
     it('should have a utils object', () => {
-      return expect(medjsFromInit)
+      return expect(medjs)
         .to.be.property('utils')
         .to.be.an('object');
     });
-  });
-
-  it('should export a init object', () => {
-    return expect(init)
-      .to.be.a('function');
   });
 
   it('should export a client object', () => {
     return expect(client)
-      .to.be.a('function');
+      .to.be.an('function');
   });
 
   it('should export a cryptography object', () => {

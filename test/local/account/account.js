@@ -101,17 +101,15 @@ describe('# Account object', () => {
       mac: '599b11bf8390174a960fa990792dfc5dd0f36d9b9e48bc309cb2be410f9ee617',
     },
   };
-  // payerSignFromGo checked by @ggomma
-  const payerSignFromGo = 'ac17c82bac0628ec6c0c8cf3c7995607c51b829bb97f7049d47fad4f867ce0be204b2674d16b4da4b23b7e32171f7c32dc8dd74cb13c2a73dd9998f403c7008901';
+  const payerSignFromGo = '261352d9bb3e2a38a2e1e61de512319f866f64d880cf531dbbeb4f2a511872a83a07291b06d950caf40aa5c907f4c23c801380bd97380b2e90799e2d3e8c1cf301';
   beforeEach(() => {
     account1 = new Account(passphrase1, encryptedPrivKey1, pubKey1);
     account2 = new Account(passphrase2, encryptedPrivKey2, pubKey2);
     return Promise.resolve();
   });
 
-  // TODO @ggomma double check this test due to change of hash algorithm
   it('can sign transaction as payer', () => {
-    const txHashFromGo = '4075b18a4a132e826509f1483934071d1fb832d9d45fd7228718eecbc337ab39';
+    const txHashFromGo = '3b9d6dd98cbfd22b0ddb2d3c47dced1071ddd321f287ed8cb90907e9f470426c';
     const txData = {
       chain_id: 1,
       from: '028b51f14da514bd29683da96c39b07ca9a5c008c3c5d392fe5f16db36388e73d1',

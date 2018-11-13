@@ -12,7 +12,6 @@ import { isAddress, genHexBuf } from 'utils';
 import * as jsonDescriptor from '../transaction/utils/proto/transaction.pb.json';
 import { BYTESIZES } from '../../healthData/constants';
 
-
 // generate new keypair and register
 const generateAccount = (passphrase = '') => {
   const { privKey, pubKey } = getKeyPair();
@@ -62,12 +61,10 @@ export default class Account {
       hash: genHexBuf(tx.hash, BYTESIZES.HASH),
       sign: Buffer.from(tx.sign, 'hex'),
     };
-
     const root = protobuf.Root.fromJSON(jsonDescriptor);
     const TxPayerSignTarget = root.lookupType('TransactionPayerSignTarget');
     const errMsg = TxPayerSignTarget.verify(txPayerSignTarget);
     if (errMsg) throw Error(errMsg);
-
     const message = TxPayerSignTarget.create(txPayerSignTarget);
     const buf = TxPayerSignTarget.encode(message).finish();
 

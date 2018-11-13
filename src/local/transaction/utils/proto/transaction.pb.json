@@ -32,17 +32,9 @@
               "type": "uint32",
               "id": 7
             },
-            "hashAlg": {
-              "type": "uint32",
-              "id": 8
-            },
-            "cryptoAlg": {
-              "type": "uint32",
-              "id": 9
-            },
             "payload": {
               "type": "bytes",
-              "id": 11
+              "id": 10
             }
           }
         },

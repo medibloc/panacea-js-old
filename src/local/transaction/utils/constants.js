@@ -35,8 +35,8 @@ const COMMON_REQUIRED = [
   'chain_id',
   'crypto_alg',
   'from',
-  'nonce',
   'hash_alg',
+  'nonce',
   'timestamp',
   'tx_type',
 ];

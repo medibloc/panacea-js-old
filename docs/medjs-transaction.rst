@@ -985,6 +985,7 @@ Example
 
   var payload = Transaction.createDefaultPayload('Hello MediBloc!');
   var fields = {
+    from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
     nonce: 1,
     payload,
     to: '03e7b794e1de1851b52ab0b0b995cc87558963265a7b26630f26ea8bb9131a7e21',
