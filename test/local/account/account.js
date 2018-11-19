@@ -119,7 +119,6 @@ describe('# Account object', () => {
     const tx = Transaction.valueTransferTx(txData);
     account1.signTx(tx, 'MediBloc1!');
     account2.signTxAsPayer(tx, 'MediBloc2@');
-    console.log(tx);
     expect(tx.payerSign).to.equal(payerSignFromGo);
   });
 });
