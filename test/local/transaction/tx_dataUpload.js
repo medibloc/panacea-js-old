@@ -20,7 +20,7 @@ describe('# dataUploadTx', () => {
     timestamp: 1540000000,
   };
   const tx = dataUploadTx(fields);
-  const txHashFromGo = '9ae59f5dbe447ddec2e2631ed81e2e2e2c00ed3c380c8a875729d60a3af5730c';
+  const txHashFromGo = '9830f335817782da2a8b8373582114a1397b029bd05d1edb66ff1a9d771d380c';
 
   it('should return transaction contains hash', () => {
     expect(tx).to.have.property('hash')

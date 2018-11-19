@@ -38,6 +38,18 @@
             }
           }
         },
+        "TransactionPayerSignTarget": {
+          "fields": {
+            "hash": {
+              "type": "bytes",
+              "id": 1
+            },
+            "sign": {
+              "type": "bytes",
+              "id": 2
+            }
+          }
+        },
         "DefaultPayload": {
           "fields": {
             "message": {
