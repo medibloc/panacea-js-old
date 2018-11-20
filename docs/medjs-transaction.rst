@@ -60,7 +60,7 @@ Parameters
 - ``to`` - ``String`` : The address to which to send the value.
 - ``value`` - ``String`` : The amount of value to transfer. It must not exceed the amount that the sender address has.
 - ``nonce`` - ``Number`` : The nonce indicates how many transactions that this account has made. It should be exactly 1 larger than the current account's nonce. Highly recommend getting an account's latest nonce before making any transaction.
-- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
+- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``181112``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 - ``payload`` - ``Object`` :(optional) The payload object. Recommend to use ``Transaction.createDefaultPayload(data)``.
 
@@ -78,9 +78,10 @@ Returns
 
 - ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``Number`` : The algorithm that is used in transaction.
   + ``chain_id`` - ``Number`` : The chain id of the blockchain.
+  + ``crypto_alg`` - ``Number`` : The algorithm used to compute signature.
   + ``from`` - ``String`` : The address from which to send this value.
+  + ``hash_alg`` - ``Number`` : The algorithm used to calculate hash.
   + ``to`` - ``String`` : The address to which to send this value.
   + ``nonce`` - ``Number`` : The nonce.
   + ``timestamp`` - ``Number`` : The unix timestamp.
@@ -104,18 +105,19 @@ Example
     value: '55',
     nonce: 3,
     payload: Transaction.createDefaultPayload('Hello World'),
-  }
+  };
   var tx = Transaction.valueTransferTx(transactionData);
   console.log(tx);
   > {
-    hash: 'd4c55bc2a988834ffaf24c6ca23f39e155250df46b469bf72802f7d5b3d2f36f',
+    hash: '270304740f3e26a7c9743d527f095c72271e96522ec54900f2e83b754dcd7994',
     rawTx:
-    { alg: 1,
-      chain_id: 1,
+    { chain_id: 1,
+      crypto_alg: 1,
       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
+      hash_alg: 2,
       nonce: 3,
-      payload: '0a1d7b226d657373616765223a225c2248656c6c6f20576f726c645c22227d',
-      timestamp: 1535946728,
+      payload: '0a0d2248656c6c6f20576f726c6422',
+      timestamp: 1542709665,
       to: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
       tx_type: 'transfer',
       value: '55' },
@@ -146,7 +148,7 @@ Parameters
 
   + ``hash`` - ``Buffer|Uint8Array`` : The hash byte array generated from entered data hash.
 
-- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
+- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``181112``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
 .. note:: Assigned writer can send transaction using owner(from)'s bandwidth. To use owner's bandwidth, use owner's address as ``from`` and sign the transaction with assigned writer's private key.
@@ -159,9 +161,10 @@ Returns
 
 - ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``Number`` : The algorithm used in transaction.
   + ``chain_id`` - ``Number`` : The chain id of the blockchain.
+  + ``crypto_alg`` - ``Number`` : The algorithm used to compute signature.
   + ``from`` - ``String`` : The address which uses its bandwidth to send transaction.
+  + ``hash_alg`` - ``Number`` : The algorithm used to calculate hash.
   + ``to`` - ``String`` : ``null``
   + ``nonce`` - ``Number`` : The nonce.
   + ``timestamp`` - ``Number`` : The unix timestamp.
@@ -194,14 +197,15 @@ Example
     console.log(tx);
   });
   > {
-    hash: '8145410160c97087fc1bb73243c22a8fd25abb653d011dbc610e6d6d232b0103',
+    hash: '03db6b5d4a17433805cd8f65532fdf65f9209d1e552574d29f916b44b5b8eaff',
     rawTx:
-     { alg: 1,
-       chain_id: 1,
+     { chain_id: 1,
+       crypto_alg: 1,
        from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
+       hash_alg: 2,
        nonce: 4,
        payload: '0a206e8593b28a3e60e219d2dcf93fa9307dbb30130908e8e2880e4f5469a691b24c',
-       timestamp: 1535953283,
+       timestamp: 1542710151,
        to: null,
        tx_type: 'add_record',
        value: '0' },
@@ -229,7 +233,7 @@ Parameters
 - ``from`` - ``String`` : The address from which to vest the value.
 - ``value`` - ``String`` : The amount of value to vest. It must not exceed the amount that the address has.
 - ``nonce`` - ``Number`` : The nonce indicates how many transactions that this account has made. It should be exactly 1 larger than the current account's nonce. Highly recommend getting an account's latest nonce before making any transaction.
-- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
+- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``181112``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
 
@@ -245,9 +249,10 @@ Returns
 
 - ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``Number`` : The algorithm that is used in transaction.
   + ``chain_id`` - ``Number`` : The chain id of the blockchain.
+  + ``crypto_alg`` - ``Number`` : The algorithm used to compute signature.
   + ``from`` - ``String`` : The address from which to send this value.
+  + ``hash_alg`` - ``Number`` : The algorithm used to calculate hash.
   + ``to`` - ``String`` : ``null``
   + ``nonce`` - ``Number`` : The nonce.
   + ``timestamp`` - ``Number`` : The unix timestamp.
@@ -268,18 +273,19 @@ Example
     value: '100',
     nonce: 3,
     chain_id: 1,
-  }
+  };
   var tx = Transaction.vestTx(transactionData);
   console.log(tx);
   > {
-    hash: '28866edfdfb2f6bf5b0e31ea24575fcfb1fe3b8acd49028656bbdd78489070b8',
+    hash: '19d44c3dffaebdfbfef06e6235226a1223c1a784897b3c288650b63fe0385ada',
     rawTx:
-     { alg: 1,
-       chain_id: 1,
+     { chain_id: 1,
+       crypto_alg: 1,
        from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
+       hash_alg: 2,
        nonce: 3,
        payload: undefined,
-       timestamp: 1535967004,
+       timestamp: 1542710256,
        to: null,
        tx_type: 'vest',
        value: '100' },
@@ -307,7 +313,7 @@ Parameters
 - ``from`` - ``String`` : The address from which to withdraw the vesting value.
 - ``value`` - ``String`` : The amount of value to withdraw vesting. It must not exceed the amount that the address vesting.
 - ``nonce`` - ``Number`` : The nonce indicates how many transactions that this account has made. It should be exactly 1 larger than the current account's nonce. Highly recommend getting an account's latest nonce before making any transaction.
-- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
+- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``181112``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
 
@@ -323,9 +329,10 @@ Returns
 
 - ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``Number`` : The algorithm that is used in transaction.
   + ``chain_id`` - ``Number`` : The chain id of the blockchain.
+  + ``crypto_alg`` - ``Number`` : The algorithm used to compute signature.
   + ``from`` - ``String`` : The address from which to send this value.
+  + ``hash_alg`` - ``Number`` : The algorithm used to calculate hash.
   + ``to`` - ``String`` : ``null``
   + ``nonce`` - ``Number`` : The nonce.
   + ``timestamp`` - ``Number`` : The unix timestamp.
@@ -346,18 +353,19 @@ Example
     value: '100',
     nonce: 3,
     chain_id: 1,
-  }
+  };
   var tx = Transaction.withdrawVestingTx(transactionData);
   console.log(tx);
   > {
-    hash: '78e6ad98d492b2514d8c4fefa1b438ef4302ffc432fa509466fc6aec58bf00d3',
+    hash: '8f467917a3c13cacfee41389f3f4c11a3d6f6f55170aae475cc8a498141addb3',
     rawTx:
-     { alg: 1,
-       chain_id: 1,
+     { chain_id: 1,
+       crypto_alg: 1,
        from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
+       hash_alg: 2,
        nonce: 3,
        payload: undefined,
-       timestamp: 1531800486773,
+       timestamp: 1542710373,
        to: null,
        value: '100' },
     sign: null
@@ -384,7 +392,7 @@ Parameters
 - ``from`` - ``String`` : The address from which to withdraw the vesting value.
 - ``value`` - ``String`` : The amount of collateral. It must not exceed the amount that the address has.
 - ``nonce`` - ``Number`` : The nonce indicates how many transactions that this account has made. It should be exactly 1 larger than the current account's nonce. Highly recommend getting an account's latest nonce before making any transaction.
-- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
+- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``181112``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
 
@@ -400,9 +408,10 @@ Returns
 
 - ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``Number`` : The algorithm that is used in transaction.
   + ``chain_id`` - ``Number`` : The chain id of the blockchain.
+  + ``crypto_alg`` - ``Number`` : The algorithm used to compute signature.
   + ``from`` - ``String`` : The address from which to become a candidate for delegate.
+  + ``hash_alg`` - ``Number`` : The algorithm used to calculate hash.
   + ``to`` - ``String`` : ``null``
   + ``nonce`` - ``Number`` : The nonce.
   + ``timestamp`` - ``Number`` : The unix timestamp.
@@ -423,18 +432,19 @@ Example
     value: '10000',
     nonce: 2,
     chain_id: 1,
-  }
+  };
   var tx = Transaction.becomeCandidateTx(transactionData);
   console.log(tx);
   > {
-    hash: '14afd354b1dbc1fb1ec0a866625e946d666a660d6ce28d22366bfe8aa29d0624',
+    hash: '662de2b1459b3eefa44cf175b43c24567a808e571bffbf35e1fa00b6f0b082e8',
     rawTx:
-     { alg: 1,
-       chain_id: 1,
+     { chain_id: 1,
+       crypto_alg: 1,
        from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
+       hash_alg: 2,
        nonce: 2,
        payload: undefined,
-       timestamp: 1535967821,
+       timestamp: 1542710427,
        to: null,
        tx_type: 'become_candidate',
        value: '10000' },
@@ -461,7 +471,7 @@ Parameters
 
 - ``from`` - ``String`` : The address from which to withdraw the vesting value.
 - ``nonce`` - ``Number`` : The nonce indicates how many transactions that this account has made. It should be exactly 1 larger than the current account's nonce. Highly recommend getting an account's latest nonce before making any transaction.
-- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
+- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``181112``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
 -------
@@ -472,9 +482,10 @@ Returns
 
 - ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``Number`` : The algorithm that is used in transaction.
   + ``chain_id`` - ``Number`` : The chain id of the blockchain.
+  + ``crypto_alg`` - ``Number`` : The algorithm used to compute signature.
   + ``from`` - ``String`` : The address from which to quit a candidate for delegate.
+  + ``hash_alg`` - ``Number`` : The algorithm used to calculate hash.
   + ``to`` - ``String`` : ``null``
   + ``nonce`` - ``Number`` : The nonce.
   + ``timestamp`` - ``Number`` : The unix timestamp.
@@ -494,18 +505,19 @@ Example
     from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
     nonce: 3,
     chain_id: 1,
-  }
+  };
   var tx = Transaction.quitCandidacyTx(transactionData);
   console.log(tx);
   > {
-    hash: '927ea8dcb765e81ff8e9f7dc1a3699271c1165c0765a137909e710903450ff9a',
+    hash: '8fd2d93804c79285c99fa7d5ac2a3b7e475091fa814bf138c67e7e29adeea64c',
     rawTx:
-     { alg: 1,
-       chain_id: 1,
+     { chain_id: 1,
+       crypto_alg: 1,
        from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
+       hash_alg: 2,
        nonce: 3,
        payload: undefined,
-       timestamp: 1536027597,
+       timestamp: 1542710535,
        to: null,
        tx_type: 'quit_candidacy',
        value: '0' },
@@ -536,7 +548,7 @@ Parameters
 
   + ``candidates`` - ``Array`` : The array of the candidates id byte array.
 
-- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
+- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``181112``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
 -------
@@ -549,8 +561,8 @@ Returns
 
   + ``chain_id`` - ``Number`` : The chain id of the blockchain.
   + ``crypto_alg`` - ``Number`` : The algorithm used to compute signature.
-  + ``hash_alg`` - ``Number`` : The algorithm used to calculate hash.
   + ``from`` - ``String`` : The address of voter.
+  + ``hash_alg`` - ``Number`` : The algorithm used to calculate hash.
   + ``to`` - ``String`` : ``null``
   + ``nonce`` - ``Number`` : The nonce.
   + ``timestamp`` - ``Number`` : The unix timestamp.
@@ -586,7 +598,7 @@ Example
        hash_alg: 2,
        nonce: 4,
        payload: '0a205b803d26142699fa59ef51e5e39a6968f1fd1ef73908d2fdbdc1c51db723682f0a200e25e27e8f9ddb374d97f3c03664c1c5d044524e44145aa49ee33ae87ac1f118',
-       timestamp: 1542707910,,
+       timestamp: 1542707910,
        to: null,
        tx_type: 'vote',
        value: '0' },
@@ -620,7 +632,7 @@ Parameters
   + ``expirationTime`` - ``Number`` : The timestamp of the expiration. The unit must be seconds.
   + ``hash`` - ``String`` : The hash string of the certificate.
 
-- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
+- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``181112``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
 -------
@@ -631,9 +643,10 @@ Returns
 
 - ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``Number`` : The algorithm that is used in transaction.
   + ``chain_id`` - ``Number`` : The chain id of the blockchain.
+  + ``crypto_alg`` - ``Number`` : The algorithm used to compute signature.
   + ``from`` - ``String`` : The address of voter.
+  + ``hash_alg`` - ``Number`` : The algorithm used to calculate hash.
   + ``to`` - ``String`` : The address of receiver.
   + ``nonce`` - ``Number`` : The nonce.
   + ``timestamp`` - ``Number`` : The unix timestamp.
@@ -660,18 +673,19 @@ Example
       expirationTime: Math.floor(Date.now() / 1000),
       hash: '487b69767e201f485a67b915f1726e39a9d84d72ce3753dfdc824ebdf22e9b33',
     }),
-  }
+  };
   var tx = Transaction.addCertificationTx(transactionData);
   console.log(tx);
   > {
-    hash: '6629a99006e5d5df5c6d2a12d79ee97ee7ac05f350e2231a04d6d782e439849a',
+    hash: '5cfce13ff0e32342d6b70225cded0dde5f124982e316cbe98030d9565755020b',
     rawTx:
-     { alg: 1,
-       chain_id: 1,
+     { chain_id: 1,
+       crypto_alg: 1,
        from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
+       hash_alg: 2,
        nonce: 4,
        payload: '088cecb7dc05108cecb7dc051a30e3cedbebdefaededb4d5fe3ce5aebb6fdd797f5ef6e9edfd6bd77ce1def671edfbe7775f75cf36e1e6dd7f6d9ef5bdf7',
-       timestamp: 1536030220,
+       timestamp: 1542710664,
        to: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
        tx_type: 'add_certification',
        value: '0' },
@@ -702,7 +716,7 @@ Parameters
 
   + ``hash`` - ``Buffer|Uint8Array`` : The hash byte array generated from entered data hash.
 
-- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
+- ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``181112``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
 
 -------
@@ -713,9 +727,10 @@ Returns
 
 - ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``Number`` : The algorithm that is used in transaction.
   + ``chain_id`` - ``Number`` : The chain id of the blockchain.
+  + ``crypto_alg`` - ``Number`` : The algorithm used to compute signature.
   + ``from`` - ``String`` : The address of voter.
+  + ``hash_alg`` - ``Number`` : The algorithm used to calculate hash.
   + ``to`` - ``String`` : The address of receiver.
   + ``nonce`` - ``Number`` : The nonce.
   + ``timestamp`` - ``Number`` : The unix timestamp.
@@ -734,21 +749,22 @@ Example
 
   var transactionData = {
     from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
-	nonce: 4,
-	chain_id: 1,
+    nonce: 4,
+    chain_id: 1,
     payload: Transaction.createRevokeCertificationPayload('487b69767e201f485a67b915f1726e39a9d84d72ce3753dfdc824ebdf22e9b33'),
-  }
+  };
   var tx = Transaction.revokeCertificationTx(transactionData);
   console.log(tx);
   > {
-    hash: '50b871606a25b9dbbd1f5ebaca1e4c5aa865efb5451baed44f4337961d05940d',
+    hash: 'e6b06960f13267e475b6ce56545ce8c378011ed67bdd9d31719ca7752da0ae49',
     rawTx:
-     { alg: 1,
-       chain_id: 1,
+     { chain_id: 1,
+       crypto_alg: 1,
        from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
+       hash_alg: 2,
        nonce: 4,
        payload: '0a20487b69767e201f485a67b915f1726e39a9d84d72ce3753dfdc824ebdf22e9b33',
-       timestamp: 1536035291,
+       timestamp: 1542710900,
        to: null,
        tx_type: 'revoke_certification',
        value: '0' },

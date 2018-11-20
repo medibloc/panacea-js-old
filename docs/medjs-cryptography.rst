@@ -195,7 +195,7 @@ Example
 ---------------------------------------------------------------------------
 
 getKeyPair
-=================
+==========
 
 .. code-block:: javascript
 
@@ -258,14 +258,14 @@ Example
 
   Cryptography.getKeyPairFromPassphrase('med med med med med med med med med med med med');
   > {
-    privKey: '891ce3a670e6680bd5055bb2eb9ac6e134bcac827658172ef62655e6a7f75d87',
-    pubKey: '02f5ef5b17dc0e40fa390c1cfe6a04eb9d3d111f82693cd52dc97335f0c008b492'
+    privKey: 'c16d3c171c37faf691ec87814296fe8aa9b5e53390b06c548d325b2c0aa8668c',
+    pubKey: '02406b3e2fd06f97b822cd3c6bb661c9ecf13c0c13f1bf2117faf6ea1695dd9876'
   }
 
 ---------------------------------------------------------------------------
 
 getPubKey
-================
+=========
 
 .. code-block:: javascript
 
@@ -297,7 +297,7 @@ Example
 ---------------------------------------------------------------------------
 
 getSharedSecretKey
-=========================
+==================
 
 .. code-block:: javascript
 
@@ -330,7 +330,7 @@ Example
 ---------------------------------------------------------------------------
 
 recoverPubKeyFromSignature
-===============================
+==========================
 
 .. code-block:: javascript
 
@@ -396,7 +396,7 @@ Example
 ---------------------------------------------------------------------------
 
 verifySignature
-====================
+===============
 
 .. code-block:: javascript
 
