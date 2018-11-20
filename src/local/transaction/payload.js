@@ -31,10 +31,10 @@ const createRevokeCertificationPayload = hash => ({
   hash: genHexBuf(hash, BYTESIZES.HASH),
 });
 
-const createVotePayload = (addresses) => {
+const createVotePayload = (candidateIds) => {
   const candidates = [];
-  for (let i = 0; i < addresses.length; i += 1) {
-    candidates.push(genHexBuf(addresses[i], BYTESIZES.ADDRESS));
+  for (let i = 0; i < candidateIds.length; i += 1) {
+    candidates.push(genHexBuf(candidateIds[i], BYTESIZES.HASH));
   }
   return ({
     candidates,

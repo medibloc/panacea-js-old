@@ -534,7 +534,7 @@ Parameters
 - ``nonce`` - ``Number`` : The nonce indicates how many transactions that this account has made. It should be exactly 1 larger than the current account's nonce. Highly recommend getting an account's latest nonce before making any transaction.
 - ``payload`` - ``Object`` : The payload object from candidate list. Recommend to use ``Transaction.createVotePayload([candidates])``
 
-  + ``candidates`` - ``Array`` : The array of the candidates address byte array.
+  + ``candidates`` - ``Array`` : The array of the candidates id byte array.
 
 - ``chain_id`` - ``Number`` :(optional) The chain id of the blockchain. If not given, default chainId is automatically set. (For the testnet, ``180830``)
 - ``timestamp`` - ``Number`` :(optional) The unix timestamp. If not given, current timestamp is automatically set.
@@ -547,8 +547,9 @@ Returns
 
 - ``rawTx`` - ``Object`` : The rawTx contains transaction elements.
 
-  + ``alg`` - ``Number`` : The algorithm that is used in transaction.
   + ``chain_id`` - ``Number`` : The chain id of the blockchain.
+  + ``crypto_alg`` - ``Number`` : The algorithm used to compute signature.
+  + ``hash_alg`` - ``Number`` : The algorithm used to calculate hash.
   + ``from`` - ``String`` : The address of voter.
   + ``to`` - ``String`` : ``null``
   + ``nonce`` - ``Number`` : The nonce.
@@ -568,21 +569,24 @@ Example
 
   var transactionData = {
     from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
-	nonce: 4,
-	chain_id: 1,
-    payload: Transaction.createVotePayload(['037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b'])
-  }
+	  nonce: 4,
+	  chain_id: 1,
+    payload: Transaction.createVotePayload([
+      '5b803d26142699fa59ef51e5e39a6968f1fd1ef73908d2fdbdc1c51db723682f',
+      '0e25e27e8f9ddb374d97f3c03664c1c5d044524e44145aa49ee33ae87ac1f118']),
+  };
   var tx = Transaction.voteTx(transactionData);
   console.log(tx);
   > {
-    hash: 'bacf05abcfd5da857c7bc1e6f0ae74578bad11ad66859408cce01c71ce0e6c8a',
+    hash: '6f4ef63a945efc995b34e80db0e7adc8650d863f973582fc87aadb7c90c4fa2e',
     rawTx:
-     { alg: 1,
-       chain_id: 1,
+     { chain_id: 1,
+       crypto_alg: 1,
        from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
+       hash_alg: 2,
        nonce: 4,
-       payload: "0a21037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b",
-       timestamp: 1536027879,
+       payload: '0a205b803d26142699fa59ef51e5e39a6968f1fd1ef73908d2fdbdc1c51db723682f0a200e25e27e8f9ddb374d97f3c03664c1c5d044524e44145aa49ee33ae87ac1f118',
+       timestamp: 1542707910,,
        to: null,
        tx_type: 'vote',
        value: '0' },
@@ -834,15 +838,15 @@ createVotePayload
 
 .. code-block:: javascript
 
-  Transaction.createVotePayload([addresses]);
+  Transaction.createVotePayload([candidateIds]);
 
-To generate vote payload transaction, you can use ``Transaction.createVotePayload([addresses])``. It returns payload for ``voteTx``.
+To generate vote payload transaction, you can use ``Transaction.createVotePayload([candidateIds])``. It returns payload for ``voteTx``.
 
 ----------
 Parameters
 ----------
 
-``addresses`` - ``Array``: The array of the candidates address.
+``candidateIds`` - ``Array``: The array of the candidates id.
 
 -------
 Returns
@@ -850,7 +854,7 @@ Returns
 
 ``Object`` - The vote payload object for vote transaction.
 
-- ``candidates`` - ``Array`` : The array of the address byte array.
+- ``candidates`` - ``Array`` : The array of the candidate id byte array.
 
 -------
 Example
@@ -859,12 +863,14 @@ Example
 .. code-block:: javascript
 
   var payload = Transaction.createVotePayload([
-    '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b'
+    '5b803d26142699fa59ef51e5e39a6968f1fd1ef73908d2fdbdc1c51db723682f',
+    '0e25e27e8f9ddb374d97f3c03664c1c5d044524e44145aa49ee33ae87ac1f118',
   ]);
   console.log(payload);
   > {
     candidates: [
-      [3, 125, 145, 89, ...]
+      <Buffer 5b 80 3d 26 14 26 99 fa 59 ef 51 e5 e3 9a 69 68 f1 fd 1e f7 39 08 d2 fd bd c1 c5 1d b7 23 68 2f>,
+      <Buffer 0e 25 e2 7e 8f 9d db 37 4d 97 f3 c0 36 64 c1 c5 d0 44 52 4e 44 14 5a a4 9e e3 3a e8 7a c1 f1 18>
     ]
   }
 
