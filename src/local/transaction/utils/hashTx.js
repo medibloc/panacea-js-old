@@ -16,7 +16,7 @@ const hashTx = (tx) => {
     timestamp: tx.timestamp,
     nonce: tx.nonce,
     chainId: tx.chain_id,
-    payload: (tx.payload === undefined) ? null : binary.from(tx.payload, 'hex'),
+    payload: (tx.payload === undefined || tx.payload === "") ? null : binary.from(tx.payload, 'hex'),
   };
 
   const root = protobuf.Root.fromJSON(jsonDescriptor);
