@@ -9,8 +9,9 @@ const connectedAxios = axios.create({
 });
 
 // request sends HTTP request.
-const request = config => connectedAxios.request(config).then(res => res.data);
-// const request = config => axios(config).then(res => res.data);
+const request = config => connectedAxios.request(config)
+  .then(res => res.data)
+  .catch((err) => { throw err.response; });
 
 // asyncRequest sends HTTP request and hands over the response to callback.
 const asyncRequest = (config, cb) => request(config).then(res => cb(null, res)).catch(cb);

@@ -7,6 +7,28 @@ export default (nodeBucket) => {
     throw new Error('gateway requires bucket for initialization.');
   }
 
+  const runRequest = ({
+    config, count, resolve, reject,
+  }) => {
+    if (count >= MAX_REQUEST_RETRY_COUNT) {
+      reject(new Error('max request retry count exceeded.'));
+    } else {
+      const baseURL = nodeBucket.getRequestNode();
+      request({ ...config, baseURL })
+        .then(data => resolve(data))
+        .catch((err) => {
+          if (err.status === 400) { // TODO add more error cases @jiseob
+            reject(new Error(`${err.data.error} to ${baseURL}`));
+          } else {
+            nodeBucket.replaceRequestNode();
+            runRequest({
+              config, count: count + 1, resolve, reject,
+            });
+          }
+        });
+    }
+  };
+
   // sendRequest handle request using the nodeBucket.
   const sendRequest = ({ method, path, payload }, stream = false) =>
     new Promise((resolve, reject) => {
@@ -29,19 +51,14 @@ export default (nodeBucket) => {
         option.responseType = 'stream';
       }
       const config = buildConfig(option);
-      for (let i = 0; i < MAX_REQUEST_RETRY_COUNT; i += 1) {
-        const baseURL = nodeBucket.getRequestNode();
-        try {
-          return request({ ...config, baseURL }).then(data => resolve(data));
-        } catch (err) {
-          // retry if request throw error.
-          nodeBucket.replaceRequestNode();
-        }
-      }
-      return reject(new Error('send request failed.'));
+
+      runRequest({
+        config, count: 0, resolve, reject,
+      });
     });
 
   return {
     sendRequest,
   };
 };
+
