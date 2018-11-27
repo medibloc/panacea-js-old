@@ -1019,3 +1019,40 @@ Example
   > {
     message: '"Hello MediBloc!"'
   }
+
+---------------------------------------------------------------------------
+
+recoverPayloadWithType
+======================
+
+.. code-block:: javascript
+
+  Transaction.recoverPayloadWithType(payload, type);
+
+recover a payload matched with its type.
+
+----------
+Parameters
+----------
+
+1. ``payload`` - ``Object`` : The payload to recover.
+2. ``type`` - ``string : transaction type matching with the payload
+
+-------
+Returns
+-------
+
+``Object`` - The recovered payload.
+
+-------
+Example
+-------
+
+.. code-block:: javascript
+
+  var payload = Transaction.createDefaultPayload('Hello MediBloc!');
+  var recoveredPayload = Transaction.recoverPayloadWithType(payload, 'transfer');
+  console.log(recoveredPayload);
+  > {
+    message: '"Hello MediBloc!"'
+  }

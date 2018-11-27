@@ -53,6 +53,11 @@ const recoverPayload = (transaction) => {
   );
 };
 
+const recoverPayloadWithType = (payload, type) => {
+  if (!(payload && type && PAYLOAD_TYPES[type])) return null;
+  return recoverFromPayload(payload, PAYLOAD_TYPES[type], jsonDescriptor);
+};
+
 export default {
   createAddCertificationPayload,
   createDataPayload,
@@ -60,4 +65,5 @@ export default {
   createRevokeCertificationPayload,
   createVotePayload,
   recoverPayload,
+  recoverPayloadWithType,
 };
