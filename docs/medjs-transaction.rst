@@ -786,7 +786,7 @@ To generate default payload transaction, you can use ``Transaction.createDefault
 Parameters
 ----------
 
-``message`` - ``Any type``: Any type of message can be entered. It automatically changed to string.
+``message`` - ``String``: String type of message can be entered.
 
 -------
 Returns
@@ -802,11 +802,9 @@ Example
 
 .. code-block:: javascript
 
-  var payload = Transaction.createDefaultPayload({Medi: 'Bloc'});
+  var payload = Transaction.createDefaultPayload('MediBloc');
   console.log(payload);
-  > {
-    message: "{"Medi":"Bloc"}"
-  }
+  > { message: 'MediBloc' }
 
 ---------------------------------------------------------------------------
 
