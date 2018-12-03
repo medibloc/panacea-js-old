@@ -58,7 +58,7 @@ describe('# payload', () => {
       const type = PAYLOAD_TYPES[VALUE_TRANSFER].charAt(0).toUpperCase() +
         PAYLOAD_TYPES[VALUE_TRANSFER].slice(1);
       const payload = createDefaultPayload('Hello MediBloc');
-      const target = '0a102248656c6c6f204d656469426c6f6322';
+      const target = '0a0e48656c6c6f204d656469426c6f63';
       expect(genPayloadPb(payload, type)).to.be.eql(target);
       expect(recoverPayloadWithType(target, VALUE_TRANSFER)).to.be.eql(payload);
     });

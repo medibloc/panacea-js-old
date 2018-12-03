@@ -94,7 +94,7 @@ describe('# valueTransferTx', () => {
     value: '10',
   };
   const tx = valueTransferTx(fields);
-  const txHashFromGo = '9ca51555de0173a5df1f0a0574a152cb11cb6195b620146da1f8fa6c5c081064';
+  const txHashFromGo = 'd6872e6643b2b462d4180858a277bb8a1e79540ad234ecf999184aee6a647c0b';
 
   it('should return transaction contains hash', () => {
     expect(tx).to.have.property('hash')

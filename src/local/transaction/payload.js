@@ -23,9 +23,10 @@ const createDataPayload = hash => ({
 });
 
 // All parameter type is allowed
-const createDefaultPayload = message => ({
-  message: JSON.stringify(message),
-});
+const createDefaultPayload = (message) => {
+  if (typeof message !== 'string') throw new Error('payload type should be a string');
+  return { message };
+};
 
 const createRevokeCertificationPayload = hash => ({
   hash: genHexBuf(hash, BYTESIZES.HASH),
