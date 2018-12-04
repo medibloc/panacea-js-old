@@ -83,7 +83,7 @@ Example
       address: '0387e6dd9576a9bc792658bcedcb257311739c88b8a3ca68eef980316bb73a45d9',
       ...
     },
-    pubKey: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
+    pubKey: '0387e6dd9576a9bc792658bcedcb257311739c88b8a3ca68eef980316bb73a45d9',
     ...
   }
 
