@@ -1,3 +1,4 @@
+import binary from 'bops';
 import protobuf from 'protobufjs/light';
 
 
@@ -13,7 +14,7 @@ const genPayloadBuf = (payload, type, jsonDescriptor) => {
 };
 
 const recoverFromPayload = (payload, type, jsonDescriptor) => {
-  const payloadBuf = Buffer.from(payload, 'hex');
+  const payloadBuf = binary.from(payload, 'hex');
   const root = protobuf.Root.fromJSON(jsonDescriptor);
   const PayloadTarget = root.lookupType(type.charAt(0).toUpperCase() + type.slice(1));
   const payloadMessage = PayloadTarget.decode(payloadBuf);
