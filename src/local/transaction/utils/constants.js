@@ -4,9 +4,9 @@ const DATA_UPLOAD = 'add_record';
 const QUIT_CANDIDATE = 'quit_candidacy';
 const REVOKE_CERTIFICATION = 'revoke_certification';
 const VALUE_TRANSFER = 'transfer';
-const VEST = 'vest';
+const VEST = 'stake';
 const VOTE = 'vote';
-const WITHDRAW_VESTING = 'withdraw_vesting';
+const WITHDRAW_VESTING = 'unstake';
 
 // PAYLOAD
 const ADD_CERTIFICATION_PAYLOAD = 'addCertificationPayload';

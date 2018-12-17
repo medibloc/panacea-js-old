@@ -287,7 +287,7 @@ Example
        payload: undefined,
        timestamp: 1542710256,
        to: null,
-       tx_type: 'vest',
+       tx_type: 'stake',
        value: '100' },
     sign: null
   }
@@ -367,6 +367,7 @@ Example
        payload: undefined,
        timestamp: 1542710373,
        to: null,
+       tx_type: 'unstake',
        value: '100' },
     sign: null
   }
