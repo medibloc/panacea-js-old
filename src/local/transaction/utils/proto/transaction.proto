@@ -6,9 +6,8 @@ message TransactionHashTarget {
   bytes from = 2;
   bytes to = 3;
   bytes value = 4;
-  int64 timestamp = 5;
-  uint64 nonce = 6;
-  uint32 chain_id = 7;
+  uint64 nonce = 5;
+  uint32 chain_id = 6;
 
   bytes payload = 10;
 }

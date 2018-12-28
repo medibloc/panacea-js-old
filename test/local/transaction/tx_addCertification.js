@@ -21,7 +21,6 @@ describe('# addCertificationCandidateTx', () => {
     from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
     nonce: 1,
     payload,
-    timestamp: 1540000000,
     to: '037d91596727bc522553510b34815f382c2060cbb776f2765deafb48ae528d324b',
   };
   const tx = addCertificationTx(fields);

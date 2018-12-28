@@ -20,17 +20,13 @@
               "type": "bytes",
               "id": 4
             },
-            "timestamp": {
-              "type": "int64",
-              "id": 5
-            },
             "nonce": {
               "type": "uint64",
-              "id": 6
+              "id": 5
             },
             "chainId": {
               "type": "uint32",
-              "id": 7
+              "id": 6
             },
             "payload": {
               "type": "bytes",

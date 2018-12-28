@@ -26,7 +26,6 @@ const BYTESIZES = {
   ALG: 4,
   CHAIN_ID: 4,
   NONCE: 8,
-  TIMESTAMP: 8,
   VALUE: 16,
   HASH: 32,
 };
@@ -37,7 +36,6 @@ const COMMON_REQUIRED = [
   'from',
   'hash_alg',
   'nonce',
-  'timestamp',
   'tx_type',
 ];
 

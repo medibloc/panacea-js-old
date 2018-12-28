@@ -17,7 +17,6 @@ describe('# voteTx', () => {
     from: '02bdc97dfc02502c5b8301ff46cbbb0dce56cd96b0af75edc50560630de5b0a472',
     nonce: 1,
     payload,
-    timestamp: 1540000000,
   };
   const tx = voteTx(fields);
 
