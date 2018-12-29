@@ -332,7 +332,6 @@ Returns
   - ``from`` - ``String``: The address which use it's bandwidth. Or the address which to send this value from.
   - ``to`` - ``String``: The address which to take this value.
   - ``value`` - ``String``: The transferred value in 1e-12 MED.
-  - ``timestamp`` - ``String``: The timestamp of the transaction.
   - ``payload`` - ``String``: The payload hex string made from protoBuffer.
   - ``tx_type`` - ``String``: The type of the transaction.
   - ``nonce`` - ``String``: The nonce indicates the number of transactions that this account has made.
@@ -356,7 +355,6 @@ Example
     from: '02b83999492119eeea90a44bd621059e9a2f0b8219e067fb040473754a1821da07',
     to: '02b83999492119eeea90a44ad621059e9a2f0b8219e067fb040473754a1821da07',
     value: '100000000',
-    timestamp: '1530853255',
     payload: '',
     tx_type: 'transfer',
     nonce: '3',
