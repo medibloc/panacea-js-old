@@ -19,7 +19,7 @@ describe('# dataUploadTx', () => {
     payload,
   };
   const tx = dataUploadTx(fields);
-  const txHashFromGo = 'b17920b36abd25ae4f2d1223eaab6d41b6e914e56c95afc238640ae59048cb09';
+  const txHashFromGo = '0d61ed6b9f36b31073e4be48632803b119ebc73d6b26146309e32cdca5b3a7e9';
 
   it('should return transaction contains hash', () => {
     expect(tx).to.have.property('hash')
