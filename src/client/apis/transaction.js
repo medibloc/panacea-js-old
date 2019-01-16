@@ -1,11 +1,15 @@
+import { parseTransaction, parseTransactions } from '../parser';
+
 export default ({ sendRequest }) => {
   const getPendingTransactions = () => sendRequest({
     method: 'get',
+    parser: parseTransactions,
     path: 'v1/transactions/pending',
   });
 
   const getTransaction = hash => sendRequest({
     method: 'get',
+    parser: parseTransaction,
     path: 'v1/transaction',
     payload: {
       hash,

@@ -8,14 +8,17 @@ export default (nodeBucket) => {
   }
 
   const runRequest = ({
-    config, count, resolve, reject,
+    config, count, parser, resolve, reject,
   }) => {
     if (count >= MAX_REQUEST_RETRY_COUNT) {
       reject(new Error('max request retry count exceeded.'));
     } else {
       const baseURL = nodeBucket.getRequestNode();
       request({ ...config, baseURL })
-        .then(data => resolve(data))
+        .then((data) => {
+          if (typeof parser === 'function') return resolve(parser(data));
+          return resolve(data);
+        })
         .catch((err) => {
           if (err.status === 400) { // TODO add more error cases @jiseob
             reject(new Error(`${err.data.error} to ${baseURL}`));
@@ -30,7 +33,9 @@ export default (nodeBucket) => {
   };
 
   // sendRequest handle request using the nodeBucket.
-  const sendRequest = ({ method, path, payload }, stream = false) =>
+  const sendRequest = ({
+    method, parser, path, payload,
+  }, stream = false) =>
     new Promise((resolve, reject) => {
       // remove blank parameters in the payload
       const purePayload = payload;
@@ -53,7 +58,7 @@ export default (nodeBucket) => {
       const config = buildConfig(option);
 
       runRequest({
-        config, count: 0, resolve, reject,
+        config, count: 0, parser, resolve, reject,
       });
     });
 
