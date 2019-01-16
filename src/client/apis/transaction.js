@@ -16,6 +16,14 @@ export default ({ sendRequest }) => {
     },
   });
 
+  const getTransactionReceipt = hash => sendRequest({
+    method: 'get',
+    path: 'v1/transaction/receipt',
+    payload: {
+      hash,
+    },
+  });
+
   const sendTransaction = tx => sendRequest({
     method: 'post',
     path: 'v1/transaction',
@@ -32,6 +40,7 @@ export default ({ sendRequest }) => {
   return {
     getPendingTransactions,
     getTransaction,
+    getTransactionReceipt,
     sendTransaction,
   };
 };
