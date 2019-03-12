@@ -3,20 +3,20 @@
 .. include:: include_announcement.rst
 
 ================
-medjs.healthData
+panaceajs.healthData
 ================
 
-The ``medjs.healthData`` object helps to encode and decode the health data as :ref:`MHD format <mhd>`.
+The ``panaceajs.healthData`` object helps to encode and decode the health data as :ref:`MHD format <mhd>`.
 
 .. code-block:: javascript
 
-  var HealthData = require('medjs').healthData;
+  var HealthData = require('@medibloc/panacea-js').healthData;
   //
-  // Instead, you can import from medjs like below.
+  // Instead, you can import from panaceajs like below.
   //
-  // var Medjs = require('medjs');
-  // var medjs = Medjs.init(['http://localhost:9921']);
-  // var HealthData = medjs.healthData;
+  // var Panaceajs = require('@medibloc/panacea-js');
+  // var panaceajs = Panaceajs.init(['http://localhost:9921']);
+  // var HealthData = panaceajs.healthData;
 
 .. include:: include_blockchain_note.rst
 

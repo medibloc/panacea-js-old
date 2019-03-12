@@ -3,21 +3,21 @@
 .. include:: include_announcement.rst
 
 ============
-medjs.client
+panaceajs.client
 ============
 
-The ``medjs.client`` object allows you to interact with the MediBloc blockchain.
+The ``panaceajs.client`` object allows you to interact with the MediBloc blockchain.
 
 .. code-block:: javascript
 
-  var Medjs = require('medjs');
-  var Client = Medjs.client(['http://localhost:9921']);
+  var Panaceajs = require('@medibloc/panacea-js');
+  var Client = Panaceajs.client(['http://localhost:9921']);
   //
-  // Instead, you can import from medjs like below.
+  // Instead, you can import from panaceajs like below.
   //
-  // var Medjs = require('medjs');
-  // var medjs = Medjs.init(['http://localhost:9921']);
-  // var Client = medjs.client;
+  // var Panaceajs = require('@medibloc/panacea-js');
+  // var panaceajs = Panaceajs.init(['http://localhost:9921']);
+  // var Client = panaceajs.client;
 
 .. include:: include_blockchain_note.rst
 

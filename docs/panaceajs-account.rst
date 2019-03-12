@@ -3,22 +3,22 @@
 .. include:: include_announcement.rst
 
 ===================
-medjs.local.Account
+panaceajs.local.Account
 ===================
 
-The ``medjs.local.Account`` contains functions to generate MediBloc accounts, which contain encrypted private key and public key pair and can induce public key from the private key.
+The ``panaceajs.local.Account`` contains functions to generate MediBloc accounts, which contain encrypted private key and public key pair and can induce public key from the private key.
 
 To use this package in a standalone use:
 
 .. code-block:: javascript
 
-  var Account = require('medjs').local.Account;
+  var Account = require('@medibloc/panacea-js').local.Account;
   //
-  // Instead, you can import from medjs like below.
+  // Instead, you can import from panaceajs like below.
   //
-  // var Medjs = require('medjs');
-  // var medjs = Medjs.init(['http://localhost:9921']);
-  // var Account = medjs.local.Account;
+  // var Panaceajs = require('@medibloc/panacea-js');
+  // var panaceajs = Panaceajs.init(['http://localhost:9921']);
+  // var Account = panaceajs.local.Account;
 
 ---------------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ new Account
 
   new Account(passphrase, encryptedPrivateKey, pubKey);
 
-To generate account, you can use ``medjs.local.Account()``. Basically, account is just a pair of private and public key that has several functions described as below.
+To generate account, you can use ``panaceajs.local.Account()``. Basically, account is just a pair of private and public key that has several functions described as below.
 
 .. note:: MediBloc uses public key as an address.
 
@@ -39,7 +39,7 @@ To generate account, you can use ``medjs.local.Account()``. Basically, account i
 Parameters
 ----------
 
-1. ``passphrase`` - ``String`` :(optional) If ``encryptedPrivateKey`` is not given, passphrase works as a key to encrypt private key. If ``encryptedPrivateKey`` is given, passphrase works as a key to decrypt encryptedPrivateKey and it must be used in encryption of the ``encryptedPrivateKey``. If not given, passphrase is set with an empty string. 
+1. ``passphrase`` - ``String`` :(optional) If ``encryptedPrivateKey`` is not given, passphrase works as a key to encrypt private key. If ``encryptedPrivateKey`` is given, passphrase works as a key to decrypt encryptedPrivateKey and it must be used in encryption of the ``encryptedPrivateKey``. If not given, passphrase is set with an empty string.
 2. ``encryptedPrivateKey`` - ``String`` :(optional) Restore account is matched with the given encrypted private key. If not given, it will generate a new keypair.
 3. ``pubKey`` - ``String``(optional) Restore account is matched with the given public key. If not given, it will be decrypted from the given passphrase and the given encryptedPrivateKey.
 

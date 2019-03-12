@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=.
 set BUILDDIR=_build
-set SPHINXPROJ=medjs
+set SPHINXPROJ=panaceajs
 
 if "%1" == "" goto help
 

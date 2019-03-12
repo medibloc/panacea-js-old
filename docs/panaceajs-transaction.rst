@@ -3,22 +3,22 @@
 .. include:: include_announcement.rst
 
 =======================
-medjs.local.transaction
+panaceajs.local.transaction
 =======================
 
-The ``medjs.local.transaction`` contains functions to generate transaction.
+The ``panaceajs.local.transaction`` contains functions to generate transaction.
 
 To use this package in a standalone use:
 
 .. code-block:: javascript
 
-  var Transaction = require('medjs').local.transaction;
+  var Transaction = require('@medibloc/panacea-js').local.transaction;
   //
-  // Instead, you can import from medjs like below.
+  // Instead, you can import from panaceajs like below.
   //
-  // var Medjs = require('medjs');
-  // var medjs = Medjs.init(['http://localhost:9921']);
-  // var Transaction = medjs.local.transaction;
+  // var Panaceajs = require('@medibloc/panacea-js');
+  // var panaceajs = Panaceajs.init(['http://localhost:9921']);
+  // var Transaction = panaceajs.local.transaction;
 
 ---------------------------------------------------------------------------
 
@@ -174,7 +174,7 @@ Example
 
 .. code-block:: javascript
 
-  medjs.healthData.hashData('hello MediBloc!', 'pghd').then((hash) => {
+  panaceajs.healthData.hashData('hello MediBloc!', 'pghd').then((hash) => {
     var payload = Transaction.createDataPayload(hash);
     var transactionData = {
       from: '0367e7dee7bb273147991cb1d2b99a4daf069064fb77bd9a70c7998c5f1a00d58c',
@@ -775,7 +775,7 @@ Example
 
 .. code-block:: javascript
 
-  medjs.healthData.hashData('hello MediBloc!', 'pghd').then((hash) => {
+  panaceajs.healthData.hashData('hello MediBloc!', 'pghd').then((hash) => {
     var payload = Transaction.createDataPayload(hash);
     console.log(payload);
   });

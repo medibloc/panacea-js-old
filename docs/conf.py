@@ -19,7 +19,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u'medjs'
+project = u'panacea-js'
 copyright = u'2018, MediBloc'
 author = u'MediBloc'
 
@@ -102,7 +102,7 @@ html_static_path = []
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'medjsdoc'
+htmlhelp_basename = 'panaceajsdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -129,7 +129,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'medjs.tex', u'medjs Documentation',
+    (master_doc, 'panaceajs.tex', u'panaceajs Documentation',
      u'ggomma', 'manual'),
 ]
 
@@ -139,7 +139,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'medjs', u'medjs Documentation',
+    (master_doc, 'panaceajs', u'panaceajs Documentation',
      [author], 1)
 ]
 
@@ -150,7 +150,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'medjs', u'medjs Documentation',
-     author, 'medjs', 'One line description of project.',
+    (master_doc, 'panaceajs', u'panaceajs Documentation',
+     author, 'panaceajs', 'One line description of project.',
      'Miscellaneous'),
 ]

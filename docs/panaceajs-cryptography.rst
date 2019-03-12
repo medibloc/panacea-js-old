@@ -3,22 +3,22 @@
 .. include:: include_announcement.rst
 
 ==================
-medjs.cryptography
+panaceajs.cryptography
 ==================
 
-The ``medjs.cryptography`` contains cryptographic functions.
+The ``panaceajs.cryptography`` contains cryptographic functions.
 
 To use this package in a standalone use:
 
 .. code-block:: javascript
 
-  var Cryptography = require('medjs').cryptography;
+  var Cryptography = require('@medibloc/panacea-js').cryptography;
   //
-  // Instead, you can import from medjs like below.
+  // Instead, you can import from panaceajs like below.
   //
-  // var Medjs = require('medjs');
-  // var medjs = Medjs.init(['http://localhost:9921']);
-  // var Cryptography = medjs.cryptography;
+  // var Panaceajs = require('@medibloc/panacea-js');
+  // var panaceajs = Panaceajs.init(['http://localhost:9921']);
+  // var Cryptography = panaceajs.cryptography;
 
 ---------------------------------------------------------------------------
 

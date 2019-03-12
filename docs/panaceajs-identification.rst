@@ -3,22 +3,22 @@
 .. include:: include_announcement.rst
 
 ====================
-medjs.identification
+panaceajs.identification
 ====================
 
-The ``medjs.identification`` contains identification functions.
+The ``panaceajs.identification`` contains identification functions.
 
 To use this package standalone use:
 
 .. code-block:: javascript
 
-  var Id = require('medjs').identification;
+  var Id = require('@medibloc/panacea-js').identification;
   //
-  // Instead, you can import from medjs like below.
+  // Instead, you can import from panaceajs like below.
   //
-  // var Medjs = require('medjs');
-  // var medjs = Medjs.init(['http://localhost:9921']);
-  // var Id = medjs.identification;
+  // var Panaceajs = require('@medibloc/panacea-js');
+  // var panaceajs = Panaceajs.init(['http://localhost:9921']);
+  // var Id = panaceajs.identification;
 
 ---------------------------------------------------------------------------
 

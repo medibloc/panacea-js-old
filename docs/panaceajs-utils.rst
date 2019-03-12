@@ -3,22 +3,22 @@
 .. include:: include_announcement.rst
 
 ===========
-medjs.utils
+panaceajs.utils
 ===========
 
-The ``medjs.utils`` provides utility functions for medjs.
+The ``panaceajs.utils`` provides utility functions for panaceajs.
 
 To use this package standalone use:
 
 .. code-block:: javascript
 
-  var Utils = require('medjs').utils;
+  var Utils = require('@medibloc/panacea-js').utils;
   //
-  // Instead, you can import from medjs like below.
+  // Instead, you can import from panaceajs like below.
   //
-  // var Medjs = require('medjs');
-  // var medjs = Medjs.init(['http://localhost:9921']);
-  // var Utils = medjs.utils;
+  // var Panaceajs = require('@medibloc/panacea-js');
+  // var panaceajs = Panaceajs.init(['http://localhost:9921']);
+  // var Utils = panaceajs.utils;
 
 ---------------------------------------------------------------------------
 

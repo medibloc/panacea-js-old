@@ -1,4 +1,4 @@
-.. _medjs-tutorial:
+.. _panaceajs-tutorial:
 
 .. include:: include_announcement.rst
 
@@ -6,16 +6,16 @@
 Tutorial
 ========
 
-This section handles several examples to use medjs.
+This section handles several examples to use panaceajs.
 
 .. code-block:: javascript
 
-  var Medjs = require('medjs');
-  var medjs = Medjs.init(['http://localhost:9921']);
-  var Account = medjs.local.Account;
-  var Client = medjs.client;
-  var HealthData = medjs.healthData;
-  var Transaction = medjs.local.transaction;
+  var Panaceajs = require('@medibloc/panacea-js');
+  var panaceajs = Panaceajs.init(['http://localhost:9921']);
+  var Account = panaceajs.local.Account;
+  var Client = panaceajs.client;
+  var HealthData = panaceajs.healthData;
+  var Transaction = panaceajs.local.transaction;
 
 ---------------------------------------------------------------------------
 

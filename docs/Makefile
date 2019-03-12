@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = medjs
+SPHINXPROJ    = panaceajs
 SOURCEDIR     = .
 BUILDDIR      = _build
 
@@ -20,6 +20,6 @@ help:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 .PHONY: clean
-# 
+#
 clean:
 	rm -rf $(BUILDDIR)/*

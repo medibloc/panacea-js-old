@@ -1,18 +1,18 @@
-.. _medjs:
+.. _panaceajs:
 
 .. include:: include_announcement.rst
 
 =====
-medjs
+panaceajs
 =====
 
 .. code-block:: javascript
 
-    var Medjs = require('medjs');
-    var medjs = Medjs.init(['http://localhost:9921']);
+    var Panaceajs = require('@medibloc/panacea-js');
+    var panaceajs = Panaceajs.init(['http://localhost:9921']);
 
 
-The ``medjs`` object has following objects.
+The ``panaceajs`` object has following objects.
 
 - The :ref:`client <client>` object allows you to interact with MediBloc blockchain.
 - The :ref:`cryptography <cryptography>` object contains cryptographic functions.
@@ -20,7 +20,7 @@ The ``medjs`` object has following objects.
 - The :ref:`local.transaction <transaction>` object contains functions to generate transaction.
 - The :ref:`healthData <healthData>` object helps to encode and decode the health data as :ref:`MHD format <mhd>`.
 - The :ref:`identification <identification>` contains identification functions.
-- The :ref:`utils <utils>` object provides utility functions for medjs.
+- The :ref:`utils <utils>` object provides utility functions for panaceajs.
 
 Parameters
 ----------
@@ -28,6 +28,6 @@ Parameters
 ``nodes`` - ``Array``: The array of node URL that will be used for the request.
 
 .. Hint::
-    The medjs client sends a request to one of the nodes. If the request fails, it automatically retries the request to another node.
+    The panaceajs client sends a request to one of the nodes. If the request fails, it automatically retries the request to another node.
 
 .. include:: include_blockchain_note.rst

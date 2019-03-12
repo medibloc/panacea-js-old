@@ -6,15 +6,15 @@
 Getting Started
 ===============
 
-`medjs <https://github.com/medibloc/medjs>`_ is a client-side JavaScript library for `medibloc blockchain <https://github.com/medibloc/go-medibloc>`_.
+`panacea-js <https://github.com/medibloc/panacea-js>`_ is a client-side JavaScript library for `medibloc blockchain <https://github.com/medibloc/go-medibloc>`_.
 
 ---------------------------------------------------------------------------
 
-Adding medjs
+Adding panacea-js
 ------------
 
 **npm**
 
 .. code-block:: javascript
 
-    npm install medjs
+    npm install @medibloc/panacea-js
