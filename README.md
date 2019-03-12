@@ -1,4 +1,4 @@
-# medjs
+# panacea-js
 
 Official client-side JavaScript library for the [medibloc blockchain](https://github.com/medibloc/go-medibloc).
 
@@ -7,17 +7,17 @@ Official client-side JavaScript library for the [medibloc blockchain](https://gi
 ### Node.js
 
 ```bash
-npm install medjs
+npm install @medibloc/panacea-js
 ```
 
 ## Usage
 
 ```javascript
-var Medjs = require('medjs');
-var medjs = Medjs.init(['http://localhost:9921']);
+var Panaceajs = require('@medibloc/panacea-js');
+var panaceajs = Panaceajs.init(['http://localhost:9921']);
 ```
 
-Please refers to the [documentation](https://medjs.readthedocs.io/en/latest/)
+Please refers to the [documentation](https://panacea-js.readthedocs.io/en/latest/)
 
 ## Test
 

@@ -1,6 +1,6 @@
 {
-  "name": "medjs",
-  "version": "1.0.1",
+  "name": "@medibloc/panacea-js",
+  "version": "0.9.0",
   "description": "JavaScript library for MediBloc",
   "main": "lib/index.js",
   "directories": {
@@ -8,14 +8,14 @@
   },
   "scripts": {
     "babel": "babel src -d lib --copy-files",
-    "browserify": "browserify ./lib/index.js -o ./dist/medjs.js -s medjs",
+    "browserify": "browserify ./lib/index.js -o ./dist/panaceajs.js -s panaceajs",
     "build": "npm run clean && npm run babel && npm run browserify && npm run uglify",
     "clean": "npm run clean-dist && npm run clean-lib",
     "clean-dist": "rm -rf dist",
     "clean-lib": "rm -rf lib",
     "lint": "eslint .",
     "test": "mocha --recursive --require babel-core/register --reporter spec",
-    "uglify": "uglifyjs -nm -o ./dist/medjs.min.js ./dist/medjs.js"
+    "uglify": "uglifyjs -nm -o ./dist/panaceajs.min.js ./dist/panaceajs.js"
   },
   "pre-commit": [
     "lint",
@@ -23,7 +23,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/medibloc/medjs.git"
+    "url": "git+https://github.com/medibloc/panacea-js.git"
   },
   "keywords": [
     "medibloc",
@@ -33,9 +33,9 @@
   "author": "MediBloc <dev@medibloc.org>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/medibloc/medjs/issues"
+    "url": "https://github.com/medibloc/panacea-js/issues"
   },
-  "homepage": "https://github.com/medibloc/medjs#readme",
+  "homepage": "https://github.com/medibloc/panacea-js#readme",
   "dependencies": {
     "axios": "^0.18.0",
     "babel-runtime": "^6.26.0",

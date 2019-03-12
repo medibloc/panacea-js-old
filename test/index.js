@@ -9,53 +9,53 @@ import {
   utils,
 } from 'index';
 
-describe('medjs', () => {
+describe('panacea-js', () => {
   const defaultNodes = ['http://localhost:10000'];
 
   describe('#should export a init', () => {
-    let medjs;
+    let panaceajs;
     beforeEach(() => {
-      medjs = init(defaultNodes);
+      panaceajs = init(defaultNodes);
       return Promise.resolve();
     });
 
     it('should be a object', () => {
-      return expect(medjs)
+      return expect(panaceajs)
         .to.be.an('object');
     });
 
     it('should have a client object', () => {
-      return expect(medjs)
+      return expect(panaceajs)
         .to.be.property('client')
         .to.be.a('object');
     });
 
     it('should have a cryptography object', () => {
-      return expect(medjs)
+      return expect(panaceajs)
         .to.be.property('cryptography')
         .to.be.an('object');
     });
 
     it('should have a healthData object', () => {
-      return expect(medjs)
+      return expect(panaceajs)
         .to.be.property('healthData')
         .to.be.an('object');
     });
 
     it('should have a identification object', () => {
-      return expect(medjs)
+      return expect(panaceajs)
         .to.be.property('identification')
         .to.be.an('object');
     });
 
     it('should have a local object', () => {
-      return expect(medjs)
+      return expect(panaceajs)
         .to.be.property('local')
         .to.be.an('object');
     });
 
     it('should have a utils object', () => {
-      return expect(medjs)
+      return expect(panaceajs)
         .to.be.property('utils')
         .to.be.an('object');
     });
