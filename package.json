@@ -1,6 +1,6 @@
 {
   "name": "@medibloc/panacea-js",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "JavaScript library for MediBloc",
   "main": "lib/index.js",
   "directories": {
