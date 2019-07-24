@@ -11,7 +11,7 @@ This section handles several examples to use panaceajs.
 .. code-block:: javascript
 
   var Panaceajs = require('@medibloc/panacea-js');
-  var panaceajs = Panaceajs.init(['http://localhost:9921']);
+  var panaceajs = Panaceajs.init(['http://localhost:9921']); // http listen port in configuration of medibloc node
   var Account = panaceajs.local.Account;
   var Client = panaceajs.client;
   var HealthData = panaceajs.healthData;
